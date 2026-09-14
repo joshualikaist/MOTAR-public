@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "requested_episodes": 2049,
+  "actual_episodes": 2049,
+  "checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260805_0413_navrl_v2-speedgov-ep24000-205bars-main-riskcap-s1/nn/last_gen_ppo_ep_25000_rew_39.742134.pth",
+  "condition": {
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "seed": 173,
+    "bars": 205,
+    "target_pattern": "mixed",
+    "target_speed_mode": "uniform",
+    "target_speed_mps": null,
+    "target_speed_min_mps": 0.3,
+    "target_speed_max_mps": 1.5,
+    "pursuer_max_speed_mps": 2.5,
+    "pursuer_speed_limit_semantics": "per_axis_xy",
+    "pursuer_per_axis_speed_limit_mps": 2.5,
+    "pursuer_max_horizontal_request_norm_mps": 3.5355339059327378,
+    "policy_output_dim": 4,
+    "policy_z_output_overwritten_by_altitude_pi": true,
+    "policy_z_persisted_in_prev_action_observation": true,
+    "oob_margin_m": 1.0,
+    "episode_len_steps": 600,
+    "num_envs": 128,
+    "goal_dist_min_m": 6.0,
+    "goal_dist_max_m": 28.0,
+    "full_goal_distribution": true,
+    "fov_curriculum_saturated": true,
+    "evaluation_nonce": "27e00d0cac70febe2c2b8050d58b513b6e9fba8db092685dd3dfd802ab016940",
+    "speed_governor_mode": "riskcap",
+    "speed_governor_fixed_mps": 2.0,
+    "speed_governor_free_mps": 3.53553390593,
+    "speed_governor_half_width_m": 0.45,
+    "speed_governor_margin_m": 0.45,
+    "speed_governor_slow_m": 3.0,
+    "speed_governor_release_m": 5.0,
+    "speed_governor_ttc_s": 1.2,
+    "speed_governor_brake_mps2": 2.9608856678,
+    "speed_governor_reaction_s": 0.1,
+    "speed_governor_target_exclusion": "camera_lidar_association",
+    "runtime_sim_config_class": "BaseSimConfig",
+    "physics_dt_s": 0.01,
+    "physics_substeps": 1,
+    "physics_steps_per_rl_step": 10,
+    "rl_step_dt_s": 0.1
+  },
+  "outcome": {
+    "captured": 1549,
+    "crash": 444,
+    "timeout": 56,
+    "capture_rate": 0.7559785261102977,
+    "crash_rate": 0.21669106881405564,
+    "timeout_rate": 0.027330405075646658,
+    "ever_reached_rate": 0.7520741825280625,
+    "closest_nocrash_mean_m": 0.9364888496023843,
+    "closest_nocrash_best_m": 0.13352063298225403,
+    "closest_nocrash_count": 1605
+  },
+  "action": {
+    "policy": "squashed_gaussian",
+    "samples": 301056,
+    "task_input_oob_rate": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "executed_edge98_rate": [
+      0.30631842580782315,
+      0.05337213010204082,
+      0.0655990911989796,
+      0.0
+    ],
+    "executed_edge95_rate": [
+      0.5390093537414966,
+      0.2135117718962585,
+      0.299180218962585,
+      0.0
+    ],
+    "executed_edge99_rate": [
+      0.0829812393707483,
+      0.01702673256802721,
+      8.636267006802721e-05,
+      0.0
+    ],
+    "mean_abs": [
+      0.8366569202824109,
+      0.808705437877754,
+      0.6240090102616216,
+      0.3296772630593809
+    ],
+    "signed_mean_y": 0.7675196840142717,
+    "positive_y_rate": 0.9452394238945578,
+    "negative_y_rate": 0.039919483418367346,
+    "high80_y_rate": 0.6978004092261905,
+    "mean_abs_delta_y": 0.11702578498860243,
+    "sign_flip_y_rate": 0.02874732334047109,
+    "context": {
+      "front_clear": {
+        "samples": 31473,
+        "fraction": 0.10454201211734694,
+        "mean_abs_y": 0.7467368347600187
+      },
+      "front_blocked": {
+        "samples": 269583,
+        "fraction": 0.8954579878826531,
+        "mean_abs_y": 0.8159400859086233
+      },
+      "goal_centered": {
+        "samples": 23062,
+        "fraction": 0.07660368835034014,
+        "mean_abs_y": 0.7925784178314014
+      },
+      "goal_offcenter": {
+        "samples": 277994,
+        "fraction": 0.9233963116496599,
+        "mean_abs_y": 0.810043314240372
+      },
+      "clear_centered": {
+        "samples": 1690,
+        "fraction": 0.005613573554421769,
+        "mean_abs_y": 0.7254690248070398
+      },
+      "target_visible": {
+        "samples": 60678,
+        "fraction": 0.20155054209183673,
+        "mean_abs_y": 0.8351241058702739
+      },
+      "target_hidden": {
+        "samples": 240378,
+        "fraction": 0.7984494579081632,
+        "mean_abs_y": 0.8020366409424017
+      }
+    },
+    "motion": {
+      "samples": 294708,
+      "mean_speed_mps": 2.3096993186939603,
+      "mean_command_speed_mps": 2.967415649993125,
+      "low_speed_rate": 0.032666232338450264,
+      "commanded_stall_rate": 0.032235297311236887
+    }
+  },
+  "crash_causes": {
+    "count": 444,
+    "bar_contact": 418,
+    "below": 12,
+    "above": 0,
+    "out_of_bounds": 14,
+    "bar_contact_share": 0.9414414414414415,
+    "below_share": 0.02702702702702703,
+    "above_share": 0.0,
+    "out_of_bounds_share": 0.03153153153153153
+  },
+  "speed_governor": {
+    "mode": "riskcap",
+    "sensor_only": true,
+    "direction_preserved": true,
+    "target_exclusion_source": "camera_lidar_association",
+    "feedback_executed_previous_action": true,
+    "samples": 301056,
+    "intervention_rate": 0.2860564147534014,
+    "near_stop_rate": 0.0,
+    "mean_requested_speed_mps": 2.9692513700177368,
+    "mean_executed_speed_mps": 2.7240981125448904,
+    "mean_clearance_m": 6.990397372957519,
+    "mean_scale": 0.9222828819205411,
+    "mean_requested_ttc_s": 2.2961902220472292,
+    "negative_stopping_margin_requested_rate": 0.14794589710884354,
+    "negative_stopping_margin_executed_rate": 0.10641541772959184,
+    "contact": {
+      "count": 418,
+      "mean_actual_speed_mps": 1.088697645176006,
+      "mean_requested_speed_mps": 2.9276697639215508,
+      "mean_executed_speed_mps": 1.987896547149243,
+      "mean_clearance_m": 0.6721306643211866,
+      "mean_scale": 0.7035829453377062,
+      "mean_requested_ttc_s": 0.2968540236590047,
+      "mean_stopping_margin_requested_m": -1.2281850483357621,
+      "mean_stopping_margin_executed_m": -0.3084555836884599,
+      "mean_step": 105.60526315789474
+    },
+    "outcome_steps": {
+      "capture": {
+        "count": 1549,
+        "mean": 132.13621691413815,
+        "p10": 50.0,
+        "p50": 105.0,
+        "p90": 248.0
+      },
+      "crash": {
+        "count": 444,
+        "mean": 105.46171171171171,
+        "p10": 14.0,
+        "p50": 82.0,
+        "p90": 223.7
+      },
+      "timeout": {
+        "count": 56,
+        "mean": 600.0,
+        "p10": 600.0,
+        "p50": 600.0,
+        "p90": 600.0
+      }
+    }
+  },
+  "strata": {
+    "speed_bin_edges_mps": [
+      0.0,
+      0.375,
+      0.75,
+      1.125,
+      1.5
+    ],
+    "speed": {
+      "q0": {
+        "successes": 104,
+        "episodes": 130,
+        "capture_rate": 0.8
+      },
+      "q1": {
+        "successes": 483,
+        "episodes": 619,
+        "capture_rate": 0.7802907915993538
+      },
+      "q2": {
+        "successes": 506,
+        "episodes": 662,
+        "capture_rate": 0.7643504531722054
+      },
+      "q3": {
+        "successes": 456,
+        "episodes": 638,
+        "capture_rate": 0.7147335423197492
+      }
+    },
+    "distance_bin_edges_m": [
+      6.0,
+      11.5,
+      17.0,
+      22.5,
+      28.0
+    ],
+    "distance": {
+      "q0": {
+        "successes": 346,
+        "episodes": 423,
+        "capture_rate": 0.817966903073286
+      },
+      "q1": {
+        "successes": 432,
+        "episodes": 536,
+        "capture_rate": 0.8059701492537313
+      },
+      "q2": {
+        "successes": 427,
+        "episodes": 574,
+        "capture_rate": 0.7439024390243902
+      },
+      "q3": {
+        "successes": 344,
+        "episodes": 516,
+        "capture_rate": 0.6666666666666666
+      }
+    },
+    "pattern": {
+      "cv": {
+        "successes": 745,
+        "episodes": 992,
+        "capture_rate": 0.751008064516129
+      },
+      "waypoint": {
+        "successes": 804,
+        "episodes": 1057,
+        "capture_rate": 0.760643330179754
+      },
+      "circle": {
+        "successes": 0,
+        "episodes": 0,
+        "capture_rate": null
+      }
+    },
+    "initial_target_bearing": {
+      "negative_y": {
+        "captured": 725,
+        "crash": 238,
+        "timeout": 31,
+        "episodes": 994,
+        "capture_rate": 0.7293762575452716
+      },
+      "centered_5deg": {
+        "captured": 58,
+        "crash": 10,
+        "timeout": 0,
+        "episodes": 68,
+        "capture_rate": 0.8529411764705882
+      },
+      "positive_y": {
+        "captured": 766,
+        "crash": 196,
+        "timeout": 25,
+        "episodes": 987,
+        "capture_rate": 0.7760891590678825
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "architecture": "candidate_motion_transformer",
+  "association_metrics": {
+    "frame_hit_rate": 0.5918840579710145,
+    "frames_with_ground_truth": 1725,
+    "hit_frames_iou_ge_threshold": 1021,
+    "loss_events_after_first_hit": 70,
+    "matched_center_error_px_mean": 1.8870189834040856,
+    "matched_center_error_px_median": 1.2782984762057827,
+    "matched_iou_mean": 0.635773538916501,
+    "no_lock_frames": 494,
+    "proxy_false_lock_frames": 210,
+    "proxy_false_lock_rate_among_selected": 0.17059301380991065,
+    "reacquired_events": 68,
+    "reacquisition_seconds_max": 19.344827586,
+    "reacquisition_seconds_mean": 0.9863579338088234,
+    "right_censored_loss_events": 2,
+    "selected_frames": 1231,
+    "selection_utility": 0.4701449275362319
+  },
+  "candidates_sha256": "fbad60aa33961b403f253a914a70915b43568e69d7c5ec625fb4331edbacd417",
+  "checkpoint_sha256": "9b1f52299eea83f89ed95e8bc7bcf26c0b51140d388887a83937486cc6113cca",
+  "checkpoint_source_git_commit": "3ce7d8df71b8e870f3895b3018f156ca58677f22",
+  "completed_utc": "2026-09-09T05:13:57.449465+00:00",
+  "config": {
+    "architecture": "candidate_motion_transformer",
+    "batch_size": 256,
+    "candidate_embedding_dim": 128,
+    "dropout": 0.1,
+    "epochs_max": 40,
+    "evaluation_iou": 0.3,
+    "feedforward_dim": 256,
+    "gradient_clip_norm": 1.0,
+    "hidden_dim": 128,
+    "history_length": 16,
+    "learning_rate": 0.001,
+    "model_selection": "minimum validation cross_entropy; earliest epoch wins exact ties",
+    "motion_feature_dimension": 12,
+    "num_heads": 4,
+    "num_layers": 2,
+    "patience": 8,
+    "seed": 17,
+    "selection_rule": "(hit_frames - proxy_false_lock_frames) / frames; exact ties prefer current P7 then P7b then P7c",
+    "token_contract": "P7b candidate token plus audited box dynamics, dense optical flow, GMC and residual motion",
+    "weight_decay": 0.0001
+  },
+  "detector_weights_sha256": "aab12f39bdc79f201657002f12d2096fab916600b546481964f8fcacdb3300ac",
+  "experiment": "motar.p6-p7.frozen-temporal-evaluation.v1",
+  "frames": 1725,
+  "label_counts": {
+    "0": 956,
+    "1": 221,
+    "2": 124,
+    "3": 69,
+    "4": 51,
+    "no_lock": 304
+  },
+  "latency_ms": {
+    "candidate_producer": {
+      "max": 176.151327,
+      "mean": 61.42666350202898,
+      "p50": 35.694953,
+      "p95": 122.8078344,
+      "scope": "frame-array available through detector, NMS and appearance encoding"
+    },
+    "combined_mean": 61.64098625649622,
+    "temporal_model": {
+      "batch_size": 256,
+      "mean": 0.2143227544672383,
+      "p50": 0.025374417989417992,
+      "p95": 0.02581595703125,
+      "scope": "batched tensor input through temporal logits; excludes P4 detector/descriptor"
+    }
+  },
+  "limitations": {
+    "ftlr": "NOT_IDENTIFIABLE_WITHOUT_DESIGNATED_TARGET_ID",
+    "identity_metrics": "NOT_IDENTIFIABLE_SOURCE_TRACK_IDS_DROPPED"
+  },
+  "manifest_sha256": "56e817c1e0070e790511fd1c6d128b787bde85cd7f4224730864759d040cf3db",
+  "motion_sha256": "f7ed4a72095f3db8161292c53ddfe5d2175af5457e7cb2ef1212fdef168bc7ae",
+  "parameter_count": 443778,
+  "runtime": {
+    "cuda": "12.8",
+    "cudnn": 91002,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "deterministic_algorithms": false,
+    "device_capability": "8.6",
+    "device_name": "NVIDIA GeForce RTX 3070",
+    "driver_cuda": "12.8",
+    "executable": "/home/fair/workspaces/aerial_gym_ws/detector_runs/venv/bin/python",
+    "matmul_allow_tf32": false,
+    "numpy": "2.2.6",
+    "opencv": "5.0.0",
+    "opencv_threads": 24,
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.31",
+    "python": "3.10.19",
+    "python_full": "3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]",
+    "torch": "2.10.0+cu128"
+  },
+  "schema_version": 1,
+  "sequences": 8,
+  "split": "test",
+  "test_used": true,
+  "validation_or_test": {
+    "classification_accuracy": 0.623768115942029,
+    "cross_entropy": 1.0186615896224975,
+    "loss_kind": "single_best_candidate_cross_entropy",
+    "model_latency_ms_per_frame": {
+      "batch_size": 256,
+      "mean": 0.2143227544672383,
+      "p50": 0.025374417989417992,
+      "p95": 0.02581595703125,
+      "scope": "batched tensor input through temporal logits; excludes P4 detector/descriptor"
+    },
+    "probability_semantics": "categorical softmax",
+    "rows": 1725
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "record": "renderer_characterization_track_freeze",
+  "version": "v1",
+  "frozen_on": "2026-09-14",
+  "overall": "RENDERER_CONTRACT_V1_COMPLETE",
+  "overall_meaning": "The preregistered v1 questions were answered and the track is closed. This is NOT a blanket renderer PASS: two of its answers are negative and stay negative.",
+  "not_a_blanket_pass": true,
+  "properties": {
+    "geometry_intersection": {
+      "status": "VERIFIED",
+      "evidence": "results/renderer_characterization_2026-09-13/R1_geometry/README.md",
+      "boundary": "G1 zero silhouette disagreement against an independent CPU Moller-Trumbore intersector over 24 views for both mesh specimens, worst range difference 1.4e-6 m; G2 analytic sphere within 0.03 px and 2.4e-8 m. The experiment's own verdict remains GEOMETRY_DEFECT because the G3/G4/G7 measurement tolerances were not met; that verdict is not revised."
+    },
+    "measurement_resolution": {
+      "status": "QUALIFIED",
+      "evidence": "results/renderer_characterization_r1b_2026-09-14/README.md",
+      "boundary": "1280x960 on three specimens, 24 views, 2 m, 60 degree FOV, against a sampled 2048x1536 reference. A measured finite-resolution discrepancy, not a proof of absolute accuracy, and not valid for distant or subpixel objects or other cameras."
+    },
+    "area_control": {
+      "status": "NOT_ADOPTED",
+      "evidence": "results/renderer_characterization_r2b_2026-09-14/README.md",
+      "boundary": "Held-out median 8.132 % and P90 11.051 % against registered 5 % and 10 % gates: AREA_CONTROL_FAILED. The historical isotropic control also failed (RC-R2 AREA_MATCH_FAILED). No area-matched control exists in this repository."
+    },
+    "normal_representation": {
+      "status": "N0_ONLY",
+      "evidence": "results/renderer_characterization_r3b_2026-09-14/README.md",
+      "boundary": "Face normals only. N1 interpolated and N2 smooth arms are UNSUPPORTED because the asset and loader contract carry no authored vertex normals or smoothing groups; they are not null results."
+    },
+    "lighting_material_isolation": {
+      "status": "CHARACTERIZED",
+      "evidence": "results/renderer_characterization_2026-09-13/R4_lighting/README.md",
+      "boundary": "36 lighting cells and 5 material sets on the recorded fixed grids left all six geometry buffers byte-identical while luminance moved. Measured for this shader on these grids, not guaranteed for arbitrary future shaders."
+    },
+    "determinism": {
+      "status": "VERIFIED",
+      "evidence": "results/renderer_characterization_2026-09-13/determinism/README.md",
+      "boundary": "Identical arrays across two independent OS processes at one recorded source, config and environment. Not a claim about other hardware, drivers or library versions."
+    },
+    "transfer_cost": {
+      "status": "CHARACTERIZED",
+      "evidence": "results/renderer_characterization_r5b_2026-09-14/README.md",
+      "boundary": "Four transfer strategies with seven identical output hashes; the host strategy is 88 % of the large-fixture staged total for the individual-copy arm. Cost description only: no production path was switched, and this is not a PCIe bandwidth claim."
+    },
+    "dataset_exporter": {
+      "status": "CONTRACTED",
+      "evidence": "docs/renderer_buffer_contract_v1.json",
+      "boundary": "Buffer meanings, miss sentinels, camera conventions and export status are machine-readable and test-checked against decoded output. Export status stays EXPORTED_UNASSESSED and training remains NOT_SUPPORTED."
+    }
+  },
+  "preserved_negative_results": {
+    "RC-R1": "GEOMETRY_DEFECT",
+    "RC-R2": "AREA_MATCH_FAILED",
+    "RC-R3": "SHADING_GATE_FAILED",
+    "R2b": "AREA_CONTROL_FAILED",
+    "R3b_N1": "UNSUPPORTED",
+    "R3b_N2": "UNSUPPORTED"
+  },
+  "closure_rule": "No R2c/R3c-style continuation of a failed renderer gate. A Renderer Contract v2 is opened only when a separate question justifies it, under its own preregistration.",
+  "causality_vs_d8b": "NOT_TESTED",
+  "d8b_boundary": "D8b frozen-policy sensitivity remains MATERIAL_LOSS at -48.967 pp. No renderer result in this track establishes area mismatch, shading or mesh geometry as its cause."
+}

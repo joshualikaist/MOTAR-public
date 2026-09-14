@@ -1,0 +1,45 @@
+# DENSITY x TARGET-SPEED MAP -- the paper's headline figure
+# sensor-only perception+Transformer policy; actor sees ONLY LiDAR 72x4 @12 m + forward RGB-D.
+# checkpoint: runs/ppo_260730_1549_navrl_corrected-squashed-density-cluster-sector-s1/nn/
+#             last_gen_ppo_ep_10150_rew_36.50442.pth
+# representation (recorded in the checkpoint's env_state and reproduced exactly at eval time):
+#   8 obstacle tokens, cluster_sector selector, 240 deg selection FOV, +-10 deg suppression,
+#   cluster gap 0.45 m, 8 sectors, LiDAR 4x72 @12 m, obs 898-D actor / 906-D critic
+# control: drone v_max 2.5 m/s, yaw rate 3.0 rad/s, tilt comp on, max tilt 45 deg, alt-hold PI
+# eval: 128 envs, 2049 episodes/cell, deterministic, general (randomised) spawn, target pattern mixed
+# TRAINED DENSITY MAX = 85 bars. Cells at 110/130/150 measure GENERALISATION, not a method ceiling.
+# density per 100 m^2 = bars / 478 * 100
+#
+# FINDING: the two axes are wildly asymmetric. Over the full grid, raising density
+#   5.2 -> 31.4 bars/100m^2 costs 78 pp of capture; raising target speed 0 -> 1.5 m/s costs 4.2 pp.
+#   The pursuer at 2.5 m/s is simply fast enough, so target speed is NOT a binding difficulty axis
+#   in this regime -- obstacle density is.
+bars,density_per_100m2,target_speed_ms,capture,crash,timeout,crash_bar_contact_share,crash_below_share,crash_oob_share
+25,5.2,0.0,0.962,0.025,0.013,0.863,0.118,0.020
+25,5.2,0.5,0.970,0.030,0.000,0.918,0.066,0.016
+25,5.2,1.0,0.965,0.035,0.000,0.833,0.097,0.069
+25,5.2,1.5,0.949,0.051,0.000,0.846,0.058,0.096
+50,10.5,0.0,0.918,0.066,0.016,0.809,0.162,0.029
+50,10.5,0.5,0.930,0.067,0.003,0.841,0.130,0.029
+50,10.5,1.0,0.922,0.075,0.003,0.869,0.078,0.052
+50,10.5,1.5,0.904,0.096,0.000,0.883,0.041,0.076
+65,13.6,0.0,0.881,0.105,0.014,0.893,0.065,0.042
+65,13.6,0.5,0.879,0.120,0.001,0.886,0.065,0.049
+65,13.6,1.0,0.861,0.136,0.003,0.892,0.058,0.050
+65,13.6,1.5,0.837,0.162,0.001,0.858,0.042,0.099
+85,17.8,0.0,0.736,0.250,0.014,0.951,0.010,0.039
+85,17.8,0.5,0.753,0.241,0.006,0.917,0.026,0.057
+85,17.8,1.0,0.718,0.277,0.005,0.935,0.021,0.044
+85,17.8,1.5,0.671,0.327,0.002,0.897,0.024,0.079
+110,23.0,0.0,0.497,0.500,0.002,0.944,0.011,0.045
+110,23.0,0.5,0.506,0.490,0.003,0.954,0.007,0.039
+110,23.0,1.0,0.484,0.513,0.003,0.940,0.007,0.053
+110,23.0,1.5,0.437,0.562,0.001,0.946,0.008,0.046
+130,27.2,0.0,0.318,0.682,0.000,0.956,0.004,0.041
+130,27.2,0.5,0.296,0.704,0.000,0.949,0.003,0.049
+130,27.2,1.0,0.281,0.718,0.000,0.950,0.006,0.044
+130,27.2,1.5,0.259,0.741,0.000,0.941,0.005,0.054
+150,31.4,0.0,0.194,0.806,0.000,0.944,0.003,0.053
+150,31.4,0.5,0.192,0.808,0.000,0.941,0.005,0.054
+150,31.4,1.0,0.190,0.810,0.000,0.941,0.003,0.056
+150,31.4,1.5,0.159,0.841,0.000,0.943,0.003,0.054

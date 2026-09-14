@@ -1,0 +1,99 @@
+{
+  "schema": "renderer_cpu_install_validation_v1",
+  "date": "2026-09-12",
+  "status": "CPU_INSTALL_TECHNICAL_PASS",
+  "scope": "Standalone generic renderer packaging and CPU box smoke only; no detector, policy or control integration.",
+  "renderer_source_commit": "cdc8113652008b0b856f056601c13ca4e25e6632",
+  "renderer_source_clean": true,
+  "profile_file": "requirements-renderer-cpu.txt",
+  "profile_sha256": "936b7c1de8e65e2817b3b36502dcd1c5f28caf2a9ab733debb3e01388823f93f",
+  "profile_provenance": "Candidate profile identified by SHA during installation; renderer code already committed. Profile is versioned with this report.",
+  "attempts": [
+    {
+      "name": "public_pypi_urdfpy",
+      "pip_exit_code": 0,
+      "pip_check_exit_code": 0,
+      "tests_run": 146,
+      "errors": 8,
+      "failures": 0,
+      "skipped": 0,
+      "urdfpy_wheel_sha256": "ec9d944bd8a28fe0914b6038e8119ebd53905bc4c507744e35b46a3fa02529bd",
+      "outcome": "FAIL_CYLINDER_IMPLEMENTATION"
+    },
+    {
+      "name": "same_version_vcs_without_force",
+      "pip_exit_code": 0,
+      "installed_packages": 0,
+      "outcome": "NO_OP_NOT_ACCEPTED",
+      "evidence": "source_install_noop.json"
+    },
+    {
+      "name": "diagnostic_environment_source_replacement",
+      "pip_exit_code": 0,
+      "pip_check_exit_code": 0,
+      "tests_run": 146,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "outcome": "PASS_REPAIRED_ENV_NOT_FRESH_INSTALL"
+    },
+    {
+      "name": "fresh_profile_first_download",
+      "pip_exit_code": 2,
+      "outcome": "NETWORK_READ_TIMEOUT_BEFORE_INSTALL",
+      "host": "files.pythonhosted.org",
+      "environment_after_failure": "pip 25.0.1 and setuptools 56.0.0 only"
+    },
+    {
+      "name": "fresh_profile_retry",
+      "pip_exit_code": 0,
+      "pip_check_exit_code": 0,
+      "legacy_tests": 146,
+      "packaging_tests": 6,
+      "total_tests": 152,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "outcome": "FRESH_PROFILE_PASS"
+    }
+  ],
+  "smoke": {
+    "device": "cpu",
+    "scene": "static_generic_box_fixture",
+    "seed": 0,
+    "num_scenes": 1,
+    "width": 160,
+    "height": 120,
+    "independent_processes": 2,
+    "frames_per_process": 2,
+    "arrays_per_frame": 8,
+    "stored_status": "RENDERED_UNASSESSED",
+    "array_hashes_equal": true,
+    "file_and_decoded_array_hashes_verified": true,
+    "experiment_verdict": "NOT_EVALUATED",
+    "training": "NOT_SUPPORTED",
+    "benchmark": "NOT_RUN"
+  },
+  "evidence_tests": {
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "full_repository_regression": {
+    "tests_run": 1533,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 4,
+    "elapsed_seconds": 38.781,
+    "known_failure": "test_shared_airframe_v1.PhysicsIsUntouchedTest.test_it_is_still_one_base_link",
+    "status": "FAIL_UNCHANGED_CONTRACT_MISMATCH"
+  },
+  "limits": [
+    "Linux x86-64 / CPython 3.8 profile only",
+    "No GPU runtime/performance or full simulator install certification",
+    "No R4/R4b verdict change",
+    "No V1 integrated asset-contract repair",
+    "Build dependencies and operating-system libraries are not hermetically locked"
+  ]
+}

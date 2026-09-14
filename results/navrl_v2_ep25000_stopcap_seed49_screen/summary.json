@@ -1,0 +1,403 @@
+{
+  "experiment": "ep25000_seed49_stopcap_screen",
+  "heldout_seed": 49,
+  "prereg": "docs/prereg_2026-09-02_speed_governor_stopcap_screen.md",
+  "preregistered_gate": {
+    "m1_negative_stopping_margin_executed_rate_max": 0.01,
+    "q2_capture_delta_vs_riskcap_min": -0.02,
+    "q2_crash_delta_vs_riskcap_max": -0.03,
+    "q2_timeout_rate_max": 0.05,
+    "q3_filter_dependent_crash_delta_min": 0.05,
+    "q3_filter_independent_crash_delta_max": 0.02
+  },
+  "q1_capture_delta_ci95": [
+    -0.019776818215303103,
+    0.027764057677741615
+  ],
+  "q1_capture_delta_riskcap_vs_fixed2p0": 0.003993619731219256,
+  "q2_capture_delta_stopcap_vs_riskcap": -0.1252155403075239,
+  "q2_crash_delta_ci95": [
+    0.029778816458771142,
+    0.07733038666641465
+  ],
+  "q2_crash_delta_stopcap_vs_riskcap": 0.053554601562592896,
+  "q2_gates": {
+    "capture_cost": false,
+    "crash_improvement": false,
+    "liveness": false
+  },
+  "q3_crash_delta_off_vs_riskcap": 0.09231796593222155,
+  "rows": [
+    {
+      "bar_contact_rate": 0.2430453879941435,
+      "capture_delta": 0.0,
+      "capture_delta_ci95": [
+        -0.02713565398296322,
+        0.02713565398296322
+      ],
+      "capture_rate": 0.7315763787213275,
+      "captured": 1499,
+      "contact_actual_speed_mps": 1.4733876971860815,
+      "contact_clearance_m": 0.8942413793735163,
+      "contact_executed_speed_mps": 3.0437930298138816,
+      "contact_requested_speed_mps": 3.0437930298138816,
+      "contact_step": 99.54417670682732,
+      "contact_stopping_margin_executed_m": -1.1213868658944786,
+      "crash_delta": 0.0,
+      "crash_delta_ci95": [
+        -0.026579943890683282,
+        0.026579943890683282
+      ],
+      "crash_rate": 0.2518301610541728,
+      "crashes": 516,
+      "episodes": 2049,
+      "intervention_rate": 0.0,
+      "mean_executed_speed_mps": 2.940188157803651,
+      "mean_requested_speed_mps": 2.940188157803651,
+      "mean_scale": 1.0,
+      "mode": "off",
+      "near_stop_rate": 0.0,
+      "negative_stopping_margin_executed_rate": 0.11057071596244132,
+      "negative_stopping_margin_requested_rate": 0.11057071596244132,
+      "outcome_steps": {
+        "capture": {
+          "count": 1499,
+          "mean": 123.4209472981988,
+          "p10": 44.0,
+          "p50": 94.0,
+          "p90": 232.20000000000005
+        },
+        "crash": {
+          "count": 516,
+          "mean": 99.33527131782945,
+          "p10": 14.0,
+          "p50": 61.0,
+          "p90": 232.5
+        },
+        "timeout": {
+          "count": 34,
+          "mean": 600.0,
+          "p10": 600.0,
+          "p50": 600.0,
+          "p90": 600.0
+        }
+      },
+      "parameters": {
+        "speed_governor_brake_mps2": 2.9608856678,
+        "speed_governor_fixed_mps": 2.0,
+        "speed_governor_free_mps": 3.53553390593,
+        "speed_governor_half_width_m": 0.45,
+        "speed_governor_margin_m": 0.45,
+        "speed_governor_mode": "off",
+        "speed_governor_reaction_s": 0.1,
+        "speed_governor_release_m": 5.0,
+        "speed_governor_slow_m": 3.0,
+        "speed_governor_target_exclusion": "camera_lidar_association",
+        "speed_governor_ttc_s": 1.2
+      },
+      "path": "results/navrl_v2_ep25000_stopcap_seed49_screen/off/205bars.json",
+      "tag": "off",
+      "timeout_delta": 0.0,
+      "timeout_rate": 0.016593460224499756,
+      "timeouts": 34
+    },
+    {
+      "bar_contact_rate": 0.13421181063933627,
+      "capture_delta": 0.08150317227916049,
+      "capture_delta_ci95": [
+        0.05594703405333061,
+        0.10705931050499036
+      ],
+      "capture_rate": 0.813079551000488,
+      "captured": 1666,
+      "contact_actual_speed_mps": 1.0501444421031259,
+      "contact_clearance_m": 1.1477746687558563,
+      "contact_executed_speed_mps": 1.9724505602229725,
+      "contact_requested_speed_mps": 2.967078629840504,
+      "contact_step": 137.30545454545455,
+      "contact_stopping_margin_executed_m": 0.1826167998530648,
+      "crash_delta": -0.11127379209370425,
+      "crash_delta_ci95": [
+        -0.1353513960751898,
+        -0.0871961881122187
+      ],
+      "crash_rate": 0.14055636896046853,
+      "crashes": 288,
+      "episodes": 2049,
+      "intervention_rate": 0.9567114849377865,
+      "mean_executed_speed_mps": 1.9781938181468393,
+      "mean_requested_speed_mps": 3.0358883001900003,
+      "mean_scale": 0.6693738980554825,
+      "mode": "fixed",
+      "near_stop_rate": 0.0,
+      "negative_stopping_margin_executed_rate": 0.08337170514079895,
+      "negative_stopping_margin_requested_rate": 0.11602355517354289,
+      "outcome_steps": {
+        "capture": {
+          "count": 1666,
+          "mean": 165.96218487394958,
+          "p10": 62.0,
+          "p50": 134.0,
+          "p90": 313.0
+        },
+        "crash": {
+          "count": 288,
+          "mean": 137.05902777777777,
+          "p10": 15.0,
+          "p50": 102.0,
+          "p90": 316.6
+        },
+        "timeout": {
+          "count": 95,
+          "mean": 600.0,
+          "p10": 600.0,
+          "p50": 600.0,
+          "p90": 600.0
+        }
+      },
+      "parameters": {
+        "speed_governor_brake_mps2": 2.9608856678,
+        "speed_governor_fixed_mps": 2.0,
+        "speed_governor_free_mps": 3.53553390593,
+        "speed_governor_half_width_m": 0.45,
+        "speed_governor_margin_m": 0.45,
+        "speed_governor_mode": "fixed",
+        "speed_governor_reaction_s": 0.1,
+        "speed_governor_release_m": 5.0,
+        "speed_governor_slow_m": 3.0,
+        "speed_governor_target_exclusion": "camera_lidar_association",
+        "speed_governor_ttc_s": 1.2
+      },
+      "path": "results/navrl_v2_ep25000_stopcap_seed49_screen/fixed2p0/205bars.json",
+      "tag": "fixed2p0",
+      "timeout_delta": 0.02977061981454368,
+      "timeout_rate": 0.04636408003904344,
+      "timeouts": 95
+    },
+    {
+      "bar_contact_rate": 0.15365853658536585,
+      "capture_delta": 0.08549679201037974,
+      "capture_delta_ci95": [
+        0.06003581724045283,
+        0.11095776678030665
+      ],
+      "capture_rate": 0.8170731707317073,
+      "captured": 1675,
+      "contact_actual_speed_mps": 1.1222599126871615,
+      "contact_clearance_m": 0.9806690100648479,
+      "contact_executed_speed_mps": 2.024345834103842,
+      "contact_requested_speed_mps": 2.95247931877772,
+      "contact_step": 97.44126984126984,
+      "contact_stopping_margin_executed_m": -0.02649165940663171,
+      "crash_delta": -0.09231796593222155,
+      "crash_delta_ci95": [
+        -0.11690421622122632,
+        -0.06773171564321678
+      ],
+      "crash_rate": 0.15951219512195122,
+      "crashes": 327,
+      "episodes": 2050,
+      "intervention_rate": 0.2565882525619129,
+      "mean_executed_speed_mps": 2.7413389366564176,
+      "mean_requested_speed_mps": 2.9529520098307955,
+      "mean_scale": 0.9326199952639833,
+      "mode": "riskcap",
+      "near_stop_rate": 0.0,
+      "negative_stopping_margin_executed_rate": 0.08735856105892399,
+      "negative_stopping_margin_requested_rate": 0.12175757899231426,
+      "outcome_steps": {
+        "capture": {
+          "count": 1675,
+          "mean": 132.98149253731344,
+          "p10": 47.0,
+          "p50": 102.0,
+          "p90": 260.60000000000014
+        },
+        "crash": {
+          "count": 327,
+          "mean": 96.67278287461774,
+          "p10": 14.0,
+          "p50": 67.0,
+          "p90": 213.80000000000007
+        },
+        "timeout": {
+          "count": 48,
+          "mean": 600.0,
+          "p10": 600.0,
+          "p50": 600.0,
+          "p90": 600.0
+        }
+      },
+      "parameters": {
+        "speed_governor_brake_mps2": 2.9608856678,
+        "speed_governor_fixed_mps": 2.0,
+        "speed_governor_free_mps": 3.53553390593,
+        "speed_governor_half_width_m": 0.45,
+        "speed_governor_margin_m": 0.45,
+        "speed_governor_mode": "riskcap",
+        "speed_governor_reaction_s": 0.1,
+        "speed_governor_release_m": 5.0,
+        "speed_governor_slow_m": 3.0,
+        "speed_governor_target_exclusion": "camera_lidar_association",
+        "speed_governor_ttc_s": 1.2
+      },
+      "path": "results/navrl_v2_ep25000_stopcap_seed49_screen/riskcap/205bars.json",
+      "tag": "riskcap",
+      "timeout_delta": 0.006821173921841707,
+      "timeout_rate": 0.023414634146341463,
+      "timeouts": 48
+    },
+    {
+      "bar_contact_rate": 0.2038030229156509,
+      "capture_delta": -0.03971874829714417,
+      "capture_delta_ci95": [
+        -0.06742228505830188,
+        -0.012015211535986458
+      ],
+      "capture_rate": 0.6918576304241834,
+      "captured": 1419,
+      "contact_actual_speed_mps": 0.8134799784842576,
+      "contact_clearance_m": 0.6439048830705504,
+      "contact_executed_speed_mps": 0.3019858399076325,
+      "contact_requested_speed_mps": 3.090032625426516,
+      "contact_step": 121.3468899521531,
+      "contact_stopping_margin_executed_m": 0.39515276943917194,
+      "crash_delta": -0.038763364369628656,
+      "crash_delta_ci95": [
+        -0.0645954698057211,
+        -0.012931258933536211
+      ],
+      "crash_rate": 0.21306679668454412,
+      "crashes": 437,
+      "episodes": 2051,
+      "intervention_rate": 0.36854775788436267,
+      "mean_executed_speed_mps": 1.9633448713523192,
+      "mean_requested_speed_mps": 3.0585680495619063,
+      "mean_scale": 0.6693549127350812,
+      "mode": "stopcap",
+      "near_stop_rate": 0.30119446041392905,
+      "negative_stopping_margin_executed_rate": 0.026163148817345598,
+      "negative_stopping_margin_requested_rate": 0.36866838452693823,
+      "outcome_steps": {
+        "capture": {
+          "count": 1419,
+          "mean": 140.03875968992247,
+          "p10": 45.0,
+          "p50": 100.0,
+          "p90": 296.0
+        },
+        "crash": {
+          "count": 437,
+          "mean": 118.8512585812357,
+          "p10": 20.6,
+          "p50": 80.0,
+          "p90": 288.2000000000003
+        },
+        "timeout": {
+          "count": 195,
+          "mean": 600.0,
+          "p10": 600.0,
+          "p50": 600.0,
+          "p90": 600.0
+        }
+      },
+      "parameters": {
+        "speed_governor_brake_mps2": 2.9608856678,
+        "speed_governor_fixed_mps": 2.0,
+        "speed_governor_free_mps": 3.53553390593,
+        "speed_governor_half_width_m": 0.45,
+        "speed_governor_margin_m": 0.45,
+        "speed_governor_mode": "stopcap",
+        "speed_governor_reaction_s": 0.1,
+        "speed_governor_release_m": 5.0,
+        "speed_governor_slow_m": 3.0,
+        "speed_governor_target_exclusion": "camera_lidar_association",
+        "speed_governor_ttc_s": 1.2
+      },
+      "path": "results/navrl_v2_ep25000_stopcap_seed49_screen/stopcap/205bars.json",
+      "tag": "stopcap",
+      "timeout_delta": 0.0784821126667728,
+      "timeout_rate": 0.09507557289127255,
+      "timeouts": 195
+    },
+    {
+      "bar_contact_rate": 0.03851779619697709,
+      "capture_delta": 0.015376327275747115,
+      "capture_delta_ci95": [
+        -0.011497504843959915,
+        0.042250159395454144
+      ],
+      "capture_rate": 0.7469527059970746,
+      "captured": 1532,
+      "contact_actual_speed_mps": 0.5548142632587424,
+      "contact_clearance_m": 0.6574019686366089,
+      "contact_executed_speed_mps": 0.25546434710297405,
+      "contact_requested_speed_mps": 3.1339499422266512,
+      "contact_step": 137.20253164556962,
+      "contact_stopping_margin_executed_m": 0.44612439674667165,
+      "crash_delta": -0.20941182853345117,
+      "crash_delta_ci95": [
+        -0.2301320518310467,
+        -0.18869160523585563
+      ],
+      "crash_rate": 0.0424183325207216,
+      "crashes": 87,
+      "episodes": 2051,
+      "intervention_rate": 0.5594333286199095,
+      "mean_executed_speed_mps": 1.5194302205762533,
+      "mean_requested_speed_mps": 3.112494889018465,
+      "mean_scale": 0.5145634969481513,
+      "mode": "ttc",
+      "near_stop_rate": 0.4224406108597285,
+      "negative_stopping_margin_executed_rate": 0.0,
+      "negative_stopping_margin_requested_rate": 0.48122348699095024,
+      "outcome_steps": {
+        "capture": {
+          "count": 1532,
+          "mean": 175.31331592689295,
+          "p10": 51.0,
+          "p50": 129.0,
+          "p90": 381.9000000000001
+        },
+        "crash": {
+          "count": 87,
+          "mean": 146.10344827586206,
+          "p10": 24.0,
+          "p50": 99.0,
+          "p90": 320.0000000000001
+        },
+        "timeout": {
+          "count": 432,
+          "mean": 600.0,
+          "p10": 600.0,
+          "p50": 600.0,
+          "p90": 600.0
+        }
+      },
+      "parameters": {
+        "speed_governor_brake_mps2": 2.9608856678,
+        "speed_governor_fixed_mps": 2.0,
+        "speed_governor_free_mps": 3.53553390593,
+        "speed_governor_half_width_m": 0.45,
+        "speed_governor_margin_m": 0.45,
+        "speed_governor_mode": "ttc",
+        "speed_governor_reaction_s": 0.1,
+        "speed_governor_release_m": 5.0,
+        "speed_governor_slow_m": 3.0,
+        "speed_governor_target_exclusion": "camera_lidar_association",
+        "speed_governor_ttc_s": 1.2
+      },
+      "path": "results/navrl_v2_ep25000_stopcap_seed49_screen/ttc/205bars.json",
+      "tag": "ttc",
+      "timeout_delta": 0.19403550125770405,
+      "timeout_rate": 0.2106289614822038,
+      "timeouts": 432
+    }
+  ],
+  "schema_version": 1,
+  "source_checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+  "verdict_m1": "IMPLEMENTATION_VOID",
+  "verdict_q1": "MECHANISM_UNSUPPORTED",
+  "verdict_q2": "NOT_JUDGED_M1_VOID",
+  "verdict_q3": "FILTER_DEPENDENT"
+}

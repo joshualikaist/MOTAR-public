@@ -1,0 +1,47 @@
+{
+ "prereg": "docs/plans/lateral_contact_density_plan_2026-09-05.md#D4",
+ "question": "Is the stopping law's advantage over riskcap destroyed by co-adaptation with riskcap, or by something else about the ep25000 lineage (0.25 kg airframe, 6-28 m goals, 205-bar curriculum)?",
+ "design": "T0 and T1 are the SAME ref5in airframe, same 1,000 extra epochs from the same ep1900 source, same goal band, same seed. They differ only in whether riskcap was inside the training loop. If the ep25000 pattern reproduces here, co-adaptation is the cause; if it does not, the airframe or the assumed brake parameter is.",
+ "predictions": {
+  "T0 stopcap-riskcap": "<= -3 pp (like the ep1900 source: -6.47 pp)",
+  "T1 stopcap-riskcap": "within +-2 pp of zero (like ep25000: -0.34 pp)"
+ },
+ "contract": "ref5in",
+ "seed": 521,
+ "episodes": 2049,
+ "frame_sample_every": 100,
+ "cells": [
+  {
+   "name": "T0_d070_riskcap",
+   "policy": "T0",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "T0_d070_stopcap",
+   "policy": "T0",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "T1_d070_riskcap",
+   "policy": "T1",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "T1_d070_stopcap",
+   "policy": "T1",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  }
+ ]
+}

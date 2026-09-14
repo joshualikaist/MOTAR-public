@@ -1,0 +1,18 @@
+# Candidate #2: LiDAR look-ahead 8 -> 12 m -- speed-axis eval
+# checkpoint: runs/ppo_260724_1230_navrl/nn/gen_ppo.pth  (PEAK @ epoch 6145, reward 111, capture 95.2%)
+#   NOTE: that run later COLLAPSED (oob 0.10->0.60 all directions, final capture 0.558 @ ep7000).
+#   The best-reward gen_ppo.pth predates the collapse and is the valid policy; see CRASH_TUNING_LOG.
+# training: train_navrl_general_12m_lookahead.sh (warm-start from tilt-comp 1052; LiDAR range = only change)
+# eval: 128 envs, ~2049 episodes/cell, deterministic, general-spawn, NAVRL_LIDAR_RANGE=12 NAVRL_TILT_COMP=1
+#   (eval range MUST match training range -- scan normalization is scan/range)
+# FINDING: capture 0.837 -> 0.856 (+1.8pp, best so far) BUT the gain came from oob (2.4%->1.2% abs),
+#   NOT from the intended target: bar_contact 13.1% -> 12.6% abs (-0.5pp, noise-level). Look-ahead is
+#   NOT the bar_contact lever -- 8 m was already 3.2 s of warning at 2.5 m/s. bar_contact is untouched
+#   by altitude (PI, tilt-comp) AND by look-ahead => next diagnosis must target it directly.
+target_speed_ms,capture,crash,timeout,crash_bar_contact_share,crash_below_share,crash_oob_share,bar_contact_mean_x_m
+0.0,0.849,0.127,0.024,0.912,0.015,0.073,13.0
+0.5,0.876,0.121,0.002,0.899,0.020,0.081,12.4
+0.75,0.875,0.123,0.002,0.909,0.004,0.087,12.1
+1.0,0.853,0.145,0.002,0.896,0.013,0.091,12.4
+1.25,0.853,0.147,0.000,0.914,0.017,0.070,12.5
+1.5,0.827,0.172,0.001,0.892,0.011,0.096,12.2

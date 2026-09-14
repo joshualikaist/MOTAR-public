@@ -1,0 +1,86 @@
+*.pyc
+runs/
+*.npz
+# Small, synthetic-only background evidence required by the offline comparison tests.
+# These two reviewed archives are explicit exceptions, not permission to track frame dumps.
+!results/renderer_background_v1_2026-09-12/run1/arrays.npz
+!results/renderer_background_v1_2026-09-12/run2/arrays.npz
+# Four tiny generic-box frames accompany the standalone CPU installation receipts.
+!results/renderer_cpu_install_2026-09-12/smoke1/frame_0000.npz
+!results/renderer_cpu_install_2026-09-12/smoke1/frame_0001.npz
+!results/renderer_cpu_install_2026-09-12/smoke2/frame_0000.npz
+!results/renderer_cpu_install_2026-09-12/smoke2/frame_0001.npz
+*.pt
+*.tfevents*
+*.egg-info/
+
+*/__pycache__/
+nn/
+
+train_dir/
+wandb/
+runs/
+
+# tee'd training logs
+*.log
+
+# campaign locks are runtime ownership markers, not experimental evidence
+results/*_campaign.lock
+
+# local RL session artifacts and manually retained checkpoints
+train_session_logs/
+checkpoints_saved/
+
+# evaluator provenance copies are locally verified but too large to version; receipts carry hashes
+results/**/checkpoint_snapshot.pth
+# Evaluator receipts retain hashes for these reproducibility copies.  Track compact summaries,
+# CSV/JSON results and manifests; do not turn every evaluated cell into a second source checkout.
+results/**/source_snapshot/
+results/**/source_snapshot
+results/**/python_environment.txt
+results/**/detector_snapshot.pth
+# N1 reflection-audit frame dumps are 30-60 MB.  Covered by the top-level `*.npz` rule; named
+# explicitly because prereg 2026-08-21 section 10 requires the npz to stay out of Git and be
+# pinned by SHA-256 in the summary instead.
+results/**/frames.npz
+
+# Fresh speed/controller calibration bundles contain per-substep JSON traces. Their compact
+# receipts bind every raw cell; retain locally without making the source worktree dirty.
+results/navrl_physical_target_speed_controller_calibration_seed829/
+results/navrl_physical_target_speed_controller_calibration_stage2_seed829/
+# Lower-contract probe/gate bundles are immutable local receipts with raw traces.  Their compact
+# manifests bind the bytes; keep the generated bundles out of the source-cleanliness contract.
+results/navrl_physical_target_braking_lower1p25_seed827/
+results/navrl_physical_target_braking_lower1p25_postxyfix_seed827/
+results/navrl_physical_target_braking_lower1p25_headingrest_seed827/
+results/navrl_physical_target_braking_lower1p25_matched_spawn_seed827_2026-09-01/
+results/navrl_physical_target_recovery_v2_gate_lower1p25_seed827/
+results/.navrl_physical_target_recovery_v2_gate_lower1p25_seed827.VOID.*/
+results/.navrl_physical_target_recovery_v2_gate_lower1p25_seed827.incomplete.*/
+results/navrl_physical_target_recovery_v2_no_connector_forensics_seed827/
+
+# Closed training launchers create immutable local source receipts.  Checkpoints bind their path
+# and SHA; the bundles travel with experiment artifacts, not Git history.
+train_source_receipts/
+
+# local experiment workspace (checkpoints/reports, ~1.4GB)
+aerial_gym/lms_rl_trial/
+
+# generated example outputs (save_camera_stream.py etc.)
+aerial_gym/examples/*_frame_100.png
+aerial_gym/examples/*_frames_100.png
+aerial_gym/examples/*_frames_100.gif
+
+# legacy scraper scratch output; never published
+docs/status/status.legacy.json
+
+# External ETH ds5 local review data only; keep numerical results elsewhere tracked.
+/artifacts/private/eth_ds5/
+/results/eth_ds5_intake_2026-09-10/**/*.jpg
+/results/eth_ds5_intake_2026-09-10/**/*.jpeg
+/results/eth_ds5_intake_2026-09-10/eth_ds5_human_review_pack.zip
+
+# git worktrees for concurrent Codex sessions; never part of the tree.  Result receipts
+# inside them are bound to their absolute paths, so they must survive on disk but must
+# not be committed (an accidental `git add -A` made one a gitlink on 2026-08-26).
+.codex_worktrees/

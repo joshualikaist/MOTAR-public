@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">Learned policy and fixed control stack</title><desc id="desc">Simplified redrawing of the existing documented control chain; no gain, command-bound or controller modifications.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#253341"/></marker></defs><rect width="1600" height="900" fill="white"/><g font-family="Arial, Noto Sans CJK KR, sans-serif" fill="#16232f">
+<text x="55" y="68" font-size="35" font-weight="700" text-anchor="start" fill="#253341">Learned policy and fixed control stack</text>
+<g data-block="true">
+<rect x="55" y="215" width="290" height="140" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="200.0" y="258" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Policy actor</text>
+<text x="200.0" y="298" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Learned output</text>
+</g>
+<path d="M345 285 L455 285" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="455" y="215" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="600.0" y="258" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Command mapping</text>
+<text x="600.0" y="298" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Body-frame setpoints</text>
+</g>
+<path d="M745 285 L855 285" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="855" y="215" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="1000.0" y="258" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Altitude PI</text>
+<text x="1000.0" y="298" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Vertical-channel override</text>
+</g>
+<path d="M1145 285 L1255 285" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="1255" y="215" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="1400.0" y="258" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Velocity control</text>
+<text x="1400.0" y="298" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Fixed Lee controller</text>
+</g>
+<g data-block="true">
+<rect x="1255" y="535" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="1400.0" y="578" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Force / attitude</text>
+<text x="1400.0" y="618" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Tilt-limited reference</text>
+</g>
+<path d="M1255 605 L1145 605" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="855" y="535" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="1000.0" y="578" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Attitude / rate</text>
+<text x="1000.0" y="618" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Torque command</text>
+</g>
+<path d="M855 605 L745 605" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="455" y="535" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="600.0" y="578" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Motor allocation</text>
+<text x="600.0" y="618" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Fixed motor dynamics</text>
+</g>
+<path d="M455 605 L345 605" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="55" y="535" width="290" height="140" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="200.0" y="578" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Rigid-body physics</text>
+<text x="200.0" y="618" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Simulation state</text>
+</g>
+<path d="M1400 355 L1400 535" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="55" y="150" font-size="21" font-weight="400" text-anchor="start" fill="#253341">LEARNED</text>
+<text x="455" y="150" font-size="21" font-weight="400" text-anchor="start" fill="#253341">FIXED CONTROLLER AND SIMULATION CONTRACT</text>
+<text x="880" y="751" font-size="24" font-weight="400" text-anchor="middle" fill="#253341">Read top row left → right; bottom row right → left.</text>
+<path d="M55 784H1545" stroke="#b6c0c8"/>
+<text x="55" y="824" font-size="22" font-weight="400" text-anchor="start" fill="#52606d">The policy vertical output is overridden by the altitude PI. Detailed parameters remain in the text.</text>
+</g></svg>

@@ -1,0 +1,32 @@
+--- old/aerial_gym/rl_training/rl_games/train_navrl_v2_ref5in_a8_readapt.sh
++++ new/aerial_gym/rl_training/rl_games/train_navrl_v2_ref5in_a8_readapt.sh
+@@ -70,7 +70,10 @@
+ export CKPT
+ export NAVRL_V2_ALLOW_RESUME=1
+ export MAX_EPOCHS=2900
+-export SEED=197
++# D4 replication (plan 2026-09-06): the co-adaptation contrast rests on one training seed per
++# arm. A8_SEED lets the same launcher train T0/T1 pairs on further seeds; the run tag carries it so
++# the A8 resolver (which matches -s197) never picks a replication run by mistake.
++export SEED="${A8_SEED:-197}"
+ export NAVRL_V2_PROFILE=main
+ export NAVRL_ROBOT=navrl_ref5in_quad
+ export NAVRL_YAW_RATE_MAX=3.0
+@@ -97,7 +100,7 @@
+ export NAVRL_DENSITY_FINAL=70
+ export NAVRL_LEARNING_RATE=1.5e-5
+ export NAVRL_SAVE_FREQUENCY=250
+-export AERIAL_RUN_TAG="v2-ref5in-a8-readapt-${A8_MODE}-s197"
++export AERIAL_RUN_TAG="v2-ref5in-a8-readapt-${A8_MODE}-s${SEED}"
+ export TRAIN_SESSION_LOG="train_session_logs/ref5in_a8_readapt_${A8_MODE}_$(date +%y%m%d_%H%M%S).log"
+ export TRAIN_LIVE_LOG="train_session_logs/current_ref5in_a8_readapt_${A8_MODE}.log"
+ export NAVRL_V2_CONTRACT_PREFLIGHT_ONLY="${D1_PREFLIGHT}"
+@@ -118,7 +121,7 @@
+ fi
+ 
+ echo "[ref5in-a8] scope=A8 readaptation arm mode=${A8_MODE} (prereg_2026-09-05_a8_filter_readaptation.md)"
+-echo "[ref5in-a8] source=ep1900 -> terminal=2900 seed=197 robot=${NAVRL_ROBOT} bars=70"
++echo "[ref5in-a8] source=ep1900 -> terminal=2900 seed=${SEED} robot=${NAVRL_ROBOT} bars=70"
+ echo "[ref5in-a8] applied_goal_range=${NAVRL_GENERAL_GOAL_DIST_MIN}..${NAVRL_GENERAL_GOAL_DIST_MAX}m mixed target"
+ echo "[ref5in-a8] governor=${NAVRL_SPEED_GOVERNOR} brake=${NAVRL_SPEED_GOVERNOR_BRAKE_MPS2} lr=${NAVRL_LEARNING_RATE}"
+ 

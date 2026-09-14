@@ -1,0 +1,254 @@
+{
+  "blockers": [
+    "published timestamp rows (20969) != container frames (20970); the video track's edit list skips exactly the missing frame, but which container frame carries frame_id 1 is still open between 3 candidates",
+    "published stamps carry cam1's Time_scale and cam0's Time_shift; the coefficient table was revised upstream after the stamps were generated and they were never regenerated"
+  ],
+  "calibration_candidate": {
+    "calibration_validated": false,
+    "camera_model_tags": {
+      "encoder": "AVC Coding"
+    },
+    "fps": 29.97002997002997,
+    "fps_matches": true,
+    "lens_zoom_crop_verified": false,
+    "note": "Equality of resolution/FPS is necessary, not sufficient. Lens, zoom, crop mode and the calibration session are unknown; reprojection of reviewed drone0 boxes is required.",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "resolution_matches": true
+  },
+  "extraction_receipt_sha256": "746879e2ce93085a9ef8dd4116259dacd639a0c00473bbe22708185a202acef5",
+  "format_tags": {
+    "compatible_brands": "XAVCmp42iso2",
+    "creation_time": "2021-01-19T13:59:29.000000Z",
+    "encoder": "AVC Coding",
+    "handler_name": "Video Media Handler",
+    "language": "und",
+    "major_brand": "XAVC",
+    "minor_version": "16785407",
+    "vendor_id": "[0][0][0][0]"
+  },
+  "frame_count_matches_published": false,
+  "frame_counts": {
+    "container_packets": 20970,
+    "declared_nb_frames": 20970,
+    "decoded_frames": 20970,
+    "published_timestamp_rows": 20969
+  },
+  "index_alignment": {
+    "candidates": [
+      {
+        "container_index_of_frame_id": "frame_id",
+        "evidence": "the video track's edit list starts one frame into the media while the audio and metadata tracks start at zero, so an edit-list-honouring reader presents container_frames-1 frames",
+        "name": "edit_list_skips_first_frame",
+        "supported_by_edit_list": true
+      },
+      {
+        "container_index_of_frame_id": "frame_id - 1",
+        "evidence": "documented MATLAB VideoReader behaviour where readFrame yields fewer frames than NumFrames; produces the same row count without any container evidence",
+        "name": "reader_dropped_last_frame",
+        "supported_by_edit_list": false
+      },
+      {
+        "container_index_of_frame_id": "frame_id + 1",
+        "evidence": "MathWorks CurrentTime semantics combined with the fitted frame origin; predicts one row fewer than observed, so it is retained only as a bound",
+        "name": "current_time_is_next_frame",
+        "supported_by_edit_list": false
+      }
+    ],
+    "container_frames": 20970,
+    "missing_rows": 1,
+    "note": "Pilot images were rendered with container_index = frame_id - 1. A one-frame error displaces the target by a few pixels, which is immaterial for identity review and material for measurement, so the reprojection check searches whole-frame shifts around zero.",
+    "published_rows": 20969,
+    "resolved": false,
+    "video_edit_list_frames": 1.0
+  },
+  "published_timestamp_fit": {
+    "camera_scales": {
+      "0": 1.000004517,
+      "1": 1.000031087,
+      "2": 0.997549813,
+      "3": 1.000049205,
+      "4": 1.000033223,
+      "5": 1.000016386
+    },
+    "closest_camera_scale": 1,
+    "intercept_minus_cam0_shift_frames": 1.9485832865344408,
+    "intercept_s": 10.551275280238315,
+    "max_abs_residual_s": 3.333703091357165e-08,
+    "slope_over_nominal_period": 1.0000310875866347,
+    "slope_s_per_frame": 0.03336770395580738
+  },
+  "runtime": {
+    "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+    "ffprobe": "ffprobe version 7.1 Copyright (c) 2007-2024 the FFmpeg developers",
+    "python": "3.8.20"
+  },
+  "source_commit": "2c857c97be71834d0791ae8ee4984ffb62b7680a",
+  "stamp_provenance": {
+    "cameras": {
+      "0": {
+        "implied_origin_frames": 1.9485832865344408,
+        "nearest_integer_origin": 2,
+        "origin_distance_to_integer": 0.051416713465559205,
+        "scale": 1.000004517,
+        "scale_error_vs_implied": 2.657058663468881e-05,
+        "shift_at_integer_origin_s": 10.4845398723267,
+        "shift_revision_needed_s": -0.0017156576732997308,
+        "shift_s": 10.48625553
+      },
+      "1": {
+        "implied_origin_frames": 84.56742705388332,
+        "nearest_integer_origin": 85,
+        "origin_distance_to_integer": 0.43257294611667874,
+        "scale": 1.000031087,
+        "scale_error_vs_implied": 5.866347407845751e-10,
+        "shift_at_integer_origin_s": 7.715020443994687,
+        "shift_revision_needed_s": -0.014433966005312548,
+        "shift_s": 7.72945441
+      },
+      "2": {
+        "implied_origin_frames": 22.45374405235086,
+        "nearest_integer_origin": 22,
+        "origin_distance_to_integer": 0.45374405235086,
+        "scale": 0.997549813,
+        "scale_error_vs_implied": 0.0024812745866347186,
+        "shift_at_integer_origin_s": 9.817185793210552,
+        "shift_revision_needed_s": 0.01514039721055127,
+        "shift_s": 9.802045396
+      },
+      "3": {
+        "implied_origin_frames": 557.2454449926926,
+        "nearest_integer_origin": 557,
+        "origin_distance_to_integer": 0.24544499269256903,
+        "scale": 1.000049205,
+        "scale_error_vs_implied": 1.811741336532613e-05,
+        "shift_at_integer_origin_s": -8.034535823146399,
+        "shift_revision_needed_s": 0.008189935853600616,
+        "shift_s": -8.042725759
+      },
+      "4": {
+        "implied_origin_frames": 533.3303797230874,
+        "nearest_integer_origin": 533,
+        "origin_distance_to_integer": 0.3303797230873897,
+        "scale": 1.000033223,
+        "scale_error_vs_implied": 2.1354133652451424e-06,
+        "shift_at_integer_origin_s": -7.233710928207021,
+        "shift_revision_needed_s": 0.011024012792979043,
+        "shift_s": -7.244734941
+      },
+      "5": {
+        "implied_origin_frames": -115.46092877304972,
+        "nearest_integer_origin": -115,
+        "origin_distance_to_integer": 0.4609287730497158,
+        "scale": 1.000016386,
+        "scale_error_vs_implied": 1.4701586634746633e-05,
+        "shift_at_integer_origin_s": 14.388561235156164,
+        "shift_revision_needed_s": -0.015380134843836046,
+        "shift_s": 14.40394137
+      }
+    },
+    "implied_scale": 1.0000310875866347,
+    "note": "A split match means the published stamps predate the current coefficient table: they were generated before the upstream revision and never regenerated.",
+    "origin_matches_camera": 0,
+    "scale_matches_camera": 1,
+    "single_row_explains_file": false
+  },
+  "status": "VIDEO_DECODES_TIMESTAMP_MAPPING_UNRESOLVED",
+  "stream": {
+    "avg_frame_rate": "30000/1001",
+    "bit_rate": "49896799",
+    "codec_name": "h264",
+    "duration": "699.699000",
+    "height": 1080,
+    "nb_frames": "20970",
+    "pix_fmt": "yuv420p",
+    "profile": "High",
+    "r_frame_rate": "30000/1001",
+    "time_base": "1/30000",
+    "width": 1920
+  },
+  "sync_cam0": {
+    "scale": 1.000004517,
+    "shift_s": 10.48625553
+  },
+  "timestamp_consistency": {
+    "alignments": {
+      "packet_offset_0": {
+        "raw_camera_time": {
+          "drift_last_minus_first_s": 0.02174957870190397,
+          "max_abs_jitter_after_offset_s": 0.02174957870190397,
+          "offset_first_row_frames": 317.2220664594036,
+          "offset_first_row_s": 10.5846429508621,
+          "within_half_frame": false
+        },
+        "synchronised_affine": {
+          "drift_last_minus_first_s": 0.018589339751864387,
+          "max_abs_jitter_after_offset_s": 0.018589339751864387,
+          "offset_first_row_frames": 2.9486739519111302,
+          "offset_first_row_s": 0.0983874208621014,
+          "within_half_frame": false
+        }
+      },
+      "packet_offset_1": {
+        "raw_camera_time": {
+          "drift_last_minus_first_s": 0.021750578701903223,
+          "max_abs_jitter_after_offset_s": 0.021750578701903223,
+          "offset_first_row_frames": 316.2220564693936,
+          "offset_first_row_s": 10.5512759508621,
+          "within_half_frame": false
+        },
+        "synchronised_affine": {
+          "drift_last_minus_first_s": 0.01859033975641644,
+          "max_abs_jitter_after_offset_s": 0.01859033975641644,
+          "offset_first_row_frames": 1.9486594448560166,
+          "offset_first_row_s": 0.06502027014336242,
+          "within_half_frame": false
+        }
+      }
+    },
+    "mp4_edit_lists_by_track": [
+      {
+        "edits": [
+          {
+            "media_time": 1001,
+            "media_time_frames": 1.0,
+            "segment_duration": 62972910
+          }
+        ],
+        "handler": "vide"
+      },
+      {
+        "edits": [
+          {
+            "media_time": 0,
+            "media_time_frames": 0.0,
+            "segment_duration": 62972370
+          }
+        ],
+        "handler": "soun"
+      },
+      {
+        "edits": [
+          {
+            "media_time": 0,
+            "media_time_frames": 0.0,
+            "segment_duration": 62972910
+          }
+        ],
+        "handler": "meta"
+      }
+    ],
+    "packet_count": 20970,
+    "published_step_s": {
+      "expected_cam0_scaled_period_s": 0.0333668173839,
+      "max": 0.033367737291086996,
+      "median": 0.03336773729000697,
+      "min": 0.03336763728589176
+    },
+    "row_count_published": 20969
+  },
+  "tool_sha256": "f952cb696871dfb6d47816b86bb99480956ed38eca1fc560ca0956f66ab23abe",
+  "video_sha256": "d3e6727e414b5b6a9c758a1a1f1c81effeb747372a90c9ef50acc5a5688c1ec4"
+}

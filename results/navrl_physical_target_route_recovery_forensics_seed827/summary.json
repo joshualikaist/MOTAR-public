@@ -1,0 +1,3937 @@
+{
+  "schema": "navrl_physical_target_route_recovery_forensics_v1_summary",
+  "contract": {
+    "seed": 827,
+    "envs": 32,
+    "steps": 300,
+    "warmup_steps": 20,
+    "route_mode": "global_astar_v1",
+    "target_dynamics": "physical",
+    "pattern": "waypoint",
+    "densities": [
+      70,
+      150,
+      205,
+      300
+    ],
+    "speeds_mps": [
+      0.6,
+      1.5
+    ],
+    "grid_resolution_m": 0.25,
+    "tracking_margin_m": 0.45,
+    "anchor_radius_cells": 3,
+    "runtime_wall_margin_m": 0.5,
+    "route_boundary_margin_m": 1.25,
+    "boundary_soft_minus_hard_m": 0.75,
+    "attempt2_summary_sha256": "e5e4560464dc3a2080d904c2f8d2247e0c65e671dd63ea08d1b507ec65fc7197"
+  },
+  "receipt_sha256": "0e70f62fbed9214dc48bb94c016e2545a3a54c2fa927122ef8a813d4f0b6fa74",
+  "event_counts": {
+    "reset": 372,
+    "initial_plan": 372,
+    "fallback": 41933,
+    "replan": 4036,
+    "invalidation": 358
+  },
+  "reason_counts": {
+    "episode_reset": 372,
+    "ok": 450,
+    "unsafe_start": 3791,
+    "local_step_infeasible": 358,
+    "no_connected_goal": 6,
+    "no_path": 82,
+    "unsafe_goal": 79
+  },
+  "unsafe_start_reason_counts": {
+    "boundary": 5167,
+    "obstacle": 38815,
+    "both": 16
+  },
+  "rounded_vs_aabb_soft_disagreements": 1832,
+  "fallback_intervals": 35666,
+  "metric_stats": {
+    "hard_clearance_m": {
+      "count": 46699,
+      "median": 0.3150463402271271,
+      "p90": 0.6391114294528961,
+      "max": 4.634348535101635
+    },
+    "soft_clearance_m": {
+      "count": 46699,
+      "median": 0.0,
+      "p90": 0.0,
+      "max": 4.062827470639531
+    },
+    "route_cross_track_error_m": {
+      "count": 41933,
+      "median": 1.6383728288895527,
+      "p90": 30.860566450472962,
+      "max": 47.37798189921118
+    },
+    "route_polyline_error_m": {
+      "count": 39461,
+      "median": 1.133290110851629,
+      "p90": 3.1437240056912694,
+      "max": 8.285042258170279
+    },
+    "fallback_age_steps": {
+      "count": 35666,
+      "median": 101.0,
+      "p90": 219.0,
+      "max": 287.0
+    },
+    "target_speed_mps": {
+      "count": 46699,
+      "median": 1.5,
+      "p90": 1.5,
+      "max": 1.5
+    },
+    "nearest_anchor_distance_m": {
+      "count": 3726,
+      "median": 0.2989046127082687,
+      "p90": 0.44588084750470924,
+      "max": 0.8376791090134286
+    }
+  },
+  "local_fallback_intervals": 35666,
+  "plan_status_counts": {
+    "initial_plan": {
+      "ok": 349,
+      "unsafe_start": 17,
+      "no_connected_goal": 6
+    },
+    "replan": {
+      "unsafe_start": 3774,
+      "ok": 101,
+      "no_path": 82,
+      "unsafe_goal": 79
+    }
+  },
+  "per_cell": [
+    {
+      "density": 70,
+      "speed_mps": 0.6,
+      "event_counts": {
+        "fallback": 3128,
+        "initial_plan": 32,
+        "invalidation": 12,
+        "replan": 304,
+        "reset": 32
+      },
+      "plan_status_counts": {
+        "ok": 38,
+        "unsafe_start": 298
+      },
+      "reason_counts": {
+        "episode_reset": 32,
+        "ok": 38,
+        "unsafe_start": 298,
+        "local_step_infeasible": 12
+      },
+      "unique_unsafe_start_replan_origins": 11,
+      "origins": [
+        {
+          "origin_id": "124",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 289,
+          "local_fallback_intervals": 289,
+          "max_fallback_age_steps": 282
+        },
+        {
+          "origin_id": "169",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 279,
+          "local_fallback_intervals": 279,
+          "max_fallback_age_steps": 272
+        },
+        {
+          "origin_id": "193",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 275,
+          "local_fallback_intervals": 275,
+          "max_fallback_age_steps": 268
+        },
+        {
+          "origin_id": "200",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 274,
+          "local_fallback_intervals": 274,
+          "max_fallback_age_steps": 267
+        },
+        {
+          "origin_id": "2010",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 10,
+          "repeats": 9,
+          "fallback_intervals": 109,
+          "local_fallback_intervals": 109,
+          "max_fallback_age_steps": 104
+        },
+        {
+          "origin_id": "2071",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 9,
+          "repeats": 8,
+          "fallback_intervals": 104,
+          "local_fallback_intervals": 104,
+          "max_fallback_age_steps": 99
+        },
+        {
+          "origin_id": "208",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 273,
+          "local_fallback_intervals": 273,
+          "max_fallback_age_steps": 266
+        },
+        {
+          "origin_id": "225",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 271,
+          "local_fallback_intervals": 271,
+          "max_fallback_age_steps": 264
+        },
+        {
+          "origin_id": "3020",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 3,
+          "repeats": 2,
+          "fallback_intervals": 32,
+          "local_fallback_intervals": 32,
+          "max_fallback_age_steps": 31
+        },
+        {
+          "origin_id": "3093",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 27,
+          "local_fallback_intervals": 27,
+          "max_fallback_age_steps": 27
+        },
+        {
+          "origin_id": "315",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 25,
+          "repeats": 24,
+          "fallback_intervals": 262,
+          "local_fallback_intervals": 262,
+          "max_fallback_age_steps": 255
+        },
+        {
+          "origin_id": "482",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        }
+      ],
+      "fallback_intervals_local": 2204,
+      "local_invalidation_count": 12,
+      "fallback_amplification_local": 183.66666666666666
+    },
+    {
+      "density": 70,
+      "speed_mps": 1.5,
+      "event_counts": {
+        "fallback": 3786,
+        "initial_plan": 46,
+        "invalidation": 38,
+        "replan": 360,
+        "reset": 46
+      },
+      "plan_status_counts": {
+        "ok": 69,
+        "unsafe_start": 337
+      },
+      "reason_counts": {
+        "episode_reset": 46,
+        "ok": 69,
+        "unsafe_start": 337,
+        "local_step_infeasible": 38
+      },
+      "unique_unsafe_start_replan_origins": 19,
+      "origins": [
+        {
+          "origin_id": "1030",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 184,
+          "local_fallback_intervals": 184,
+          "max_fallback_age_steps": 176
+        },
+        {
+          "origin_id": "1031",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "1043",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 183,
+          "local_fallback_intervals": 183,
+          "max_fallback_age_steps": 175
+        },
+        {
+          "origin_id": "1076",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1166",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 10,
+          "local_fallback_intervals": 10,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1243",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 165,
+          "local_fallback_intervals": 165,
+          "max_fallback_age_steps": 158
+        },
+        {
+          "origin_id": "1304",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 20,
+          "local_fallback_intervals": 20,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "1305",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1318",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 159,
+          "local_fallback_intervals": 159,
+          "max_fallback_age_steps": 152
+        },
+        {
+          "origin_id": "1444",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "145",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 291,
+          "local_fallback_intervals": 291,
+          "max_fallback_age_steps": 276
+        },
+        {
+          "origin_id": "150",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 290,
+          "local_fallback_intervals": 290,
+          "max_fallback_age_steps": 275
+        },
+        {
+          "origin_id": "1502",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1532",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "156",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 289,
+          "local_fallback_intervals": 289,
+          "max_fallback_age_steps": 274
+        },
+        {
+          "origin_id": "1685",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 12,
+          "repeats": 11,
+          "fallback_intervals": 133,
+          "local_fallback_intervals": 133,
+          "max_fallback_age_steps": 128
+        },
+        {
+          "origin_id": "169",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1727",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 24,
+          "local_fallback_intervals": 24,
+          "max_fallback_age_steps": 24
+        },
+        {
+          "origin_id": "1742",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "1818",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 11,
+          "repeats": 10,
+          "fallback_intervals": 124,
+          "local_fallback_intervals": 124,
+          "max_fallback_age_steps": 120
+        },
+        {
+          "origin_id": "1929",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 11,
+          "repeats": 10,
+          "fallback_intervals": 117,
+          "local_fallback_intervals": 117,
+          "max_fallback_age_steps": 113
+        },
+        {
+          "origin_id": "1930",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 11,
+          "repeats": 10,
+          "fallback_intervals": 117,
+          "local_fallback_intervals": 117,
+          "max_fallback_age_steps": 113
+        },
+        {
+          "origin_id": "2240",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 9,
+          "repeats": 8,
+          "fallback_intervals": 99,
+          "local_fallback_intervals": 99,
+          "max_fallback_age_steps": 96
+        },
+        {
+          "origin_id": "2524",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 7,
+          "repeats": 6,
+          "fallback_intervals": 83,
+          "local_fallback_intervals": 83,
+          "max_fallback_age_steps": 80
+        },
+        {
+          "origin_id": "2578",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 7,
+          "repeats": 6,
+          "fallback_intervals": 80,
+          "local_fallback_intervals": 80,
+          "max_fallback_age_steps": 77
+        },
+        {
+          "origin_id": "2697",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2825",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 10,
+          "local_fallback_intervals": 10,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "2991",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 5,
+          "repeats": 4,
+          "fallback_intervals": 60,
+          "local_fallback_intervals": 60,
+          "max_fallback_age_steps": 59
+        },
+        {
+          "origin_id": "3309",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "3462",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "347",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "364",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 260,
+          "local_fallback_intervals": 260,
+          "max_fallback_age_steps": 245
+        },
+        {
+          "origin_id": "3745",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "4000",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "503",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 10,
+          "local_fallback_intervals": 10,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "607",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "627",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 30,
+          "local_fallback_intervals": 30,
+          "max_fallback_age_steps": 27
+        },
+        {
+          "origin_id": "870",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 11,
+          "local_fallback_intervals": 11,
+          "max_fallback_age_steps": 10
+        }
+      ],
+      "fallback_intervals_local": 2838,
+      "local_invalidation_count": 38,
+      "fallback_amplification_local": 74.6842105263158
+    },
+    {
+      "density": 150,
+      "speed_mps": 0.6,
+      "event_counts": {
+        "fallback": 4218,
+        "initial_plan": 32,
+        "invalidation": 24,
+        "replan": 407,
+        "reset": 32
+      },
+      "plan_status_counts": {
+        "ok": 38,
+        "unsafe_start": 401
+      },
+      "reason_counts": {
+        "episode_reset": 32,
+        "ok": 38,
+        "local_step_infeasible": 24,
+        "unsafe_start": 401
+      },
+      "unique_unsafe_start_replan_origins": 23,
+      "origins": [
+        {
+          "origin_id": "1006",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 18,
+          "repeats": 17,
+          "fallback_intervals": 188,
+          "local_fallback_intervals": 188,
+          "max_fallback_age_steps": 185
+        },
+        {
+          "origin_id": "112",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 270,
+          "local_fallback_intervals": 270,
+          "max_fallback_age_steps": 267
+        },
+        {
+          "origin_id": "113",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 270,
+          "local_fallback_intervals": 270,
+          "max_fallback_age_steps": 267
+        },
+        {
+          "origin_id": "114",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 270,
+          "local_fallback_intervals": 270,
+          "max_fallback_age_steps": 267
+        },
+        {
+          "origin_id": "128",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 268,
+          "local_fallback_intervals": 268,
+          "max_fallback_age_steps": 265
+        },
+        {
+          "origin_id": "1665",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 14,
+          "repeats": 13,
+          "fallback_intervals": 148,
+          "local_fallback_intervals": 148,
+          "max_fallback_age_steps": 146
+        },
+        {
+          "origin_id": "1963",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 12,
+          "repeats": 11,
+          "fallback_intervals": 131,
+          "local_fallback_intervals": 131,
+          "max_fallback_age_steps": 129
+        },
+        {
+          "origin_id": "2095",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "220",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 25,
+          "repeats": 24,
+          "fallback_intervals": 256,
+          "local_fallback_intervals": 256,
+          "max_fallback_age_steps": 253
+        },
+        {
+          "origin_id": "2216",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "2653",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 9,
+          "repeats": 8,
+          "fallback_intervals": 96,
+          "local_fallback_intervals": 96,
+          "max_fallback_age_steps": 94
+        },
+        {
+          "origin_id": "325",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 244,
+          "local_fallback_intervals": 244,
+          "max_fallback_age_steps": 241
+        },
+        {
+          "origin_id": "3542",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 4,
+          "repeats": 3,
+          "fallback_intervals": 51,
+          "local_fallback_intervals": 51,
+          "max_fallback_age_steps": 50
+        },
+        {
+          "origin_id": "3691",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 4,
+          "repeats": 3,
+          "fallback_intervals": 44,
+          "local_fallback_intervals": 44,
+          "max_fallback_age_steps": 43
+        },
+        {
+          "origin_id": "3912",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 3,
+          "repeats": 2,
+          "fallback_intervals": 34,
+          "local_fallback_intervals": 34,
+          "max_fallback_age_steps": 33
+        },
+        {
+          "origin_id": "4281",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 18,
+          "local_fallback_intervals": 18,
+          "max_fallback_age_steps": 17
+        },
+        {
+          "origin_id": "505",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 226,
+          "local_fallback_intervals": 226,
+          "max_fallback_age_steps": 223
+        },
+        {
+          "origin_id": "558",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 21,
+          "repeats": 20,
+          "fallback_intervals": 221,
+          "local_fallback_intervals": 221,
+          "max_fallback_age_steps": 218
+        },
+        {
+          "origin_id": "64",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 290,
+          "local_fallback_intervals": 290,
+          "max_fallback_age_steps": 287
+        },
+        {
+          "origin_id": "657",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 20,
+          "repeats": 19,
+          "fallback_intervals": 213,
+          "local_fallback_intervals": 213,
+          "max_fallback_age_steps": 210
+        },
+        {
+          "origin_id": "72",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 283,
+          "local_fallback_intervals": 283,
+          "max_fallback_age_steps": 280
+        },
+        {
+          "origin_id": "82",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 279,
+          "local_fallback_intervals": 279,
+          "max_fallback_age_steps": 276
+        },
+        {
+          "origin_id": "857",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 198,
+          "local_fallback_intervals": 198,
+          "max_fallback_age_steps": 195
+        },
+        {
+          "origin_id": "941",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 18,
+          "repeats": 17,
+          "fallback_intervals": 192,
+          "local_fallback_intervals": 192,
+          "max_fallback_age_steps": 189
+        }
+      ],
+      "fallback_intervals_local": 4218,
+      "local_invalidation_count": 24,
+      "fallback_amplification_local": 175.75
+    },
+    {
+      "density": 150,
+      "speed_mps": 1.5,
+      "event_counts": {
+        "fallback": 5218,
+        "initial_plan": 66,
+        "invalidation": 73,
+        "replan": 494,
+        "reset": 66
+      },
+      "plan_status_counts": {
+        "ok": 82,
+        "unsafe_start": 478
+      },
+      "reason_counts": {
+        "episode_reset": 66,
+        "ok": 82,
+        "local_step_infeasible": 73,
+        "unsafe_start": 478
+      },
+      "unique_unsafe_start_replan_origins": 26,
+      "origins": [
+        {
+          "origin_id": "100",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "106",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 276,
+          "local_fallback_intervals": 276,
+          "max_fallback_age_steps": 273
+        },
+        {
+          "origin_id": "1148",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "120",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "121",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 274,
+          "local_fallback_intervals": 274,
+          "max_fallback_age_steps": 271
+        },
+        {
+          "origin_id": "1269",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1305",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "1323",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "137",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "1424",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1425",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 181,
+          "local_fallback_intervals": 181,
+          "max_fallback_age_steps": 180
+        },
+        {
+          "origin_id": "1443",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 180,
+          "local_fallback_intervals": 180,
+          "max_fallback_age_steps": 179
+        },
+        {
+          "origin_id": "1464",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 179,
+          "local_fallback_intervals": 179,
+          "max_fallback_age_steps": 178
+        },
+        {
+          "origin_id": "1548",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "162",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 269,
+          "local_fallback_intervals": 269,
+          "max_fallback_age_steps": 266
+        },
+        {
+          "origin_id": "1652",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1755",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 16,
+          "repeats": 15,
+          "fallback_intervals": 165,
+          "local_fallback_intervals": 165,
+          "max_fallback_age_steps": 165
+        },
+        {
+          "origin_id": "1756",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 16,
+          "repeats": 15,
+          "fallback_intervals": 165,
+          "local_fallback_intervals": 165,
+          "max_fallback_age_steps": 165
+        },
+        {
+          "origin_id": "1873",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1896",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1969",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "203",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 25,
+          "repeats": 24,
+          "fallback_intervals": 263,
+          "local_fallback_intervals": 263,
+          "max_fallback_age_steps": 260
+        },
+        {
+          "origin_id": "204",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "2163",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "222",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2323",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "234",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2554",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "2718",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2743",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "278",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "2888",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2982",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "3007",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "307",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 253,
+          "local_fallback_intervals": 253,
+          "max_fallback_age_steps": 250
+        },
+        {
+          "origin_id": "3150",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "3225",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "3273",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "3322",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 9,
+          "repeats": 8,
+          "fallback_intervals": 99,
+          "local_fallback_intervals": 99,
+          "max_fallback_age_steps": 99
+        },
+        {
+          "origin_id": "3563",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "366",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 247,
+          "local_fallback_intervals": 247,
+          "max_fallback_age_steps": 244
+        },
+        {
+          "origin_id": "378",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 246,
+          "local_fallback_intervals": 246,
+          "max_fallback_age_steps": 243
+        },
+        {
+          "origin_id": "389",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 245,
+          "local_fallback_intervals": 245,
+          "max_fallback_age_steps": 242
+        },
+        {
+          "origin_id": "4013",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 8,
+          "local_fallback_intervals": 8,
+          "max_fallback_age_steps": 8
+        },
+        {
+          "origin_id": "4014",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 10,
+          "local_fallback_intervals": 10,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4091",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 10,
+          "local_fallback_intervals": 10,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4248",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4326",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 5,
+          "repeats": 4,
+          "fallback_intervals": 58,
+          "local_fallback_intervals": 58,
+          "max_fallback_age_steps": 59
+        },
+        {
+          "origin_id": "4505",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 2,
+          "local_fallback_intervals": 2,
+          "max_fallback_age_steps": 3
+        },
+        {
+          "origin_id": "4530",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 5,
+          "repeats": 4,
+          "fallback_intervals": 50,
+          "local_fallback_intervals": 50,
+          "max_fallback_age_steps": 51
+        },
+        {
+          "origin_id": "4637",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 4,
+          "repeats": 3,
+          "fallback_intervals": 46,
+          "local_fallback_intervals": 46,
+          "max_fallback_age_steps": 47
+        },
+        {
+          "origin_id": "4848",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "5119",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "5229",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "5314",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 21,
+          "local_fallback_intervals": 21,
+          "max_fallback_age_steps": 22
+        },
+        {
+          "origin_id": "5483",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "5570",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 12,
+          "local_fallback_intervals": 12,
+          "max_fallback_age_steps": 13
+        },
+        {
+          "origin_id": "559",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 231,
+          "local_fallback_intervals": 231,
+          "max_fallback_age_steps": 228
+        },
+        {
+          "origin_id": "574",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "5916",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 0,
+          "local_fallback_intervals": 0,
+          "max_fallback_age_steps": 0
+        },
+        {
+          "origin_id": "630",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 226,
+          "local_fallback_intervals": 226,
+          "max_fallback_age_steps": 224
+        },
+        {
+          "origin_id": "631",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 226,
+          "local_fallback_intervals": 226,
+          "max_fallback_age_steps": 224
+        },
+        {
+          "origin_id": "64",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 290,
+          "local_fallback_intervals": 290,
+          "max_fallback_age_steps": 287
+        },
+        {
+          "origin_id": "71",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "727",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "745",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "779",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "78",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 281,
+          "local_fallback_intervals": 281,
+          "max_fallback_age_steps": 278
+        },
+        {
+          "origin_id": "801",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "83",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 280,
+          "local_fallback_intervals": 280,
+          "max_fallback_age_steps": 277
+        },
+        {
+          "origin_id": "877",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "88",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "982",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 20,
+          "repeats": 19,
+          "fallback_intervals": 206,
+          "local_fallback_intervals": 206,
+          "max_fallback_age_steps": 204
+        }
+      ],
+      "fallback_intervals_local": 5218,
+      "local_invalidation_count": 73,
+      "fallback_amplification_local": 71.47945205479452
+    },
+    {
+      "density": 205,
+      "speed_mps": 0.6,
+      "event_counts": {
+        "fallback": 5358,
+        "initial_plan": 33,
+        "invalidation": 28,
+        "replan": 525,
+        "reset": 33
+      },
+      "plan_status_counts": {
+        "ok": 36,
+        "unsafe_start": 522
+      },
+      "reason_counts": {
+        "episode_reset": 33,
+        "ok": 36,
+        "unsafe_start": 522,
+        "local_step_infeasible": 28
+      },
+      "unique_unsafe_start_replan_origins": 24,
+      "origins": [
+        {
+          "origin_id": "105",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 283,
+          "local_fallback_intervals": 283,
+          "max_fallback_age_steps": 283
+        },
+        {
+          "origin_id": "106",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 283,
+          "local_fallback_intervals": 283,
+          "max_fallback_age_steps": 283
+        },
+        {
+          "origin_id": "1102",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 194,
+          "local_fallback_intervals": 194,
+          "max_fallback_age_steps": 194
+        },
+        {
+          "origin_id": "1121",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 193,
+          "local_fallback_intervals": 193,
+          "max_fallback_age_steps": 193
+        },
+        {
+          "origin_id": "1334",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 18,
+          "repeats": 17,
+          "fallback_intervals": 181,
+          "local_fallback_intervals": 181,
+          "max_fallback_age_steps": 181
+        },
+        {
+          "origin_id": "1425",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "144",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 276,
+          "local_fallback_intervals": 276,
+          "max_fallback_age_steps": 276
+        },
+        {
+          "origin_id": "145",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1528",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 171,
+          "local_fallback_intervals": 171,
+          "max_fallback_age_steps": 171
+        },
+        {
+          "origin_id": "1629",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 16,
+          "repeats": 15,
+          "fallback_intervals": 166,
+          "local_fallback_intervals": 166,
+          "max_fallback_age_steps": 166
+        },
+        {
+          "origin_id": "170",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 273,
+          "local_fallback_intervals": 273,
+          "max_fallback_age_steps": 273
+        },
+        {
+          "origin_id": "1738",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 16,
+          "repeats": 15,
+          "fallback_intervals": 161,
+          "local_fallback_intervals": 161,
+          "max_fallback_age_steps": 161
+        },
+        {
+          "origin_id": "1888",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 154,
+          "local_fallback_intervals": 154,
+          "max_fallback_age_steps": 154
+        },
+        {
+          "origin_id": "2007",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 14,
+          "repeats": 13,
+          "fallback_intervals": 149,
+          "local_fallback_intervals": 149,
+          "max_fallback_age_steps": 149
+        },
+        {
+          "origin_id": "2101",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 14,
+          "repeats": 13,
+          "fallback_intervals": 145,
+          "local_fallback_intervals": 145,
+          "max_fallback_age_steps": 145
+        },
+        {
+          "origin_id": "258",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 262,
+          "local_fallback_intervals": 262,
+          "max_fallback_age_steps": 262
+        },
+        {
+          "origin_id": "2992",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 10,
+          "repeats": 9,
+          "fallback_intervals": 110,
+          "local_fallback_intervals": 110,
+          "max_fallback_age_steps": 110
+        },
+        {
+          "origin_id": "318",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 25,
+          "repeats": 24,
+          "fallback_intervals": 254,
+          "local_fallback_intervals": 254,
+          "max_fallback_age_steps": 254
+        },
+        {
+          "origin_id": "339",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 25,
+          "repeats": 24,
+          "fallback_intervals": 252,
+          "local_fallback_intervals": 252,
+          "max_fallback_age_steps": 252
+        },
+        {
+          "origin_id": "4101",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 6,
+          "repeats": 5,
+          "fallback_intervals": 68,
+          "local_fallback_intervals": 68,
+          "max_fallback_age_steps": 69
+        },
+        {
+          "origin_id": "448",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 241,
+          "local_fallback_intervals": 241,
+          "max_fallback_age_steps": 241
+        },
+        {
+          "origin_id": "523",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "563",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 231,
+          "local_fallback_intervals": 231,
+          "max_fallback_age_steps": 231
+        },
+        {
+          "origin_id": "5858",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "627",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 226,
+          "local_fallback_intervals": 226,
+          "max_fallback_age_steps": 226
+        },
+        {
+          "origin_id": "641",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 225,
+          "local_fallback_intervals": 225,
+          "max_fallback_age_steps": 225
+        },
+        {
+          "origin_id": "887",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 20,
+          "repeats": 19,
+          "fallback_intervals": 208,
+          "local_fallback_intervals": 208,
+          "max_fallback_age_steps": 208
+        },
+        {
+          "origin_id": "98",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        }
+      ],
+      "fallback_intervals_local": 4756,
+      "local_invalidation_count": 28,
+      "fallback_amplification_local": 169.85714285714286
+    },
+    {
+      "density": 205,
+      "speed_mps": 1.5,
+      "event_counts": {
+        "fallback": 5916,
+        "initial_plan": 68,
+        "invalidation": 78,
+        "replan": 561,
+        "reset": 68
+      },
+      "plan_status_counts": {
+        "ok": 81,
+        "unsafe_start": 548
+      },
+      "reason_counts": {
+        "episode_reset": 68,
+        "ok": 81,
+        "unsafe_start": 548,
+        "local_step_infeasible": 78
+      },
+      "unique_unsafe_start_replan_origins": 33,
+      "origins": [
+        {
+          "origin_id": "103",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 284,
+          "local_fallback_intervals": 284,
+          "max_fallback_age_steps": 284
+        },
+        {
+          "origin_id": "1052",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "1053",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1054",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1109",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1131",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "116",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "1172",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1173",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "1216",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "124",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 280,
+          "local_fallback_intervals": 280,
+          "max_fallback_age_steps": 280
+        },
+        {
+          "origin_id": "125",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "1323",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1413",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 7,
+          "local_fallback_intervals": 7,
+          "max_fallback_age_steps": 8
+        },
+        {
+          "origin_id": "147",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "148",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 277,
+          "local_fallback_intervals": 277,
+          "max_fallback_age_steps": 277
+        },
+        {
+          "origin_id": "1497",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "1498",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 15,
+          "local_fallback_intervals": 15,
+          "max_fallback_age_steps": 15
+        },
+        {
+          "origin_id": "1535",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 10,
+          "local_fallback_intervals": 10,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "159",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 276,
+          "local_fallback_intervals": 276,
+          "max_fallback_age_steps": 276
+        },
+        {
+          "origin_id": "170",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "1771",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 175,
+          "local_fallback_intervals": 175,
+          "max_fallback_age_steps": 176
+        },
+        {
+          "origin_id": "1804",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 173,
+          "local_fallback_intervals": 173,
+          "max_fallback_age_steps": 174
+        },
+        {
+          "origin_id": "1824",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "183",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "184",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "1898",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 7,
+          "local_fallback_intervals": 7,
+          "max_fallback_age_steps": 8
+        },
+        {
+          "origin_id": "1936",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "199",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 273,
+          "local_fallback_intervals": 273,
+          "max_fallback_age_steps": 273
+        },
+        {
+          "origin_id": "1997",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2021",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "2061",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2166",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 155,
+          "local_fallback_intervals": 155,
+          "max_fallback_age_steps": 156
+        },
+        {
+          "origin_id": "2185",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 2,
+          "local_fallback_intervals": 2,
+          "max_fallback_age_steps": 3
+        },
+        {
+          "origin_id": "227",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2338",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 14,
+          "repeats": 13,
+          "fallback_intervals": 146,
+          "local_fallback_intervals": 146,
+          "max_fallback_age_steps": 147
+        },
+        {
+          "origin_id": "2361",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 14,
+          "repeats": 13,
+          "fallback_intervals": 145,
+          "local_fallback_intervals": 145,
+          "max_fallback_age_steps": 146
+        },
+        {
+          "origin_id": "2444",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 14,
+          "repeats": 13,
+          "fallback_intervals": 141,
+          "local_fallback_intervals": 141,
+          "max_fallback_age_steps": 142
+        },
+        {
+          "origin_id": "248",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "2578",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 13,
+          "repeats": 12,
+          "fallback_intervals": 135,
+          "local_fallback_intervals": 135,
+          "max_fallback_age_steps": 136
+        },
+        {
+          "origin_id": "2648",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 13,
+          "repeats": 12,
+          "fallback_intervals": 132,
+          "local_fallback_intervals": 132,
+          "max_fallback_age_steps": 133
+        },
+        {
+          "origin_id": "2719",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 12,
+          "repeats": 11,
+          "fallback_intervals": 129,
+          "local_fallback_intervals": 129,
+          "max_fallback_age_steps": 130
+        },
+        {
+          "origin_id": "2767",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 12,
+          "repeats": 11,
+          "fallback_intervals": 127,
+          "local_fallback_intervals": 127,
+          "max_fallback_age_steps": 128
+        },
+        {
+          "origin_id": "2768",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2855",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 12,
+          "repeats": 11,
+          "fallback_intervals": 124,
+          "local_fallback_intervals": 124,
+          "max_fallback_age_steps": 125
+        },
+        {
+          "origin_id": "302",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "3076",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "3223",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 11,
+          "repeats": 10,
+          "fallback_intervals": 111,
+          "local_fallback_intervals": 111,
+          "max_fallback_age_steps": 112
+        },
+        {
+          "origin_id": "3280",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "347",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "372",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "373",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "398",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 15,
+          "local_fallback_intervals": 15,
+          "max_fallback_age_steps": 16
+        },
+        {
+          "origin_id": "399",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "4093",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4590",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 6,
+          "repeats": 5,
+          "fallback_intervals": 64,
+          "local_fallback_intervals": 64,
+          "max_fallback_age_steps": 65
+        },
+        {
+          "origin_id": "473",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 25,
+          "repeats": 24,
+          "fallback_intervals": 253,
+          "local_fallback_intervals": 253,
+          "max_fallback_age_steps": 253
+        },
+        {
+          "origin_id": "4825",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 5,
+          "repeats": 4,
+          "fallback_intervals": 56,
+          "local_fallback_intervals": 56,
+          "max_fallback_age_steps": 57
+        },
+        {
+          "origin_id": "5134",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 4,
+          "repeats": 3,
+          "fallback_intervals": 46,
+          "local_fallback_intervals": 46,
+          "max_fallback_age_steps": 47
+        },
+        {
+          "origin_id": "5170",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 4,
+          "repeats": 3,
+          "fallback_intervals": 45,
+          "local_fallback_intervals": 45,
+          "max_fallback_age_steps": 46
+        },
+        {
+          "origin_id": "5302",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "5433",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "562",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "5883",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "6484",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "651",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 239,
+          "local_fallback_intervals": 239,
+          "max_fallback_age_steps": 239
+        },
+        {
+          "origin_id": "663",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "676",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 237,
+          "local_fallback_intervals": 237,
+          "max_fallback_age_steps": 237
+        },
+        {
+          "origin_id": "717",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "732",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 233,
+          "local_fallback_intervals": 233,
+          "max_fallback_age_steps": 233
+        },
+        {
+          "origin_id": "790",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 7,
+          "local_fallback_intervals": 7,
+          "max_fallback_age_steps": 8
+        },
+        {
+          "origin_id": "804",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "805",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "806",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "859",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 225,
+          "local_fallback_intervals": 225,
+          "max_fallback_age_steps": 225
+        },
+        {
+          "origin_id": "950",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "96",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 286,
+          "local_fallback_intervals": 286,
+          "max_fallback_age_steps": 286
+        },
+        {
+          "origin_id": "984",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        }
+      ],
+      "fallback_intervals_local": 5138,
+      "local_invalidation_count": 78,
+      "fallback_amplification_local": 65.87179487179488
+    },
+    {
+      "density": 300,
+      "speed_mps": 0.6,
+      "event_counts": {
+        "fallback": 7116,
+        "initial_plan": 33,
+        "invalidation": 33,
+        "replan": 692,
+        "reset": 33
+      },
+      "plan_status_counts": {
+        "ok": 33,
+        "unsafe_start": 632,
+        "no_connected_goal": 2,
+        "no_path": 29,
+        "unsafe_goal": 29
+      },
+      "reason_counts": {
+        "episode_reset": 33,
+        "ok": 33,
+        "unsafe_start": 632,
+        "no_connected_goal": 2,
+        "no_path": 29,
+        "unsafe_goal": 29,
+        "local_step_infeasible": 33
+      },
+      "unique_unsafe_start_replan_origins": 31,
+      "origins": [
+        {
+          "origin_id": "1114",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 21,
+          "repeats": 20,
+          "fallback_intervals": 219,
+          "local_fallback_intervals": 219,
+          "max_fallback_age_steps": 220
+        },
+        {
+          "origin_id": "1335",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 20,
+          "repeats": 19,
+          "fallback_intervals": 208,
+          "local_fallback_intervals": 208,
+          "max_fallback_age_steps": 209
+        },
+        {
+          "origin_id": "140",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 282,
+          "local_fallback_intervals": 282,
+          "max_fallback_age_steps": 283
+        },
+        {
+          "origin_id": "1525",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 199,
+          "local_fallback_intervals": 199,
+          "max_fallback_age_steps": 200
+        },
+        {
+          "origin_id": "1526",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 199,
+          "local_fallback_intervals": 199,
+          "max_fallback_age_steps": 200
+        },
+        {
+          "origin_id": "1572",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 197,
+          "local_fallback_intervals": 197,
+          "max_fallback_age_steps": 198
+        },
+        {
+          "origin_id": "160",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 279,
+          "local_fallback_intervals": 279,
+          "max_fallback_age_steps": 280
+        },
+        {
+          "origin_id": "161",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 279,
+          "local_fallback_intervals": 279,
+          "max_fallback_age_steps": 280
+        },
+        {
+          "origin_id": "162",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 279,
+          "local_fallback_intervals": 279,
+          "max_fallback_age_steps": 280
+        },
+        {
+          "origin_id": "1710",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 191,
+          "local_fallback_intervals": 191,
+          "max_fallback_age_steps": 192
+        },
+        {
+          "origin_id": "179",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 277,
+          "local_fallback_intervals": 277,
+          "max_fallback_age_steps": 278
+        },
+        {
+          "origin_id": "180",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1914",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 18,
+          "repeats": 17,
+          "fallback_intervals": 183,
+          "local_fallback_intervals": 183,
+          "max_fallback_age_steps": 184
+        },
+        {
+          "origin_id": "2129",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 17,
+          "repeats": 16,
+          "fallback_intervals": 175,
+          "local_fallback_intervals": 175,
+          "max_fallback_age_steps": 176
+        },
+        {
+          "origin_id": "232",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 272,
+          "local_fallback_intervals": 272,
+          "max_fallback_age_steps": 273
+        },
+        {
+          "origin_id": "233",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "234",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 272,
+          "local_fallback_intervals": 272,
+          "max_fallback_age_steps": 273
+        },
+        {
+          "origin_id": "2379",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 16,
+          "repeats": 15,
+          "fallback_intervals": 166,
+          "local_fallback_intervals": 166,
+          "max_fallback_age_steps": 167
+        },
+        {
+          "origin_id": "2461",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 16,
+          "repeats": 15,
+          "fallback_intervals": 163,
+          "local_fallback_intervals": 163,
+          "max_fallback_age_steps": 164
+        },
+        {
+          "origin_id": "2492",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "2738",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 154,
+          "local_fallback_intervals": 154,
+          "max_fallback_age_steps": 155
+        },
+        {
+          "origin_id": "2832",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 151,
+          "local_fallback_intervals": 151,
+          "max_fallback_age_steps": 152
+        },
+        {
+          "origin_id": "3440",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 13,
+          "repeats": 12,
+          "fallback_intervals": 132,
+          "local_fallback_intervals": 132,
+          "max_fallback_age_steps": 133
+        },
+        {
+          "origin_id": "356",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 263,
+          "local_fallback_intervals": 263,
+          "max_fallback_age_steps": 264
+        },
+        {
+          "origin_id": "528",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 28,
+          "local_fallback_intervals": 28,
+          "max_fallback_age_steps": 29
+        },
+        {
+          "origin_id": "602",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 24,
+          "repeats": 23,
+          "fallback_intervals": 246,
+          "local_fallback_intervals": 246,
+          "max_fallback_age_steps": 247
+        },
+        {
+          "origin_id": "6081",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 5,
+          "repeats": 4,
+          "fallback_intervals": 52,
+          "local_fallback_intervals": 52,
+          "max_fallback_age_steps": 53
+        },
+        {
+          "origin_id": "6146",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 5,
+          "repeats": 4,
+          "fallback_intervals": 50,
+          "local_fallback_intervals": 50,
+          "max_fallback_age_steps": 51
+        },
+        {
+          "origin_id": "713",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 239,
+          "local_fallback_intervals": 239,
+          "max_fallback_age_steps": 240
+        },
+        {
+          "origin_id": "714",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 239,
+          "local_fallback_intervals": 239,
+          "max_fallback_age_steps": 240
+        },
+        {
+          "origin_id": "748",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 237,
+          "local_fallback_intervals": 237,
+          "max_fallback_age_steps": 238
+        },
+        {
+          "origin_id": "784",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "907",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 229,
+          "local_fallback_intervals": 229,
+          "max_fallback_age_steps": 230
+        }
+      ],
+      "fallback_intervals_local": 5916,
+      "local_invalidation_count": 33,
+      "fallback_amplification_local": 179.27272727272728
+    },
+    {
+      "density": 300,
+      "speed_mps": 1.5,
+      "event_counts": {
+        "fallback": 7193,
+        "initial_plan": 62,
+        "invalidation": 72,
+        "replan": 693,
+        "reset": 62
+      },
+      "plan_status_counts": {
+        "ok": 73,
+        "unsafe_start": 575,
+        "no_connected_goal": 4,
+        "no_path": 53,
+        "unsafe_goal": 50
+      },
+      "reason_counts": {
+        "episode_reset": 62,
+        "ok": 73,
+        "unsafe_start": 575,
+        "no_connected_goal": 4,
+        "no_path": 53,
+        "unsafe_goal": 50,
+        "local_step_infeasible": 72
+      },
+      "unique_unsafe_start_replan_origins": 33,
+      "origins": [
+        {
+          "origin_id": "1070",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 232,
+          "local_fallback_intervals": 232,
+          "max_fallback_age_steps": 233
+        },
+        {
+          "origin_id": "1092",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 231,
+          "local_fallback_intervals": 231,
+          "max_fallback_age_steps": 232
+        },
+        {
+          "origin_id": "1162",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 228,
+          "local_fallback_intervals": 228,
+          "max_fallback_age_steps": 229
+        },
+        {
+          "origin_id": "124",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1252",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 22,
+          "repeats": 21,
+          "fallback_intervals": 224,
+          "local_fallback_intervals": 224,
+          "max_fallback_age_steps": 225
+        },
+        {
+          "origin_id": "1276",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "1277",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "1380",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "1433",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 21,
+          "repeats": 20,
+          "fallback_intervals": 217,
+          "local_fallback_intervals": 217,
+          "max_fallback_age_steps": 218
+        },
+        {
+          "origin_id": "145",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 282,
+          "local_fallback_intervals": 282,
+          "max_fallback_age_steps": 283
+        },
+        {
+          "origin_id": "1458",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "152",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 281,
+          "local_fallback_intervals": 281,
+          "max_fallback_age_steps": 282
+        },
+        {
+          "origin_id": "1537",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 21,
+          "repeats": 20,
+          "fallback_intervals": 213,
+          "local_fallback_intervals": 213,
+          "max_fallback_age_steps": 214
+        },
+        {
+          "origin_id": "160",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 28,
+          "repeats": 27,
+          "fallback_intervals": 280,
+          "local_fallback_intervals": 280,
+          "max_fallback_age_steps": 281
+        },
+        {
+          "origin_id": "1719",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 17,
+          "local_fallback_intervals": 17,
+          "max_fallback_age_steps": 18
+        },
+        {
+          "origin_id": "181",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 278,
+          "local_fallback_intervals": 278,
+          "max_fallback_age_steps": 279
+        },
+        {
+          "origin_id": "1850",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "1962",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "200",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 276,
+          "local_fallback_intervals": 276,
+          "max_fallback_age_steps": 277
+        },
+        {
+          "origin_id": "201",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2046",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 19,
+          "repeats": 18,
+          "fallback_intervals": 194,
+          "local_fallback_intervals": 194,
+          "max_fallback_age_steps": 195
+        },
+        {
+          "origin_id": "2106",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "2107",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "212",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "213",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 275,
+          "local_fallback_intervals": 275,
+          "max_fallback_age_steps": 276
+        },
+        {
+          "origin_id": "238",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 273,
+          "local_fallback_intervals": 273,
+          "max_fallback_age_steps": 274
+        },
+        {
+          "origin_id": "2406",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 1,
+          "local_fallback_intervals": 1,
+          "max_fallback_age_steps": 2
+        },
+        {
+          "origin_id": "253",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "254",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "255",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "2571",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 13,
+          "local_fallback_intervals": 13,
+          "max_fallback_age_steps": 14
+        },
+        {
+          "origin_id": "274",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 27,
+          "repeats": 26,
+          "fallback_intervals": 271,
+          "local_fallback_intervals": 271,
+          "max_fallback_age_steps": 272
+        },
+        {
+          "origin_id": "275",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "294",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "295",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 3,
+          "local_fallback_intervals": 3,
+          "max_fallback_age_steps": 4
+        },
+        {
+          "origin_id": "3008",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "3094",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 15,
+          "repeats": 14,
+          "fallback_intervals": 157,
+          "local_fallback_intervals": 157,
+          "max_fallback_age_steps": 158
+        },
+        {
+          "origin_id": "319",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 19,
+          "local_fallback_intervals": 19,
+          "max_fallback_age_steps": 20
+        },
+        {
+          "origin_id": "342",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "3466",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "3526",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "3558",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "363",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 26,
+          "repeats": 25,
+          "fallback_intervals": 267,
+          "local_fallback_intervals": 267,
+          "max_fallback_age_steps": 268
+        },
+        {
+          "origin_id": "4012",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "4070",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4514",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4576",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "467",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "468",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "4698",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 10,
+          "repeats": 9,
+          "fallback_intervals": 103,
+          "local_fallback_intervals": 103,
+          "max_fallback_age_steps": 104
+        },
+        {
+          "origin_id": "4763",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "4827",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "5291",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "5354",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "5387",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 8,
+          "repeats": 7,
+          "fallback_intervals": 81,
+          "local_fallback_intervals": 81,
+          "max_fallback_age_steps": 82
+        },
+        {
+          "origin_id": "5680",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 7,
+          "local_fallback_intervals": 7,
+          "max_fallback_age_steps": 8
+        },
+        {
+          "origin_id": "572",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "5874",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 6,
+          "local_fallback_intervals": 6,
+          "max_fallback_age_steps": 7
+        },
+        {
+          "origin_id": "591",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 1,
+          "repeats": 0,
+          "fallback_intervals": 15,
+          "local_fallback_intervals": 15,
+          "max_fallback_age_steps": 16
+        },
+        {
+          "origin_id": "6066",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 6,
+          "repeats": 5,
+          "fallback_intervals": 60,
+          "local_fallback_intervals": 60,
+          "max_fallback_age_steps": 61
+        },
+        {
+          "origin_id": "648",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "6486",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 4,
+          "repeats": 3,
+          "fallback_intervals": 47,
+          "local_fallback_intervals": 47,
+          "max_fallback_age_steps": 48
+        },
+        {
+          "origin_id": "7013",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 9,
+          "local_fallback_intervals": 9,
+          "max_fallback_age_steps": 10
+        },
+        {
+          "origin_id": "7014",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 3,
+          "repeats": 2,
+          "fallback_intervals": 31,
+          "local_fallback_intervals": 31,
+          "max_fallback_age_steps": 32
+        },
+        {
+          "origin_id": "708",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 29,
+          "local_fallback_intervals": 29,
+          "max_fallback_age_steps": 30
+        },
+        {
+          "origin_id": "747",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 5,
+          "local_fallback_intervals": 5,
+          "max_fallback_age_steps": 6
+        },
+        {
+          "origin_id": "766",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 2,
+          "repeats": 1,
+          "fallback_intervals": 22,
+          "local_fallback_intervals": 22,
+          "max_fallback_age_steps": 23
+        },
+        {
+          "origin_id": "806",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        },
+        {
+          "origin_id": "8081",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 0,
+          "local_fallback_intervals": 0,
+          "max_fallback_age_steps": 0
+        },
+        {
+          "origin_id": "946",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 238,
+          "local_fallback_intervals": 238,
+          "max_fallback_age_steps": 239
+        },
+        {
+          "origin_id": "947",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": "unsafe_start",
+          "unsafe_replan_count": 23,
+          "repeats": 22,
+          "fallback_intervals": 238,
+          "local_fallback_intervals": 238,
+          "max_fallback_age_steps": 239
+        },
+        {
+          "origin_id": "948",
+          "origin_reason": "local_step_infeasible",
+          "first_unsafe_status": null,
+          "unsafe_replan_count": 0,
+          "repeats": 0,
+          "fallback_intervals": 4,
+          "local_fallback_intervals": 4,
+          "max_fallback_age_steps": 5
+        }
+      ],
+      "fallback_intervals_local": 5378,
+      "local_invalidation_count": 72,
+      "fallback_amplification_local": 74.69444444444444
+    }
+  ],
+  "decision_rule": {
+    "unsafe_start_replan_n": 200,
+    "unsafe_start_replan_repeats": 3136,
+    "unsafe_start_replan_unattributed": 438,
+    "unsafe_start_replan_other_origin": 0,
+    "unsafe_start_replan_min_n": 64,
+    "hard_free_soft_unsafe_ratio": 0.97,
+    "hard_free_soft_unsafe_wilson95_lower": 0.9361048802675267,
+    "exact_hard_connector_ratio": 0.965,
+    "exact_hard_connector_wilson95_lower": 0.9295285391333187,
+    "attributed_fallback_to_local_invalidation": 99.62569832402235,
+    "cooldown_steps": 10,
+    "amplification_gt_cooldown": true,
+    "verdict": "RECOVERY_DOMINANT"
+  },
+  "interpretation": "descriptive_only_no_gate_or_tuning_authority"
+}

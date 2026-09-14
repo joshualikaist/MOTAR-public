@@ -1,0 +1,415 @@
+{
+  "action": {
+    "context": {
+      "clear_centered": {
+        "fraction": 0.006135315019092066,
+        "mean_abs_y": 0.7003674969906798,
+        "samples": 1851
+      },
+      "front_blocked": {
+        "fraction": 0.8934921245226983,
+        "mean_abs_y": 0.8139326441349597,
+        "samples": 269563
+      },
+      "front_clear": {
+        "fraction": 0.10650787547730166,
+        "mean_abs_y": 0.7443923193826784,
+        "samples": 32133
+      },
+      "goal_centered": {
+        "fraction": 0.08060431692829868,
+        "mean_abs_y": 0.7857650833720488,
+        "samples": 24318
+      },
+      "goal_offcenter": {
+        "fraction": 0.9193956830717013,
+        "mean_abs_y": 0.8083461866297712,
+        "samples": 277378
+      },
+      "target_hidden": {
+        "fraction": 0.7950188268985999,
+        "mean_abs_y": 0.8008250808960746,
+        "samples": 239854
+      },
+      "target_visible": {
+        "fraction": 0.20498117310140007,
+        "mean_abs_y": 0.8286372446882004,
+        "samples": 61842
+      }
+    },
+    "executed_edge95_rate": [
+      0.5392845778532033,
+      0.18982021637675012,
+      0.2912667055579126,
+      0.0
+    ],
+    "executed_edge98_rate": [
+      0.29613253075943996,
+      0.03825373886296139,
+      0.05855231756470089,
+      0.0
+    ],
+    "executed_edge99_rate": [
+      0.07776370916419177,
+      0.009201315231226135,
+      7.29210861264319e-05,
+      0.0
+    ],
+    "high80_y_rate": 0.6935491355536699,
+    "mean_abs": [
+      0.8357048483789093,
+      0.8065260524308727,
+      0.6135734882605597,
+      0.33186786202338475
+    ],
+    "mean_abs_delta_y": 0.11428962655123658,
+    "motion": {
+      "commanded_stall_rate": 0.03169089119426865,
+      "low_speed_rate": 0.03200884868944009,
+      "mean_command_speed_mps": 2.962559131411513,
+      "mean_speed_mps": 2.3140707264057436,
+      "samples": 295637
+    },
+    "negative_y_rate": 0.038734355112431056,
+    "policy": "squashed_gaussian",
+    "positive_y_rate": 0.946618450360628,
+    "samples": 301696,
+    "sign_flip_y_rate": 0.027193418825391207,
+    "signed_mean_y": 0.766775460328194,
+    "task_input_oob_rate": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "actual_episodes": 2049,
+  "checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260805_0413_navrl_v2-speedgov-ep24000-205bars-main-riskcap-s1/nn/last_gen_ppo_ep_25000_rew_39.742134.pth",
+  "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+  "condition": {
+    "action_selection": "deterministic",
+    "bars": 205,
+    "episode_len_steps": 600,
+    "evaluation_nonce": "3cb92e1c3a1aa7766905b3c9374b66f50ee9aecad62e5a952472b979cc835adc",
+    "fov_curriculum_saturated": true,
+    "full_goal_distribution": true,
+    "goal_dist_max_m": 28.0,
+    "goal_dist_min_m": 6.0,
+    "num_envs": 128,
+    "oob_margin_m": 1.0,
+    "physics_dt_s": 0.01,
+    "physics_steps_per_rl_step": 10,
+    "physics_substeps": 1,
+    "policy_output_dim": 4,
+    "policy_z_output_overwritten_by_altitude_pi": true,
+    "policy_z_persisted_in_prev_action_observation": true,
+    "pursuer_max_horizontal_request_norm_mps": 3.5355339059327378,
+    "pursuer_max_speed_mps": 2.5,
+    "pursuer_per_axis_speed_limit_mps": 2.5,
+    "pursuer_speed_limit_semantics": "per_axis_xy",
+    "reflection_mode": "original",
+    "rl_step_dt_s": 0.1,
+    "runtime_sim_config_class": "BaseSimConfig",
+    "seed": 167,
+    "speed_governor_brake_mps2": 2.9608856678,
+    "speed_governor_fixed_mps": 2.0,
+    "speed_governor_free_mps": 3.53553390593,
+    "speed_governor_half_width_m": 0.45,
+    "speed_governor_margin_m": 0.45,
+    "speed_governor_mode": "riskcap",
+    "speed_governor_reaction_s": 0.1,
+    "speed_governor_release_m": 5.0,
+    "speed_governor_slow_m": 3.0,
+    "speed_governor_target_exclusion": "camera_lidar_association",
+    "speed_governor_ttc_s": 1.2,
+    "target_pattern": "mixed",
+    "target_speed_max_mps": 1.5,
+    "target_speed_min_mps": 0.3,
+    "target_speed_mode": "uniform",
+    "target_speed_mps": null
+  },
+  "crash_causes": {
+    "above": 0,
+    "above_share": 0.0,
+    "bar_contact": 333,
+    "bar_contact_share": 0.9568965517241379,
+    "below": 10,
+    "below_share": 0.028735632183908046,
+    "count": 348,
+    "out_of_bounds": 5,
+    "out_of_bounds_share": 0.014367816091954023
+  },
+  "evaluated_checkpoint_snapshot": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_bar_ceiling/instrumented/checkpoint_snapshot.pth",
+  "evaluated_checkpoint_snapshot_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+  "evaluation_receipt": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_bar_ceiling/instrumented/205bars.receipt.json",
+  "evaluator_script": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/eval_navrl_v2_density_sweep.sh",
+  "evaluator_script_sha256": "c3436d24a3c0ca3d59c01dbfb85aca4efd2d348e45b43d74f855b8bf4a2bfba3",
+  "outcome": {
+    "capture_rate": 0.8008784773060029,
+    "captured": 1641,
+    "closest_nocrash_best_m": 0.08837469667196274,
+    "closest_nocrash_count": 1701,
+    "closest_nocrash_mean_m": 0.9530545800775377,
+    "crash": 348,
+    "crash_rate": 0.1698389458272328,
+    "ever_reached_rate": 0.7979502196193266,
+    "timeout": 60,
+    "timeout_rate": 0.029282576866764276
+  },
+  "python_environment_manifest": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_bar_ceiling/instrumented/python_environment.txt",
+  "python_environment_manifest_sha256": "0189441304cdb593376f86e03f461bf12a296d1d9b7b80293038e02b389b2044",
+  "requested_episodes": 2049,
+  "runtime_git_commit": "80590adc30c4ba7a6650445bdf4650efcf169ecc",
+  "runtime_git_dirty": true,
+  "runtime_source_manifest": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_bar_ceiling/instrumented/source_manifest.json",
+  "runtime_source_manifest_sha256": "f0ea670e76de3ba2e06c0fce8d516921da3c206fb5bd8daa919ddb34ebf98292",
+  "runtime_source_snapshot": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_bar_ceiling/instrumented/source_snapshot",
+  "schema_version": 1,
+  "speed_governor": {
+    "contact": {
+      "count": 333,
+      "mean_actual_speed_mps": 1.1535174708824616,
+      "mean_clearance_m": 0.8407956278256074,
+      "mean_executed_speed_mps": 2.0169576300873056,
+      "mean_requested_speed_mps": 3.034195132978686,
+      "mean_requested_ttc_s": 0.321329506936374,
+      "mean_scale": 0.6849400662445091,
+      "mean_step": 101.57357357357357,
+      "mean_stopping_margin_executed_m": -0.1573953143469206,
+      "mean_stopping_margin_requested_m": -1.1622286791558023
+    },
+    "direction_preserved": true,
+    "feedback_executed_previous_action": true,
+    "intervention_rate": 0.26491236211285535,
+    "mean_clearance_m": 7.149742481232328,
+    "mean_executed_speed_mps": 2.7456345154184407,
+    "mean_requested_speed_mps": 2.9645893196497615,
+    "mean_requested_ttc_s": 2.3395588688387283,
+    "mean_scale": 0.9302577839035812,
+    "mode": "riskcap",
+    "near_stop_rate": 0.0,
+    "negative_stopping_margin_executed_rate": 0.09280202588035638,
+    "negative_stopping_margin_requested_rate": 0.1272870704285108,
+    "outcome_steps": {
+      "capture": {
+        "count": 1641,
+        "mean": 131.24375380865325,
+        "p10": 48.0,
+        "p50": 103.0,
+        "p90": 251.0
+      },
+      "crash": {
+        "count": 348,
+        "mean": 100.71264367816092,
+        "p10": 10.0,
+        "p50": 59.5,
+        "p90": 247.0
+      },
+      "timeout": {
+        "count": 60,
+        "mean": 600.0,
+        "p10": 600.0,
+        "p50": 600.0,
+        "p90": 600.0
+      }
+    },
+    "samples": 301696,
+    "sensor_only": true,
+    "target_exclusion_source": "camera_lidar_association"
+  },
+  "strata": {
+    "distance": {
+      "q0": {
+        "capture_rate": 0.8706140350877193,
+        "episodes": 456,
+        "successes": 397
+      },
+      "q1": {
+        "capture_rate": 0.8391472868217055,
+        "episodes": 516,
+        "successes": 433
+      },
+      "q2": {
+        "capture_rate": 0.7894736842105263,
+        "episodes": 551,
+        "successes": 435
+      },
+      "q3": {
+        "capture_rate": 0.714828897338403,
+        "episodes": 526,
+        "successes": 376
+      }
+    },
+    "distance_bin_edges_m": [
+      6.0,
+      11.5,
+      17.0,
+      22.5,
+      28.0
+    ],
+    "initial_target_bearing": {
+      "centered_5deg": {
+        "capture_rate": 0.7213114754098361,
+        "captured": 44,
+        "crash": 15,
+        "episodes": 61,
+        "timeout": 2
+      },
+      "negative_y": {
+        "capture_rate": 0.7725321888412017,
+        "captured": 720,
+        "crash": 186,
+        "episodes": 932,
+        "timeout": 26
+      },
+      "positive_y": {
+        "capture_rate": 0.8304924242424242,
+        "captured": 877,
+        "crash": 147,
+        "episodes": 1056,
+        "timeout": 32
+      }
+    },
+    "pattern": {
+      "circle": {
+        "capture_rate": null,
+        "episodes": 0,
+        "successes": 0
+      },
+      "cv": {
+        "capture_rate": 0.7852412488174078,
+        "episodes": 1057,
+        "successes": 830
+      },
+      "waypoint": {
+        "capture_rate": 0.8175403225806451,
+        "episodes": 992,
+        "successes": 811
+      }
+    },
+    "speed": {
+      "q0": {
+        "capture_rate": 0.796875,
+        "episodes": 128,
+        "successes": 102
+      },
+      "q1": {
+        "capture_rate": 0.8105436573311368,
+        "episodes": 607,
+        "successes": 492
+      },
+      "q2": {
+        "capture_rate": 0.8035714285714286,
+        "episodes": 672,
+        "successes": 540
+      },
+      "q3": {
+        "capture_rate": 0.7897196261682243,
+        "episodes": 642,
+        "successes": 507
+      }
+    },
+    "speed_bin_edges_mps": [
+      0.0,
+      0.375,
+      0.75,
+      1.125,
+      1.5
+    ]
+  },
+  "v2_evaluation_contract": {
+    "action_selection": "deterministic",
+    "appearance_appearance_albedo_jitter": 0.0,
+    "appearance_appearance_hue_deg": 0.0,
+    "appearance_appearance_light_gain": 0.0,
+    "appearance_appearance_motion_blur": 0.0,
+    "appearance_appearance_texture_std": 0.0,
+    "arena_xy_m": 40.0,
+    "camera_fov_scale_err": 0.0,
+    "camera_mount_rot_deg": 0.0,
+    "camera_mount_trans_m": 0.0,
+    "depth_noise_std": 0.02,
+    "detection_dropout": 0.3,
+    "detection_dropout_active": 0.0,
+    "detection_latency_s": 0.0,
+    "detector_checkpoint_sha256": "",
+    "detector_min_pixels": 2,
+    "detector_threshold": 0.55,
+    "episode_limit_comparator": "gte",
+    "episode_limit_steps": 600,
+    "fov_curriculum_epochs": 3000,
+    "fov_curriculum_saturated": true,
+    "full_goal_distribution": true,
+    "goal_dist_max_m": 28.0,
+    "goal_dist_min_m": 6.0,
+    "lidar_beams": [
+      4,
+      72
+    ],
+    "lidar_range_m": 12.0,
+    "max_tilt_deg": 45.0,
+    "obstacle_effective_fov_deg": 240.0,
+    "obstacle_fov_deg": 240.0,
+    "obstacle_selector": "cluster_sector",
+    "obstacle_suppress_active": false,
+    "obstacle_tokens": 8,
+    "obstacle_ttc_idle_s": 30.0,
+    "obstacle_ttc_min_speed": 0.15,
+    "oob_margin_m": 1.0,
+    "perception_detection_dropout": 0.3,
+    "perception_detection_dropout_active": 0.0,
+    "perception_detection_latency_s": 0.0,
+    "perception_latency_compensate": false,
+    "perception_latency_ego_motion_fix": true,
+    "perception_latency_lidar_backup": false,
+    "perception_latency_obstacle_fix": "off",
+    "perception_lidar_assoc_gate_m": 0.0,
+    "perception_lidar_range_only_update": false,
+    "perception_lidar_silent_correct": false,
+    "perception_lidar_target_assoc": true,
+    "perception_perturb": false,
+    "perception_pose_clock_offset_s": 0.0,
+    "perception_pose_noise_pos_m": 0.0,
+    "perception_pose_noise_yaw_deg": 0.0,
+    "perception_range_error_m": 0.0,
+    "perception_target_mask_backfill": false,
+    "physics_dt_s": 0.01,
+    "physics_steps_per_rl_step": 10,
+    "physics_substeps": 1,
+    "policy_output_dim": 4,
+    "policy_z_output_overwritten_by_altitude_pi": true,
+    "policy_z_persisted_in_prev_action_observation": true,
+    "pursuer_max_horizontal_request_norm_mps": 3.5355339059327378,
+    "pursuer_per_axis_speed_limit_mps": 2.5,
+    "pursuer_speed_limit_semantics": "per_axis_xy",
+    "range_error_m": 0.0,
+    "reflection_mode": "original",
+    "rgb_noise_std": 0.015,
+    "rl_step_dt_s": 0.1,
+    "runtime_num_envs": 128,
+    "runtime_profile": "main",
+    "runtime_sim": "base_sim",
+    "runtime_sim_config_class": "BaseSimConfig",
+    "schema_version": 2,
+    "seed": 167,
+    "sim_physics_contract": "base_sim_dt0.01",
+    "speed_governor_brake_mps2": 2.9608856678,
+    "speed_governor_fixed_mps": 2.0,
+    "speed_governor_free_mps": 3.53553390593,
+    "speed_governor_half_width_m": 0.45,
+    "speed_governor_margin_m": 0.45,
+    "speed_governor_mode": "riskcap",
+    "speed_governor_reaction_s": 0.1,
+    "speed_governor_release_m": 5.0,
+    "speed_governor_slow_m": 3.0,
+    "speed_governor_target_exclusion": "camera_lidar_association",
+    "speed_governor_ttc_s": 1.2,
+    "target_pattern": "mixed",
+    "target_speed_distribution": "uniform",
+    "target_speed_max_mps": 1.5,
+    "target_speed_min_mps": 0.3,
+    "target_speed_mps": null,
+    "tilt_comp": true,
+    "timeout_observed_at_step": 600
+  }
+}

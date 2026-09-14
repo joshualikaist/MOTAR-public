@@ -1,0 +1,246 @@
+{
+  "schema": "motar_research_execution_authority_v1",
+  "frozen_at": "2026-08-26",
+  "amended_at": "2026-09-01",
+  "scope": "post_track_a_stage1_track_b_recovery_v2_and_corrected_nonoverlap_route_gate_r2",
+  "hardware_state": {
+    "assembled_airframe": false,
+    "real_sensor_logs": 0,
+    "real_flights": 0,
+    "sim_to_real_claim_authorized": false
+  },
+  "track_a": {
+    "result": "RANGE_INCONCLUSIVE_AT_THIS_BUDGET",
+    "stage2_authorised": false,
+    "p2": "STRICT FAIL",
+    "d1": "FAIL",
+    "p3": "BLOCKED",
+    "allowed_next": [
+      "exact_hardware_bom_and_geometry",
+      "sensor_calibration_and_timestamp_contract",
+      "210_independent_sensor_trials",
+      "real_log_profile_and_offline_replay"
+    ],
+    "prohibited_without_new_preregistration_and_hardware_evidence": [
+      "detection_range_stage2",
+      "fresh_ppo",
+      "threshold_relaxation"
+    ]
+  },
+  "track_b": {
+    "execution_integrity": "PASS_32_CELL_INTEGRITY",
+    "route_mechanism": "FAIL_ROUTE_MECHANISM",
+    "no_anchor_followup": "INCONCLUSIVE",
+    "long_training_authorized": false,
+    "allowed_next": [
+      "archive_and_report_frozen_evidence"
+    ],
+    "prohibited": [
+      "additional_gpu_probe",
+      "ppo_training",
+      "gain_or_margin_retune",
+      "canonical_1p5_claim",
+      "environment_count_change",
+      "cell_or_grid_rerun"
+    ]
+  },
+  "corrected_environment_v2_2026_08_27": {
+    "reason": "navrl_band silently merged nominal bars into compound obstacles",
+    "placement": "footprint_clearance",
+    "surface_clearance_m": 0.45,
+    "overlap_fallback": false,
+    "collision_proxy_xyz_m": [0.283, 0.283, 0.12],
+    "existing_checkpoint_compatible": false,
+    "fresh_ppo_required": true,
+    "training_density_start_bars": 70,
+    "training_density_final_bars": 205,
+    "training_density_step_bars": 15,
+    "asset_and_evaluation_max_bars": 300,
+    "yopov2_count_density_reference_bars": [64, 100],
+    "long_training_authorized": false,
+    "density_geometry_audit": {
+      "binding_inflation": "body_plus_tracking",
+      "goal_band": "canonical_6_28",
+      "training_cap_bars": 205,
+      "training_cap_passes": true,
+      "highest_passing_density_bars": 250,
+      "disconnected_at_bars": 300,
+      "authorizes_ppo": false
+    },
+    "route_physical_gate_r2": {
+      "preregistration": "docs/preregistration_corrected_nonoverlap_route_gate_r2_2026-08-31.md",
+      "result": "results/navrl_corrected_nonoverlap_route_gate_r2_seed829/summary.json",
+      "execution_integrity": "PASS_32_CELL_INTEGRITY",
+      "route_mechanism": "FAIL_ROUTE_MECHANISM",
+      "full_1p5_contract": "FAIL_FULL_1P5_CONTRACT",
+      "plan_success_fraction_70": 0.17783094098883573,
+      "fallback_interval_fraction_70": 0.30015625,
+      "goal_completions_per_env_70_speed_0p6": 0.21875,
+      "highest_passing_speed_mps_by_density": {
+        "70": null,
+        "115": null,
+        "160": null,
+        "205": null
+      },
+      "ppo_policy_loaded": false,
+      "fresh_ppo_epochs_run": 0,
+      "authorizes_ppo": false
+    },
+    "braking_aware_route_v3": {
+      "preregistration": "docs/preregistration_braking_aware_route_v3_2026-09-01.md",
+      "preregistration_sha256": "cceecb9ad4a538e7bc2bc9171436e823ef18652e9c971e0d6fa8174279df6056",
+      "mode": "global_astar_braking_v3",
+      "implementation_status": "canonical_1p5_receipt_nogo",
+      "gpu_authority": false,
+      "authorizes_ppo": false,
+      "warmup_final_speed_mean_mps": 1.442577,
+      "warmup_abs_error_mean_mps": 0.057423
+    },
+    "braking_aware_route_v3_lower1p25": {
+      "preregistration": "docs/preregistration_braking_aware_route_v3_lower1p25_2026-09-01.md",
+      "preregistration_sha256": "cd1347121c24ecd10273189360bed9ca76ffa80673aa89addf3ff0eaebc16252",
+      "matched_spawn_preregistration": "docs/preregistration_braking_aware_route_v3_lower1p25_matched_spawn_2026-09-01.md",
+      "matched_spawn_preregistration_sha256": "17e7f35e350087bf2733aca70dfca7210efe667ad1845dd053f7334ddf1645b4",
+      "mode": "global_astar_braking_v3",
+      "contract_variant": "baseline_1p25",
+      "speeds_mps": [0.6, 0.9, 1.2, 1.25],
+      "implementation_status": "matched_spawn_pilot_failed",
+      "gpu_authority": false,
+      "gpu_authority_consumed": true,
+      "gpu_authority_scope": "one fresh baseline_1p25 receipt and one seed-829 70-bar 8-cell pilot only",
+      "execution_authority": "docs/preregistration_braking_aware_route_v3_lower1p25_matched_spawn_gpu_authority_2026-09-01.md",
+      "execution_authority_sha256": "70b8a08f0c95040a86c43e1be5ac11d0b688b9a6874f3cfc4548f914882f085f",
+      "authorizes_ppo": false,
+      "fresh_braking_receipt_required": false,
+      "braking_receipt": "results/navrl_physical_target_braking_lower1p25_matched_spawn_seed827_2026-09-01/receipt.json",
+      "braking_receipt_sha256": "18425bfc9cb618834b37435b8d83a07dc1af69e56aa02459f00a94c544e075cc",
+      "pilot_result": "results/navrl_braking_route_v3_lower1p25_matched_spawn_seed829/summary.json",
+      "pilot_result_sha256": "8e4b71bc9095f64065140f2838904bab8b7be868c7d97025953fb451041a49fc",
+      "pilot_execution_integrity": "PASS_8_CELL_INTEGRITY",
+      "pilot_gate": "FAIL_BLOCKS_CONFIRMATORY",
+      "confirmatory_authorized": false,
+      "superseded_braking_receipt_sha256": "6d71b0be34ffb166d23aff9f6897cf41b5bb82a4a488d24403d735cf97852485"
+    },
+    "route_off_learning_viability_smoke": {
+      "preregistration": "docs/preregistration_corrected_nonoverlap_physical_off_smoke_2026-09-01.md",
+      "preregistration_sha256": "23181001d29e9d34295f63f153791e6ee4492a00431b209edc7454db885974d1",
+      "launcher": "aerial_gym/rl_training/rl_games/train_navrl_corrected_nonoverlap_physical_smoke.sh",
+      "mode": "route_off",
+      "target_speed_max_mps": 1.25,
+      "fixed_bars": 70,
+      "max_epochs": 500,
+      "fresh_only": true,
+      "gpu_authority": false,
+      "gpu_authority_consumed": true,
+      "gpu_authority_scope": "one seed-907 500-epoch fixed-70 learning-viability smoke only",
+      "authorizes_routed_ppo": false,
+      "authorizes_long_training": false,
+      "status": "PASS_LEARNING_VIABILITY",
+      "result": "results/navrl_corrected_nonoverlap_physical_off_smoke_seed907/summary.json",
+      "result_sha256": "85758ba6b6bef7b0097afe6e14c6dbcf6f127d1d80595a70da2fcbf699ec1a89",
+      "capture_delta_pp": 49.3840394595888,
+      "reward_delta": 224.07996500000002,
+      "authorizes_route_off_curriculum_preregistration": true
+    },
+    "route_off_curriculum": {
+      "preregistration": "docs/preregistration_corrected_nonoverlap_physical_off_curriculum_2026-09-01.md",
+      "preregistration_sha256": "d10a19fe570aa2a73e88cc8e1a301618738fee55ee592f24675ba84117ae5ec8",
+      "launcher": "aerial_gym/rl_training/rl_games/train_navrl_corrected_nonoverlap_physical_curriculum.sh",
+      "seed": 911,
+      "max_epochs": 30000,
+      "density_bars": [70, 205, 15],
+      "target_speed_max_mps": 1.25,
+      "fresh_only": true,
+      "gpu_authority": false,
+      "gpu_authority_consumed": true,
+      "gpu_authority_scope": "one seed-911 fresh route-off 70-to-205 curriculum run only",
+      "authorizes_routed_ppo": false,
+      "authorizes_hardware_claim": false,
+      "status": "OPERATOR_STOPPED_INCOMPLETE",
+      "run": "ppo_260901_1431_navrl_corrected-nonoverlap-physical-off-curriculum-s911",
+      "superseded_incomplete_run": "ppo_260901_1259_navrl_corrected-nonoverlap-physical-off-curriculum-s911",
+      "session_log": "aerial_gym/rl_training/rl_games/train_session_logs/corrected_nonoverlap_physical_off_curriculum_260901_143136.log",
+      "source_manifest_sha256": "42ee349201ae5220d13fdee3dd9e756502cabb70ba7ece0faab9836dcd2b03a3",
+      "stop_epoch": 21973,
+      "stop_bars": 145,
+      "resume_forbidden": true
+    },
+    "route_off_heldout_eval": {
+      "preregistration": "docs/preregistration_corrected_nonoverlap_physical_off_heldout_eval_2026-09-02.md",
+      "preregistration_sha256": "072060a82421ea67c6b1abfbb541d67ca89b7a26dd091a849f893edc520708c5",
+      "launcher": "aerial_gym/rl_training/rl_games/eval_navrl_corrected_nonoverlap_physical_off_heldout.sh",
+      "parent_run": "ppo_260901_1431_navrl_corrected-nonoverlap-physical-off-curriculum-s911",
+      "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260901_1431_navrl_corrected-nonoverlap-physical-off-curriculum-s911/nn/last_gen_ppo_ep_21750_rew_83.1572.pth",
+      "checkpoint_sha256": "541b36bdcabacf8bb14c6fbb0ad07054dd9735ad24777a3222655ba8ca9c8132",
+      "eval_seed": 313,
+      "training_seed_forbidden": 911,
+      "episodes_per_cell": 2049,
+      "densities": [70, 85, 100, 115, 130, 145],
+      "ood_205_included": false,
+      "gen_ppo_forbidden": true,
+      "action_mode": "deterministic",
+      "target_speed_max_mps": 1.25,
+      "target_route_mode": "off",
+      "placement": "footprint_clearance",
+      "gpu_authority": false,
+      "gpu_authority_consumed": true,
+      "gpu_authority_scope": "one seed-313 held-out density sweep of last_gen_ppo_ep_21750 at trained densities 70-145 only",
+      "authorizes_routed_ppo": false,
+      "authorizes_second_curriculum": false,
+      "authorizes_resume": false,
+      "status": "COMPLETE_VALID_WITH_METADATA_ERRATUM",
+      "result_root": "results/navrl_corrected_nonoverlap_physical_off_heldout_seed313",
+      "result_summary": "results/navrl_corrected_nonoverlap_physical_off_heldout_seed313/summary.json",
+      "result_summary_sha256": "fd52ad6c4d4a9ba564510fd556cfd561b48ab9771a22799ecdc9956f84249559",
+      "capture_rate_70": 0.8369936554416789,
+      "capture_rate_145": 0.6554416788677404,
+      "capture_delta_70_to_145_pp": -18.155197657393852,
+      "metadata_erratum": "redundant v2_evaluation_contract target_speed_max recorded 1.5; measured condition and runtime validator attest 1.25; raw evidence unchanged"
+    },
+    "next_gate": "held-out sweep is complete; offline bottleneck analysis and a new preregistration are required before any GPU work; do not resume 1431, start a second curriculum, evaluate 205 as mastery, or open routed PPO"
+  },
+  "evidence": [
+    {
+      "path": "results/navrl_ref5in_detection_range_stage1_s457/summary.json",
+      "sha256": "228e7d212bdf5564f1d877600d543140029ce4f2330775c45823c3f041ce0b75"
+    },
+    {
+      "path": "results/navrl_physical_target_recovery_v2_gate_lower1p25_seed827/summary.json",
+      "sha256": "a85e95764061b7b20cacaa622efc44e2d7e31e054e398f57cfdf48ec98e6c04f"
+    },
+    {
+      "path": "results/navrl_physical_target_recovery_v2_no_connector_forensics_seed827/summary.json",
+      "sha256": "bc5d05a3f36da9213989c84ae28eda9ad65b0ba60b55dc2bbe4b5d262a12b8ee"
+    },
+    {
+      "path": "results/navrl_v2_density_geometry_audit_2026-08-27/density_geometry_canonical_6_28.json",
+      "sha256": "6b1f1b36cf73409d0c09483c3e1767b7ff196aecf0b95769f0e07d8dffa268d5"
+    },
+    {
+      "path": "results/navrl_corrected_nonoverlap_route_gate_r2_seed829/summary.json",
+      "sha256": "4a464521015c110805d46392b0355297c7328ac5b006be368f6b9a23dcf389d7"
+    },
+    {
+      "path": "results/navrl_braking_route_v3_lower1p25_matched_spawn_seed829/summary.json",
+      "sha256": "8e4b71bc9095f64065140f2838904bab8b7be868c7d97025953fb451041a49fc"
+    },
+    {
+      "path": "results/navrl_corrected_nonoverlap_physical_off_smoke_seed907/summary.json",
+      "sha256": "85758ba6b6bef7b0097afe6e14c6dbcf6f127d1d80595a70da2fcbf699ec1a89"
+    },
+    {
+      "path": "results/navrl_corrected_nonoverlap_physical_off_heldout_seed313/summary.json",
+      "sha256": "fd52ad6c4d4a9ba564510fd556cfd561b48ab9771a22799ecdc9956f84249559"
+    }
+  ],
+  "claim_boundary": {
+    "supported": "simulation failure analysis under frozen contracts",
+    "unsupported": [
+      "working_route_recovery",
+      "physical_target_training_success",
+      "hardware_validation",
+      "sim_to_real_performance",
+      "transformer_is_universally_better_than_rnn"
+    ]
+  }
+}

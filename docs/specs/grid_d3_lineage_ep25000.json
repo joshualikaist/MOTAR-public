@@ -1,0 +1,41 @@
+{
+ "prereg": "docs/plans/lateral_contact_density_plan_2026-09-05.md#D3",
+ "seed": 523,
+ "episodes": 2049,
+ "frame_sample_every": 100,
+ "cells": [
+  {
+   "name": "ep25000_d070_riskcap",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc"
+   }
+  },
+  {
+   "name": "ep25000_d070_riskcap_arc",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap_arc"
+   }
+  }
+ ],
+ "contract": "v2"
+}

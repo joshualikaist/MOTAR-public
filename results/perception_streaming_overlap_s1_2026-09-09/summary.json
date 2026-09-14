@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_OUTPUT_PRESERVED_SELECTED",
+  "frames_per_run": 2296,
+  "repetitions_per_arm": 3,
+  "execution_order": ["serial", "overlap", "overlap", "serial", "serial", "overlap"],
+  "test_used": false,
+  "runtime": {
+    "executable": "/home/fair/workspaces/aerial_gym_ws/detector_runs/venv/bin/python",
+    "python": "3.10.19",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "cudnn": 91002,
+    "opencv": "5.0.0",
+    "numpy": "2.2.6",
+    "device_name": "NVIDIA GeForce RTX 3070"
+  },
+  "parity": {
+    "candidate_frame_mismatches_each_run": [0, 0, 0, 0, 0, 0],
+    "rank_mismatches_each_run": [0, 0, 0, 0, 0, 0],
+    "motion_frame_bit_mismatches_each_run": [0, 0, 0, 0, 0, 0],
+    "motion_float32_sha256_all_runs": "33c1af2909dfaabdbda5770d9bd3595e72fd2e7bfd3d8336a245a664f74e4f9d",
+    "metrics_exact_match_each_run": [true, true, true, true, true, true]
+  },
+  "metrics": {
+    "selected_frames": 2122,
+    "hit_frames_iou_ge_threshold": 1848,
+    "frame_hit_rate": 0.8048780487804879,
+    "no_lock_frames": 174,
+    "proxy_false_lock_frames": 274,
+    "proxy_false_lock_rate_among_selected": 0.1291234684260132,
+    "matched_center_error_px_mean": 1.9417959153651956,
+    "matched_center_error_px_median": 1.0337817507375755,
+    "loss_events_after_first_hit": 106,
+    "reacquired_events": 102,
+    "right_censored_loss_events": 4,
+    "reacquisition_seconds_mean": 0.47032613674509804,
+    "reacquisition_seconds_max": 19.933222037,
+    "selection_utility": 0.6855400696864111
+  },
+  "serial": {
+    "fps_each_run": [14.707313993201103, 14.698130009765796, 14.768795312885361],
+    "fps_run_mean": 14.72474643861742,
+    "pooled_latency_ms": {
+      "detector": {"mean": 27.282999510517076, "p50": 25.228587983292527, "p95": 31.765268556773663},
+      "motion": {"mean": 32.87399790766299, "p50": 35.66755751671735, "p95": 39.27550905937096},
+      "selector": {"mean": 2.406569971814135, "p50": 2.333736512809992, "p95": 2.746301439765374},
+      "with_decode": {"mean": 67.91319206263826, "p50": 67.89110401587095, "p95": 70.63856985187158}
+    }
+  },
+  "overlap": {
+    "fps_each_run": [22.279727656545642, 22.583008657723113, 22.569092862746395],
+    "fps_run_mean": 22.477276392338382,
+    "pooled_latency_ms": {
+      "detector": {"mean": 27.182977050112864, "p50": 24.389990503550507, "p95": 32.51461418403778},
+      "motion_wait_and_gmc": {"mean": 9.311865636968584, "p50": 15.375653994851746, "p95": 17.669751249195542},
+      "selector": {"mean": 2.3313667739398545, "p50": 2.311425982043147, "p95": 2.6987693083356135},
+      "with_decode": {"mean": 44.49110467136859, "p50": 45.370734500465915, "p95": 47.48074549715966}
+    }
+  },
+  "improvement": {
+    "mean_latency_reduction_percent": 34.48827345601252,
+    "fps_increase_percent": 52.649666913034366
+  },
+  "source_sha256": {
+    "perception_streaming.py": "b07cdcc2728bade6bf50162b0d12180676076ab15fc6f4248541ff1a100e162f",
+    "verify_perception_streaming.py": "f3b8d50f1cd1752d08cb7ee313d7c809c307d2c8ad353c20c470791f434ff29e",
+    "build_perception_motion_features.py": "02b1555d2e295c25241484fbf1dcfa301fc1c2a21e3f9460691599954916e7c9",
+    "runtime_fingerprint.py": "5f617d9fade3a0d1bf547748b85e5b2949d48e2716e1360f5f5836b88014c25d",
+    "benchmark_perception_overlap.py": "7ff26d328945b75309285c76eea7edd7628e54a2452ab63e9d2073807c982e98"
+  },
+  "raw_artifact_sha256": {
+    "receipt.json": "aab3abb2e9353bda544578c05dcde8dda507a660b79bb453fe0dd524e5282ee7",
+    "serial_1.json": "f582b6e7b5806f765e8af7ff7dc42e81ebd9376c075def31a2e2dff828cb942e",
+    "serial_2.json": "f9d56547aa79aadfe467460a87d020ffe9aa28bce5e8af0921ef1ec85f1f6843",
+    "serial_3.json": "3807512d4200f7d2adae54d609718564639fa49592a0832f04d25db972a193c2",
+    "overlap_1.json": "943b14767d2a4499627239c5a84f665b6badd3903caa8eea7ed2f5715da20969",
+    "overlap_2.json": "c4f32deb09eb5a098af145b281711e2d8a900e647744003ca1e5ff5403b1a867",
+    "overlap_3.json": "cd497e5afd294022e81408a4180fac8d06af431d3f63b93a9b9c622870cabcf6"
+  }
+}

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">안전필터 진단</title><desc id="desc">기존 구조도와 최신 해석 범위를 함께 읽는 발표용 요약</desc><rect width="1600" height="900" fill="#f4f7fa"/><g font-family="Arial, Noto Sans CJK KR, sans-serif">
+<text x="52" y="48" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">MOTAR / RESEARCH EVIDENCE</text>
+<text x="1548" y="48" font-size="16" fill="#526775" font-weight="700" text-anchor="end">2026-09-10 · SIMULATION</text>
+<text x="52" y="108" font-size="39" fill="#142d3b" font-weight="700" text-anchor="start">안전필터 진단</text>
+<text x="52" y="153" font-size="22" fill="#526775" font-weight="400" text-anchor="start">기존 구조도와 최신 해석 범위를 함께 읽는 발표용 요약</text>
+<svg x="52" y="185" xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 850" role="img" aria-labelledby="context-title context-desc"><title id="context-title">SIMULATION / 주장 범위 · 2026-09-10</title><desc id="context-desc">필터 구조와 실패를 설명하는 기존 그림입니다. 학습 시드 반복 뒤 공동적응 주장은 철회됐습니다. 구조 설명만으로 안전성을 보장하지 않습니다.</desc>
+<!-- ORIGINAL_PANEL_START -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 700" width="960" height="700" role="img" aria-labelledby="sTitle sDesc">
+  <title id="sTitle">MOTAR speed governor: structure, blind spots, and the measured verdicts</title>
+  <desc id="sDesc">The governor selects LiDAR rays inside a straight corridor around the commanded direction, computes a speed cap, and scales only the magnitude of the horizontal command. Direction is never changed. The corridor is blind to lateral, vertical, and unreturned space, which is why collisions persist even when the stopping margin is positive.</desc>
+  <style>
+    .t   { font: 600 15px system-ui, sans-serif; fill: #0f172a; }
+    .h   { font: 700 13px system-ui, sans-serif; fill: #0f172a; }
+    .b   { font: 12px system-ui, sans-serif; fill: #334155; }
+    .m   { font: 11px ui-monospace, monospace; fill: #475569; }
+    .bad { font: 700 12px system-ui, sans-serif; fill: #b91c1c; }
+    .badb{ font: 12px system-ui, sans-serif; fill: #b91c1c; }
+    .ok  { font: 700 12px system-ui, sans-serif; fill: #047857; }
+    .cap { font: 11px system-ui, sans-serif; fill: #64748b; }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 8; }
+    .boxbad { fill: #fef2f2; stroke: #dc2626; stroke-width: 2; rx: 8; }
+    .boxin  { fill: #f0f9ff; stroke: #0284c7; stroke-width: 1.5; rx: 8; }
+    .boxout { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 8; }
+    .ar  { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#a2); }
+    .arbad { stroke: #dc2626; stroke-width: 2.5; fill: none; marker-end: url(#ab2); stroke-dasharray: 6 4; }
+  </style>
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="ab2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="700" fill="#f8fafc"/>
+  <text x="24" y="34" class="t">Speed governor — 구조와 맹점</text>
+  <text x="24" y="54" class="cap">aerial_gym/task/navrl_task/speed_governor.py · 방향은 절대 바꾸지 않고 XY 크기만 조정한다</text>
+
+  <!-- Pipeline -->
+  <rect x="24" y="76" width="172" height="100" class="boxin"/>
+  <text x="36" y="98" class="h">1 · LiDAR</text>
+  <text x="36" y="118" class="m">4 × 72 rays, 12 m</text>
+  <text x="36" y="138" class="b">현재: association으로 제외</text>
+  <text x="36" y="158" class="cap">detector-dependent</text>
+
+  <path d="M196,126 L238,126" class="ar"/>
+
+  <rect x="240" y="76" width="196" height="100" class="box"/>
+  <text x="252" y="98" class="h">2 · 방향 회랑 선택</text>
+  <text x="252" y="118" class="m">반폭 0.45 m, 직선</text>
+  <text x="252" y="138" class="b">명령 방향 주위만</text>
+  <text x="252" y="158" class="cap">clearance = min(forward)</text>
+
+  <path d="M436,126 L478,126" class="ar"/>
+
+  <rect x="480" y="76" width="196" height="100" class="box"/>
+  <text x="492" y="98" class="h">3 · cap 법칙</text>
+  <text x="492" y="118" class="m">off / fixed / clearance</text>
+  <text x="492" y="138" class="m">ttc / riskcap / stopcap</text>
+  <text x="492" y="158" class="cap">6개 모드 중 1개 선택</text>
+
+  <path d="M676,126 L718,126" class="ar"/>
+
+  <rect x="720" y="76" width="216" height="100" class="boxout"/>
+  <text x="732" y="98" class="h">4 · 크기만 스케일</text>
+  <text x="732" y="118" class="m">v = u · min(‖v‖, cap)</text>
+  <text x="732" y="138" class="ok">방향 불변</text>
+  <text x="732" y="158" class="cap">정책이 방향을 고른다</text>
+
+  <!-- Blind spots -->
+  <rect x="24" y="200" width="912" height="132" class="boxbad"/>
+  <text x="40" y="224" class="t">회랑이 못 보는 것 — 이것이 남은 충돌의 원인이다</text>
+
+  <rect x="40" y="238" width="212" height="80" class="box"/>
+  <text x="52" y="260" class="h">측방</text>
+  <text x="52" y="280" class="badb">반폭 0.45 m 밖 장애물</text>
+  <text x="52" y="300" class="cap">회랑에 안 들어오면 12 m로 간주</text>
+
+  <rect x="264" y="238" width="212" height="80" class="box"/>
+  <text x="276" y="260" class="h">수직 (z)</text>
+  <text x="276" y="280" class="badb">z 명령은 무규제</text>
+  <text x="276" y="300" class="cap">command_xy만 전달됨</text>
+
+  <rect x="488" y="238" width="212" height="80" class="box"/>
+  <text x="500" y="260" class="h">미지 공간</text>
+  <text x="500" y="280" class="badb">무반사 ray = 자유로 간주</text>
+  <text x="500" y="300" class="cap">미지 = 안전 가정</text>
+
+  <rect x="712" y="238" width="212" height="80" class="box"/>
+  <text x="724" y="260" class="h">직선 가정</text>
+  <text x="724" y="280" class="badb">다음 스텝 방향 전환 미모델</text>
+  <text x="724" y="300" class="cap">회랑은 무한 직선</text>
+
+  <!-- Evidence -->
+  <rect x="24" y="352" width="912" height="162" class="box"/>
+  <text x="40" y="376" class="t">별도 stopcap screen (frozen ep25000, seed 49, 205 bars, 2,049~2,051 ep/cell)</text>
+
+  <text x="40"  y="404" class="h">mode</text>
+  <text x="200" y="404" class="h">capture</text>
+  <text x="300" y="404" class="h">crash</text>
+  <text x="400" y="404" class="h">timeout</text>
+  <text x="510" y="404" class="h">개입률</text>
+  <text x="620" y="404" class="h">접촉 시 실행속도</text>
+  <text x="790" y="404" class="h">읽는 법</text>
+
+  <text x="40"  y="428" class="b">off</text>
+  <text x="200" y="428" class="b">73.16 %</text>
+  <text x="300" y="428" class="badb">25.18 %</text>
+  <text x="400" y="428" class="b">1.66 %</text>
+  <text x="510" y="428" class="b">0 %</text>
+  <text x="620" y="428" class="b">3.044 m/s</text>
+  <text x="790" y="428" class="cap">기준선</text>
+
+  <text x="40"  y="452" class="ok">fixed 2.0</text>
+  <text x="200" y="452" class="b">81.31 %</text>
+  <text x="300" y="452" class="ok">14.06 %</text>
+  <text x="400" y="452" class="b">4.64 %</text>
+  <text x="510" y="452" class="b">95.67 %</text>
+  <text x="620" y="452" class="b">1.972 m/s</text>
+  <text x="790" y="452" class="ok">최저 crash (14.06 %)</text>
+
+  <text x="40"  y="476" class="b">riskcap</text>
+  <text x="200" y="476" class="b">81.71 %</text>
+  <text x="300" y="476" class="b">15.95 %</text>
+  <text x="400" y="476" class="b">2.34 %</text>
+  <text x="510" y="476" class="b">25.66 %</text>
+  <text x="620" y="476" class="b">2.024 m/s</text>
+  <text x="790" y="476" class="bad">해제 기구 무실증</text>
+
+  <text x="40"  y="500" class="b">stopcap</text>
+  <text x="200" y="500" class="b">69.19 %</text>
+  <text x="300" y="500" class="badb">21.31 %</text>
+  <text x="400" y="500" class="badb">9.51 %</text>
+  <text x="510" y="500" class="b">36.85 %</text>
+  <text x="620" y="500" class="b">0.302 m/s</text>
+  <text x="790" y="500" class="bad">양수인데 악화 (brake 2.96)</text>
+
+  <!-- Two verdicts -->
+  <rect x="24" y="522" width="450" height="156" class="boxbad"/>
+  <text x="40" y="546" class="h">확정 ① 충돌은 종방향 정지 실패가 아니다</text>
+  <text x="40" y="570" class="b">stopcap은 하한을 없애 접촉 속도를</text>
+  <text x="40" y="590" class="b">2.024 → <tspan class="bad">0.302 m/s</tspan>로 낮췄고 정지여유도</text>
+  <text x="40" y="610" class="b">−0.026 → <tspan class="bad">+0.395 m(양수)</tspan>가 됐다.</text>
+  <text x="40" y="632" class="b">그런데 crash는 15.95 → <tspan class="bad">21.31 %</tspan>로 올랐다.</text>
+  <text x="40" y="656" class="cap">A7: brake 2.0이면 16.25 %(riskcap +0.3 pp, 비유의) · 70 bars에선 −6.5/−5.5 pp</text>
+  <text x="40" y="672" class="cap">법칙의 이득은 조건 의존 · 원호 기하는 안전 대신 timeout·개입 비용만 회수</text>
+
+  <rect x="486" y="522" width="450" height="156" class="boxbad"/>
+  <text x="502" y="546" class="h">확정 ② riskcap의 해제 기구는 실증되지 않았다</text>
+  <text x="502" y="570" class="b">riskcap − fixed 2.0 (동일 seed 최초 비교):</text>
+  <text x="502" y="592" class="m">capture +0.40 pp, CI95 [−1.98, +2.78]</text>
+  <text x="502" y="612" class="b">CI가 0을 포함 → <tspan class="bad">MECHANISM_UNSUPPORTED</tspan></text>
+  <text x="502" y="634" class="b">crash는 오히려 fixed 2.0이 <tspan class="ok">1.89 pp 낮다</tspan>.</text>
+  <text x="502" y="658" class="cap">개입률 95.67 % vs 25.66 %로 완전히 다른데 결과는 동률 이하.</text>
+  <text x="502" y="674" class="cap">"열린 방향에서 해제한다"는 존재 이유가 실증되지 않았다.</text>
+</svg>
+<!-- ORIGINAL_PANEL_END -->
+<rect y="700" width="960" height="150" fill="#e4f1ee"/><g font-family="Arial, Noto Sans CJK KR, sans-serif"><text x="40" y="739" font-size="20" fill="#007f73" font-weight="700">SIMULATION / 주장 범위 · 2026-09-10</text><text x="40" y="778" font-size="18" fill="#526775">필터 구조와 실패를 설명하는 기존 그림입니다.</text><text x="40" y="807" font-size="18" fill="#526775">학습 시드 반복 뒤 공동적응 주장은 철회됐습니다.</text></g></svg>
+
+<rect x="1040" y="202" width="508" height="557" rx="20" fill="white" stroke="#dce5ea"/>
+<text x="1067" y="250" font-size="27" fill="#007f73" font-weight="700" text-anchor="start">발표에서 강조할 범위</text>
+<text x="1067" y="318" font-size="24" fill="#526775" font-weight="400" text-anchor="start">필터 구조와 실패를 설명하는 기존</text>
+<text x="1067" y="357" font-size="24" fill="#526775" font-weight="400" text-anchor="start">그림입니다.</text>
+<text x="1067" y="426" font-size="24" fill="#526775" font-weight="400" text-anchor="start">학습 시드 반복 뒤 공동적응 주장은</text>
+<text x="1067" y="465" font-size="24" fill="#526775" font-weight="400" text-anchor="start">철회됐습니다.</text>
+<text x="1067" y="534" font-size="24" fill="#526775" font-weight="400" text-anchor="start">구조 설명만으로 안전성을 보장하지</text>
+<text x="1067" y="573" font-size="24" fill="#526775" font-weight="400" text-anchor="start">않습니다.</text>
+<path d="M52 804H1548" stroke="#cbd8df"/>
+<text x="52" y="839" font-size="20" fill="#a55316" font-weight="400" text-anchor="start">원본 구조 및 실험 수치는 유지 · 추가된 설명은 검증 범위와 현재 상태를 구분합니다.</text>
+<text x="52" y="875" font-size="16" fill="#526775" font-weight="400" text-anchor="start">근거: README.md 해당 파트 및 연결된 결과 보고서 / 원본: motar-safety-filter.svg</text>
+</g></svg>

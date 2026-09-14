@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Independent Renderer Contract v1 — five figures on measurement resolution, area control, normal fields and transfer cost for a static research renderer.">
+<meta name="theme-color" content="#ffffff">
+<title>Independent Renderer Contract v1 · MOTAR</title>
+<link rel="stylesheet" href="style.css?v=20260827r6">
+<link rel="stylesheet" href="overview.css?v=20260913r2">
+</head>
+<body>
+<a class="skip-link" href="#figures">본문 바로가기</a>
+<header class="paper-nav">
+<a class="paper-mark" href="index.html">MOTAR</a>
+<nav aria-label="페이지 섹션">
+<a href="#figures">Figures</a>
+<a href="#evidence">Evidence</a>
+<a href="#boundary">Boundary</a>
+<a href="index.html">Main page ↗</a>
+</nav>
+</header>
+
+<main id="top" class="paper">
+<header class="paper-title">
+<p class="paper-kicker">Independent renderer study · figures</p>
+<h1>Renderer Contract v1</h1>
+<p class="paper-subtitle">Measurement resolution, area control, normal fields<br>and the cost of moving pixels to the host</p>
+<p class="paper-meta"><span>14 September 2026</span><span>Static graphics only</span><span>causality_vs_d8b = NOT_TESTED</span></p>
+<p class="paper-links"><a href="../renderer_contract_v1_2026-09-14.md">Contract</a><a href="../renderer_measurement_contract_v1.md">Measurement contract</a><a href="../assets/paper/renderer-contract-v1-2026-09-14/manifest.json">Figure manifest</a></p>
+</header>
+
+<section class="paper-section" id="figures">
+<h2>Figures</h2>
+<p>Five figures, each drawn only from a committed <code>summary.json</code>. The manifest pins the source
+result hashes, the generator and every rendered asset, so a figure cannot drift away from its data.
+Earlier pinned figures are untouched; these are new files.</p>
+<figure class="paper-figure wide"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-1-resolution-convergence.svg" aria-label="Fig RC-1 원본 SVG 열기"><img src="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-1-resolution-convergence.svg" alt="Silhouette measurement convergence." loading="lazy" width="1600" height="600"></a><figcaption><strong>Fig RC-1. Silhouette measurement convergence.</strong> Worst relative discrepancy against a sampled 2048×1536 reference, for every one of the 72 specimen-views. 1280×960 is the smallest tested resolution where every view meets the registered tolerances, so it is the measurement resolution this contract adopts (MEASUREMENT_RESOLUTION_QUALIFIED). These are measured finite-resolution discrepancies, not a proof of absolute accuracy, and they do not revise the historical RC-R1 verdict. <span class="figure-files"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-1-resolution-convergence.svg">SVG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-1-resolution-convergence.png">PNG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-1-resolution-convergence.pdf">PDF</a></span></figcaption></figure>
+<figure class="paper-figure wide"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-2-area-control-validation.svg" aria-label="Fig RC-2 원본 SVG 열기"><img src="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-2-area-control-validation.svg" alt="Multi-view area control, fit and held out." loading="lazy" width="1600" height="600"></a><figcaption><strong>Fig RC-2. Multi-view area control, fit and held out.</strong> A three-axis box scale was fitted on six calibration views, frozen with its hash, and then rendered on 24 disjoint held-out views. It reduces the error against the historical isotropic control but still misses the registered 5 % median and 10 % P90 gates (8.1 % and 11.1 %), so no area-matched control is adopted. No refit followed. <span class="figure-files"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-2-area-control-validation.svg">SVG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-2-area-control-validation.png">PNG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-2-area-control-validation.pdf">PDF</a></span></figcaption></figure>
+<figure class="paper-figure wide"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-3-normal-entropy-vs-shading.svg" aria-label="Fig RC-3 원본 SVG 열기"><img src="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-3-normal-entropy-vs-shading.svg" alt="Visible normal field against shading variation." loading="lazy" width="1600" height="600"></a><figcaption><strong>Fig RC-3. Visible normal field against shading variation.</strong> Shading variance is plotted against the entropy of the visible normal field for 24 views per specimen. Entropy alone does not fix the variance: the mesh has higher median entropy and lower median variance than the box. N1 interpolated and N2 smooth normal arms are UNSUPPORTED because the asset and loader carry no authored vertex normals or smoothing groups. <span class="figure-files"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-3-normal-entropy-vs-shading.svg">SVG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-3-normal-entropy-vs-shading.png">PNG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-3-normal-entropy-vs-shading.pdf">PDF</a></span></figcaption></figure>
+<figure class="paper-figure wide"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-4-timing-breakdown.svg" aria-label="Fig RC-4 원본 SVG 열기"><img src="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-4-timing-breakdown.svg" alt="Renderer timing with the host strategy separated." loading="lazy" width="1600" height="600"></a><figcaption><strong>Fig RC-4. Renderer timing with the host strategy separated.</strong> Four transfer strategies on identical geometry, appearance and views. At 640×480 with 32 scenes the host strategy is 88 % of the staged total for the individual full-copy arm. All seven exported array hashes are identical across arms and repeats, so this is a cost comparison and not an output change. <span class="figure-files"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-4-timing-breakdown.svg">SVG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-4-timing-breakdown.png">PNG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-4-timing-breakdown.pdf">PDF</a></span></figcaption></figure>
+<figure class="paper-figure wide"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-5-contract-diagram.svg" aria-label="Fig RC-5 원본 SVG 열기"><img src="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-5-contract-diagram.svg" alt="Independent Renderer Contract v1." loading="lazy" width="1600" height="600"></a><figcaption><strong>Fig RC-5. Independent Renderer Contract v1.</strong> What determines what, which invariants were measured on the recorded grids, and where the evidence stops. The dotted box is the boundary: no experiment in this track connects a detector, association module or policy. <span class="figure-files"><a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-5-contract-diagram.svg">SVG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-5-contract-diagram.png">PNG</a> · <a href="../assets/paper/renderer-contract-v1-2026-09-14/fig-rc-5-contract-diagram.pdf">PDF</a></span></figcaption></figure>
+</section>
+
+<section class="paper-section" id="evidence">
+<h2>Evidence</h2>
+<table class="paper-table">
+<thead><tr><th>Question</th><th>Study</th><th>Verdict</th><th>Boundary</th></tr></thead>
+<tbody>
+<tr><td>Resolution convergence</td><td>R1b</td><td>MEASUREMENT_RESOLUTION_QUALIFIED</td><td>1280×960 adopted for this coverage only</td></tr>
+<tr><td>Multi-view area control</td><td>R2b</td><td>AREA_CONTROL_FAILED</td><td>no control adopted; held-out gates missed</td></tr>
+<tr><td>Visible normal field</td><td>R3b</td><td>NORMAL_FIELD_CHARACTERIZED</td><td>N1/N2 UNSUPPORTED by the asset</td></tr>
+<tr><td>Compute versus host strategy</td><td>R5b</td><td>TRANSFER_CHARACTERIZED</td><td>seven output hashes invariant</td></tr>
+<tr><td>Downstream causal contribution</td><td>—</td><td>NOT_TESTED</td><td>no such experiment exists in this track</td></tr>
+</tbody>
+</table>
+<p>The first characterization lineage remains published and unchanged, negative verdicts included:
+RC-R1 <code>GEOMETRY_DEFECT</code>, RC-R2 <code>AREA_MATCH_FAILED</code>, RC-R3
+<code>SHADING_GATE_FAILED</code>. These follow-ups do not reinterpret them into passes.</p>
+</section>
+
+<section class="paper-section" id="boundary">
+<h2>Boundary</h2>
+<p>Nothing on this page is evidence about a detector, an association module, a policy or the closed
+D8b frozen-policy result. Area mismatch, shading and mesh geometry are <strong>NOT_TESTED</strong> as
+causes of that loss. Lighting and material grids stay frozen at their earlier results, and no new
+training, detector or policy experiment was opened by this contract.</p>
+</section>
+</main>
+</body>
+</html>

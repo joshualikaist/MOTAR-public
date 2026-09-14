@@ -1,0 +1,124 @@
+{
+  "checks": {
+    "capture_ge_0p65": {
+      "detail": "1399/2049",
+      "pass": true
+    },
+    "crash_le_0p33": {
+      "detail": "536/2049",
+      "pass": true
+    },
+    "descriptive_anchor_complete": {
+      "detail": "not a decision-gate input",
+      "pass": true
+    },
+    "timeout_le_0p05": {
+      "detail": "114/2049",
+      "pass": false
+    }
+  },
+  "created_at_utc": "2026-08-13T06:22:46.331521+00:00",
+  "decision_cell": {
+    "condition": {
+      "action_selection": "deterministic",
+      "bars": 70,
+      "episode_len_steps": 600,
+      "evaluation_nonce": "ef280f27916e41c370ba2501dd679a201e63a49bcf4ea7ca5fab9adb5aec9243",
+      "fov_curriculum_saturated": true,
+      "full_goal_distribution": true,
+      "goal_dist_max_m": 28.0,
+      "goal_dist_min_m": 6.0,
+      "num_envs": 128,
+      "oob_margin_m": 1.0,
+      "physics_dt_s": 0.01,
+      "physics_steps_per_rl_step": 10,
+      "physics_substeps": 1,
+      "policy_output_dim": 4,
+      "policy_z_output_overwritten_by_altitude_pi": true,
+      "policy_z_persisted_in_prev_action_observation": true,
+      "pursuer_max_horizontal_request_norm_mps": 3.5355339059327378,
+      "pursuer_max_speed_mps": 2.5,
+      "pursuer_per_axis_speed_limit_mps": 2.5,
+      "pursuer_speed_limit_semantics": "per_axis_xy",
+      "reflection_mode": "original",
+      "rl_step_dt_s": 0.1,
+      "robot_asset_file": "quad_navrl_ref5in.urdf",
+      "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+      "robot_config_class": "NavRLRef5inQuadCfg",
+      "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+      "robot_name": "navrl_ref5in_quad",
+      "runtime_sim_config_class": "BaseSimConfig",
+      "seed": 313,
+      "speed_governor_brake_mps2": 2.0,
+      "speed_governor_fixed_mps": 2.0,
+      "speed_governor_free_mps": 3.53553390593,
+      "speed_governor_half_width_m": 0.45,
+      "speed_governor_margin_m": 0.45,
+      "speed_governor_mode": "off",
+      "speed_governor_reaction_s": 0.1,
+      "speed_governor_release_m": 5.0,
+      "speed_governor_slow_m": 3.0,
+      "speed_governor_target_exclusion": "camera_lidar_association",
+      "speed_governor_ttc_s": 1.0,
+      "target_pattern": "mixed",
+      "target_speed_max_mps": 1.5,
+      "target_speed_min_mps": 0.3,
+      "target_speed_mode": "uniform",
+      "target_speed_mps": null
+    },
+    "log_sha256": "7573642f5a9830acbe32d971252c3263ce80deb4926ea6ba225e18018e74dfb8",
+    "outcome": {
+      "capture_rate": 0.6827720839433871,
+      "captured": 1399,
+      "closest_nocrash_best_m": 0.1517246961593628,
+      "closest_nocrash_count": 1513,
+      "closest_nocrash_mean_m": 1.8452533723125375,
+      "crash": 536,
+      "crash_rate": 0.26159102000976087,
+      "ever_reached_rate": 0.677891654465593,
+      "timeout": 114,
+      "timeout_rate": 0.055636896046852125
+    },
+    "receipt_json": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_p2_seed313/ref5in/70bars.receipt.json",
+    "receipt_sha256": "56313d5a9e43f2cc388baf1f67127c76d644f8a17c0812042632f590b2a1d727",
+    "result_json": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_p2_seed313/ref5in/70bars.json",
+    "result_sha256": "d3f88b30ea836fb000da0c5ab2747894201f20a7d5b709ee3b5b91e12e70b674"
+  },
+  "descriptive_anchor": null,
+  "evaluation_runtime": {
+    "attestor_script_sha256": "853586937f177dae24ed80edb7c95b0f36281dc0f347757c746f1732f62aba57",
+    "evaluator_script_sha256": "df46894c790ef43ca7d8fc3042d4fa648d94e250cb1ab69ff1ae0e9f8a23666c",
+    "launcher_sha256": "011fcf3f826425a7c404c7a2009c3ccc25967c3b0e4536e415311eff305e7a76",
+    "manifest": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_p2_seed313/source_bundle/source_manifest.json",
+    "manifest_sha256": "b0eec73f7d6fcd0ec59bdcc8700b1bf0e5c99e757fe1a075f740a48477704c1a",
+    "matches_p1c_runtime": true,
+    "python_environment_sha256": "70b26f5afc73f6703d04e36d545a43296aebd299cc04a2626bc72eba6d59003e",
+    "runtime_git_commit": "0a570bffe67bef4e9ab033ba496dc6f34202af0e",
+    "runtime_map_sha256": "bbd3f45447c7e2ba03c51d65149e6028085e4280970703cb9887b2c6eaa8fb3a"
+  },
+  "limitations": [
+    "one training seed",
+    "one held-out evaluation seed",
+    "70-bar decision cell only",
+    "legacy anchor is descriptive and has weaker training provenance",
+    "no hardware validation"
+  ],
+  "p1c": {
+    "checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260813_0540_navrl_v2-ref5in-smoke-c-s197/nn/last_gen_ppo_ep_900_rew_137.08087.pth",
+    "checkpoint_sha256": "f1670a1d74dd92cb00d6a58898e9cc1b96eb9cbe155d1e85812a345e7aaae6bf",
+    "epoch": 900,
+    "frame": 3686400,
+    "python_environment_sha256": "70b26f5afc73f6703d04e36d545a43296aebd299cc04a2626bc72eba6d59003e",
+    "report": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_smoke_seed197/p1c/summary.json",
+    "report_sha256": "14646d816685e3563a9a908205b4eeb81027699f6c31db90a48b90c6f1ed3fb2",
+    "training_runtime_map_sha256": "bbd3f45447c7e2ba03c51d65149e6028085e4280970703cb9887b2c6eaa8fb3a",
+    "training_source_manifest": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/train_source_receipts/ref5in_smoke_c_s197_260813_054048_2228846/source_manifest.json",
+    "training_source_manifest_sha256": "ce4a52b850014eab85ee57315ee1834da2d5d16a92e78dc86d2fa6996efcd1ff"
+  },
+  "performance_claim_allowed": false,
+  "producer": "tools/attest_navrl_ref5in_p2.py",
+  "schema_version": 1,
+  "scope": "ref5in_p2_heldout_70bar_decision",
+  "unlocks": "none",
+  "verdict": "FAIL"
+}

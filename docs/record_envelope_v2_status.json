@@ -1,0 +1,23 @@
+{
+  "record": "record_envelope_v2_status",
+  "as_of": "2026-09-14",
+  "contract": "Record Envelope v2",
+  "schema": "docs/record_envelope_v2.json",
+  "producer": "tools/record_envelope_v2.py",
+  "producer_unit_validation": "PASS",
+  "live_generation_validation": "NOT_APPLICABLE",
+  "live_validation_meaning": "Attempted on the generic renderer dataset exporter and found not applicable: five of the fifteen required fields (density_bars, checkpoint_path/sha256, config_path/sha256) have no honest source in a task-independent producer. The producer refused rather than inventing them. PASS would require a producer that can supply every required field truthfully.",
+  "historical_artifact": {
+    "path": "results/task_diagnostics_invariance_2026-09-14/on_episode_forensics.json",
+    "sha256": "1475b0c226e9dd546938687e575dcfe22d45af0c7603f6d6b5fde2e92278870a",
+    "byte_integrity": "MATCH",
+    "metadata_contract": "INVALID_FOR_DECLARED_CONTRACT",
+    "repaired": false,
+    "backfilled": false
+  },
+  "scope": "Generic provenance and reproducibility only; no policy, evaluation, training or controller work",
+  "causality_vs_d8b": "NOT_TESTED",
+  "live_validation_evidence": "results/record_envelope_v2_live_2026-09-14/README.md",
+  "live_validation_attempted_on": "tools/export_renderer_dataset.py",
+  "schema_design_limitation": "Record Envelope v2 is a task-shaped contract: it inherited seed, density_bars and checkpoint identity from the v1 audit of a simulator artifact. A generic producer cannot fill them. A v2.1 that makes the task section optional is a design change and is NOT made here."
+}

@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motar.invalid/schemas/perception-candidates-v1.json",
+  "title": "MOTAR frozen-detector candidate frame v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "frame_id",
+    "source_sequence_id",
+    "frame_index",
+    "capture_timestamp_ns",
+    "inference_completed_timestamp_ns",
+    "image",
+    "detector",
+    "appearance_encoder",
+    "candidates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "motar.perception-candidates.v1"
+    },
+    "frame_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_sequence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "frame_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "capture_timestamp_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "inference_completed_timestamp_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width_px", "height_px", "coordinate_frame"],
+      "properties": {
+        "width_px": {"type": "integer", "minimum": 1},
+        "height_px": {"type": "integer", "minimum": 1},
+        "coordinate_frame": {"const": "pixel_top_left_u_right_v_down"}
+      }
+    },
+    "detector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "weights_sha256", "confidence_floor", "nms_iou"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "weights_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "confidence_floor": {"type": "number", "minimum": 0, "maximum": 1},
+        "nms_iou": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "appearance_encoder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "weights_sha256", "dimension", "normalization"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "weights_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "dimension": {"const": 64},
+        "normalization": {"const": "l2_unit"}
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rank",
+          "u_px",
+          "v_px",
+          "width_px",
+          "height_px",
+          "confidence",
+          "appearance_64d"
+        ],
+        "properties": {
+          "rank": {"type": "integer", "minimum": 0, "maximum": 4},
+          "u_px": {"type": "number", "minimum": 0},
+          "v_px": {"type": "number", "minimum": 0},
+          "width_px": {"type": "number", "exclusiveMinimum": 0},
+          "height_px": {"type": "number", "exclusiveMinimum": 0},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "appearance_64d": {
+            "type": "array",
+            "minItems": 64,
+            "maxItems": 64,
+            "items": {"type": "number"}
+          }
+        }
+      }
+    }
+  }
+}

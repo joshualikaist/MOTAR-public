@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-23T17:56:48.420948+00:00",
+  "claim_status": "SYNTHETIC_ONLY",
+  "hardware": {
+    "status": "BLOCKED_NO_ASSEMBLED_HARDWARE_OR_SENSOR_LOG"
+  },
+  "steps": {
+    "telemetry": {
+      "verdict": "PASS",
+      "claim_status": "SYNTHETIC_ONLY"
+    },
+    "ingest": {
+      "verdict": "PASS",
+      "claim_status": "SYNTHETIC_ONLY",
+      "events": 5
+    },
+    "sensor_profile": {
+      "verdict": "PASS",
+      "claim_status": "SYNTHETIC_ONLY",
+      "trials": 2
+    },
+    "two_zone_replay": {
+      "verdict": "PASS",
+      "claim_status": "SYNTHETIC_ONLY",
+      "events": 2
+    },
+    "mode_probe": {
+      "verdict": "INCONCLUSIVE_POLICY_CHIRALITY",
+      "authority": "DIAGNOSTIC_ONLY"
+    },
+    "physical_target_gate": {
+      "all_cells_pass": false,
+      "authority": "NO_PPO_PERMISSION"
+    },
+    "fresh_ppo": {
+      "verdict": "BLOCKED",
+      "reason": "physical_gate_and_real_sensor_contract_not_passed"
+    }
+  },
+  "next_real_inputs": [
+    "hardware_manifest",
+    "calibration_yaml_and_sha256",
+    "210_trial_sensor_log",
+    "timestamp_contract"
+  ],
+  "artifacts": {
+    "synthetic_measurements.csv": "42f04a33cbe1ab5bfd22f212d0904d35eca95c2e378d2cb3f5171cb65a8adc1e",
+    "synthetic_sensor_profile.json": "4fa936fa3615a0200ad8f1e178597bf2a3514a0106c0fe4f4d156e61e942974d",
+    "synthetic_transport.csv": "73b503288867c49055f1466abf48f4daa74a2a2eb577bfce45f3b3458939012a",
+    "synthetic_transport.jsonl": "f1900e4b41d69a90d1dfb802a9233d6832a1d1b50337788e74aab64063688994",
+    "telemetry_report.json": "716b2f4241a0a0c7c2ac5a872333ae7153e408b77e9bb272de6e686beed17fd3",
+    "two_zone_contract.json": "609a706e90a449e601ac164ac298716a04e3b409eec97a2c5d818e2cf7d7faed",
+    "two_zone_replay.jsonl": "0c438886f72770daf7e74fc2c0ce6bfc7aa95d2dfa8f9c145055635419006398",
+    "two_zone_report.json": "d5f6d796f0766317f9c06b25f92d6cf6625d7eb067a9cf77da94762a49f28463"
+  }
+}

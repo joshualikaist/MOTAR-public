@@ -1,0 +1,27 @@
+{
+ "prereg": "docs/plans/confirmation_phase_plan_2026-09-06.md#R-A",
+ "question": "Is T1/riskcap (the one cell that failed to reproduce across commits, 343 vs 358 crashes) intrinsically non-deterministic, or was one of the two earlier runs the anomaly?",
+ "design": "The identical cell twice in one root at one commit. Three outcomes: both equal 343 (D4 value; A8 was the anomaly), both equal 358 (A8 value; D4 was), or they differ from each other (the cell itself is non-deterministic).",
+ "contract": "ref5in",
+ "seed": 521,
+ "episodes": 2049,
+ "frame_sample_every": 100,
+ "cells": [
+  {
+   "name": "T1_d070_riskcap_rep1",
+   "policy": "T1",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "T1_d070_riskcap_rep2",
+   "policy": "T1",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  }
+ ]
+}

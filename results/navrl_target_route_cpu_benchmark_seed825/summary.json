@@ -1,0 +1,90 @@
+{
+  "schema": "navrl_target_route_cpu_benchmark_v1",
+  "seed": 825,
+  "densities": [
+    70,
+    150,
+    205,
+    300
+  ],
+  "contract": {
+    "placement": "navrl_band touch=0.4 gap=1.6",
+    "bar_pool": "bars_h3 actual per-asset AABB",
+    "route_resolution_m": 0.25,
+    "target_support_xy_m": [
+      0.20688160865577201,
+      0.20688160865577201
+    ],
+    "tracking_margin_m": 0.45,
+    "boundary_margin_m": 1.25,
+    "connected_goal_min_distance_m": 6.0,
+    "device": "CPU",
+    "scope": "sequential per-env reset/replan cost; no PhysX/GPU/policy"
+  },
+  "rows": [
+    {
+      "bars": 70,
+      "trials": 16,
+      "mean_ms_per_env": 46.18203955760691,
+      "p50_ms_per_env": 45.47806200571358,
+      "p95_ms_per_env": 57.07851877377834,
+      "max_ms_per_env": 63.08222294319421,
+      "mean_expanded_nodes": 18548.75,
+      "status_counts": {
+        "ok": 16
+      },
+      "projected_serial_128_env_s": 5.911301063373685,
+      "latency_gate_pass": true
+    },
+    {
+      "bars": 150,
+      "trials": 16,
+      "mean_ms_per_env": 48.71249287680257,
+      "p50_ms_per_env": 45.58603500481695,
+      "p95_ms_per_env": 65.67394797457382,
+      "max_ms_per_env": 77.60953798424453,
+      "mean_expanded_nodes": 14802.75,
+      "status_counts": {
+        "ok": 16
+      },
+      "projected_serial_128_env_s": 6.235199088230729,
+      "latency_gate_pass": true
+    },
+    {
+      "bars": 205,
+      "trials": 16,
+      "mean_ms_per_env": 58.33763923874358,
+      "p50_ms_per_env": 53.42254298739135,
+      "p95_ms_per_env": 87.32210149173625,
+      "max_ms_per_env": 123.94082901300862,
+      "mean_expanded_nodes": 12603.9375,
+      "status_counts": {
+        "ok": 16
+      },
+      "projected_serial_128_env_s": 7.467217822559178,
+      "latency_gate_pass": true
+    },
+    {
+      "bars": 300,
+      "trials": 16,
+      "mean_ms_per_env": 64.01093125532498,
+      "p50_ms_per_env": 53.639627469237894,
+      "p95_ms_per_env": 115.51663528371137,
+      "max_ms_per_env": 137.0069650001824,
+      "mean_expanded_nodes": 8561.0625,
+      "status_counts": {
+        "ok": 16
+      },
+      "projected_serial_128_env_s": 8.193399200681597,
+      "latency_gate_pass": true
+    }
+  ],
+  "gate": {
+    "mean_ms_per_env_max": 100.0,
+    "p95_ms_per_env_max": 150.0,
+    "projected_serial_128_env_s_max": 10.0,
+    "availability_at_70_min": 0.9,
+    "availability_at_70": 1.0,
+    "verdict": "PASS_CPU_ENGINEERING_GATE"
+  }
+}

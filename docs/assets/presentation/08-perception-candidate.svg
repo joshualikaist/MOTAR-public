@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">SAM 설계 기록</title><desc id="desc">기존 구조도와 최신 해석 범위를 함께 읽는 발표용 요약</desc><rect width="1600" height="900" fill="#f4f7fa"/><g font-family="Arial, Noto Sans CJK KR, sans-serif">
+<text x="52" y="48" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">MOTAR / RESEARCH EVIDENCE</text>
+<text x="1548" y="48" font-size="16" fill="#526775" font-weight="700" text-anchor="end">2026-09-10 · ARCHIVED</text>
+<text x="52" y="108" font-size="39" fill="#142d3b" font-weight="700" text-anchor="start">SAM 설계 기록</text>
+<text x="52" y="153" font-size="22" fill="#526775" font-weight="400" text-anchor="start">기존 구조도와 최신 해석 범위를 함께 읽는 발표용 요약</text>
+<svg x="52" y="185" xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 1440 1360" role="img" aria-labelledby="context-title context-desc"><title id="context-title">ARCHIVED / 채택하지 않은 후보 · 2026-09-10</title><desc id="context-desc">offline CPU adapter 범위만 구현됐습니다. SAM worker 및 제어루프 통합은 없습니다. 현재 인지 파이프라인과 혼동하지 않습니다.</desc>
+<!-- ORIGINAL_PANEL_START -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1210" viewBox="0 0 1440 1210" role="img" aria-labelledby="panel-title panel-desc">
+<title id="panel-title">Archived SAM in-simulator shape detector design</title><desc id="panel-desc">ARCHIVED. This design is not in the control loop. 대체된 SAM-in-sim 형상 detector 후보이며 제어루프 연결 및 성능 측정 없음. Offline CPU instance adapter만 보존한다.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8395A1"/></marker></defs>
+<g font-family="Arial, 'Noto Sans CJK KR', sans-serif">
+<rect width="1440" height="1210" rx="24" fill="#F4F7FA"/>
+<path d="M24 1H1416" stroke="#DCE5EA"/>
+
+<text x="40" y="38" font-size="13" font-weight="700" fill="#007F73" text-anchor="start">MOTAR   /   05 / PERCEPTION ARCHIVE</text>
+<text x="1400" y="38" font-size="12" font-weight="700" fill="#536B7A" text-anchor="end">SUPERSEDED DESIGN / OFFLINE CPU ADAPTER ONLY</text>
+<text x="40" y="86" font-size="32" font-weight="700" fill="#142D3B" text-anchor="start">ARCHIVED — SAM / in-sim shape detector</text>
+<text x="40" y="119" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">폐기된 실행 경로 · 제어루프 연결 및 성능 측정 없음 · offline CPU instance adapter만 보존</text>
+<rect x="40" y="149" width="1360" height="64" rx="10" fill="#FFF1E3" stroke="#EDD5BC"/>
+<text x="64" y="176" font-size="12" font-weight="700" fill="#007F73" text-anchor="start">IMPLEMENTED: INSTANCE BOUNDARY ONLY</text>
+<text x="64" y="200" font-size="16" font-weight="400" fill="#B66318" text-anchor="start">초록색 블록만 오프라인 CPU 구현. 주황색은 미구현 계획이며, 아래 안전 경로 역시 향후 계약입니다.</text>
+<rect x="40" y="237" width="316" height="326" rx="16" fill="white" stroke="#DCE5EA"/>
+<rect x="60" y="261" width="4" height="20" rx="2" fill="#3067C8" stroke="#3067C8"/>
+<text x="76" y="277" font-size="12" font-weight="700" fill="#3067C8" text-anchor="start">A  SENSOR PACKET</text>
+<text x="62" y="314" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">동일 capture time 입력</text>
+<text x="62" y="349" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">RGB · 해상도 미동결</text>
+<text x="62" y="378" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Aligned depth + intrinsics</text>
+<text x="62" y="407" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Camera extrinsics</text>
+<text x="62" y="436" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">pose(t_capture)</text>
+<text x="62" y="465" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">frame_id · timestamp</text>
+<text x="62" y="494" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">해상도/Hz는 측정 후 동결</text>
+<path d="M361 399L378 399" stroke="#8395A1" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="388" y="237" width="316" height="326" rx="16" fill="#FFFAF4" stroke="#DCE5EA"/>
+<rect x="408" y="261" width="4" height="20" rx="2" fill="#B66318" stroke="#B66318"/>
+<text x="424" y="277" font-size="12" font-weight="700" fill="#B66318" text-anchor="start">B  DISCOVERY / PLANNED</text>
+<text x="410" y="314" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">SAM 3.1 worker</text>
+<text x="410" y="349" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Text + positive/negative</text>
+<text x="410" y="378" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">exemplar · 별도 환경 · 비동기</text>
+<text x="410" y="407" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start"></text>
+<text x="410" y="436" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Short-horizon tracker</text>
+<text x="410" y="465" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Mask propagation + local IDs</text>
+<text x="410" y="494" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">SAM 응답 사이 프레임 담당</text>
+<path d="M709 399L726 399" stroke="#8395A1" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="736" y="237" width="316" height="326" rx="16" fill="#E8F1EF" stroke="#DCE5EA"/>
+<rect x="756" y="261" width="4" height="20" rx="2" fill="#007F73" stroke="#007F73"/>
+<text x="772" y="277" font-size="12" font-weight="700" fill="#007F73" text-anchor="start">C  IMPLEMENTED / CPU</text>
+<text x="758" y="314" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">K개 instance 보존</text>
+<text x="758" y="349" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">mask[K,H,W] · score[K]</text>
+<text x="758" y="378" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">bbox · uv · depth_median</text>
+<text x="758" y="407" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Optional embedding</text>
+<text x="758" y="436" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start"></text>
+<text x="758" y="465" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">K &gt; 1: union centroid 금지</text>
+<text x="758" y="494" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">현재 CC stub · SAM worker 없음</text>
+<path d="M1057 399L1074 399" stroke="#8395A1" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="1084" y="237" width="316" height="326" rx="16" fill="#FFFAF4" stroke="#DCE5EA"/>
+<rect x="1104" y="261" width="4" height="20" rx="2" fill="#B66318" stroke="#B66318"/>
+<text x="1120" y="277" font-size="12" font-weight="700" fill="#B66318" text-anchor="start">D  ASSOCIATION / PLAN</text>
+<text x="1106" y="314" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">3D gate + 다중가설 트랙</text>
+<text x="1106" y="349" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Semantic / exemplar appearance</text>
+<text x="1106" y="378" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Bearing-range / motion consistency</text>
+<text x="1106" y="407" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Capture-time pose compensation</text>
+<text x="1106" y="436" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">track_id · state · covariance · age</text>
+<text x="1106" y="465" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start"></text>
+<text x="1106" y="494" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">단일 KF state를 바로 대체하지 않음</text>
+<path d="M1242 573L1242 590" stroke="#8395A1" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="40" y="606" width="432" height="210" rx="16" fill="white" stroke="#DCE5EA"/>
+<rect x="60" y="630" width="4" height="20" rx="2" fill="#536B7A" stroke="#536B7A"/>
+<text x="76" y="646" font-size="12" font-weight="700" fill="#536B7A" text-anchor="start">READING THE DESIGN</text>
+<text x="62" y="683" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">구현 범위와 남은 작업</text>
+<text x="62" y="718" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">완료: K개 mask / 측정값 보존, union 금지</text>
+<text x="62" y="747" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">미완료: SAM worker, transport, association</text>
+<text x="62" y="776" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Track bank, policy·safety 연결</text>
+<rect x="502" y="606" width="362" height="210" rx="16" fill="white" stroke="#DCE5EA"/>
+<rect x="522" y="630" width="4" height="20" rx="2" fill="#007F73" stroke="#007F73"/>
+<text x="538" y="646" font-size="12" font-weight="700" fill="#007F73" text-anchor="start">POLICY BOUNDARY</text>
+<text x="524" y="683" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">기존 target-history token</text>
+<text x="524" y="718" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">confidence · covariance · age</text>
+<text x="524" y="747" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">모든 gate 통과 후에만</text>
+<text x="524" y="776" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">898-D actor 관측 갱신</text>
+<path d="M896 709L876 709" stroke="#8395A1" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="908" y="606" width="492" height="210" rx="16" fill="#FFFAF4" stroke="#DCE5EA"/>
+<text x="930" y="641" font-size="12" font-weight="700" fill="#B66318" text-anchor="start">E  FAIL-CLOSED DECISION / PLANNED</text>
+<text x="930" y="682" font-size="17" font-weight="700" fill="#007F73" text-anchor="start">TARGET</text>
+<text x="1060" y="682" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">유일한 gate 통과 track</text>
+<text x="930" y="720" font-size="17" font-weight="700" fill="#B66318" text-anchor="start">AMBIGUOUS</text>
+<text x="1060" y="720" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">선택 없이 예측 / 탐색 유지</text>
+<text x="930" y="758" font-size="17" font-weight="700" fill="#142D3B" text-anchor="start">REJECT</text>
+<text x="1060" y="758" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">유효 후보 없음</text>
+<text x="930" y="795" font-size="15" font-weight="400" fill="#536B7A" text-anchor="start">항상 하나를 lock하는 fallback 금지</text>
+<text x="40" y="867" font-size="13" font-weight="700" fill="#3067C8" text-anchor="start">INDEPENDENT SAFETY PATH / REQUIRED BEFORE CLOSED LOOP</text>
+<rect x="40" y="890" width="436" height="201" rx="16" fill="white" stroke="#DCE5EA"/>
+<rect x="60" y="914" width="4" height="20" rx="2" fill="#3067C8" stroke="#3067C8"/>
+<text x="76" y="930" font-size="12" font-weight="700" fill="#3067C8" text-anchor="start">01  SAFETY CONTRACT</text>
+<text x="62" y="967" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">Raw LiDAR + obstacle depth</text>
+<text x="62" y="1002" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Semantic target mask와 독립</text>
+<text x="62" y="1031" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">No-return = unknown, not free</text>
+<text x="62" y="1060" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">동일 raw range → 동일 안전 출력</text>
+<path d="M481 991L493 991" stroke="#8395A1" stroke-width="2" fill="none" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+<rect x="502" y="890" width="436" height="201" rx="16" fill="white" stroke="#DCE5EA"/>
+<rect x="522" y="914" width="4" height="20" rx="2" fill="#3067C8" stroke="#3067C8"/>
+<text x="538" y="930" font-size="12" font-weight="700" fill="#3067C8" text-anchor="start">02  SAFETY CONTRACT</text>
+<text x="524" y="967" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">Occupancy / free-space</text>
+<text x="524" y="1002" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">표적 오인으로 bar return 삭제 금지</text>
+<text x="524" y="1031" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Collision avoidance · emergency stop</text>
+<text x="524" y="1060" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">현재 governor와 다른 미래 계약</text>
+<path d="M943 991L955 991" stroke="#8395A1" stroke-width="2" fill="none" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+<rect x="964" y="890" width="436" height="201" rx="16" fill="white" stroke="#DCE5EA"/>
+<rect x="984" y="914" width="4" height="20" rx="2" fill="#3067C8" stroke="#3067C8"/>
+<text x="1000" y="930" font-size="12" font-weight="700" fill="#3067C8" text-anchor="start">03  SAFETY CONTRACT</text>
+<text x="986" y="967" font-size="22" font-weight="700" fill="#142D3B" text-anchor="start">Controller safety input</text>
+<text x="986" y="1002" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">표적 인식은 mission input에만 영향</text>
+<text x="986" y="1031" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">SAM timeout/crash가 안전 주기를 막지 않음</text>
+<text x="986" y="1060" font-size="16" font-weight="400" fill="#536B7A" text-anchor="start">Semantic 변화 → safety output 동일 gate</text>
+<text x="40" y="1130" font-size="17" font-weight="400" fill="#536B7A" text-anchor="start">성능·실시간성·sim-to-real 주장은 단계별 held-out gate를 모두 통과한 뒤에만 가능합니다.</text>
+<path d="M40 1159L1400 1159" stroke="#DCE5EA" stroke-width="2" fill="none"/>
+<text x="40" y="1187" font-size="14" font-weight="400" fill="#536B7A" text-anchor="start">ARCHIVED CANDIDATE  /  후속 방향: 실제 공대공 데이터로 인지 학습 → 측정된 detector 오차 모델을 시뮬레이션에 주입</text>
+</g></svg>
+<!-- ORIGINAL_PANEL_END -->
+<rect y="1210" width="1440" height="150" fill="#e4f1ee"/><g font-family="Arial, Noto Sans CJK KR, sans-serif"><text x="40" y="1249" font-size="20" fill="#007f73" font-weight="700">ARCHIVED / 채택하지 않은 후보 · 2026-09-10</text><text x="40" y="1288" font-size="18" fill="#526775">offline CPU adapter 범위만 구현됐습니다.</text><text x="40" y="1317" font-size="18" fill="#526775">SAM worker 및 제어루프 통합은 없습니다.</text></g></svg>
+
+<rect x="1040" y="202" width="508" height="557" rx="20" fill="white" stroke="#dce5ea"/>
+<text x="1067" y="250" font-size="27" fill="#007f73" font-weight="700" text-anchor="start">발표에서 강조할 범위</text>
+<text x="1067" y="318" font-size="24" fill="#526775" font-weight="400" text-anchor="start">offline CPU adapter 범위만</text>
+<text x="1067" y="357" font-size="24" fill="#526775" font-weight="400" text-anchor="start">구현됐습니다.</text>
+<text x="1067" y="426" font-size="24" fill="#526775" font-weight="400" text-anchor="start">SAM worker 및 제어루프 통합은</text>
+<text x="1067" y="465" font-size="24" fill="#526775" font-weight="400" text-anchor="start">없습니다.</text>
+<text x="1067" y="534" font-size="24" fill="#526775" font-weight="400" text-anchor="start">현재 인지 파이프라인과 혼동하지 않습니다.</text>
+<path d="M52 804H1548" stroke="#cbd8df"/>
+<text x="52" y="839" font-size="20" fill="#a55316" font-weight="400" text-anchor="start">원본 구조 및 실험 수치는 유지 · 추가된 설명은 검증 범위와 현재 상태를 구분합니다.</text>
+<text x="52" y="875" font-size="16" fill="#526775" font-weight="400" text-anchor="start">근거: README.md 해당 파트 및 연결된 결과 보고서 / 원본: motar-perception-candidate.svg</text>
+</g></svg>

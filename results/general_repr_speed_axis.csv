@@ -1,0 +1,27 @@
+# Candidate #4 (obstacle representation) -- speed-axis eval
+# checkpoint: runs/ppo_260727_0225_navrl/nn/gen_ppo.pth (epoch 7247, reward 107.8)
+#   FIRST fresh run to complete: 8000/8000 epochs, no NaN. Earlier fresh attempts died at epoch
+#   43-62 (adaptive-LR NaN, fixed separately by lr_schedule: None).
+# representation: MAX_OBSTACLES=8, suppression +-10 deg, LiDAR 72 horizontal beams (obs 574 -> 898)
+# other config identical to the 12 m recipe: 25 bars, general spawn, LiDAR 12 m, v=2.5, yaw=3.0,
+#   tilt comp on, max tilt 45 deg, oob margin 1.0
+# eval: 128 envs, ~2049 episodes/cell, deterministic. MUST be run with the same 72-beam / 8-token
+#   config as training (scan normalization + obs layout).
+#
+# HEADLINE: bar_contact 12.7% -> 9.0% absolute (-29%), the FIRST intervention in the campaign to
+#   move it (altitude PI, tilt comp and 12 m look-ahead all left it at ~13%). capture +1.0pp.
+# BUT the probe refutes both mechanisms we predicted:
+#   hit_in_tokens 0.647 -> 0.40-0.53 (WORSE despite capacity 5->8, and token_rank ~2.9 shows the
+#     extra slots ARE used) => capacity was not the binding constraint; 8 tokens still cannot cover
+#     the ~16 bars in range, and "nearest N" is the wrong selection rule in a dense field.
+#   token_err 0.57 m -> 0.72-1.13 m (WORSE despite halving the angular bin) => H2 was wrong, the
+#     token position error is not dominated by angular quantization.
+#   The gain therefore came from somewhere else (most likely the denser static scan itself), not
+#   from the token mechanism we were aiming at.
+target_speed_ms,capture,crash,timeout,crash_bar_contact_share,crash_below_share,crash_oob_share,hit_in_tokens,token_err_m,bars_in_range
+0.0,0.874,0.111,0.015,0.671,0.268,0.061,0.425,1.13,16.1
+0.5,0.879,0.121,0.000,0.656,0.312,0.032,0.475,0.78,16.2
+0.75,0.870,0.130,0.000,0.662,0.252,0.086,0.500,0.83,16.0
+1.0,0.869,0.131,0.000,0.679,0.250,0.071,0.418,0.80,15.5
+1.25,0.859,0.141,0.000,0.716,0.215,0.069,0.527,0.74,15.7
+1.5,0.824,0.175,0.001,0.679,0.229,0.092,0.403,0.88,15.9

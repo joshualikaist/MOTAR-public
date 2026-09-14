@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">Safety filter: geometry and speed-cap blocks</title><desc id="desc">Module-level summary of the documented geometry and cap-law comparison; geometry arms are alternatives, not sequential filters. No new geometry implementation is specified.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#253341"/></marker></defs><rect width="1600" height="900" fill="white"/><g font-family="Arial, Noto Sans CJK KR, sans-serif" fill="#16232f">
+<text x="55" y="68" font-size="35" font-weight="700" text-anchor="start" fill="#253341">Safety filter: geometry and speed-cap blocks</text>
+<text x="55" y="112" font-size="24" font-weight="400" text-anchor="start" fill="#52606d">Direction-preserving speed filter · geometry arms are alternatives</text>
+<g data-block="true">
+<rect x="55" y="195" width="260" height="145" rx="3" fill="#f1f4f6" stroke="#253341" stroke-width="2"/>
+<text x="185.0" y="238" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Task inputs</text>
+<text x="185.0" y="278" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">LiDAR returns</text>
+<text x="185.0" y="311" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Ego state</text>
+</g>
+<g data-block="true">
+<rect x="440" y="195" width="310" height="145" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="595.0" y="238" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Geometry arm</text>
+<text x="595.0" y="278" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Straight corridor</text>
+<text x="595.0" y="311" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">or arc-clearance</text>
+</g>
+<g data-block="true">
+<rect x="890" y="195" width="280" height="145" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="1030.0" y="238" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Speed-cap law</text>
+<text x="1030.0" y="278" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Configured mode</text>
+<text x="1030.0" y="311" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Scalar speed limit</text>
+</g>
+<path d="M315 268 L440 268" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M750 268 L890 268" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="781" y="245" font-size="20" font-weight="400" text-anchor="start" fill="#253341">clearance</text>
+<g data-block="true">
+<rect x="55" y="495" width="260" height="145" rx="3" fill="#f1f4f6" stroke="#253341" stroke-width="2"/>
+<text x="185.0" y="538" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Policy command</text>
+<text x="185.0" y="578" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Horizontal velocity</text>
+<text x="185.0" y="611" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Requested direction</text>
+</g>
+<g data-block="true">
+<rect x="890" y="495" width="280" height="145" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="1030.0" y="538" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Magnitude scaling</text>
+<text x="1030.0" y="578" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Direction unchanged</text>
+<text x="1030.0" y="611" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Speed bounded by cap</text>
+</g>
+<g data-block="true">
+<rect x="1290" y="495" width="255" height="145" rx="3" fill="#f1f4f6" stroke="#253341" stroke-width="2"/>
+<text x="1417.5" y="538" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Filtered command</text>
+<text x="1417.5" y="578" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Horizontal velocity</text>
+<text x="1417.5" y="611" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">To fixed controller</text>
+</g>
+<path d="M315 567 L890 567" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="610" y="600" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Original horizontal command</text>
+<path d="M375 567 L375 405 L595 405 L595 340" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<circle cx="375" cy="567" r="4" fill="#253341"/>
+<text x="406" y="385" font-size="22" font-weight="400" text-anchor="start" fill="#253341">command context</text>
+<path d="M1030 340 L1030 495" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1050" y="421" font-size="22" font-weight="400" text-anchor="start" fill="#253341">speed cap</text>
+<path d="M1170 567 L1290 567" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="55" y="727" font-size="24" font-weight="400" text-anchor="start" fill="#253341">Geometry choice and cap-law choice are separate comparison axes.</text>
+<path d="M55 784H1545" stroke="#b6c0c8"/>
+<text x="55" y="824" font-size="22" font-weight="400" text-anchor="start" fill="#52606d">Solid arrows: module-level data flow. No direction replanning or vertical regulation is shown.</text>
+<text x="55" y="859" font-size="22" font-weight="400" text-anchor="start" fill="#52606d">The arc-clearance filter is not a DWA planner or a collision-safety guarantee.</text>
+</g></svg>

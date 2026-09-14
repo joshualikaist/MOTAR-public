@@ -1,0 +1,1380 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_distractor_envelope.py",
+  "created_at_utc": "2026-09-02T06:46:53.851307+00:00",
+  "scope": "detector_distractor_envelope_frozen_ref5in_seed479",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "preregistration": "docs/prereg_2026-09-01_distractor_envelope.md",
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "shared_condition": {
+    "seed": 479,
+    "bars": 70,
+    "requested_episodes_per_cell": 2049,
+    "robot_name": "navrl_ref5in_quad",
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "speed_governor_mode": "off",
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "camera_width": 160,
+    "camera_height": 90,
+    "detect_width": 160,
+    "detect_height": 90,
+    "detect_resolution_decoupled": false,
+    "detector_min_pixels": 2,
+    "detector_max_range_m": 20.0,
+    "classification_radius_m": 0.5
+  },
+  "manipulated_variable": "NAVRL_DISTRACTOR_COUNT",
+  "detector_selection_variables": [
+    "NAVRL_DETECTOR_CHECKPOINT",
+    "NAVRL_DETECTOR_THRESHOLD",
+    "NAVRL_V2_ALLOW_DETECTOR_THRESHOLD_MISMATCH"
+  ],
+  "provenance_override": {
+    "default_n0": {
+      "blanket_force_used": false,
+      "override": "none",
+      "authorised_mismatch": null,
+      "reason": "this cell evaluates the frozen checkpoint at the sensor condition it was trained with, so the evaluator's v2 provenance gate passes unforced"
+    },
+    "default_n1": {
+      "blanket_force_used": false,
+      "override": "none",
+      "authorised_mismatch": null,
+      "reason": "this cell evaluates the frozen checkpoint at the sensor condition it was trained with, so the evaluator's v2 provenance gate passes unforced"
+    },
+    "default_n3": {
+      "blanket_force_used": false,
+      "override": "none",
+      "authorised_mismatch": null,
+      "reason": "this cell evaluates the frozen checkpoint at the sensor condition it was trained with, so the evaluator's v2 provenance gate passes unforced"
+    },
+    "default_n5": {
+      "blanket_force_used": false,
+      "override": "none",
+      "authorised_mismatch": null,
+      "reason": "this cell evaluates the frozen checkpoint at the sensor condition it was trained with, so the evaluator's v2 provenance gate passes unforced"
+    },
+    "v7_n0": {
+      "blanket_force_used": false,
+      "override": "narrow",
+      "authorised_mismatch": "cfg_detector_threshold: checkpoint=0.55 expected=0.7",
+      "reason": "v7 is evaluated at its own validation-selected operating point 0.700, which is the threshold its 0.99766 frame precision was measured at; the frozen policy was trained at 0.55, so the evaluator's v2 provenance gate pins cfg_detector_threshold to the training value and the single-field mismatch is verified at run time and only then overridden"
+    },
+    "v7_n1": {
+      "blanket_force_used": false,
+      "override": "narrow",
+      "authorised_mismatch": "cfg_detector_threshold: checkpoint=0.55 expected=0.7",
+      "reason": "v7 is evaluated at its own validation-selected operating point 0.700, which is the threshold its 0.99766 frame precision was measured at; the frozen policy was trained at 0.55, so the evaluator's v2 provenance gate pins cfg_detector_threshold to the training value and the single-field mismatch is verified at run time and only then overridden"
+    },
+    "v7_n3": {
+      "blanket_force_used": false,
+      "override": "narrow",
+      "authorised_mismatch": "cfg_detector_threshold: checkpoint=0.55 expected=0.7",
+      "reason": "v7 is evaluated at its own validation-selected operating point 0.700, which is the threshold its 0.99766 frame precision was measured at; the frozen policy was trained at 0.55, so the evaluator's v2 provenance gate pins cfg_detector_threshold to the training value and the single-field mismatch is verified at run time and only then overridden"
+    },
+    "v7_n5": {
+      "blanket_force_used": false,
+      "override": "narrow",
+      "authorised_mismatch": "cfg_detector_threshold: checkpoint=0.55 expected=0.7",
+      "reason": "v7 is evaluated at its own validation-selected operating point 0.700, which is the threshold its 0.99766 frame precision was measured at; the frozen policy was trained at 0.55, so the evaluator's v2 provenance gate pins cfg_detector_threshold to the training value and the single-field mismatch is verified at run time and only then overridden"
+    }
+  },
+  "cells": {
+    "default_n0": {
+      "condition": {
+        "detector": "default",
+        "detector_artifact_sha256": "",
+        "detector_threshold": 0.55,
+        "NAVRL_DISTRACTOR_COUNT": 0,
+        "distractor_count_attested": 0,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": null,
+        "false_target_lock_wilson95": null,
+        "classification": null,
+        "detector_pixel_count_mean": null,
+        "detector_confidence_mean": null,
+        "measurement_to_target_mean_m": null,
+        "measurement_to_nearest_distractor_mean_m": null,
+        "visible_frame_rate": null,
+        "never_acquired": 368,
+        "never_acquired_rate_pp": 17.959980478282088,
+        "never_acquired_wilson95": [
+          0.1635836479229118,
+          0.1968150841085985
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 1487,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 1487,
+            "first_visible_step_median": 89
+          },
+          "crash": {
+            "episodes": 357,
+            "never_acquired": 195,
+            "never_acquired_rate": 0.5462184873949579,
+            "acquired": 162,
+            "first_visible_step_median": 86
+          },
+          "timeout": {
+            "episodes": 205,
+            "never_acquired": 173,
+            "never_acquired_rate": 0.8439024390243902,
+            "acquired": 32,
+            "first_visible_step_median": 569
+          }
+        },
+        "target_hidden_fraction": 0.8210963128758885,
+        "outcome_raw": {
+          "capture": 1487,
+          "capture_rate": 0.7257198633479747,
+          "capture_wilson95": [
+            0.7059930876329497,
+            0.7446018650485835
+          ],
+          "crash": 357,
+          "crash_rate": 0.17423133235724744,
+          "crash_wilson95": [
+            0.15842135223502654,
+            0.19126052686784187
+          ],
+          "timeout": 205,
+          "timeout_rate": 0.10004880429477794,
+          "timeout_wilson95": [
+            0.08779533740004701,
+            0.11379911941613384
+          ]
+        }
+      }
+    },
+    "default_n1": {
+      "condition": {
+        "detector": "default",
+        "detector_artifact_sha256": "",
+        "detector_threshold": 0.55,
+        "NAVRL_DISTRACTOR_COUNT": 1,
+        "distractor_count_attested": 1,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": 0.5274900685301425,
+        "false_target_lock_wilson95": [
+          0.5240990057651463,
+          0.5308785965896562
+        ],
+        "classification": {
+          "visible_frames": 83321,
+          "frames_total": 323520,
+          "target_lock": 39370,
+          "distractor_lock": 39856,
+          "ghost_lock": 4095,
+          "ambiguous_target_and_distractor": 42,
+          "target_lock_rate": 0.47250993146985754,
+          "distractor_lock_rate": 0.47834279473362057,
+          "ghost_lock_rate": 0.04914727379652189
+        },
+        "detector_pixel_count_mean": 147.39490644615404,
+        "detector_confidence_mean": 0.6496973157002698,
+        "measurement_to_target_mean_m": 10.036495023556608,
+        "measurement_to_nearest_distractor_mean_m": 9.485632295911751,
+        "visible_frame_rate": 0.25754512858555884,
+        "never_acquired": 221,
+        "never_acquired_rate_pp": 10.785749145924841,
+        "never_acquired_wilson95": [
+          0.09515248533004686,
+          0.12203012120052215
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 778,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 778,
+            "first_visible_step_median": 52
+          },
+          "crash": {
+            "episodes": 1182,
+            "never_acquired": 147,
+            "never_acquired_rate": 0.12436548223350254,
+            "acquired": 1035,
+            "first_visible_step_median": 32
+          },
+          "timeout": {
+            "episodes": 89,
+            "never_acquired": 74,
+            "never_acquired_rate": 0.8314606741573034,
+            "acquired": 15,
+            "first_visible_step_median": 541
+          }
+        },
+        "target_hidden_fraction": 0.6855588526211671,
+        "outcome_raw": {
+          "capture": 778,
+          "capture_rate": 0.3796974133723768,
+          "capture_wilson95": [
+            0.35892752987536447,
+            0.4009175385873427
+          ],
+          "crash": 1182,
+          "crash_rate": 0.5768667642752562,
+          "crash_wilson95": [
+            0.5553503641078443,
+            0.5980954846431641
+          ],
+          "timeout": 89,
+          "timeout_rate": 0.04343582235236701,
+          "timeout_wilson95": [
+            0.03543126980953748,
+            0.05314910157732913
+          ]
+        }
+      }
+    },
+    "default_n3": {
+      "condition": {
+        "detector": "default",
+        "detector_artifact_sha256": "",
+        "detector_threshold": 0.55,
+        "NAVRL_DISTRACTOR_COUNT": 3,
+        "distractor_count_attested": 3,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2051,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2051,
+        "false_target_lock_rate": 0.7972943469155069,
+        "false_target_lock_wilson95": [
+          0.7950445326825865,
+          0.7995256920577699
+        ],
+        "classification": {
+          "visible_frames": 123667,
+          "frames_total": 274304,
+          "target_lock": 25068,
+          "distractor_lock": 83923,
+          "ghost_lock": 14676,
+          "ambiguous_target_and_distractor": 103,
+          "target_lock_rate": 0.20270565308449304,
+          "distractor_lock_rate": 0.6786208123428239,
+          "ghost_lock_rate": 0.11867353457268309
+        },
+        "detector_pixel_count_mean": 180.9609677601947,
+        "detector_confidence_mean": 0.7172921001488228,
+        "measurement_to_target_mean_m": 15.7908239213683,
+        "measurement_to_nearest_distractor_mean_m": 2.8755424507740894,
+        "visible_frame_rate": 0.4508392148856743,
+        "never_acquired": 127,
+        "never_acquired_rate_pp": 6.1921014139444175,
+        "never_acquired_wilson95": [
+          0.052287137484901956,
+          0.07319283943199041
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 468,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 468,
+            "first_visible_step_median": 27
+          },
+          "crash": {
+            "episodes": 1571,
+            "never_acquired": 119,
+            "never_acquired_rate": 0.07574793125397836,
+            "acquired": 1452,
+            "first_visible_step_median": 23
+          },
+          "timeout": {
+            "episodes": 12,
+            "never_acquired": 8,
+            "never_acquired_rate": 0.6666666666666666,
+            "acquired": 4,
+            "first_visible_step_median": 509
+          }
+        },
+        "target_hidden_fraction": 0.47249402123191786,
+        "outcome_raw": {
+          "capture": 468,
+          "capture_rate": 0.22818137493905413,
+          "capture_wilson95": [
+            0.21053743009146877,
+            0.2468416318241323
+          ],
+          "crash": 1571,
+          "crash_rate": 0.7659678205753291,
+          "crash_wilson95": [
+            0.7471574919277607,
+            0.7837837129602029
+          ],
+          "timeout": 12,
+          "timeout_rate": 0.005850804485616773,
+          "timeout_wilson95": [
+            0.0033500870444385525,
+            0.010199113406613655
+          ]
+        }
+      }
+    },
+    "default_n5": {
+      "condition": {
+        "detector": "default",
+        "detector_artifact_sha256": "",
+        "detector_threshold": 0.55,
+        "NAVRL_DISTRACTOR_COUNT": 5,
+        "distractor_count_attested": 5,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": 0.8853317987703304,
+        "false_target_lock_wilson95": [
+          0.8836021811489154,
+          0.8870390007697486
+        ],
+        "classification": {
+          "visible_frames": 132068,
+          "frames_total": 245184,
+          "target_lock": 15144,
+          "distractor_lock": 92299,
+          "ghost_lock": 24625,
+          "ambiguous_target_and_distractor": 145,
+          "target_lock_rate": 0.11466820122966956,
+          "distractor_lock_rate": 0.6988748220613623,
+          "ghost_lock_rate": 0.1864569767089681
+        },
+        "detector_pixel_count_mean": 167.3616394584608,
+        "detector_confidence_mean": 0.7185646509688776,
+        "measurement_to_target_mean_m": 17.596406746286885,
+        "measurement_to_nearest_distractor_mean_m": 1.6862055375518643,
+        "visible_frame_rate": 0.5386485251892457,
+        "never_acquired": 102,
+        "never_acquired_rate_pp": 4.978038067349927,
+        "never_acquired_wilson95": [
+          0.04117691814531843,
+          0.06006882488448856
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 271,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 271,
+            "first_visible_step_median": 15
+          },
+          "crash": {
+            "episodes": 1773,
+            "never_acquired": 101,
+            "never_acquired_rate": 0.05696559503666103,
+            "acquired": 1672,
+            "first_visible_step_median": 9
+          },
+          "timeout": {
+            "episodes": 5,
+            "never_acquired": 1,
+            "never_acquired_rate": 0.2,
+            "acquired": 4,
+            "first_visible_step_median": 40
+          }
+        },
+        "target_hidden_fraction": 0.38212118245888804,
+        "outcome_raw": {
+          "capture": 271,
+          "capture_rate": 0.13225963884821865,
+          "capture_wilson95": [
+            0.11827687116665446,
+            0.14761870322137755
+          ],
+          "crash": 1773,
+          "crash_rate": 0.8653001464128843,
+          "crash_wilson95": [
+            0.8498322203325118,
+            0.8794009084937097
+          ],
+          "timeout": 5,
+          "timeout_rate": 0.002440214738897023,
+          "timeout_wilson95": [
+            0.0010427503774819752,
+            0.005699835008846736
+          ]
+        }
+      }
+    },
+    "v7_n0": {
+      "condition": {
+        "detector": "v7",
+        "detector_artifact_sha256": "85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7",
+        "detector_threshold": 0.7,
+        "NAVRL_DISTRACTOR_COUNT": 0,
+        "distractor_count_attested": 0,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": null,
+        "false_target_lock_wilson95": null,
+        "classification": null,
+        "detector_pixel_count_mean": null,
+        "detector_confidence_mean": null,
+        "measurement_to_target_mean_m": null,
+        "measurement_to_nearest_distractor_mean_m": null,
+        "visible_frame_rate": null,
+        "never_acquired": 381,
+        "never_acquired_rate_pp": 18.594436310395317,
+        "never_acquired_wilson95": [
+          0.16969160740222367,
+          0.20337249627222703
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 1396,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 1396,
+            "first_visible_step_median": 86
+          },
+          "crash": {
+            "episodes": 438,
+            "never_acquired": 203,
+            "never_acquired_rate": 0.4634703196347032,
+            "acquired": 235,
+            "first_visible_step_median": 95
+          },
+          "timeout": {
+            "episodes": 215,
+            "never_acquired": 178,
+            "never_acquired_rate": 0.827906976744186,
+            "acquired": 37,
+            "first_visible_step_median": 564
+          }
+        },
+        "target_hidden_fraction": 0.8254743303571429,
+        "outcome_raw": {
+          "capture": 1396,
+          "capture_rate": 0.6813079551000488,
+          "capture_wilson95": [
+            0.6608087354456464,
+            0.7011286157353038
+          ],
+          "crash": 438,
+          "crash_rate": 0.21376281112737922,
+          "crash_wilson95": [
+            0.19655608902117494,
+            0.2320407980107836
+          ],
+          "timeout": 215,
+          "timeout_rate": 0.10492923377257199,
+          "timeout_wilson95": [
+            0.09239086449299296,
+            0.11894618589468049
+          ]
+        }
+      }
+    },
+    "v7_n1": {
+      "condition": {
+        "detector": "v7",
+        "detector_artifact_sha256": "85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7",
+        "detector_threshold": 0.7,
+        "NAVRL_DISTRACTOR_COUNT": 1,
+        "distractor_count_attested": 1,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": 0.6069674011571302,
+        "false_target_lock_wilson95": [
+          0.6037604659967262,
+          0.6101651398582455
+        ],
+        "classification": {
+          "visible_frames": 89359,
+          "frames_total": 330496,
+          "target_lock": 35121,
+          "distractor_lock": 37506,
+          "ghost_lock": 16732,
+          "ambiguous_target_and_distractor": 40,
+          "target_lock_rate": 0.3930325988428698,
+          "distractor_lock_rate": 0.41972269161472264,
+          "ghost_lock_rate": 0.1872447095424076
+        },
+        "detector_pixel_count_mean": 155.37728712272965,
+        "detector_confidence_mean": 0.8263539966442579,
+        "measurement_to_target_mean_m": 10.599212778981638,
+        "measurement_to_nearest_distractor_mean_m": 9.559088547483931,
+        "visible_frame_rate": 0.2703784614639814,
+        "never_acquired": 213,
+        "never_acquired_rate_pp": 10.395314787701318,
+        "never_acquired_wilson95": [
+          0.09147102981085249,
+          0.11791750186252244
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 755,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 755,
+            "first_visible_step_median": 55
+          },
+          "crash": {
+            "episodes": 1222,
+            "never_acquired": 160,
+            "never_acquired_rate": 0.1309328968903437,
+            "acquired": 1062,
+            "first_visible_step_median": 33
+          },
+          "timeout": {
+            "episodes": 72,
+            "never_acquired": 53,
+            "never_acquired_rate": 0.7361111111111112,
+            "acquired": 19,
+            "first_visible_step_median": 555
+          }
+        },
+        "target_hidden_fraction": 0.6748009053059644,
+        "outcome_raw": {
+          "capture": 755,
+          "capture_rate": 0.36847242557345045,
+          "capture_wilson95": [
+            0.34784966651427973,
+            0.38958743673399443
+          ],
+          "crash": 1222,
+          "crash_rate": 0.5963884821864324,
+          "crash_wilson95": [
+            0.5749838558469826,
+            0.6174323671899962
+          ],
+          "timeout": 72,
+          "timeout_rate": 0.03513909224011713,
+          "timeout_wilson95": [
+            0.027996396991922537,
+            0.04402156532340663
+          ]
+        }
+      }
+    },
+    "v7_n3": {
+      "condition": {
+        "detector": "v7",
+        "detector_artifact_sha256": "85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7",
+        "detector_threshold": 0.7,
+        "NAVRL_DISTRACTOR_COUNT": 3,
+        "distractor_count_attested": 3,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": 0.8306471012749579,
+        "false_target_lock_wilson95": [
+          0.8285193642348669,
+          0.8327537666411668
+        ],
+        "classification": {
+          "visible_frames": 120553,
+          "frames_total": 268480,
+          "target_lock": 20416,
+          "distractor_lock": 77138,
+          "ghost_lock": 22999,
+          "ambiguous_target_and_distractor": 102,
+          "target_lock_rate": 0.1693528987250421,
+          "distractor_lock_rate": 0.6398679419010725,
+          "ghost_lock_rate": 0.19077915937388534
+        },
+        "detector_pixel_count_mean": 173.24563470009042,
+        "detector_confidence_mean": 0.8955232687065502,
+        "measurement_to_target_mean_m": 15.963878295173336,
+        "measurement_to_nearest_distractor_mean_m": 3.006047447285084,
+        "visible_frame_rate": 0.4490204112038141,
+        "never_acquired": 137,
+        "never_acquired_rate_pp": 6.686188384577843,
+        "never_acquired_wilson95": [
+          0.05683685689196236,
+          0.07850796363806875
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 425,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 425,
+            "first_visible_step_median": 28
+          },
+          "crash": {
+            "episodes": 1603,
+            "never_acquired": 122,
+            "never_acquired_rate": 0.07610729881472239,
+            "acquired": 1481,
+            "first_visible_step_median": 21
+          },
+          "timeout": {
+            "episodes": 21,
+            "never_acquired": 15,
+            "never_acquired_rate": 0.7142857142857143,
+            "acquired": 6,
+            "first_visible_step_median": 536
+          }
+        },
+        "target_hidden_fraction": 0.4813729141835518,
+        "outcome_raw": {
+          "capture": 425,
+          "capture_rate": 0.20741825280624696,
+          "capture_wilson95": [
+            0.19041776707041166,
+            0.22551374831860652
+          ],
+          "crash": 1603,
+          "crash_rate": 0.7823328452903856,
+          "crash_wilson95": [
+            0.7639456996768141,
+            0.7996633384340333
+          ],
+          "timeout": 21,
+          "timeout_rate": 0.010248901903367497,
+          "timeout_wilson95": [
+            0.006713176803539476,
+            0.015617558297177408
+          ]
+        }
+      }
+    },
+    "v7_n5": {
+      "condition": {
+        "detector": "v7",
+        "detector_artifact_sha256": "85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7",
+        "detector_threshold": 0.7,
+        "NAVRL_DISTRACTOR_COUNT": 5,
+        "distractor_count_attested": 5,
+        "detect_width": 160,
+        "detect_height": 90,
+        "camera_width": 160,
+        "camera_height": 90,
+        "detector_min_pixels": 2,
+        "detector_max_range_m": 20.0,
+        "seed": 479,
+        "bars": 70,
+        "requested_episodes": 2049,
+        "actual_episodes": 2049,
+        "num_envs": 64,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "false_target_lock_rate": 0.9026724079010321,
+        "false_target_lock_wilson95": [
+          0.9010597093062706,
+          0.9042616129342019
+        ],
+        "classification": {
+          "visible_frames": 131679,
+          "frames_total": 243840,
+          "target_lock": 12816,
+          "distractor_lock": 86503,
+          "ghost_lock": 32360,
+          "ambiguous_target_and_distractor": 79,
+          "target_lock_rate": 0.09732759209896795,
+          "distractor_lock_rate": 0.6569232755412784,
+          "ghost_lock_rate": 0.24574913235975365
+        },
+        "detector_pixel_count_mean": 160.77466414538384,
+        "detector_confidence_mean": 0.892363228201065,
+        "measurement_to_target_mean_m": 17.386013049591128,
+        "measurement_to_nearest_distractor_mean_m": 1.8546280041431402,
+        "visible_frame_rate": 0.5400221456692913,
+        "never_acquired": 90,
+        "never_acquired_rate_pp": 4.392386530014641,
+        "never_acquired_wilson95": [
+          0.03587156906769145,
+          0.053683061676324424
+        ],
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 259,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 259,
+            "first_visible_step_median": 17
+          },
+          "crash": {
+            "episodes": 1784,
+            "never_acquired": 87,
+            "never_acquired_rate": 0.04876681614349776,
+            "acquired": 1697,
+            "first_visible_step_median": 9
+          },
+          "timeout": {
+            "episodes": 6,
+            "never_acquired": 3,
+            "never_acquired_rate": 0.5,
+            "acquired": 3,
+            "first_visible_step_median": 68
+          }
+        },
+        "target_hidden_fraction": 0.38731135170603675,
+        "outcome_raw": {
+          "capture": 259,
+          "capture_rate": 0.1264031234748658,
+          "capture_wilson95": [
+            0.11271034115767789,
+            0.141494120944563
+          ],
+          "crash": 1784,
+          "crash_rate": 0.8706686188384578,
+          "crash_wilson95": [
+            0.8554423671778838,
+            0.8845076145769798
+          ],
+          "timeout": 6,
+          "timeout_rate": 0.0029282576866764276,
+          "timeout_wilson95": [
+            0.0013427165374710706,
+            0.0063741282060069005
+          ]
+        }
+      }
+    }
+  },
+  "primary_metric": "false_target_lock_rate",
+  "design": "2x4 factorial: detector x distractor count",
+  "detectors": {
+    "default": {
+      "artifact": null,
+      "artifact_sha256": null,
+      "threshold": 0.55,
+      "verdict_cell": "default_n5",
+      "zero_cell": "default_n0"
+    },
+    "v7": {
+      "artifact": "artifacts/navrl_target_detector_v7_confirmatory.pth",
+      "artifact_sha256": "85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7",
+      "threshold": 0.7,
+      "verdict_cell": "v7_n5",
+      "zero_cell": "v7_n0"
+    }
+  },
+  "verdict_cells": {
+    "default": "default_n5",
+    "v7": "v7_n5"
+  },
+  "comparability": {
+    "within_detector_across_distractor_count": true,
+    "between_detectors": false,
+    "reason": "FTLR is comparable WITHIN a detector across N and NOT between detectors: the two detectors produce different trajectories, hence different frame distributions, and FTLR is defined over that distribution (prereg section 3-c)",
+    "cross_detector_difference_computed": false,
+    "also_applies_to": [
+      "capture",
+      "crash",
+      "timeout",
+      "never_acquired"
+    ]
+  },
+  "false_target_lock_rate_by_cell": {
+    "default_n0": null,
+    "default_n1": 0.5274900685301425,
+    "default_n3": 0.7972943469155069,
+    "default_n5": 0.8853317987703304,
+    "v7_n0": null,
+    "v7_n1": 0.6069674011571302,
+    "v7_n3": 0.8306471012749579,
+    "v7_n5": 0.9026724079010321
+  },
+  "thresholds": {
+    "color_shortcut_confirmed_at_or_above": 0.5,
+    "detector_robust_at_or_below": 0.05
+  },
+  "verdicts": {
+    "default": "COLOR_SHORTCUT_CONFIRMED",
+    "v7": "COLOR_SHORTCUT_CONFIRMED"
+  },
+  "verdict_basis": {
+    "default": {
+      "metric": "False Target Lock Rate over the detector-visible frames",
+      "source_field": "result[\"distractor_lock\"]: (distractor_lock + ghost_lock) / visible_frames, produced by navrl_task._record_distractor_lock_frame and guarded by _validate_distractor_lock_export",
+      "detector": "default",
+      "detector_threshold": 0.55,
+      "verdict_cell": "default_n5",
+      "distractor_count": 5,
+      "classification_radius_m": 0.5,
+      "false_target_lock_rate": 0.8853317987703304,
+      "false_target_lock_rate_pp": 88.53317987703304,
+      "visible_frames": 132068,
+      "numerator": 116924,
+      "outcome_rates_excluded_from_verdict": true,
+      "applies_only_to": "default",
+      "expected_direction": "COLOR_SHORTCUT_CONFIRMED is the preregistered PREDICTION and is not a failure; DETECTOR_ROBUST_TO_DISTRACTORS would be the surprising result and its first response is to re-check that the distractors rendered (prereg section 5)"
+    },
+    "v7": {
+      "metric": "False Target Lock Rate over the detector-visible frames",
+      "source_field": "result[\"distractor_lock\"]: (distractor_lock + ghost_lock) / visible_frames, produced by navrl_task._record_distractor_lock_frame and guarded by _validate_distractor_lock_export",
+      "detector": "v7",
+      "detector_threshold": 0.7,
+      "verdict_cell": "v7_n5",
+      "distractor_count": 5,
+      "classification_radius_m": 0.5,
+      "false_target_lock_rate": 0.9026724079010321,
+      "false_target_lock_rate_pp": 90.26724079010322,
+      "visible_frames": 131679,
+      "numerator": 118863,
+      "outcome_rates_excluded_from_verdict": true,
+      "applies_only_to": "v7",
+      "expected_direction": "COLOR_SHORTCUT_CONFIRMED is the preregistered PREDICTION and is not a failure; DETECTOR_ROBUST_TO_DISTRACTORS would be the surprising result and its first response is to re-check that the distractors rendered (prereg section 5)"
+    }
+  },
+  "detector_artifacts": {
+    "default": {
+      "artifact": null,
+      "artifact_sha256": null,
+      "threshold": 0.55,
+      "segmenter": "AppearanceTargetSegmenter (built in; 3R - 2G - 2B - 0.9)"
+    },
+    "v7": {
+      "artifact": "artifacts/navrl_target_detector_v7_confirmatory.pth",
+      "artifact_sha256": "85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7",
+      "threshold": 0.7,
+      "gate_summary": "results/navrl_detector_offline_gate_v7_confirmatory/summary.json",
+      "gate_frame_precision": 0.99765625,
+      "gate_selected_threshold": 0.7,
+      "gate_reachable": true
+    }
+  },
+  "gate0": {
+    "default_off_bit_identity": {
+      "checked_by_launcher": true,
+      "passed": true,
+      "test_module": "tests/test_navrl_distractors.py",
+      "test_module_sha256": "7c23569cab1c49908b982037dbf5268e714dc0543fda5ae93669c1466166a0ef",
+      "test_classes": [
+        "test_navrl_distractors.DefaultOffIsUnchanged",
+        "test_navrl_distractors.DefaultOffIsBitIdentical"
+      ],
+      "tests_run": 10,
+      "returncode": 0,
+      "findings": [],
+      "telemetry_enable_expression": "self._bulk_eval_mode and self._num_distractors > 0",
+      "accumulators_allocated_under_guard": true,
+      "recorder_called_under_guard": true,
+      "export_block_under_guard": true
+    },
+    "decoupling_refusal": {
+      "checked_by_launcher": true,
+      "passed": true,
+      "test_module": "tests/test_navrl_distractors.py",
+      "test_module_sha256": "7c23569cab1c49908b982037dbf5268e714dc0543fda5ae93669c1466166a0ef",
+      "test_classes": [
+        "test_navrl_distractors.FailsClosedOnDistractorsPlusDecoupling"
+      ],
+      "tests_run": 5,
+      "returncode": 0,
+      "findings": [],
+      "refusal_present_in_detector": true,
+      "cells_on_camera_resolution_path": [
+        "default_n0",
+        "default_n1",
+        "default_n3",
+        "default_n5",
+        "v7_n0",
+        "v7_n1",
+        "v7_n3",
+        "v7_n5"
+      ],
+      "detect_resolution": [
+        160,
+        90
+      ],
+      "camera_resolution": [
+        160,
+        90
+      ]
+    },
+    "zero_cell_reproduces_lineage": {
+      "checked_by_launcher": true,
+      "passed": true,
+      "cell": "default_n0",
+      "detector": "default",
+      "v7_zero_cell": "v7_n0",
+      "v7_zero_cell_role": "descriptive within-detector reference; no lineage anchor exists for v7 at this condition and operating point, so nothing is gated on it",
+      "tolerance_pp": 3.75,
+      "tolerance_basis": "two-sided Bonferroni (3 outcome rates) 95% band on the difference of two independent proportions at n1 = n2 = 2049, evaluated at the worst-case p = 0.5: z(0.05/3) x sqrt(0.25/2049 + 0.25/2049) = 2.39398 x 1.5620 pp = 3.739 pp, rounded up",
+      "lineage_reference": {
+        "seed": 421,
+        "episodes": 2049,
+        "outcome": {
+          "captured": 1445,
+          "crash": 406,
+          "timeout": 198
+        },
+        "never_acquired": 387,
+        "source": "results/navrl_ref5in_sensor_fidelity_seed421/cells/baseline/70bars.json",
+        "source_sha256": "57d0bbef819ad0f7566132c985f40d0a49673afb2f53ddba912da39a939188e3",
+        "artifact_reachable": true,
+        "artifact_path": "/home/joshuali/MOTAR/results/navrl_ref5in_sensor_fidelity_seed421/cells/baseline/70bars.json"
+      },
+      "outcomes": {
+        "capture": {
+          "cell_pp": 72.57198633479746,
+          "lineage_pp": 70.52220595412396,
+          "delta_pp": 2.0497803806734964,
+          "within_tolerance": true
+        },
+        "crash": {
+          "cell_pp": 17.423133235724745,
+          "lineage_pp": 19.814543679843826,
+          "delta_pp": -2.3914104441190815,
+          "within_tolerance": true
+        },
+        "timeout": {
+          "cell_pp": 10.004880429477794,
+          "lineage_pp": 9.66325036603221,
+          "delta_pp": 0.34163006344558333,
+          "within_tolerance": true
+        }
+      },
+      "exceeded": [],
+      "never_acquired_pp": 17.959980478282088,
+      "lineage_never_acquired_pp": 18.887262079062957
+    }
+  },
+  "quality_gates": {
+    "G0.1_default_off_bit_identity": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "gate0_implementation",
+      "passed": true
+    },
+    "G0.2_decoupling_refusal": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "gate0_implementation",
+      "passed": true
+    },
+    "G0.3_zero_cell_reproduces_lineage": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "gate0_regression",
+      "passed": true
+    },
+    "G1_checkpoint_identity": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G2_result_receipt_binding": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G3_manifest_provenance": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G4_runtime_clean": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G5_import_origin": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G6_episode_contract": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G7_cell_condition_pinned": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G8_camera_resolution_path": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G9_no_provenance_override": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "per_cell",
+      "passed": true,
+      "cells": {
+        "default_n0": true,
+        "default_n1": true,
+        "default_n3": true,
+        "default_n5": true,
+        "v7_n0": true,
+        "v7_n1": true,
+        "v7_n3": true,
+        "v7_n5": true
+      }
+    },
+    "G10_runtime_byte_map_identity": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "cross_cell",
+      "passed": true
+    },
+    "G11_single_axis_manipulation": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "cross_cell",
+      "passed": true
+    },
+    "G12_distractor_lock_accounting": {
+      "owner": "tools/run_navrl_distractor_envelope.py",
+      "scope": "cross_cell",
+      "passed": true
+    }
+  },
+  "failed_gates": [],
+  "held_fixed": {
+    "detector_min_pixels": 2,
+    "target_camera_max_range_m": 20.0,
+    "perception_perturb": false,
+    "detection_dropout_active": 0.0,
+    "detection_latency_s": 0.0,
+    "range_error_m": 0.0,
+    "appearance_appearance_hue_deg": 0.0,
+    "appearance_appearance_light_gain": 0.0,
+    "appearance_appearance_albedo_jitter": 0.0,
+    "appearance_appearance_texture_std": 0.0,
+    "appearance_appearance_motion_blur": 0.0,
+    "camera_mount_rot_deg": 0.0,
+    "camera_mount_trans_m": 0.0,
+    "camera_fov_scale_err": 0.0,
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "obstacle_selector": "cluster_sector",
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "speed_governor_mode": "off",
+    "arena_xy_m": 40.0,
+    "seed": 479,
+    "condition_robot_name": "navrl_ref5in_quad",
+    "condition_robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+    "condition_robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+    "condition_bars": 70,
+    "condition_seed": 479,
+    "condition_action_selection": "deterministic",
+    "condition_reflection_mode": "original",
+    "condition_speed_governor_mode": "off",
+    "condition_goal_dist_min_m": 22.5,
+    "condition_goal_dist_max_m": 28.0,
+    "condition_target_pattern": "mixed",
+    "condition_target_speed_mode": "uniform",
+    "condition_target_speed_min_mps": 0.3,
+    "condition_target_speed_max_mps": 1.5,
+    "condition_num_envs": 64,
+    "condition_episode_len_steps": 600
+  },
+  "import_origin": {
+    "default_n0": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "default_n1": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "default_n3": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "default_n5": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "v7_n0": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "v7_n1": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "v7_n3": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    },
+    "v7_n5": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/joshuali/MOTAR",
+      "origin": "/home/joshuali/MOTAR/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/joshuali/MOTAR"
+    }
+  },
+  "limitations": [
+    "L1: distractor가 **정적**이다. 실기의 움직이는 오탐(새 등)은 범위 밖이다.",
+    "L2: 색이 표적과 **동일**하다. 색 거리에 따른 성능 곡선은 범위 밖이다.",
+    "L3: 카메라 해상도 160×90에서 잰다. 고해상도에서의 FTLR은 다를 수 있다.",
+    "L4: 단일 정책·단일 seed·70막대 1조건.",
+    "L5: distractor가 일부 코드 경로에서 자유 공간으로 남는다. 자산 배열이 [target?][distractors...][bars...]이고 _bar_offset이 distractor를 건너뛰도록 넓혀졌으므로 [_bar_offset : _bar_offset + n_bars_active]를 읽는 지점들은 distractor를 보지 못한다. FTLR을 직접 오염시키는 두 곳만 고쳤다 — 드론 스폰 clearance(navrl_task.py:~1912)와 표적 경로 planner(~5858). 고치지 않은 다섯 곳: 정적 goal 배치(~4102), recovery clearance(~6058), bar-contact probe(~3081, ~3127). 결과적으로 distractor 충돌은 미귀속 contact로 기록되고 정적 goal이 distractor 안에 놓일 수 있다. **capture/crash/timeout 원값을 해석할 때 이 사실을 반드시 함께 읽어야 한다** — 그 값들은 §4에서 이미 판정 대상이 아니라 보조 보고다.",
+    "L6: **검출기 간 FTLR을 빼서 비교하지 않는다(§3-c).** 동결 정책이 각 검출기의 출력을 보고 비행하므로 두 검출기에서 궤적이 달라지고, 따라서 프레임 분포 — 거리·베어링·가림, 특히 **표적과 distractor가 동시에 보이는 빈도** — 가 달라진다. FTLR은 바로 그 분포 위에서 정의되므로 `FTLR_v7 − FTLR_default`는 검출기 강건성과 궤적 분포를 뒤섞은 값이고, 이 셀들로는 둘을 분리할 수 없다. 따라서 그 차이를 **계산하지도 게재하지도 않는다.** 반면 각 검출기의 FTLR은 그 검출기가 실제로 만든 프레임 위에서 계산되므로 **한 검출기 안에서 N에 따른 비교는 유효하다** — 그것이 이 실험의 1차 지표다. capture/crash/timeout도 같다: v7 셀의 값은 계보와도, default 셀과도 비교하지 않는다."
+  ],
+  "sources": {
+    "default_n0": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/default_n0/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/default_n0/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n0/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n0/distractor_envelope_eval.log"
+    },
+    "default_n1": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/default_n1/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/default_n1/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n1/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n1/distractor_envelope_eval.log"
+    },
+    "default_n3": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/default_n3/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/default_n3/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n3/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n3/distractor_envelope_eval.log"
+    },
+    "default_n5": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/default_n5/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/default_n5/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n5/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/default_n5/distractor_envelope_eval.log"
+    },
+    "v7_n0": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n0/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n0/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n0/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n0/distractor_envelope_eval.log"
+    },
+    "v7_n1": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n1/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n1/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n1/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n1/distractor_envelope_eval.log"
+    },
+    "v7_n3": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n3/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n3/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n3/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n3/distractor_envelope_eval.log"
+    },
+    "v7_n5": {
+      "evaluation_result": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n5/70bars.json",
+      "evaluation_receipt": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n5/70bars.receipt.json",
+      "evaluation_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n5/70bars.log",
+      "launcher_log": "results/navrl_detector_distractor_envelope_seed479/cells/v7_n5/distractor_envelope_eval.log"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "campaign": "detector_navigation_ab_replication",
+  "cells": {
+    "seed101/analytic_bootstrap": {
+      "capture": 0.7940458760370913,
+      "captured": 1627,
+      "crash": 0.17374328940946804,
+      "episodes": 2049,
+      "timeout": 0.032210834553440704
+    },
+    "seed101/learned_v2": {
+      "capture": 0.7955100048804294,
+      "captured": 1630,
+      "crash": 0.1791117618350415,
+      "episodes": 2049,
+      "timeout": 0.02537823328452904
+    },
+    "seed97/analytic_bootstrap": {
+      "capture": 0.8023426061493412,
+      "captured": 1644,
+      "crash": 0.17667154709614447,
+      "episodes": 2049,
+      "timeout": 0.020985846754514398
+    },
+    "seed97/learned_v2": {
+      "capture": 0.8005850804485617,
+      "captured": 1642,
+      "crash": 0.17698683568990736,
+      "episodes": 2051,
+      "timeout": 0.02242808386153096
+    }
+  },
+  "ci95_pp": [
+    -1.7523934367343916,
+    1.723301315652128
+  ],
+  "difference_pp": -0.014546060541131833,
+  "noninferiority": "PASS",
+  "note": "Summary recomputed OUTSIDE the pinned launcher: the campaign's 4 cells were produced by the launcher whose SHA is pinned in campaign_contract.json, but its summariser still carried the original campaign's seed list (83/89) and crashed after the cells completed. The seed-list fix changed the launcher bytes, so the contract guard now correctly refuses to re-run it. Cell data is untouched; this file recomputes the preregistered endpoint from the archived cells.",
+  "original_campaign": {
+    "ci95_pp": [
+      -1.79,
+      1.644
+    ],
+    "difference_pp": -0.073,
+    "pooling_with_replication": "forbidden (preregistered)",
+    "seeds": [
+      83,
+      89
+    ]
+  },
+  "pooled": {
+    "analytic": {
+      "captured": 3271,
+      "episodes": 4098,
+      "rate": 0.7981942410932162
+    },
+    "learned": {
+      "captured": 3272,
+      "episodes": 4100,
+      "rate": 0.7980487804878049
+    }
+  },
+  "preregistered_margin_pp": -2.0,
+  "seeds": [
+    97,
+    101
+  ],
+  "source_manifest_sha256_of_json": "94e66a6e8d4c193faa688365fa36e0113560e3fb5d22f2afd366a84c061e7ad9"
+}

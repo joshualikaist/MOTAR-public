@@ -1,0 +1,229 @@
+{
+ "prereg": "docs/plans/confirmation_phase_plan_2026-09-06.md#R-B",
+ "question": "Do the arc-geometry claims (C4: arc beats both straight laws; C5: widening pays only for the arc) replicate on evaluation seeds the claims were not derived from?",
+ "design": "Same ep25000 policy and v2 contract as D1-prime/L1 (seed 523). Five densities x five arms. The two 0.45 m arms and the two 1.2 m arms reproduce the exact cells of the original grids on a new seed, so every original contrast can be pooled across three seeds.",
+ "predictions": {
+  "P1": "pooled over 3 seeds x 5 densities, dwa_arc - riskcap <= -0.8 pp with 95% CI excluding 0",
+  "P2": "within each new seed, dwa_arc - riskcap negative at >= 4 of 5 densities",
+  "P3": "dwa_arc_w1p2 - dwa_arc crash <= -2 pp at 70 bars and <= -4 pp at 205 bars in each seed, capture not lower",
+  "P4": "stopcap_w1p2 capture < 60% at 70 bars and < 20% at 205 bars in each seed",
+  "P5": "stopcap - riskcap CI includes 0 at every density (riskcap co-trained lineage)"
+ },
+ "falsification": "If P1 fails the arc claim is demoted to 'suggestive within one seed' and the prescription rests on P3 alone; if P3 fails too the width x geometry section is withdrawn.",
+ "contract": "v2",
+ "episodes": 2049,
+ "frame_sample_every": 100,
+ "seed": 531,
+ "cells": [
+  {
+   "name": "ep25000_d070_riskcap",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d100_riskcap",
+   "policy": "ep25000",
+   "bars": 100,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "ep25000_d100_stopcap",
+   "policy": "ep25000",
+   "bars": 100,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "ep25000_d100_dwa_arc",
+   "policy": "ep25000",
+   "bars": 100,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc"
+   }
+  },
+  {
+   "name": "ep25000_d100_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 100,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d100_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 100,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d130_riskcap",
+   "policy": "ep25000",
+   "bars": 130,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "ep25000_d130_stopcap",
+   "policy": "ep25000",
+   "bars": 130,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "ep25000_d130_dwa_arc",
+   "policy": "ep25000",
+   "bars": 130,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc"
+   }
+  },
+  {
+   "name": "ep25000_d130_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 130,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d130_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 130,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d160_riskcap",
+   "policy": "ep25000",
+   "bars": 160,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "ep25000_d160_stopcap",
+   "policy": "ep25000",
+   "bars": 160,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "ep25000_d160_dwa_arc",
+   "policy": "ep25000",
+   "bars": 160,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc"
+   }
+  },
+  {
+   "name": "ep25000_d160_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 160,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d160_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 160,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d205_riskcap",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  }
+ ]
+}

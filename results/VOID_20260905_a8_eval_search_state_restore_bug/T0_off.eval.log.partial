@@ -1,0 +1,124 @@
+[eval_v2] ALLOWED mismatch: cfg_detector_threshold: checkpoint=0.55 expected=0.7
+[eval_v2] provenance OK | 40x40 m, pool=bars_h3, placement=navrl_band, 600 steps
+[eval_v2] robot=navrl_ref5in_quad contract=v1 asset=quad_navrl_ref5in.urdf urdf_sha=5c160b0d19ca config_sha=ebb71802f19b
+[eval_v2] same-shape | fov_curriculum=3000 detector_pixels=2 detector_threshold=0.55 ttc=30.0/0.15
+[eval_v2] runtime=main/base_sim envs=128 physics=base_sim_dt0.01
+[eval_v2] action_selection=deterministic reflection=original
+[eval_v2] speed_governor=off fixed=2 free=3.53553390593 margin=0.45 slow=3 release=5 ttc=1
+[eval_v2] arena=40m pool=bars_h3 placement=navrl_band episode=600 goal=22.5..28m
+[eval_v2] target=U[0.3,1.5]m/s pattern=mixed density_curriculum=0 OOB_margin=1.0m seed=521
+[eval_v2] lidar=12m scan=4x72 tokens=8 selector=cluster_sector corridor=0
+[eval_v2] ckpt=/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260905_1525_navrl_v2-ref5in-a8-readapt-off-s197/nn/last_gen_ppo_ep_2900_rew_219.2355.pth games/cell=2049 densities=70
+[eval_v2] results=/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_a8_readaptation_seed521/T0_off
+======== v2 density 70 bars (4.4/100m2) ========
+[play_navrl] py=/home/fair/miniconda3/envs/aerialgym/bin/python envs=128 headless=True ckpt=/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_a8_readaptation_seed521/T0_off/checkpoint_snapshot.pth
+Importing module 'gym_38' (/home/fair/isaacgym/python/isaacgym/_bindings/linux-x86_64/gym_38.so)
+Setting GYM_USD_PLUG_INFO_PATH to /home/fair/isaacgym/python/isaacgym/_bindings/linux-x86_64/usd/plugInfo.json
+PyTorch version 2.4.1+cu121
+Device count 1
+/home/fair/isaacgym/python/isaacgym/_bindings/src/gymtorch
+Using /home/fair/.cache/torch_extensions/py38_cu121 as PyTorch extensions root...
+Emitting ninja build file /home/fair/.cache/torch_extensions/py38_cu121/gymtorch/build.ninja...
+Building extension module gymtorch...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Warp 1.0.0 initialized:
+   CUDA Toolkit 11.5, Driver 12.8
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 3070" (8 GiB, sm_86, mempool enabled)
+   Kernel cache:
+     /home/fair/.cache/warp/1.0.0
+[origin] aerial_gym /home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py sha256=1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65 (enforced)
+[aerial RL] same-density guard | window=50 min_epochs=100 min_peak=0.500 drop=0.250 patience=25
+[aerial RL] action policy | mode=squashed_gaussian std=0.35,0.35,0.05,0.08 mu_scale=1.0,0.4,1.0,1.0 entropy=0.003 bounds_loss=0 lr=0.0001
+
+══════════════════════════════════════════════════════
+  NavRL Navigation · PLAY (eval)
+══════════════════════════════════════════════════════
+  task          : navrl_task
+  sim env       : navrl_bars_env
+  run folder    : ppo_260905_1817_navrl
+  config        : ppo_navrl_perception_transformer.yaml
+
+  CUDA          : yes  ·  NVIDIA GeForce RTX 3070
+  devices       : sim cuda:0  ·  rl cuda:0
+  num envs      : 128
+  headless      : True
+  use_warp      : True
+  seed          : 521
+
+  checkpoint    : resume  ·  /home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_a8_readaptation_seed521/T0_off/checkpoint_snapshot.pth
+  episodes      : 2049
+══════════════════════════════════════════════════════
+
+Loading extension module gymtorch...
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[navrl config] WARNING: NAVRL_DETECT_WIDTH='160.0' could not be parsed; using default 160.
+[navrl config] WARNING: NAVRL_DETECT_HEIGHT='90.0' could not be parsed; using default 90.
+[31;1m[2007 ms][IsaacGymEnvManager] - CRITICAL : 
+ Setting graphics device to -1.
+ This is done because the simulation is run in headless mode and no Isaac Gym cameras are used.
+ No need to worry. The simulation and warp rendering will work as expected. (IGE_env_manager.py:114)[0m
+[33;20m[2007 ms][IsaacGymEnvManager] - WARNING : If you have set the CUDA_VISIBLE_DEVICES environment variable, please ensure that you set it
+to a particular one that works for your system to use the viewer or Isaac Gym cameras.
+If you want to run parallel simulations on multiple GPUs with camera sensors,
+please disable Isaac Gym and use warp (by setting use_warp=True), set the viewer to headless. (IGE_env_manager.py:129)[0m
+[33;20m[2007 ms][IsaacGymEnvManager] - WARNING : If you see a segfault in the next lines, it is because of the discrepancy between the CUDA device and the graphics device.
+Please ensure that the CUDA device and the graphics device are the same. (IGE_env_manager.py:134)[0m
+Not connected to PVD
++++ Using GPU PhysX
+Physics Engine: PhysX
+Physics Device: cuda:0
+GPU Pipeline: enabled
+[33;20m[2688 ms][base_multirotor] - WARNING : Creating 128 multirotors. (base_multirotor.py:32)[0m
+[33;20m[3539 ms][robot_manager] - WARNING : 
+Robot mass: 1.2000003731779145,
+Inertia: tensor([[    0.004,     0.000,     0.000],
+        [    0.000,     0.004,     0.000],
+        [    0.000,     0.000,     0.006]], device='cuda:0'),
+Robot COM: tensor([[    0.000,     0.000,     0.000,     1.000]], device='cuda:0') (robot_manager.py:427)[0m
+[33;20m[3539 ms][robot_manager] - WARNING : Calculated robot mass and inertia for this robot. This code assumes that your robot is the same across environments. (robot_manager.py:430)[0m
+[31;1m[3539 ms][robot_manager] - CRITICAL : If your robot differs across environments you need to perform this computation for each different robot here. (robot_manager.py:433)[0m
+[33;20m[8280 ms][IsaacGymEnvManager] - WARNING : Headless: True (IGE_env_manager.py:522)[0m
+[33;20m[9796 ms][asset_manager] - WARNING : Number of obstacles to be kept in the environment: 0 (asset_manager.py:64)[0m
+[33;20m[9796 ms][asset_manager] - WARNING : Obstacle placement | mode=navrl_band min_xy_spacing=1.500 relax_factor=0.800 candidate_batch=32 touch=0.40 gap=1.60 surface_clearance=0.45 (asset_manager.py:65)[0m
+/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/control/motor_model.py:45: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(self.min_thrust, device=self.device, dtype=torch.float32).expand(
+/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/control/motor_model.py:48: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(self.max_thrust, device=self.device, dtype=torch.float32).expand(
+[33;20m[10084 ms][control_allocation] - WARNING : Control allocation does not account for actuator limits. This leads to suboptimal allocation (control_allocation.py:48)[0m
+[33;20m[10608 ms][navrl_task] - WARNING : NavRL density config | initial_bars=70 max_bars=300 curriculum=False final=300 step=15 threshold=schedule[70:0.82,85:0.77,100:0.72,115:0.70] check_eps=16384 (navrl_task.py:1319)[0m
+[33;20m[10608 ms][navrl_task] - WARNING : NavRL moving target | pattern=mixed dynamics=legacy speed_final=1.50 speed_fixed=-1.00 rl_dt=0.100s accel=4.00m/s2 turn=150.0deg/s lookahead=1.00s clearance=0.77m (navrl_task.py:1362)[0m
+/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/task/navrl_task/navrl_perception.py:987: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  state = torch.load(checkpoint, map_location=device)
+[33;20m[10619 ms][navrl_task] - WARNING : NavRL PERCEPTION+TRANSFORMER mode | actor obs=898, critic states=906, body-frame actions, detector range=20.0m hfov=87deg (navrl_task.py:1456)[0m
+[33;20m[10619 ms][navrl_task] - WARNING : NavRL obstacle representation | tokens=8 configured_fov=240deg effective_fov=240deg selector=cluster_sector suppress=inactive cluster_gap=0.45m sectors=8 scan=4x72 lidar_range=12.0m (navrl_task.py:1491)[0m
+[33;20m[10619 ms][navrl_task] - WARNING : NavRL active-search geofence | actor=off rays=4 noise=0.000m dropout=0.000 source=VIO/GPS+known-map fresh-policy-required (navrl_task.py:1512)[0m
+[33;20m[10619 ms][navrl_task] - WARNING : NavRL explicit search state | arm=off dim=0 masked=no source=VIO/GPS+depth+tracker fresh-policy-required (navrl_task.py:1521)[0m
+/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/gym/spaces/box.py:84: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/torch/nn/modules/transformer.py:307: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[33;20m[10649 ms][navrl_task] - WARNING : NavRL PERCEPTION CHECKPOINT MISMATCH | NAVRL_DETECTOR_CHECKPOINT basename: checkpoint=none running=detector_snapshot.pth. Density evidence will be reset. (navrl_task.py:3634)[0m
+[33;20m[10649 ms][navrl_task] - WARNING : NavRL PERCEPTION CHECKPOINT MISMATCH | NAVRL_DETECTOR_CHECKPOINT SHA-256: checkpoint=none running=85c7974bcd85c627170c5bd63030144d1c5dc2a11e5d64829cad38f615c5d5d7. Density evidence will be reset. (navrl_task.py:3634)[0m
+[33;20m[10649 ms][navrl_task] - WARNING : NavRL TRAINING SEED MISMATCH | checkpoint=197 running=521. Density evidence will be reset. (navrl_task.py:3687)[0m
+[33;20m[10649 ms][navrl_task] - WARNING : NavRL TARGET HEADING CONTRACT | value_in_force=0.1 provenance=checkpoint_attested checkpoint=0.1. (navrl_task.py:3739)[0m
+Traceback (most recent call last):
+  File "runner.py", line 1082, in <module>
+    runner.run(args)
+  File "/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/rl_games/torch_runner.py", line 272, in run
+    self.run_play(args)
+  File "/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/rl_games/torch_runner.py", line 252, in run_play
+    _restore(player, args)
+  File "/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/rl_games/torch_runner.py", line 30, in _restore
+    agent.restore(args['checkpoint'])
+  File "/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/rl_games/algos_torch/players.py", line 79, in restore
+    self.env.set_env_state(env_state)
+  File "runner.py", line 139, in set_env_state
+    fn(state)
+  File "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/task/navrl_task/navrl_task.py", line 4300, in set_env_state
+    if abs(float(saved) - current) > 1e-6:
+ValueError: could not convert string to float: 'off'

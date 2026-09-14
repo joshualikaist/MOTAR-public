@@ -1,0 +1,122 @@
+params:
+  seed: 42
+  algo:
+    name: a2c_continuous
+  model:
+    name: continuous_a2c_logstd
+  load_checkpoint: False
+
+  network:
+    # 17 structured temporal tokens; raw sensors and semantic/GT target channels are forbidden.
+    name: navrl_transformer
+    separate: False
+    space:
+      continuous:
+        mu_activation: None
+        sigma_activation: None
+        mu_init:
+          name: default
+        sigma_init:
+          name: const_initializer
+          val: 0
+        fixed_sigma: True
+
+  config:
+    env_name: navrl_task
+    env_config:
+      num_envs: 128
+    name: gen_ppo
+    reward_shaper:
+      scale_value: 0.1
+    normalize_advantage: True
+    gamma: 0.99
+    tau: 0.95
+    ppo: True
+    # Stability: keep the Transformer actor at the configured 1e-4 learning rate.
+    learning_rate: 1e-4
+    # rl_games' adaptive scheduler has a hard-coded 1e-2 ceiling and, in legacy mode, updates once
+    # per minibatch. With this 4096/2048 batch layout it raised 1e-4 -> 1.7e-3 in the first epoch
+    # and eventually to 1e-2, causing the reproducible PPO NaN failures in
+    # ppo_260727_0048/0147.
+    lr_schedule: None
+    kl_threshold: 0.016  # retained for documentation; IdentityScheduler does not read it
+    save_best_after: 20
+    save_frequency: 50
+    score_to_win: 100000
+    grad_norm: 1.0
+    entropy_coef: 0.003  # 0.01 escaped the early hover trap but, with fixed_sigma, INFLATED sigma
+                         # over long runs (ppo/entropy 5.9 -> 12): the policy peaked (captured 0.986
+                         # @ ep 3343) then the growing action noise degraded it back into a 100%-
+                         # timeout hover with NaN reward by ep 10000. 0.005 slowed the drift but did
+                         # not stop it; 0.003 is low enough to hold sigma while still escaping the
+                         # early hover. (0.0 collapsed early; 0.01/0.005 collapsed late.)
+                         # regularizer, so the policy collapsed to the safe hover local optimum
+                         # (100% timeout) before learning to capture. A proper PPO entropy bonus
+                         # keeps the policy exploring long enough to escape the hover trap.
+    truncate_grads: True
+    e_clip: 0.2
+    clip_value: True    # was False -- clip value updates to contain the value-driven divergence
+    num_actors: 128
+    horizon_length: 32
+    minibatch_size: 2048
+    mini_epochs: 4
+    critic_coef: 2
+    normalize_input: True
+    bounds_loss_coef: 0.0001
+    max_epochs: 6000
+    normalize_value: True
+    use_diagnostics: True
+    value_bootstrap: True
+    use_smooth_clamp: False
+
+    # Oracle target state exists only in this train-time central value network.
+    central_value_config:
+      minibatch_size: 2048
+      mini_epochs: 4
+      learning_rate: 1e-4   # was 5e-4 FIXED -- higher than the actor and non-adaptive, so the
+      lr_schedule: None     # privileged critic diverged and corrupted the actor's advantages.
+      clip_value: True      # was False -- add value clipping; slow the critic to match the actor.
+      normalize_input: True
+      truncate_grads: True
+      grad_norm: 1.0
+      network:
+        name: actor_critic
+        central_value: True
+        mlp:
+          units: [256, 256]
+          activation: elu
+          d2rl: False
+          initializer:
+            name: default
+          regularizer:
+            name: None
+
+    # Stop a run that has irrecoverably collapsed instead of burning hours on it. The 12 m
+    # look-ahead run peaked at reward 111 / capture 95.2% and then diverged (oob 0.10 -> 0.60 in
+    # every direction) for ~800 epochs before hitting max_epochs; gen_ppo.pth kept the pre-collapse
+    # peak, so all that compute bought nothing. Defaults never fire here: min_peak_reward=400 is far
+    # above this task's ~110 peak and drop_from_peak=0.55 is looser than the 47% drop we saw.
+    # Density curricula disable only this rule with --disable_collapse_early_stop because their
+    # reward normally falls as bars are promoted; NaN/Inf fail-fast remains independent and active.
+    early_stop_collapse:
+      enable: True
+      min_epoch: 400
+      min_peak_reward: 80     # this task peaks around 110
+      drop_from_peak: 0.35    # the observed collapse was -47%
+      patience_epochs: 100    # must stay collapsed this long (survives ordinary dips)
+
+    # Unlike reward, capture is directly comparable while density is unchanged. Reset the
+    # reference whenever bars change, then fail-stop a catastrophic policy collapse while keeping
+    # ordinary curriculum reward steps legal. The last 50-epoch periodic checkpoint is the LKG.
+    early_stop_density_capture:
+      enable: True
+      window_epochs: 50
+      min_epochs_at_density: 100
+      min_peak_capture: 0.50
+      drop_absolute: 0.25
+      patience_epochs: 25
+
+    player:
+      render: False
+      deterministic: True
+      games_num: 100

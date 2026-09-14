@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_cv_first_acquisition.py",
+  "created_at_utc": "2026-08-14T04:39:33.080205+00:00",
+  "scope": "post_d1_frozen_cv_first_acquisition_seed359",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "generic_provenance_override": {
+    "used": true,
+    "sole_verified_mismatch": "cfg_target_pattern: checkpoint=mixed expected=cv",
+    "reason": "controlled CV-only evaluation of a mixed-pattern training checkpoint"
+  },
+  "condition": {
+    "seed": 359,
+    "bars": 1,
+    "requested_episodes_per_cell": 2049,
+    "goal_dist_m": [
+      22.5,
+      28.0
+    ],
+    "target_pattern": "cv",
+    "target_speed_mps": [
+      0.3,
+      1.5
+    ],
+    "action_selection": "deterministic",
+    "episode_len_steps": 600,
+    "modes": [
+      "toward",
+      "away"
+    ],
+    "sensor_ranges_m": {
+      "target_camera": 20.0,
+      "lidar": 12.0
+    }
+  },
+  "telemetry_seed353_visibility_gap": 0.14431007432903775,
+  "cells": {
+    "toward": {
+      "episodes": 2049,
+      "capture": 1932,
+      "capture_rate": 0.9428989751098097,
+      "capture_wilson95": [
+        0.9319985396609024,
+        0.9521418269520517
+      ],
+      "crash": 115,
+      "crash_rate": 0.05612493899463153,
+      "crash_wilson95": [
+        0.046964495838101444,
+        0.06694661883464594
+      ],
+      "timeout": 2,
+      "timeout_rate": 0.0009760858955588092,
+      "timeout_wilson95": [
+        0.0002677187824720957,
+        0.0035520885324088333
+      ],
+      "target_hidden_fraction": 0.6588845700493938,
+      "closest_nocrash_mean_m": 0.4644888333105622,
+      "capture_mean_step": 138.83178053830227,
+      "first_acquisition": {
+        "capture": {
+          "episodes": 1932,
+          "never_acquired": 0,
+          "never_acquired_rate": 0.0,
+          "acquired": 1932,
+          "first_visible_step_mean": 82.09057971014492,
+          "first_visible_step_median": 72,
+          "visible_hidden_transitions": 3995,
+          "visible_hidden_transitions_mean_per_episode": 2.0678053830227743,
+          "camera_never_acquired": 0,
+          "camera_never_acquired_rate": 0.0,
+          "camera_first_visible_step_mean": 82.09057971014492
+        },
+        "crash": {
+          "episodes": 115,
+          "never_acquired": 114,
+          "never_acquired_rate": 0.991304347826087,
+          "acquired": 1,
+          "first_visible_step_mean": 77.0,
+          "first_visible_step_median": 77,
+          "visible_hidden_transitions": 3,
+          "visible_hidden_transitions_mean_per_episode": 0.02608695652173913,
+          "camera_never_acquired": 114,
+          "camera_never_acquired_rate": 0.991304347826087,
+          "camera_first_visible_step_mean": 77.0
+        },
+        "timeout": {
+          "episodes": 2,
+          "never_acquired": 2,
+          "never_acquired_rate": 1.0,
+          "acquired": 0,
+          "first_visible_step_mean": null,
+          "first_visible_step_median": null,
+          "visible_hidden_transitions": 0,
+          "visible_hidden_transitions_mean_per_episode": 0.0,
+          "camera_never_acquired": 2,
+          "camera_never_acquired_rate": 1.0,
+          "camera_first_visible_step_mean": null
+        }
+      }
+    },
+    "away": {
+      "episodes": 2049,
+      "capture": 762,
+      "capture_rate": 0.3718887262079063,
+      "capture_wilson95": [
+        0.35121991803723956,
+        0.39303700071107944
+      ],
+      "crash": 189,
+      "crash_rate": 0.09224011713030747,
+      "crash_wilson95": [
+        0.08046247042595778,
+        0.10554383667583489
+      ],
+      "timeout": 1098,
+      "timeout_rate": 0.5358711566617862,
+      "timeout_wilson95": [
+        0.514230464347971,
+        0.5573775984024995
+      ],
+      "target_hidden_fraction": 0.9505818506452826,
+      "closest_nocrash_mean_m": 13.028858632370028,
+      "capture_mean_step": 385.5275590551181,
+      "first_acquisition": {
+        "capture": {
+          "episodes": 762,
+          "never_acquired": 0,
+          "never_acquired_rate": 0.0,
+          "acquired": 762,
+          "first_visible_step_mean": 318.83989501312334,
+          "first_visible_step_median": 312,
+          "visible_hidden_transitions": 1632,
+          "visible_hidden_transitions_mean_per_episode": 2.141732283464567,
+          "camera_never_acquired": 0,
+          "camera_never_acquired_rate": 0.0,
+          "camera_first_visible_step_mean": 318.83989501312334
+        },
+        "crash": {
+          "episodes": 189,
+          "never_acquired": 176,
+          "never_acquired_rate": 0.9312169312169312,
+          "acquired": 13,
+          "first_visible_step_mean": 360.84615384615387,
+          "first_visible_step_median": 381,
+          "visible_hidden_transitions": 47,
+          "visible_hidden_transitions_mean_per_episode": 0.24867724867724866,
+          "camera_never_acquired": 176,
+          "camera_never_acquired_rate": 0.9312169312169312,
+          "camera_first_visible_step_mean": 360.84615384615387
+        },
+        "timeout": {
+          "episodes": 1098,
+          "never_acquired": 961,
+          "never_acquired_rate": 0.8752276867030966,
+          "acquired": 137,
+          "first_visible_step_mean": 565.2043795620438,
+          "first_visible_step_median": 569,
+          "visible_hidden_transitions": 190,
+          "visible_hidden_transitions_mean_per_episode": 0.17304189435336975,
+          "camera_never_acquired": 961,
+          "camera_never_acquired_rate": 0.8752276867030966,
+          "camera_first_visible_step_mean": 565.2043795620438
+        }
+      }
+    }
+  },
+  "screen": {
+    "primary_metric": "fused_never_acquired_rate",
+    "away_capture_never_acquired_rate": 0.0,
+    "away_timeout_never_acquired_rate": 0.8752276867030966,
+    "away_timeout_minus_capture_never_acquired": 0.8752276867030966,
+    "never_acquired_gap_threshold": 0.3,
+    "initial_acquisition_channel_support": true,
+    "away_capture_first_visible_step_mean": 318.83989501312334,
+    "away_timeout_first_visible_step_mean": 565.2043795620438,
+    "away_timeout_minus_capture_first_visible_step": 246.36448454892042,
+    "delayed_acquisition_step_threshold": 100,
+    "delayed_acquisition_channel_support": false,
+    "interpretation": "initial_acquisition_range_contract_channel_supported"
+  },
+  "limitations": [
+    "telemetry-only mechanism diagnostic; cannot revise P2/D1 or unlock P3",
+    "visibility is an associational measurement, not a causal effect or a remedy",
+    "never-acquired is conditioned on the outcome, which is itself downstream of the trajectory; episodes that crash early have fewer chances to acquire",
+    "one frozen training seed and one held-out evaluation seed",
+    "camera-only acquisition is a secondary channel; the preregistered primary is fused"
+  ]
+}

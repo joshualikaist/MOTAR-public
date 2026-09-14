@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_detection_range_stage1_campaign.py",
+  "pid": 2923737,
+  "host": "fair",
+  "started_at_utc": "2026-08-23T03:02:02.315111+00:00",
+  "updated_at_utc": "2026-08-23T03:02:02.315214+00:00",
+  "status": "running",
+  "current_phase": "preflight",
+  "completed_phases": [],
+  "failed_phase": null,
+  "error": null,
+  "traceback": null,
+  "preregistration": "docs/prereg_2026-08-22_detection_range_2stage.md",
+  "stage1_producer": "tools/run_navrl_ref5in_detection_range_stage1.py",
+  "output": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_detection_range_stage1_s457",
+  "summary": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_detection_range_stage1_s457/summary.json",
+  "contract": {
+    "arms": {
+      "clip20": 20.0,
+      "clip28": 28.0
+    },
+    "train_seed": 457,
+    "eval_seed": 461,
+    "warm_start_epoch": 1900,
+    "terminal_epoch": 2900,
+    "adaptation_epochs_per_arm": 1000,
+    "episodes_per_arm": 2049,
+    "goal_distance_m": [
+      22.5,
+      28.0
+    ],
+    "bars": 70,
+    "detector_min_pixels": 50,
+    "detect_resolution": [
+      1920,
+      1200
+    ],
+    "primary_gate": {
+      "metric": "never_acquired_delta_pp_clip28_minus_clip20",
+      "range_helps_at_or_below": -15.0
+    }
+  }
+}

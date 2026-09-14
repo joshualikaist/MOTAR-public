@@ -1,0 +1,11 @@
+'use strict';
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const { statusLines } = require('../docs/status/status_manifest.js');
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, '../docs/status_manifest.json')));
+const lines = statusLines(manifest);
+assert.strictEqual(lines.length, 9);
+assert(lines.some(line => line.includes('R4/R4b') && line.endsWith('FAIL')));
+assert.throws(() => statusLines({...manifest, real_flight_validated: true}));
+console.log('Public status manifest: PASS');

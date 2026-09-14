@@ -1,0 +1,124 @@
+{
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_0406_navrl_v2-ref5in-smoke-s197/nn/last_gen_ppo_ep_500_rew_117.70658.pth",
+  "checkpoint_sha256": "59f993811b2f358dc144544998cf0d230756198b19a33b658d0b82c22bebd26c",
+  "checks": {
+    "all_axis_raw_oob_zero": {
+      "detail": "{\"x\": {\"count\": 500, \"last\": 0.0, \"max\": 0.0}, \"y\": {\"count\": 500, \"last\": 0.0, \"max\": 0.0}, \"yaw\": {\"count\": 500, \"last\": 0.0, \"max\": 0.0}, \"z\": {\"count\": 500, \"last\": 0.0, \"max\": 0.0}}",
+      "pass": true
+    },
+    "behavior_kl_below_0p04": {
+      "detail": "{\"count\": 500, \"last\": 0.00832333229482174, \"max\": 0.05842266231775284}",
+      "pass": false
+    },
+    "checkpoint_all_finite": {
+      "detail": "[]",
+      "pass": true
+    },
+    "clean_training_source_receipt": {
+      "detail": "manifest='/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/train_source_receipts/ref5in_smoke_s197_260813_040625_2111013/source_manifest.json' sha=d8045614cb0e121d0ad5c71198d84db7597ecaad0a9d07a4946fef453879bf0a dirty=False files=310",
+      "pass": true
+    },
+    "closed_smoke_contract": {
+      "detail": "seed=197 envs=128 lr=3e-05 task_steps=16000 bars=70",
+      "pass": true
+    },
+    "distance_curriculum_saturated": {
+      "detail": "k=[20.0,27.0]",
+      "pass": false
+    },
+    "last100_learning_viability": {
+      "detail": "capture=0.7212 crash=0.2453 timeout=0.0334 episodes=3709",
+      "pass": true
+    },
+    "no_rollback_or_skipped_minibatches": {
+      "detail": "rollback={'count': 500, 'max': 1.0, 'last': 1.0} skipped={'count': 500, 'max': 1.0, 'last': 0.0}",
+      "pass": false
+    },
+    "normal_terminal_completion": {
+      "detail": "summary=max_epochs last=500 checkpoint=500 marker=True",
+      "pass": true
+    },
+    "ppo_kl_below_0p04": {
+      "detail": "{\"count\": 500, \"last\": 0.004158396273851395, \"max\": 0.03181617707014084}",
+      "pass": true
+    },
+    "ref5in_runtime_identity": {
+      "detail": "robot=navrl_ref5in_quad config=4e6cfa6717a652d4f9513c4a766a0bc47a3d869ec4019f26f9f8ef2ed8e2c83e urdf=5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+      "pass": true
+    },
+    "timeout_path_exercised": {
+      "detail": "last100 timeout=124/3709",
+      "pass": true
+    }
+  },
+  "expected_epochs": 500,
+  "expected_learning_rate": 3e-05,
+  "generated_at_utc": "2026-08-12T19:40:19.030712+00:00",
+  "last100_training_outcomes": {
+    "all_outcome_blocks": 500,
+    "capture_rate": 0.7212186573200323,
+    "captured": 2675,
+    "crash": 910,
+    "crash_rate": 0.2453491507144783,
+    "episodes": 3709,
+    "epochs": 100,
+    "timeout": 124,
+    "timeout_rate": 0.03343219196548935
+  },
+  "limitations": [
+    "one training seed",
+    "on-policy training outcomes rather than held-out navigation performance",
+    "whole-platform intervention includes mass, inertia, actuator and tilted collision-envelope changes",
+    "same inherited controller gains confound airframe dynamics with controller tuning",
+    "no CAD, power, thermal, endurance or flight validation"
+  ],
+  "next_step": "stop_and_diagnose_before_any_full_training",
+  "performance_claim_allowed": false,
+  "run": "aerial_gym/rl_training/rl_games/runs/ppo_260813_0406_navrl_v2-ref5in-smoke-s197",
+  "schema_version": 1,
+  "scope": "ref5in_learning_viability_engineering_smoke",
+  "session_log": "aerial_gym/rl_training/rl_games/train_session_logs/ref5in_smoke_260813_040625.log",
+  "tensorboard": {
+    "policy_action/raw_oob_x": {
+      "count": 500,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "policy_action/raw_oob_y": {
+      "count": 500,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "policy_action/raw_oob_yaw": {
+      "count": 500,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "policy_action/raw_oob_z": {
+      "count": 500,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "ppo/behavior_kl_audit_max": {
+      "count": 500,
+      "last": 0.00832333229482174,
+      "max": 0.05842266231775284
+    },
+    "ppo/epoch_rollback_total": {
+      "count": 500,
+      "last": 1.0,
+      "max": 1.0
+    },
+    "ppo/kl": {
+      "count": 500,
+      "last": 0.004158396273851395,
+      "max": 0.03181617707014084
+    },
+    "ppo/kl_skipped_minibatches": {
+      "count": 500,
+      "last": 0.0,
+      "max": 1.0
+    }
+  },
+  "verdict": "FAIL"
+}

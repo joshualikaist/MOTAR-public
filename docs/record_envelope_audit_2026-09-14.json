@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "records_key": "records",
+  "expected_count": 128,
+  "fields": {
+    "env_index": {"type": "integer", "minimum": 0},
+    "episode_index": {"type": "integer", "minimum": 0},
+    "observation_steps": {"type": "integer", "minimum": 0},
+    "seed": {"type": "integer", "minimum": 0},
+    "density_bars": {"type": "integer", "minimum": 0},
+    "checkpoint_sha256": {"type": "string", "format": "sha256"}
+  },
+  "unique_fields": ["env_index", "episode_index"],
+  "context_key": "context",
+  "context_fields": ["seed", "density_bars", "checkpoint_sha256"]
+}

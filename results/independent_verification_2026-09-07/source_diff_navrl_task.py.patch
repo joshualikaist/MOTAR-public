@@ -1,0 +1,76 @@
+--- old/aerial_gym/task/navrl_task/navrl_task.py
++++ new/aerial_gym/task/navrl_task/navrl_task.py
+@@ -3185,6 +3185,9 @@
+             "cfg_speed_governor_brake_mps2": self.speed_governor_cfg.brake_mps2,
+             "cfg_speed_governor_reaction_s": self.speed_governor_cfg.reaction_s,
+             "cfg_speed_governor_width_per_mps": self.speed_governor_cfg.width_per_mps,
++            "cfg_speed_governor_width_per_open_m": self.speed_governor_cfg.width_per_open_m,
++            "cfg_speed_governor_width_open_ref_m": self.speed_governor_cfg.width_open_ref_m,
++            "cfg_speed_governor_width_max_m": self.speed_governor_cfg.width_max_m,
+             "cfg_speed_governor_lateral_margin_m": self.speed_governor_cfg.lateral_margin_m,
+             "cfg_speed_governor_lateral_span_m": self.speed_governor_cfg.lateral_span_m,
+             "cfg_speed_governor_lateral_floor_mps": self.speed_governor_cfg.lateral_floor_mps,
+@@ -5038,7 +5041,17 @@
+         from aerial_gym.task.navrl_task import speed_governor as SG
+ 
+         # L2: per-env corridor half-width; the scalar w0 unless width_per_mps > 0.
+-        half_width = SG.speed_dependent_half_width(self.speed_governor_cfg, command_xy.norm(dim=1))
++        # L8 needs the vehicle's own clutter read BEFORE the corridor is drawn: nearest sensed
++        # surface in any bearing, which is exactly the omni clearance.
++        open_m = None
++        if self.speed_governor_cfg.open_width_enabled:
++            open_m = SG.omnidirectional_clearance(
++                scan_m, max_range_m=float(self.task_config.lidar_max_range),
++                target_return_mask=target_return,
++            )
++        half_width = SG.speed_dependent_half_width(
++            self.speed_governor_cfg, command_xy.norm(dim=1), open_m=open_m
++        )
+         if mode == "omni":
+             # A4 baseline: identical stopping law, corridor removed entirely.
+             from aerial_gym.task.navrl_task.speed_governor import omnidirectional_clearance
+@@ -6699,6 +6712,24 @@
+         seen_frac, seen_then_lost = CR.memory_window(seen[:, 1:], in_fov_t1)
+         nan = torch.full((k,), float("nan"), device=self.device)
+ 
++        # I4 (verification follow-up, plan 2026-09-06): the gap columns above are at t-1.0 s. The
++        # objection that a wide gap a second earlier says nothing about the contact instant is fair,
++        # so the same side gaps are recorded at t-0.5 s and AT contact (current pose), with a
++        # two-sided pinch flag: a bar surface inside the inflation radius on both sides at contact.
++        def side_gaps_at(pose_pos, pose_quat):
++            rel = quat_rotate_inverse(
++                pose_quat.unsqueeze(1).expand(k, b, 4).reshape(k * b, 4),
++                (bars_w - pose_pos.unsqueeze(1)).reshape(k * b, 3),
++            ).reshape(k, b, 3)
++            dist = rel[:, :, 0:2].norm(dim=2)
++            return CR.side_gaps(dist, torch.atan2(rel[:, :, 1], rel[:, :, 0]), circ, rng)
++
++        left_t0, right_t0, nearest_t0 = side_gaps_at(
++            pos[idx], self.obs_dict["robot_vehicle_orientation"][idx]
++        )
++        left_t05, right_t05, _ = side_gaps_at(self._cg_hist_pos[past2][idx], self._cg_hist_quat[past2][idx])
++        pinch_t0 = (left_t0 < CR.PINCH_M) & (right_t0 < CR.PINCH_M)
++
+         self._cg_contact_rows.append(CR.tensor_columns_to_rows({
+             "env": idx,
+             "age_steps": self._cg_hist_age[idx].clone(),
+@@ -6715,6 +6746,9 @@
+             "gov_requested_t1": gov1[:, 0], "gov_executed_t1": gov1[:, 1], "gov_cap_t1": gov1[:, 2],
+             "cap_binding_t1": gov1[:, 1] < gov1[:, 0] - 1e-3,
+             "gap_left": gap_left, "gap_right": gap_right, "nearest_surface": nearest_surface,
++            "gap_min_t05": torch.minimum(left_t05, right_t05),
++            "gap_left_t0": left_t0, "gap_right_t0": right_t0, "nearest_surface_t0": nearest_t0,
++            "pinch_t0": pinch_t0,
+             "bars_in_corridor": bars_in_corridor, "arc_clearance": arc_clear,
+             "ray_returned": ray_returned,
+             "in_fov_t1": in_fov_t1,
+@@ -9131,6 +9165,9 @@
+                 "speed_governor_brake_mps2": self.speed_governor_cfg.brake_mps2,
+                 "speed_governor_reaction_s": self.speed_governor_cfg.reaction_s,
+                 "speed_governor_width_per_mps": self.speed_governor_cfg.width_per_mps,
++                "speed_governor_width_per_open_m": self.speed_governor_cfg.width_per_open_m,
++                "speed_governor_width_open_ref_m": self.speed_governor_cfg.width_open_ref_m,
++                "speed_governor_width_max_m": self.speed_governor_cfg.width_max_m,
+                 "speed_governor_lateral_margin_m": self.speed_governor_cfg.lateral_margin_m,
+                 "speed_governor_lateral_span_m": self.speed_governor_cfg.lateral_span_m,
+                 "speed_governor_lateral_floor_mps": self.speed_governor_cfg.lateral_floor_mps,

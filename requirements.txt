@@ -1,0 +1,24 @@
+# Python dependencies that pip can install. Verified against the working environment on
+# 2026-09-12 (Python 3.8.20, conda env `aerialgym`); the "installed" column is what the
+# repository's tests actually run against.
+#
+# NOT installable from here, and required before anything imports the simulator:
+#   isaacgym  - NVIDIA Isaac Gym Preview 4, manual download, pins Python 3.8
+#   pytorch3d - build from source against the local torch/CUDA
+# See OPERATIONS.md for the environment setup those two need.
+
+warp-lang==1.0.0        # installed 1.0.0
+urdfpy==0.0.22          # installed 0.0.22. Was written `urdfpy=0.0.22`, a single `=`, which
+                        # made pip fail to parse this whole file. In this environment urdfpy is
+                        # a source checkout at ../urdfpy rather than a PyPI install. The version
+                        # string does NOT establish equivalent behavior: the public wheel fails
+                        # cylinder tests. For standalone CPU reproduction use the separately
+                        # source-pinned requirements-renderer-cpu.txt, not this legacy list.
+networkx==2.2           # installed 2.2. Was declared ==3.1, which nothing here runs on and
+                        # which urdfpy's own setup.py pins away from: it requires networkx==2.2.
+                        # Installing 3.1 gives a resolver conflict or a broken URDF loader.
+trimesh==4.11.5         # installed 4.11.5. Undeclared until 2026-09-12 although the URDF asset
+                        # loader imports it directly; urdfpy also uses it for mesh geometry.
+numpy==1.23             # installed 1.23.0
+scipy                   # installed 1.10.1, unpinned as before
+matplotlib              # installed 3.7.5, unpinned as before

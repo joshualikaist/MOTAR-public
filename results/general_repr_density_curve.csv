@@ -1,0 +1,15 @@
+# Density curve -- sensor-only perception+Transformer policy (Stage C, FOV-240 representation)
+# checkpoint: runs/ppo_260727_1309_navrl/nn/last_gen_ppo_ep_15000_rew_48.580364.pth
+#   (density curriculum reached 65 bars; 75+ is OUT-OF-DISTRIBUTION generalization, not trained there)
+# config: general spawn, target 1.0 m/s mixed, drone 2.5 m/s, LiDAR 72x4 @12 m,
+#   8 obstacle tokens / 240 deg selection / +-10 deg suppression, tilt comp on, max tilt 45 deg
+# eval: 128 envs, ~2049 episodes/cell, deterministic
+# density per 100 m^2 = bars / 478 * 100
+bars,density_per_100m2,capture,crash,timeout,crash_bar_contact_share,crash_below_share,crash_oob_share
+25,5.2,0.896,0.102,0.002,0.652,0.229,0.119
+50,10.5,0.796,0.202,0.002,0.853,0.101,0.046
+65,13.6,0.679,0.316,0.005,0.880,0.079,0.042
+75,15.7,0.598,0.399,0.003,0.917,0.053,0.031
+110,23.0,0.280,0.711,0.009,0.944,0.033,0.023
+130,27.2,0.150,0.847,0.003,0.946,0.025,0.029
+150,31.4,0.079,0.920,0.002,0.945,0.021,0.034

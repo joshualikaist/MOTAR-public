@@ -1,0 +1,196 @@
+{
+ "prereg": "docs/plans/lateral_contact_density_plan_2026-09-05.md#L1",
+ "question": "Lateral contacts are 60-70% of all contacts and the struck bar sits ~0.6 m off the commanded direction, outside the 0.45 m corridor. Does simply widening the corridor catch them, and what does it cost in timeout?",
+ "design": "ep25000 is in distribution at both densities (D1-prime), unlike the 70-bar policy. Width is swept under the straight stopping law and under the arc tube, so the sweep also answers whether widening still buys anything once the geometry is already correct. w=0.45 repeats the D1-prime cell as an in-root control.",
+ "predictions": {
+  "lateral share": "falls monotonically with width",
+  "timeout": "convex, knee near 0.8 m",
+  "crash": "minimum at an interior width; omni (infinite width) is known to fail at 49.8% timeout"
+ },
+ "contract": "v2",
+ "seed": 523,
+ "episodes": 2049,
+ "frame_sample_every": 100,
+ "cells": [
+  {
+   "name": "ep25000_d070_stopcap_w0p45",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap_w0p6",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.6"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap_w0p8",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.8"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap_w1p0",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.0"
+   }
+  },
+  {
+   "name": "ep25000_d070_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc_w0p45",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc_w0p6",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.6"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc_w0p8",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.8"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc_w1p0",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.0"
+   }
+  },
+  {
+   "name": "ep25000_d070_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 70,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap_w0p45",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap_w0p6",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.6"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap_w0p8",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.8"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap_w1p0",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.0"
+   }
+  },
+  {
+   "name": "ep25000_d205_stopcap_w1p2",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "stopcap",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc_w0p45",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc_w0p6",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.6"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc_w0p8",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.8"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc_w1p0",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.0"
+   }
+  },
+  {
+   "name": "ep25000_d205_dwa_arc_w1p2",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "dwa_arc",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "1.2"
+   }
+  }
+ ]
+}

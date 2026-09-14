@@ -1,0 +1,683 @@
+{
+  "appearance": {
+    "ambient": [
+      0.20000000298023224
+    ],
+    "base_color": [
+      [
+        [
+          0.5640251040458679,
+          0.32536137104034424,
+          0.17663279175758362
+        ],
+        [
+          0.16074296832084656,
+          0.6786256432533264,
+          0.7432911396026611
+        ],
+        [
+          0.5443132519721985,
+          0.6241727471351624,
+          0.5033562183380127
+        ],
+        [
+          0.7577970623970032,
+          0.6803048253059387,
+          0.15178002417087555
+        ]
+      ]
+    ],
+    "directional": [
+      0.800000011920929
+    ],
+    "kd": [
+      [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ]
+    ],
+    "light_direction": [
+      [
+        -0.6450046896934509,
+        -0.06069668009877205,
+        -0.7617642879486084
+      ]
+    ]
+  },
+  "arms": {
+    "flat": {
+      "max_ms": 6.451703025959432,
+      "mean_ms": 1.2033193372189999,
+      "min_ms": 0.7599680102430284,
+      "n": 30,
+      "p50_ms": 0.8143654849845916,
+      "p95_ms": 2.387758920667692
+    },
+    "lambertian": {
+      "max_ms": 1.53518799925223,
+      "mean_ms": 1.0491295349008094,
+      "min_ms": 0.8538290276192129,
+      "n": 30,
+      "p50_ms": 0.9638335031922907,
+      "p95_ms": 1.472363411448896
+    }
+  },
+  "batch": 1,
+  "camera": {
+    "far_range_m": 20.0,
+    "height": 135,
+    "horizontal_fov_deg": 60.0,
+    "width": 240
+  },
+  "camera_poses": {
+    "orientations": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "positions": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "command": [
+    "tools/verify_renderer_measurements.py",
+    "benchmark",
+    "--width",
+    "240",
+    "--height",
+    "135",
+    "--batch",
+    "1",
+    "--output",
+    "results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b1.json"
+  ],
+  "environment_step_latency": null,
+  "environment_step_reason": "N/A: no environment or policy",
+  "finished_unix_s": 1789124378.4898605,
+  "images_per_second_lambertian": 953.1711449669041,
+  "lambertian_over_flat": 0.8718629398289737,
+  "protocol": {
+    "measurement": "synchronised shade(renderer.render()) wall clock; new process per cell",
+    "percentile": "numpy linear interpolation",
+    "repeats": 3,
+    "samples_per_arm_repeat": 10,
+    "warmup_per_arm_repeat": 3
+  },
+  "provenance": {
+    "base_commit": "7c62dbfd1d58a67aa9e3e1ce2362cdd833456312",
+    "note": "Content hashes, not base_commit alone, identify supplemental execution source.",
+    "source_files": {
+      "aerial_gym/sensors/warp/warp_kernels/warp_camera_kernels.py": {
+        "matches_head": true,
+        "sha256": "e3f2080c715cd641c5ec156323dbdaa125b7f62c17b30ade14cbcc51777b65fc",
+        "tracked_at_head": true
+      },
+      "docs/renderer_reverification_protocol_2026-09-11.md": {
+        "matches_head": false,
+        "sha256": "c7ca44104243c6d34bbb118d7599490e049d2234dbeef8a0936f4b6cbb47dadf",
+        "tracked_at_head": false
+      },
+      "tools/renderer_validation/__init__.py": {
+        "matches_head": true,
+        "sha256": "cf68320f850a9a94bc1252444bab35dc26558d1d19cdf1ec24c23c7543de4ac2",
+        "tracked_at_head": true
+      },
+      "tools/renderer_validation/appearance_models.py": {
+        "matches_head": true,
+        "sha256": "409c261ec86fd06d982f64d960f0a77b93cf12ec061435d579f0006cf363d9d0",
+        "tracked_at_head": true
+      },
+      "tools/renderer_validation/gbuffer.py": {
+        "matches_head": true,
+        "sha256": "8383f015631f992f4242373285eae96aecab504ee751a75411d8c4d2d65030a3",
+        "tracked_at_head": true
+      },
+      "tools/renderer_validation/r4_metrics.py": {
+        "matches_head": true,
+        "sha256": "7f578e2849afcc900f4bb37ffc005e784a9c2121bb50da7657fb608bfea7d82e",
+        "tracked_at_head": true
+      },
+      "tools/renderer_validation/scene.py": {
+        "matches_head": true,
+        "sha256": "c1c5024252e390abe38972da862d6322b20adc98367c88f324cd84917d938eb0",
+        "tracked_at_head": true
+      },
+      "tools/renderer_validation/shading.py": {
+        "matches_head": true,
+        "sha256": "977cdad25068905af2d0203f127bf20839c098b4063cd647f62facac616579f7",
+        "tracked_at_head": true
+      },
+      "tools/renderer_validation/validation.py": {
+        "matches_head": true,
+        "sha256": "0cfb83449f982125ceaf2f80c371ec730eb1514cea379cac822ed12a17059962",
+        "tracked_at_head": true
+      },
+      "tools/runtime_fingerprint.py": {
+        "matches_head": true,
+        "sha256": "5f617d9fade3a0d1bf547748b85e5b2949d48e2716e1360f5f5836b88014c25d",
+        "tracked_at_head": true
+      },
+      "tools/verify_renderer_measurements.py": {
+        "matches_head": false,
+        "sha256": "64cbf6d0c8aeb9d41f0e3245402660e4c287fbc71edcbf1bda66c54b5a9ece3f",
+        "tracked_at_head": false
+      }
+    }
+  },
+  "records": [
+    {
+      "end_monotonic_s": 409502.500867513,
+      "mode": "flat",
+      "repeat": 0,
+      "samples_ms": [
+        2.5066750240512192,
+        0.9174810256808996,
+        0.817812979221344,
+        0.7961299852468073,
+        0.8519450202584267,
+        0.7927659898996353,
+        0.7763130124658346,
+        0.7873880094848573,
+        1.8446980393491685,
+        0.8109179907478392
+      ],
+      "start_monotonic_s": 409502.485099388,
+      "timing": {
+        "max_ms": 2.5066750240512192,
+        "mean_ms": 1.0902127076406032,
+        "min_ms": 0.7763130124658346,
+        "n": 10,
+        "p50_ms": 0.8143654849845916,
+        "p95_ms": 2.2087853809352955
+      },
+      "torch_peak_allocated_mib": 2.8818359375,
+      "torch_peak_reserved_mib": 4.0
+    },
+    {
+      "end_monotonic_s": 409502.546303942,
+      "mode": "lambertian",
+      "repeat": 0,
+      "samples_ms": [
+        1.53518799925223,
+        0.9591230191290379,
+        0.8849800215102732,
+        0.8742979844100773,
+        1.0207179584540427,
+        1.10116001451388,
+        1.3706930330954492,
+        0.8964999578893185,
+        0.8798689814284444,
+        1.0607410222291946
+      ],
+      "start_monotonic_s": 409502.535649012,
+      "timing": {
+        "max_ms": 1.53518799925223,
+        "mean_ms": 1.0583269991911948,
+        "min_ms": 0.8742979844100773,
+        "n": 10,
+        "p50_ms": 0.9899204887915403,
+        "p95_ms": 1.4611652644816784
+      },
+      "torch_peak_allocated_mib": 3.13134765625,
+      "torch_peak_reserved_mib": 4.0
+    },
+    {
+      "end_monotonic_s": 409502.579477545,
+      "mode": "lambertian",
+      "repeat": 1,
+      "samples_ms": [
+        1.4657590072602034,
+        1.1685770004987717,
+        0.9113000123761594,
+        0.8735040319152176,
+        0.98132697166875,
+        1.360802969429642,
+        1.291716005653143,
+        1.196741999592632,
+        0.8762090001255274,
+        0.9328320156782866
+      ],
+      "start_monotonic_s": 409502.568336669,
+      "timing": {
+        "max_ms": 1.4657590072602034,
+        "mean_ms": 1.1058769014198333,
+        "min_ms": 0.8735040319152176,
+        "n": 10,
+        "p50_ms": 1.0749519860837609,
+        "p95_ms": 1.4185287902364507
+      },
+      "torch_peak_allocated_mib": 3.13134765625,
+      "torch_peak_reserved_mib": 4.0
+    },
+    {
+      "end_monotonic_s": 409502.617422119,
+      "mode": "flat",
+      "repeat": 1,
+      "samples_ms": [
+        1.3862839550711215,
+        0.8957710233516991,
+        0.8000910165719688,
+        0.7935049943625927,
+        0.7700509740971029,
+        0.7795350393280387,
+        0.9196890168823302,
+        6.451703025959432,
+        1.9631650066003203,
+        0.8419730002060533
+      ],
+      "start_monotonic_s": 409502.601746416,
+      "timing": {
+        "max_ms": 6.451703025959432,
+        "mean_ms": 1.560176705243066,
+        "min_ms": 0.7700509740971029,
+        "n": 10,
+        "p50_ms": 0.8688720117788762,
+        "p95_ms": 4.4318609172478265
+      },
+      "torch_peak_allocated_mib": 2.8818359375,
+      "torch_peak_reserved_mib": 4.0
+    },
+    {
+      "end_monotonic_s": 409502.659801559,
+      "mode": "flat",
+      "repeat": 2,
+      "samples_ms": [
+        2.242417016532272,
+        0.8519400143995881,
+        0.7894969894550741,
+        0.7670979830436409,
+        0.829664000775665,
+        0.7745499606244266,
+        0.7766839698888361,
+        0.7691489881835878,
+        0.7599680102430284,
+        1.0347190545871854
+      ],
+      "start_monotonic_s": 409502.650107827,
+      "timing": {
+        "max_ms": 2.242417016532272,
+        "mean_ms": 0.9595685987733305,
+        "min_ms": 0.7599680102430284,
+        "n": 10,
+        "p50_ms": 0.7830904796719551,
+        "p95_ms": 1.6989529336569817
+      },
+      "torch_peak_allocated_mib": 2.8818359375,
+      "torch_peak_reserved_mib": 4.0
+    },
+    {
+      "end_monotonic_s": 409502.69730415,
+      "mode": "lambertian",
+      "repeat": 2,
+      "samples_ms": [
+        1.477767014876008,
+        0.9379570255987346,
+        0.8733239956200123,
+        0.8538290276192129,
+        1.0285190073773265,
+        1.0197680094279349,
+        0.8830759907141328,
+        0.9685439872555435,
+        0.9305200073868036,
+        0.85854297503829
+      ],
+      "start_monotonic_s": 409502.687400772,
+      "timing": {
+        "max_ms": 1.477767014876008,
+        "mean_ms": 0.9831847040913999,
+        "min_ms": 0.8538290276192129,
+        "n": 10,
+        "p50_ms": 0.9342385164927691,
+        "p95_ms": 1.275605411501601
+      },
+      "torch_peak_allocated_mib": 3.13134765625,
+      "torch_peak_reserved_mib": 4.0
+    }
+  ],
+  "runtime": {
+    "cuda": "12.1",
+    "cudnn": 90100,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "deterministic_algorithms": false,
+    "device_capability": "8.6",
+    "device_name": "NVIDIA GeForce RTX 3070",
+    "driver_cuda": "12.1",
+    "driver_cuda_field_note": "Legacy driver_cuda equals torch build CUDA; use nvidia_driver_version for driver",
+    "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+    "matmul_allow_tf32": false,
+    "numpy": "1.23.0",
+    "nvidia_driver_version": "570.133.07",
+    "opencv": "4.13.0",
+    "opencv_threads": 24,
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+    "python": "3.8.20",
+    "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+    "torch": "2.4.1+cu121",
+    "warp": "1.0.0"
+  },
+  "scene": {
+    "face_instance": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "face_material": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "triangles": [
+      [
+        0,
+        2,
+        1
+      ],
+      [
+        0,
+        3,
+        2
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        4,
+        6,
+        7
+      ],
+      [
+        0,
+        1,
+        5
+      ],
+      [
+        0,
+        5,
+        4
+      ],
+      [
+        3,
+        7,
+        6
+      ],
+      [
+        3,
+        6,
+        2
+      ],
+      [
+        0,
+        4,
+        7
+      ],
+      [
+        0,
+        7,
+        3
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        6,
+        5
+      ],
+      [
+        8,
+        10,
+        9
+      ],
+      [
+        8,
+        11,
+        10
+      ],
+      [
+        12,
+        13,
+        14
+      ],
+      [
+        12,
+        14,
+        15
+      ],
+      [
+        8,
+        9,
+        13
+      ],
+      [
+        8,
+        13,
+        12
+      ],
+      [
+        11,
+        15,
+        14
+      ],
+      [
+        11,
+        14,
+        10
+      ],
+      [
+        8,
+        12,
+        15
+      ],
+      [
+        8,
+        15,
+        11
+      ],
+      [
+        9,
+        10,
+        14
+      ],
+      [
+        9,
+        14,
+        13
+      ]
+    ],
+    "vertices": [
+      [
+        -1.3097784519195557,
+        -0.6000000238418579,
+        3.2792861461639404
+      ],
+      [
+        -0.3128398358821869,
+        -0.6000000238418579,
+        2.814406156539917
+      ],
+      [
+        -0.3128398358821869,
+        0.6000000238418579,
+        2.814406156539917
+      ],
+      [
+        -1.3097784519195557,
+        0.6000000238418579,
+        3.2792861461639404
+      ],
+      [
+        -0.8871601819992065,
+        -0.6000000238418579,
+        4.185594081878662
+      ],
+      [
+        0.10977843403816223,
+        -0.6000000238418579,
+        3.7207138538360596
+      ],
+      [
+        0.10977843403816223,
+        0.6000000238418579,
+        3.7207138538360596
+      ],
+      [
+        -0.8871601819992065,
+        0.6000000238418579,
+        4.185594081878662
+      ],
+      [
+        0.44999998807907104,
+        -0.20000000298023224,
+        3.6500000953674316
+      ],
+      [
+        1.149999976158142,
+        -0.20000000298023224,
+        3.6500000953674316
+      ],
+      [
+        1.149999976158142,
+        0.6000000238418579,
+        3.6500000953674316
+      ],
+      [
+        0.44999998807907104,
+        0.6000000238418579,
+        3.6500000953674316
+      ],
+      [
+        0.44999998807907104,
+        -0.20000000298023224,
+        4.349999904632568
+      ],
+      [
+        1.149999976158142,
+        -0.20000000298023224,
+        4.349999904632568
+      ],
+      [
+        1.149999976158142,
+        0.6000000238418579,
+        4.349999904632568
+      ],
+      [
+        0.44999998807907104,
+        0.6000000238418579,
+        4.349999904632568
+      ]
+    ]
+  },
+  "schema": "renderer_measurement_verification_v1",
+  "source_unchanged_during_run": true,
+  "stage": "R5_DIRECT",
+  "started_unix_s": 1789124377.0898612,
+  "status": "MEASURED_NO_SPEED_GATE",
+  "telemetry": {
+    "errors": [],
+    "samples": [
+      {
+        "compute_processes_raw": [
+          [
+            "3792511",
+            "190"
+          ],
+          [
+            "4115174",
+            "218"
+          ]
+        ],
+        "gpu_raw": [
+          [
+            "GPU-2c1f7a4d-3eac-bf30-8f1a-aa94384ed933",
+            "570.133.07",
+            "12",
+            "891",
+            "51"
+          ]
+        ],
+        "monotonic_s": 409502.508738722,
+        "process_memory_mib": 218.0
+      },
+      {
+        "compute_processes_raw": [
+          [
+            "3792511",
+            "190"
+          ],
+          [
+            "4115174",
+            "218"
+          ]
+        ],
+        "gpu_raw": [
+          [
+            "GPU-2c1f7a4d-3eac-bf30-8f1a-aa94384ed933",
+            "570.133.07",
+            "17",
+            "892",
+            "51"
+          ]
+        ],
+        "monotonic_s": 409502.687352429,
+        "process_memory_mib": 218.0
+      }
+    ],
+    "scope": "Device metrics include other processes; process memory is sampled, not exact peak."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "renderer_packaging_repository_followup_v1",
+  "date": "2026-09-12",
+  "scope": "Read-only regression and stored evidence verification; no new simulator experiment or renderer integration",
+  "source_commit": "ef598328c5a2edb54080e13124a9208d7ed9c9c7",
+  "source_dirty_at_test_start": false,
+  "test_fix_commit": "5cea0e4b7655d60b9628984dbae4f2658ef5e12f",
+  "status": "TEST_CONTRACT_RECONCILED",
+  "historical_summary": "summary.json",
+  "historical_summary_sha256": "e5669ea4d1c2069eb34f983195435d3ce720e505c7e687ab75d9f04d8a07ebf9",
+  "full_repository_regression": {
+    "interpreter": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+    "command_args": ["-B", "-m", "unittest", "discover", "-s", "tests", "-q"],
+    "environment_overrides": {"PYTHONNOUSERSITE": "1", "CUDA_VISIBLE_DEVICES": "0"},
+    "tests_run": 1533,
+    "passed": 1529,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 4,
+    "elapsed_seconds": 37.416,
+    "exit_code": 0
+  },
+  "standalone_cpu_checks": {
+    "interpreter": "/tmp/motar-renderer-reinstall-9cTpL0/venv/bin/python",
+    "environment_overrides": {"PYTHONNOUSERSITE": "1", "CUDA_VISIBLE_DEVICES": ""},
+    "renderer_tests": {"tests_run": 152, "failures": 0, "errors": 0, "skipped": 0, "elapsed_seconds": 3.012, "exit_code": 0},
+    "stored_evidence_tests": {"tests_run": 3, "failures": 0, "errors": 0, "skipped": 0, "elapsed_seconds": 0.060, "exit_code": 0}
+  },
+  "site_check": {"command": ["node", "tests/test_status_site.js"], "exit_code": 0, "status": "PASS"},
+  "evidence_limits": [
+    "This is a summary of observed process outputs, not an archived complete test log",
+    "The preexisting CPU renders still identify cdc8113 as their execution source",
+    "The reported 5 mm mutation was not rerun in this follow-up",
+    "A passing suite is not proof of detector integration or complete geometric equivalence",
+    "Integrated rendering cost remains unmeasured; no new performance estimate",
+    "No remote push performed"
+  ]
+}

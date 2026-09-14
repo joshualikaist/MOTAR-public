@@ -1,0 +1,14 @@
+{
+  "contract": "v2",
+  "seed": 523,
+  "episodes": 2049,
+  "frame_sample_every": 100,
+  "note": "R-B audit: the seed-523 baseline cells were produced under aerial_gym tree b51c3d2f; seeds 527/531 under 3aa30cd8 (L8 knobs, I4 columns). Every changed path is recording-only or returns early at zero gain, so this re-runs one seed-523 cell under the NEW tree. Bit-identical counts (306 crash / 1699 captured / 44 timeout of 2049) mean the three seeds may be pooled; anything else means they may not.",
+  "prereg": "docs/plans/confirmation_phase_plan_2026-09-06.md#R-B",
+  "predictions": {
+    "P6": "ep25000_d205_dwa_arc reproduces results/navrl_grid_d1p_ep25000_seed523 exactly: crash 306, captured 1699, timeout 44 of 2049"
+  },
+  "cells": [
+    {"name": "ep25000_d205_dwa_arc", "policy": "ep25000", "bars": 205, "env": {"NAVRL_SPEED_GOVERNOR": "dwa_arc"}}
+  ]
+}

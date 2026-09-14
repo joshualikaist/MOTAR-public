@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08",
+  "joint_detector": {
+    "best_epoch_zero_based": 26,
+    "weights_sha256": "aab12f39bdc79f201657002f12d2096fab916600b546481964f8fcacdb3300ac",
+    "validation": {
+      "precision": 0.77634,
+      "recall": 0.65901,
+      "map50": 0.69167,
+      "map50_95": 0.32339
+    },
+    "sealed_detfly_020_native_iou_0_3": {
+      "images": 6913,
+      "precision": 0.27290590869624826,
+      "recall": 0.8640046296296297,
+      "average_precision": 0.7388656371154538,
+      "true_positives": 5972,
+      "false_positives": 15911,
+      "false_negatives": 940
+    },
+    "sealed_detfly_020_scale_matched_4x_iou_0_3": {
+      "precision": 0.5931904901673026,
+      "recall": 0.5847800925925926,
+      "average_precision": 0.5971874097280871
+    }
+  },
+  "p4": {
+    "verdict": "PASS",
+    "test_frames": 1725,
+    "test_sequences": 8,
+    "top_k": 5,
+    "candidate_receipt_sha256": "ff191460fefa0d4815d6a94a6cac751e56504951cd284943d1f3065daa036696"
+  },
+  "p5": {
+    "verdict": "REJECTED",
+    "cnn_only_top1": {
+      "frame_hit_rate": 0.6144927536231884,
+      "proxy_false_lock_rate_among_selected": 0.245014245014245,
+      "matched_center_error_px_mean": 1.9126730304556603
+    },
+    "cnn_plus_kf": {
+      "frame_hit_rate": 0.46550724637681157,
+      "proxy_false_lock_rate_among_selected": 0.4842646114322415,
+      "matched_center_error_px_mean": 3.9747500951839934
+    },
+    "identity_metrics": "NOT_IDENTIFIABLE_SOURCE_TRACK_IDS_DROPPED_DURING_NPS_YOLO_PREPARATION",
+    "bearing_error": "UNAVAILABLE_CAMERA_INTRINSICS_NOT_PROVIDED",
+    "receipt_sha256": "9d3a810bd6eb02f474698b92f80441513f7fbc55ca8c570a0ad1dd3250200a2b"
+  }
+}

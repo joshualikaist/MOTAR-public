@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_cv_heading_telemetry.py",
+  "created_at_utc": "2026-08-13T10:16:41.461593+00:00",
+  "scope": "post_d1_frozen_cv_heading_outcome_telemetry_seed353",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "generic_provenance_override": {
+    "used": true,
+    "sole_verified_mismatch": "cfg_target_pattern: checkpoint=mixed expected=cv",
+    "reason": "controlled CV-only evaluation of a mixed-pattern training checkpoint"
+  },
+  "condition": {
+    "seed": 353,
+    "bars": 1,
+    "requested_episodes_per_cell": 2049,
+    "goal_dist_m": [
+      22.5,
+      28.0
+    ],
+    "target_pattern": "cv",
+    "target_speed_mps": [
+      0.3,
+      1.5
+    ],
+    "action_selection": "deterministic",
+    "episode_len_steps": 600,
+    "modes": [
+      "toward",
+      "away"
+    ]
+  },
+  "near_open_seed347_timeout_difference": 0.5431925150876692,
+  "cells": {
+    "toward": {
+      "episodes": 2050,
+      "capture": 1933,
+      "capture_rate": 0.9429268292682926,
+      "capture_wilson95": [
+        0.9320315016554842,
+        0.9521652761438782
+      ],
+      "crash": 110,
+      "crash_rate": 0.05365853658536585,
+      "crash_wilson95": [
+        0.04471208598925129,
+        0.06427464122835139
+      ],
+      "timeout": 7,
+      "timeout_rate": 0.0034146341463414634,
+      "timeout_wilson95": [
+        0.0016550314925521553,
+        0.007031840974682296
+      ],
+      "target_hidden_fraction": 0.6625341949531041,
+      "closest_nocrash_mean_m": 0.5081908639789242,
+      "capture_mean_step": 139.09260217278842,
+      "outcome_telemetry": {
+        "capture": {
+          "episodes": 1933,
+          "observation_steps": 268866,
+          "visible_steps": 95126,
+          "visible_fraction_step_weighted": 0.3538044974076306,
+          "wall_reflections": 10,
+          "wall_reflections_mean_per_episode": 0.005173305742369374,
+          "wall_reflection_any": 4,
+          "wall_reflection_any_rate": 0.0020693222969477496,
+          "bar_reflections": 0,
+          "bar_reflections_mean_per_episode": 0.0,
+          "bar_reflection_any": 0,
+          "bar_reflection_any_rate": 0.0
+        },
+        "crash": {
+          "episodes": 110,
+          "observation_steps": 3135,
+          "visible_steps": 103,
+          "visible_fraction_step_weighted": 0.0328548644338118,
+          "wall_reflections": 0,
+          "wall_reflections_mean_per_episode": 0.0,
+          "wall_reflection_any": 0,
+          "wall_reflection_any_rate": 0.0,
+          "bar_reflections": 0,
+          "bar_reflections_mean_per_episode": 0.0,
+          "bar_reflection_any": 0,
+          "bar_reflection_any_rate": 0.0
+        },
+        "timeout": {
+          "episodes": 7,
+          "observation_steps": 4200,
+          "visible_steps": 64,
+          "visible_fraction_step_weighted": 0.015238095238095238,
+          "wall_reflections": 14,
+          "wall_reflections_mean_per_episode": 2.0,
+          "wall_reflection_any": 4,
+          "wall_reflection_any_rate": 0.5714285714285714,
+          "bar_reflections": 0,
+          "bar_reflections_mean_per_episode": 0.0,
+          "bar_reflection_any": 0,
+          "bar_reflection_any_rate": 0.0
+        }
+      },
+      "wall_capture_association_by_speed": {
+        "q0": {
+          "zero_reflection_episodes": 487,
+          "reflected_episodes": 2,
+          "zero_reflection_capture_rate": 0.9383983572895277,
+          "reflected_capture_rate": 0.5,
+          "capture_difference_reflected_minus_zero": -0.4383983572895277
+        },
+        "q1": {
+          "zero_reflection_episodes": 526,
+          "reflected_episodes": 2,
+          "zero_reflection_capture_rate": 0.9486692015209125,
+          "reflected_capture_rate": 0.0,
+          "capture_difference_reflected_minus_zero": -0.9486692015209125
+        },
+        "q2": {
+          "zero_reflection_episodes": 516,
+          "reflected_episodes": 2,
+          "zero_reflection_capture_rate": 0.939922480620155,
+          "reflected_capture_rate": 0.5,
+          "capture_difference_reflected_minus_zero": -0.43992248062015504
+        },
+        "q3": {
+          "zero_reflection_episodes": 513,
+          "reflected_episodes": 2,
+          "zero_reflection_capture_rate": 0.9512670565302144,
+          "reflected_capture_rate": 1.0,
+          "capture_difference_reflected_minus_zero": 0.04873294346978563
+        }
+      }
+    },
+    "away": {
+      "episodes": 2049,
+      "capture": 737,
+      "capture_rate": 0.35968765251342116,
+      "capture_wilson95": [
+        0.339188473901774,
+        0.38071196091781345
+      ],
+      "crash": 193,
+      "crash_rate": 0.09419228892142509,
+      "crash_wilson95": [
+        0.08229326807501396,
+        0.10761007645537575
+      ],
+      "timeout": 1119,
+      "timeout_rate": 0.5461200585651538,
+      "timeout_wilson95": [
+        0.5244965947439418,
+        0.5675709145066633
+      ],
+      "target_hidden_fraction": 0.9532981979584169,
+      "closest_nocrash_mean_m": 13.412033881815471,
+      "capture_mean_step": 388.79240162822254,
+      "outcome_telemetry": {
+        "capture": {
+          "episodes": 737,
+          "observation_steps": 286540,
+          "visible_steps": 43027,
+          "visible_fraction_step_weighted": 0.15016053605081314,
+          "wall_reflections": 2966,
+          "wall_reflections_mean_per_episode": 4.024423337856174,
+          "wall_reflection_any": 735,
+          "wall_reflection_any_rate": 0.9972862957937585,
+          "bar_reflections": 1,
+          "bar_reflections_mean_per_episode": 0.0013568521031207597,
+          "bar_reflection_any": 1,
+          "bar_reflection_any_rate": 0.0013568521031207597
+        },
+        "crash": {
+          "episodes": 193,
+          "observation_steps": 28783,
+          "visible_steps": 648,
+          "visible_fraction_step_weighted": 0.022513289094257028,
+          "wall_reflections": 270,
+          "wall_reflections_mean_per_episode": 1.3989637305699483,
+          "wall_reflection_any": 81,
+          "wall_reflection_any_rate": 0.41968911917098445,
+          "bar_reflections": 0,
+          "bar_reflections_mean_per_episode": 0.0,
+          "bar_reflection_any": 0,
+          "bar_reflection_any_rate": 0.0
+        },
+        "timeout": {
+          "episodes": 1119,
+          "observation_steps": 671400,
+          "visible_steps": 3928,
+          "visible_fraction_step_weighted": 0.005850461721775395,
+          "wall_reflections": 5181,
+          "wall_reflections_mean_per_episode": 4.630026809651475,
+          "wall_reflection_any": 1115,
+          "wall_reflection_any_rate": 0.9964253798033958,
+          "bar_reflections": 0,
+          "bar_reflections_mean_per_episode": 0.0,
+          "bar_reflection_any": 0,
+          "bar_reflection_any_rate": 0.0
+        }
+      },
+      "wall_capture_association_by_speed": {
+        "q0": {
+          "zero_reflection_episodes": 39,
+          "reflected_episodes": 483,
+          "zero_reflection_capture_rate": 0.02564102564102564,
+          "reflected_capture_rate": 0.14285714285714285,
+          "capture_difference_reflected_minus_zero": 0.11721611721611722
+        },
+        "q1": {
+          "zero_reflection_episodes": 30,
+          "reflected_episodes": 484,
+          "zero_reflection_capture_rate": 0.03333333333333333,
+          "reflected_capture_rate": 0.3181818181818182,
+          "capture_difference_reflected_minus_zero": 0.28484848484848485
+        },
+        "q2": {
+          "zero_reflection_episodes": 25,
+          "reflected_episodes": 488,
+          "zero_reflection_capture_rate": 0.0,
+          "reflected_capture_rate": 0.42418032786885246,
+          "capture_difference_reflected_minus_zero": 0.42418032786885246
+        },
+        "q3": {
+          "zero_reflection_episodes": 24,
+          "reflected_episodes": 476,
+          "zero_reflection_capture_rate": 0.0,
+          "reflected_capture_rate": 0.6407563025210085,
+          "capture_difference_reflected_minus_zero": 0.6407563025210085
+        }
+      }
+    }
+  },
+  "screen": {
+    "away_capture_visible_fraction_step_weighted": 0.15016053605081314,
+    "away_timeout_visible_fraction_step_weighted": 0.005850461721775395,
+    "away_capture_minus_timeout_visibility": 0.14431007432903775,
+    "fov_track_loss_support_threshold": 0.2,
+    "fov_track_loss_channel_support": false,
+    "interpretation": "fov_screen_not_met_inspect_wall_association"
+  },
+  "limitations": [
+    "telemetry-only mechanism diagnostic; cannot revise P2/D1 or unlock P3",
+    "step-weighted visibility is descriptive and is not an episode-paired causal effect",
+    "wall-reflection association is selected by episode duration and target speed",
+    "one frozen training seed and one held-out evaluation seed"
+  ]
+}

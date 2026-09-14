@@ -1,0 +1,78 @@
+--- old/aerial_gym/task/navrl_task/speed_governor.py
++++ new/aerial_gym/task/navrl_task/speed_governor.py
+@@ -57,11 +57,23 @@
+     #   L5  yaw_cap_*:       yaw-rate magnitude is scaled down when something is close beside
+     # All are off at their defaults (0.0), which reproduces every result before this change.
+     width_per_mps: float = 0.0
++    #   L8  width_per_open_m / width_open_ref_m: the tube widens where the vehicle SEES open space.
++    #       L1 found the best width differs by density (1.2 m at 70 bars, 0.6 m at 205), but bar
++    #       count is a simulator parameter no vehicle can observe. Nearest sensed surface can:
++    #       it falls 2.06 -> 1.18 m from 70 to 205 bars with no overlap between densities, so the
++    #       same rule is implementable on hardware. Zero gain reproduces the fixed width exactly.
++    width_per_open_m: float = 0.0
++    width_open_ref_m: float = 1.2
++    width_max_m: float = 3.0
+     lateral_margin_m: float = 0.0
+     lateral_span_m: float = 2.0
+     lateral_floor_mps: float = 1.0
+     yaw_cap_radps: float = 0.0
+     yaw_cap_margin_m: float = 1.0
++
++    @property
++    def open_width_enabled(self):
++        return self.width_per_open_m > 0.0
+ 
+     @property
+     def lateral_channel_enabled(self):
+@@ -117,6 +129,17 @@
+             ),
+             width_per_mps=_finite_float(
+                 environ, "NAVRL_SPEED_GOVERNOR_WIDTH_PER_MPS", 0.0, minimum=0.0,
++            ),
++            width_per_open_m=_finite_float(
++                environ, "NAVRL_SPEED_GOVERNOR_WIDTH_PER_OPEN_M", 0.0, minimum=0.0,
++            ),
++            width_open_ref_m=_finite_float(
++                environ, "NAVRL_SPEED_GOVERNOR_WIDTH_OPEN_REF_M", 1.2, minimum=0.0,
++                strict_minimum=True,
++            ),
++            width_max_m=_finite_float(
++                environ, "NAVRL_SPEED_GOVERNOR_WIDTH_MAX_M", 3.0, minimum=0.0,
++                strict_minimum=True,
+             ),
+             lateral_margin_m=_finite_float(
+                 environ, "NAVRL_SPEED_GOVERNOR_LATERAL_MARGIN_M", 0.0, minimum=0.0,
+@@ -239,12 +262,28 @@
+     return float(path_half_width_m)
+ 
+ 
+-def speed_dependent_half_width(config, requested_speed):
+-    """L2: w = w0 + k * |v_requested|. k = 0 returns the scalar w0 (bit-identical to before)."""
+-    k = float(config.width_per_mps)
+-    if k <= 0.0:
++def speed_dependent_half_width(config, requested_speed, open_m=None):
++    """Corridor half-width for this step.
++
++    L2 adds k_v * |v_requested|; L8 adds k_o * (open - ref), where `open` is the nearest sensed
++    surface in ANY bearing -- the vehicle's own read of how cluttered it is. Both default to 0,
++    which returns the scalar w0 and reproduces every earlier arm bit for bit.
++    """
++    k_v, k_o = float(config.width_per_mps), float(config.width_per_open_m)
++    if k_v <= 0.0 and k_o <= 0.0:
+         return float(config.path_half_width_m)
+-    return float(config.path_half_width_m) + k * requested_speed
++    width = float(config.path_half_width_m)
++    if k_v > 0.0:
++        width = width + k_v * requested_speed
++    if k_o > 0.0:
++        if open_m is None:
++            raise ValueError("open-space width is enabled but no clutter measurement was supplied")
++        width = width + k_o * (open_m - float(config.width_open_ref_m))
++    # The sensed-clutter term only WIDENS. Verification of the first L8 run showed that letting it
++    # narrow below w0 (old floor 0.1 m) shrank the tube on 44-45% of frames at 205 bars -- exactly
++    # where the width sweep says a wider tube is optimal -- so the term now floors at w0.
++    floor = float(config.path_half_width_m)
++    return width.clamp(floor, float(config.width_max_m)) if hasattr(width, "clamp") else width
+ 
+ 
+ LATERAL_SECTOR_DEG = (15.0, 165.0)   # same sector the contact records call "beside"

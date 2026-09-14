@@ -1,0 +1,4479 @@
+{
+ "schema": "motar.experiments/1",
+ "source": "WORKLOG.md",
+ "curated_at": "2026-08-26",
+ "_note": "Hand-curated from WORKLOG.md, results/*/summary.{md,json} and docs/codex_review_2026-08-12.md. `verdict` judges the HYPOTHESIS (PASS/FAIL/INCONCLUSIVE); `validity` judges the EVIDENCE (canonical/superseded/withdrawn/exploratory). They are orthogonal: a result can have passed its gate and still be void. Validated by tools/lint_experiments.py.",
+ "themes": [
+  {
+   "id": "representation",
+   "label_ko": "관측 · 토큰 표현",
+   "order": 1
+  },
+  {
+   "id": "perception",
+   "label_ko": "인지 · 검출기",
+   "order": 2
+  },
+  {
+   "id": "latency",
+   "label_ko": "지연 · 포즈 전제",
+   "order": 3
+  },
+  {
+   "id": "control",
+   "label_ko": "제어 · 속도 거버너",
+   "order": 4
+  },
+  {
+   "id": "curriculum",
+   "label_ko": "밀도 · 표적 속도",
+   "order": 5
+  },
+  {
+   "id": "optimization",
+   "label_ko": "PPO · 학습",
+   "order": 6
+  },
+  {
+   "id": "platform",
+   "label_ko": "기체 · 하드웨어",
+   "order": 7
+  },
+  {
+   "id": "protocol",
+   "label_ko": "평가 프로토콜",
+   "order": 8
+  }
+ ],
+ "experiments": [
+  {
+   "id": "2026-07-16-density-sweep-v1",
+   "title_ko": "밀도 스윕 — 성능 절벽을 찾는다",
+   "question": "막대를 늘리면 어디서 성능이 무너지는가?",
+   "theme": "curriculum",
+   "knob": "NAVRL_NUM_BARS",
+   "levels": [
+    {
+     "label": "25 bars",
+     "value": 25,
+     "is_baseline": true
+    },
+    {
+     "label": "50",
+     "value": 50
+    },
+    {
+     "label": "75",
+     "value": 75
+    },
+    {
+     "label": "110",
+     "value": 110
+    },
+    {
+     "label": "150",
+     "value": 150
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -31.6,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "25 bars",
+     "capture": 0.972
+    },
+    {
+     "label": "150 bars",
+     "capture": 0.656
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "110→150에서 −27 pt의 절벽을 찾아 이후 커리큘럼 설계의 근거가 됐다.",
+   "confounded_by": "25/50 셀은 minibatch 512, 나머지는 4096으로 돌아 학습 조건이 섞였다.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-16",
+   "results_paths": []
+  },
+  {
+   "id": "2026-07-24-altitude-pi",
+   "title_ko": "고도 유지 P → PI",
+   "question": "지속적인 틸트 중 고도가 새는 것을 적분항으로 막을 수 있는가?",
+   "theme": "control",
+   "knob": null,
+   "levels": [
+    {
+     "label": "P only",
+     "value": "P",
+     "is_baseline": true
+    },
+    {
+     "label": "PI (Ki=1.0)",
+     "value": "PI"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 6.7,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "P",
+     "capture": 0.735
+    },
+    {
+     "label": "PI",
+     "capture": 0.802
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "capture +6.7 pp, crash −6.6 pp. 바닥 충돌이 주 크래시였던 국면을 끝냈다.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-24",
+   "results_paths": [
+    "results/altitude_pi_speed_axis.csv"
+   ]
+  },
+  {
+   "id": "2026-07-24-tilt-comp",
+   "title_ko": "고도우선 추력 보상 (tilt compensation)",
+   "question": "틸트 중 수직 추력 sag를 보상하면 크래시가 줄어드는가?",
+   "theme": "control",
+   "knob": "NAVRL_TILT_COMP",
+   "levels": [
+    {
+     "label": "off",
+     "value": "0",
+     "is_baseline": true
+    },
+    {
+     "label": "on",
+     "value": "1"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 0.0,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "off",
+     "capture": 0.837
+    },
+    {
+     "label": "on",
+     "capture": 0.837
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "capture 변화 0.00 pp. 바닥 충돌 −1.31 pp가 경계 이탈 +1.49 pp로 1:1 옮겨갔을 뿐 — '실패의 보존'.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-24",
+   "results_paths": [
+    "results/general_8m_tiltcomp_speed_axis.csv"
+   ]
+  },
+  {
+   "id": "2026-07-24-lidar-lookahead",
+   "title_ko": "LiDAR 시야 거리 8 m → 12 m",
+   "question": "더 멀리 보면 막대 충돌이 줄어드는가?",
+   "theme": "representation",
+   "knob": "NAVRL_LIDAR_RANGE",
+   "levels": [
+    {
+     "label": "8 m",
+     "value": 8,
+     "is_baseline": true
+    },
+    {
+     "label": "12 m",
+     "value": 12
+    }
+   ],
+   "metric": "bar_contact",
+   "effect": {
+    "value_pp": -0.5,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "lower_is_better"
+   },
+   "arms": [],
+   "verdict": "FAIL",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "목표 지표인 막대 충돌은 −0.5 pp(노이즈). capture +1.8 pp는 전부 경계 이탈 감소에서 왔다.",
+   "confounded_by": "capture 개선이 목표 실패모드가 아닌 다른 채널에서 발생.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-24",
+   "results_paths": [
+    "results/general_12m_lookahead_speed_axis.csv"
+   ],
+   "_note": "막대 충돌에 대한 3연속 음성 결과 — 이 때문에 bar-probe 계측을 도입했다."
+  },
+  {
+   "id": "2026-07-27-tokens-and-beams",
+   "title_ko": "장애물 토큰 5→8 + LiDAR 빔 36→72",
+   "question": "표현 용량을 늘리면 막대 충돌이 줄어드는가?",
+   "theme": "representation",
+   "knob": "NAVRL_MAX_OBSTACLES",
+   "knob_extra": [
+    "NAVRL_LIDAR_HBEAMS"
+   ],
+   "levels": [
+    {
+     "label": "5 tokens / 36 beams",
+     "value": "5/36",
+     "is_baseline": true
+    },
+    {
+     "label": "8 / 72",
+     "value": "8/72"
+    }
+   ],
+   "metric": "bar_contact",
+   "effect": {
+    "value_pp": -3.7,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "5/36",
+     "extra": {
+      "bar_contact": 0.127
+     }
+    },
+    {
+     "label": "8/72",
+     "extra": {
+      "bar_contact": 0.09
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "막대 충돌 12.7% → 9.0%. 다만 사전에 세운 두 메커니즘 가설(용량 부족·각도 양자화)은 둘 다 기각됐다.",
+   "confounded_by": "토큰 수와 빔 수를 동시에 바꿔 어느 쪽 기여인지 분리하지 못했다.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-27",
+   "results_paths": [
+    "results/general_repr_speed_axis.csv"
+   ]
+  },
+  {
+   "id": "2026-07-27-token-fov-240",
+   "title_ko": "토큰 선택 FOV 360° → 240°",
+   "question": "뒤쪽 장애물을 토큰에서 빼면 앞쪽 표현이 좋아지는가?",
+   "theme": "representation",
+   "knob": "NAVRL_OBSTACLE_FOV_DEG",
+   "levels": [
+    {
+     "label": "360°",
+     "value": 360,
+     "is_baseline": true
+    },
+    {
+     "label": "240°",
+     "value": 240
+    },
+    {
+     "label": "180° (사전 스크리닝에서 탈락)",
+     "value": 180
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 2.8,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "360°",
+     "capture": 0.861
+    },
+    {
+     "label": "240°",
+     "capture": 0.889
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "capture +2.8 pp, 막대 충돌 9.0% → 7.5%. 이후 240°가 기본값이 됐다.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-27",
+   "results_paths": [
+    "results/general_repr_fov240_speed_axis.csv"
+   ]
+  },
+  {
+   "id": "2026-07-27-suppress-deg",
+   "title_ko": "장애물 억제각 10° → 15°",
+   "question": "토큰 억제각을 넓히면 중복 토큰이 줄어드는가?",
+   "theme": "representation",
+   "knob": "NAVRL_OBSTACLE_SUPPRESS_DEG",
+   "levels": [
+    {
+     "label": "10°",
+     "value": 10,
+     "is_baseline": true
+    },
+    {
+     "label": "15°",
+     "value": 15
+    }
+   ],
+   "metric": "other",
+   "metric_label": "고유 토큰 수 (bar probe)",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "INCONCLUSIVE",
+   "validity": "withdrawn",
+   "verdict_note": "측정 자체가 이뤄지지 않았다.",
+   "retraction": {
+    "reason": "bug",
+    "text": "런이 발산했고, 확인해 보니 환경변수가 실제로 적용된 적이 없었다. 즉 '15° 실험'은 존재하지 않는다.",
+    "found_at": "2026-07-27",
+    "found_by": "self"
+   },
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-27",
+   "results_paths": []
+  },
+  {
+   "id": "2026-07-28-squashed-action",
+   "title_ko": "행동 분포 — unbounded Gaussian+clamp → tanh-squashed",
+   "question": "행동 경계 포화가 학습을 망치고 있는가?",
+   "theme": "optimization",
+   "knob": null,
+   "levels": [
+    {
+     "label": "unbounded + clamp",
+     "value": "clamp",
+     "is_baseline": true
+    },
+    {
+     "label": "tanh-squashed",
+     "value": "squashed"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 4.02,
+    "ci95_pp": [
+     2.01,
+     6.03
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "source ep19050",
+     "capture": 0.6778
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-07-30-chirality-fix",
+   "verdict_note": "PASS로 채택했으나 하루 뒤 키랄리티 버그가 드러나면서 '망가진 관측 위에서의 성능'으로 강등됐다. 행동 공간 변경 자체는 유지된다.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 1000,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "capture 개선 CI 하한 > 0",
+   "worklog_date": "2026-07-28",
+   "results_paths": []
+  },
+  {
+   "id": "2026-07-30-chirality-fix",
+   "title_ko": "★ 키랄리티(거울) 버그 수정 — 전면 재베이스라인",
+   "question": "LiDAR 방위 테이블이 좌우 반전돼 있었는가?",
+   "theme": "perception",
+   "knob": null,
+   "levels": [
+    {
+     "label": "수정 전",
+     "value": "mirrored",
+     "is_baseline": true
+    },
+    {
+     "label": "수정 후",
+     "value": "fixed"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 11.1,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "수정 전",
+     "extra": {
+      "hit_token_given_fov": 0.556
+     }
+    },
+    {
+     "label": "수정 후",
+     "extra": {
+      "hit_token_given_fov": 0.97
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "6개 공통 밀도 평균 +11.1 pp. 충돌한 막대가 토큰에 실제로 들어 있는 비율이 0.556 → 0.97로 올랐다. 카메라 far-plane 유령벽도 함께 수정.",
+   "supersedes": [
+    "2026-07-16-density-sweep-v1",
+    "2026-07-24-altitude-pi",
+    "2026-07-24-tilt-comp",
+    "2026-07-24-lidar-lookahead",
+    "2026-07-27-tokens-and-beams",
+    "2026-07-27-token-fov-240",
+    "2026-07-28-squashed-action"
+   ],
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "target_speed_ms": 1.0,
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-30",
+   "results_paths": [
+    "results/corrected_chirality_density_curve.csv"
+   ],
+   "_note": "이 시점 이전의 모든 정량 수치는 인용 불가. 질적 결론은 대체로 유지된다."
+  },
+  {
+   "id": "2026-07-30-density-speed-map-v1",
+   "title_ko": "밀도 × 표적 속도 28셀 맵 (v1)",
+   "question": "밀도와 표적 속도 중 무엇이 성능을 더 깎는가?",
+   "theme": "curriculum",
+   "knob": "NAVRL_TARGET_SPEED",
+   "knob_extra": [
+    "NAVRL_NUM_BARS"
+   ],
+   "levels": [
+    {
+     "label": "7밀도 × 4속도",
+     "value": "28 cells",
+     "is_baseline": true
+    },
+    {
+     "label": "기준 25 bars / 0.0 m/s",
+     "value": "25/0.0"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -78.0,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-08-11-gate2-speed-density",
+   "verdict_note": "밀도 −78 pp 대 속도 −4.2 pp의 비대칭. 결론 방향은 이후에도 유지되지만 v1 아레나 수치라 인용 불가.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "arena": "v1 24×24 m",
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-07-30",
+   "results_paths": [
+    "results/density_speed_map_cluster_sector.csv"
+   ]
+  },
+  {
+   "id": "2026-07-31-corridor-tokens",
+   "title_ko": "corridor 토큰 K=6 추가 (관측 898 → 946-D)",
+   "question": "통로 표현을 명시적 토큰으로 주면 항법이 좋아지는가?",
+   "theme": "representation",
+   "knob": "NAVRL_CORRIDOR_TOKENS",
+   "levels": [
+    {
+     "label": "off (898-D)",
+     "value": 0,
+     "is_baseline": true
+    },
+    {
+     "label": "K=6 (946-D)",
+     "value": 6
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 1.57,
+    "ci95_pp": [
+     -0.51,
+     3.66
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "off",
+     "capture": 0.6453,
+     "n_episodes": 4003
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "사전등록 게이트 ≥ +3 pp에 미달하고 CI가 0을 포함한다. 막대 충돌 하위 게이트(−0.93 pp)는 통과했으나 주 게이트로 기각.",
+   "seeds": [
+    1
+   ],
+   "episodes_per_cell": 4003,
+   "env": {
+    "bars": 100,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "capture ≥ +3 pp",
+   "worklog_date": "2026-07-31",
+   "results_paths": []
+  },
+  {
+   "id": "2026-08-01-ttc-selector-1650ti",
+   "title_ko": "토큰 셀렉터 cluster_sector → ttc_sector (평가기 1650 Ti)",
+   "question": "충돌까지 남은 시간으로 토큰을 고르면 좋아지는가?",
+   "theme": "representation",
+   "knob": "NAVRL_OBSTACLE_SELECTOR",
+   "levels": [
+    {
+     "label": "cluster_sector",
+     "value": "cluster_sector",
+     "is_baseline": true
+    },
+    {
+     "label": "ttc_sector",
+     "value": "ttc_sector"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 9.86,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "cluster_sector",
+     "capture": 0.79443,
+     "n_episodes": 2048
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-08-05-ttc-selector-main",
+   "verdict_note": "+9.86 pp / crash −8.06 pp로 통과했으나, 본 평가 장비에서 재현되지 않았다.",
+   "confounded_by": "GTX 1650 Ti 평가 공장(N=128)은 RTX 3070 대비 ~10-15 pt 약하다. 두 장비의 결과를 섞으면 안 된다.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2048,
+   "env": {
+    "bars": 70,
+    "machine": "gtx1650ti"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-01",
+   "results_paths": [
+    "results/v2_ttc_ab_1650ti.csv"
+   ]
+  },
+  {
+   "id": "2026-08-02-action-mode",
+   "title_ko": "평가 행동 모드 — stochastic vs deterministic",
+   "question": "게이트 통과율과 held-out 수치가 어긋나는 이유가 샘플링인가?",
+   "theme": "protocol",
+   "knob": "NAVRL_EVAL_ACTION_MODE",
+   "levels": [
+    {
+     "label": "stochastic",
+     "value": "stochastic",
+     "is_baseline": true
+    },
+    {
+     "label": "deterministic",
+     "value": "deterministic"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 5.09,
+    "ci95_pp": [
+     2.28,
+     7.89
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "stochastic",
+     "capture": 0.6735,
+     "n_episodes": 2049
+    },
+    {
+     "label": "deterministic",
+     "capture": 0.7244,
+     "n_episodes": 2050
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "게이트-heldout 불일치를 설명한다. 이후 두 수치를 항상 병기한다.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "checkpoint": "ep24000"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-02",
+   "results_paths": [
+    "results/navrl_v2_ep24000_action_deterministic/",
+    "results/navrl_v2_ep24000_limit_audit.md"
+   ]
+  },
+  {
+   "id": "2026-08-02-mirror-chirality",
+   "title_ko": "거울 관측 대조 — 학습된 선회 방향 편향이 있는가",
+   "question": "정책이 좌우 중 한쪽으로 도는 습관을 학습했는가?",
+   "theme": "perception",
+   "knob": "NAVRL_EVAL_REFLECTION_MODE",
+   "levels": [
+    {
+     "label": "original",
+     "value": "original",
+     "is_baseline": true
+    },
+    {
+     "label": "conjugate M·π·M",
+     "value": "conjugate"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -0.81,
+    "ci95_pp": [
+     -2.78,
+     1.17
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "original",
+     "capture": 0.7097,
+     "n_episodes": 4096
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "결과 수준의 좌우 비대칭은 검출되지 않았다(−0.81 pp, CI가 0 포함). 그러나 행동 수준의 키랄리티는 명확하다 — 정확한 반사 쌍에서 lateral action 부호 불일치 73.08%, MAE 1.235.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 4096,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-02",
+   "results_paths": [
+    "results/navrl_v2_ep24000_causal_1to3/"
+   ]
+  },
+  {
+   "id": "2026-08-02-seed-replication",
+   "title_ko": "평가 시드 재현 (42 → 43)",
+   "question": "held-out 수치가 환경 시드에 의존하는가?",
+   "theme": "protocol",
+   "knob": "NAVRL_SEED",
+   "levels": [
+    {
+     "label": "seed 42",
+     "value": 42,
+     "is_baseline": true
+    },
+    {
+     "label": "seed 43",
+     "value": 43
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 0.33,
+    "ci95_pp": [
+     -2.4,
+     3.06
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "seed 42",
+     "capture": 0.7244,
+     "n_episodes": 2049
+    },
+    {
+     "label": "seed 43",
+     "capture": 0.7277,
+     "n_episodes": 2050
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "재현 PASS. 단일 시드 수치를 인용할 때의 기본 불확실성 폭을 준다.",
+   "seeds": [
+    42,
+    43
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-02",
+   "results_paths": [
+    "results/navrl_v2_ep24000_causal_1to3/"
+   ]
+  },
+  {
+   "id": "2026-08-02-fixed-speed-ep24000",
+   "title_ko": "표적 고정 속도 0.3 / 0.9 / 1.5 m/s",
+   "question": "표적이 빨라지면 얼마나 어려워지는가?",
+   "theme": "curriculum",
+   "knob": "NAVRL_V2_FIXED_TARGET_SPEED",
+   "levels": [
+    {
+     "label": "0.3 m/s",
+     "value": 0.3,
+     "is_baseline": true
+    },
+    {
+     "label": "0.9",
+     "value": 0.9
+    },
+    {
+     "label": "1.5",
+     "value": 1.5
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -5.91,
+    "ci95_pp": [
+     -8.7,
+     -3.11
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "0.3 m/s",
+     "capture": 0.7326,
+     "n_episodes": 2049
+    },
+    {
+     "label": "1.5 m/s",
+     "capture": 0.6735,
+     "n_episodes": 2049
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "속도는 실질 민감축이다. 막대 충돌이 +7.86 pp 늘어난다.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-02",
+   "results_paths": [
+    "results/navrl_v2_ep24000_fixed_speed/"
+   ]
+  },
+  {
+   "id": "2026-08-03-forgetting-check",
+   "title_ko": "망각 검사 — ep19100 vs ep24000",
+   "question": "고밀도 커리큘럼을 계속 돌리면 저밀도 능력을 잊는가?",
+   "theme": "optimization",
+   "knob": null,
+   "levels": [
+    {
+     "label": "ep19100",
+     "value": 19100,
+     "is_baseline": true
+    },
+    {
+     "label": "ep24000",
+     "value": 24000
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 4.65,
+    "ci95_pp": [
+     1.85,
+     7.45
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "망각 없음 — 균일 조건 +4.65 pp, 고정 1.5 m/s에서도 +3.25 pp로 전 구간 개선.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-03",
+   "results_paths": [
+    "results/navrl_v2_ep19100_vs_ep24000_forgetting/"
+   ]
+  },
+  {
+   "id": "2026-08-04-fixed-density-extension",
+   "title_ko": "고정 205밀도 연장 학습 ep24000 → ep25000",
+   "question": "같은 밀도에서 더 돌리면 더 좋아지는가?",
+   "theme": "optimization",
+   "knob": null,
+   "levels": [
+    {
+     "label": "ep24000",
+     "value": 24000,
+     "is_baseline": true
+    },
+    {
+     "label": "ep25000",
+     "value": 25000
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -2.94,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "ep24000",
+     "capture": 0.7244
+    },
+    {
+     "label": "ep25000",
+     "capture": 0.695
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "capture −2.94 pp, crash +3.92 pp. KL은 정상(max 0.0076)이므로 발산이 아니라 느린 행동 드리프트다. 이후 '베이스라인 연장 금지' 규칙이 됐다.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-04",
+   "results_paths": [
+    "results/navrl_v2_ep24000_ttc_main_baseline/"
+   ]
+  },
+  {
+   "id": "2026-08-05-ttc-selector-main",
+   "title_ko": "토큰 셀렉터 ttc_sector — 본 장비 재현",
+   "question": "1650 Ti에서 본 +9.86 pp가 본 장비에서도 나오는가?",
+   "theme": "representation",
+   "knob": "NAVRL_OBSTACLE_SELECTOR",
+   "levels": [
+    {
+     "label": "cluster_sector",
+     "value": "cluster_sector",
+     "is_baseline": true
+    },
+    {
+     "label": "ttc_sector",
+     "value": "ttc_sector"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 0.71,
+    "ci95_pp": [
+     -2.1,
+     3.52
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "cluster_sector",
+     "capture": 0.695,
+     "n_episodes": 2049
+    },
+    {
+     "label": "ttc_sector",
+     "capture": 0.7021,
+     "n_episodes": 2051
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "사전등록 게이트(≥71.50% capture / ≤26.99% crash)와 ep24000 교체 기준(≥72.44%) 모두 미달. 채택하지 않는다.",
+   "confounded_by": "셀렉터를 바꾸면 후보 FOV도 240°→360°로 함께 바뀐다. 순수 랭킹 효과는 판정 불가.",
+   "supersedes": [
+    "2026-08-01-ttc-selector-1650ti"
+   ],
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "capture ≥ 71.50% 및 crash ≤ 26.99%",
+   "worklog_date": "2026-08-05",
+   "results_paths": [
+    "results/navrl_v2_ep24000_ttc_main_baseline/",
+    "results/navrl_v2_ep24000_ttc_main_ttc/"
+   ]
+  },
+  {
+   "id": "2026-08-05-governor-screen",
+   "title_ko": "속도 거버너 5종 스크리닝",
+   "question": "안전층으로 속도를 깎으면 크래시를 줄일 수 있는가?",
+   "theme": "control",
+   "knob": "NAVRL_SPEED_GOVERNOR",
+   "levels": [
+    {
+     "label": "off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "fixed 2.0",
+     "value": "fixed"
+    },
+    {
+     "label": "fixed 1.5",
+     "value": "fixed"
+    },
+    {
+     "label": "clearance",
+     "value": "clearance"
+    },
+    {
+     "label": "ttc",
+     "value": "ttc"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "off",
+     "capture": 0.7244
+    },
+    {
+     "label": "clearance",
+     "timeout": 0.1659
+    },
+    {
+     "label": "ttc",
+     "timeout": 0.2357
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "5개 arm 전부 게이트 실패. 완전정지형(clearance/ttc)은 timeout이 16.6~23.6%로 폭증 — 멈추면 잡지 못한다.",
+   "seeds": [
+    42
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-05",
+   "results_paths": [
+    "results/navrl_v2_ep24000_speed_governor_screen/"
+   ],
+   "_note": "이 데이터의 앞선 판본은 semantic-mask GT 누출과 LiDAR 수직행 역순 때문에 무효화하고 처음부터 재실행했다."
+  },
+  {
+   "id": "2026-08-05-riskcap-screen",
+   "title_ko": "riskcap 거버너 — 멈추지 않는 단일 후보",
+   "question": "정지하지 않고 속도만 제한하면 통과하는가?",
+   "theme": "control",
+   "knob": "NAVRL_SPEED_GOVERNOR",
+   "levels": [
+    {
+     "label": "off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "riskcap",
+     "value": "riskcap"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 6.72,
+    "ci95_pp": [
+     4.12,
+     9.32
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "off",
+     "capture": 0.7283,
+     "n_episodes": 2049
+    },
+    {
+     "label": "riskcap",
+     "capture": 0.7955,
+     "n_episodes": 2050
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "crash −7.02 pp [−9.51, −4.53]로 GO. 새 시드 44에서 측정.",
+   "seeds": [
+    44
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-05",
+   "results_paths": [
+    "results/navrl_v2_ep24000_riskcap_seed44_screen/"
+   ]
+  },
+  {
+   "id": "2026-08-05-riskcap-postadapt",
+   "title_ko": "riskcap + 1,000 epoch 적응 학습",
+   "question": "거버너에 맞춰 정책을 추가 학습하면 더 좋아지는가?",
+   "theme": "control",
+   "knob": "NAVRL_SPEED_GOVERNOR",
+   "levels": [
+    {
+     "label": "off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "source + riskcap",
+     "value": "riskcap"
+    },
+    {
+     "label": "trained + riskcap",
+     "value": "riskcap+adapt"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 3.75,
+    "ci95_pp": [
+     1.3,
+     6.19
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "off",
+     "capture": 0.7003
+    },
+    {
+     "label": "source+riskcap",
+     "capture": 0.782
+    },
+    {
+     "label": "trained+riskcap",
+     "capture": 0.8194
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "거버너 자체 +8.16 pp, 적응 학습이 추가로 +3.75 pp. 이 ep25000+riskcap을 현재 동결 후보로 확정했다.",
+   "seeds": [
+    45,
+    46
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "checkpoint": "ep25000+riskcap",
+    "sha256_prefix": "f70221393660"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-05",
+   "results_paths": [
+    "results/navrl_v2_riskcap_postadapt/"
+   ]
+  },
+  {
+   "id": "2026-08-05-r3-perception-screen",
+   "title_ko": "R3 인지 강건성 1차 스크리닝 (7축)",
+   "question": "센서가 나빠지면 어느 축이 가장 아픈가?",
+   "theme": "perception",
+   "knob": null,
+   "knob_extra": [
+    "NAVRL_DETECTION_DROPOUT",
+    "NAVRL_DETECTION_LATENCY_S",
+    "NAVRL_RANGE_ERROR_M"
+   ],
+   "levels": [
+    {
+     "label": "clean",
+     "value": "clean",
+     "is_baseline": true
+    },
+    {
+     "label": "dropout 0.3",
+     "value": 0.3
+    },
+    {
+     "label": "latency 0.1 s",
+     "value": 0.1
+    },
+    {
+     "label": "latency 0.2 s",
+     "value": 0.2
+    },
+    {
+     "label": "range err 0.30 m",
+     "value": 0.3
+    },
+    {
+     "label": "learned detector (1×1)",
+     "value": "learned_1x1"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -12.7,
+    "ci95_pp": [
+     -15.35,
+     -10.05
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "clean",
+     "capture": 0.8054
+    },
+    {
+     "label": "dropout 0.3",
+     "capture": 0.6784
+    },
+    {
+     "label": "latency 0.1 s",
+     "capture": 0.3782
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "superseded",
+   "superseded_by": "2026-08-06-latency-p3-ego-motion",
+   "verdict_note": "dropout −12.70 pp와 range≈0은 유효하다. 그러나 latency 셀(−42.7 / −62.0 pp)은 지연이 아니라 ego-motion 모델링 결함의 결과였다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-05",
+   "results_paths": [
+    "results/navrl_v2_detector_robustness/"
+   ]
+  },
+  {
+   "id": "2026-08-05-latency-p0-p1",
+   "title_ko": "지연 보상 P0(전방 예측) · P1(LiDAR 백업)",
+   "question": "표적 위치를 지연만큼 앞당겨 예측하면 회복되는가?",
+   "theme": "latency",
+   "knob": "NAVRL_LATENCY_COMPENSATE",
+   "levels": [
+    {
+     "label": "raw (보상 없음)",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "P0 forward-predict",
+     "value": "p0"
+    },
+    {
+     "label": "P0+P1 LiDAR backup",
+     "value": "p0p1"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -0.1,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "raw 0.1 s",
+     "capture": 0.3782
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "둘 다 NO-GO. P0의 영(零) 효과가 '표적 위치 지연이 원인'이라는 가설 자체를 반증했고, 그 반증이 P2·P3로 이어졌다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-05",
+   "results_paths": [
+    "results/navrl_v2_latency_compensate/"
+   ]
+  },
+  {
+   "id": "2026-08-06-latency-p2-obstacle-map",
+   "title_ko": "지연 보상 P2 — 장애물 맵 carve-out 보정",
+   "question": "지연된 검출이 장애물 맵을 잘못 지우는 것이 원인인가?",
+   "theme": "latency",
+   "knob": "NAVRL_LATENCY_OBSTACLE_FIX",
+   "levels": [
+    {
+     "label": "off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "predict",
+     "value": "predict"
+    },
+    {
+     "label": "skip",
+     "value": "skip"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 1.84,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "raw",
+     "capture": 0.3782
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "방향은 맞지만 구멍의 약 11%만 메운다. NO-GO. 남은 89%가 P3로 이어졌다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-06",
+   "results_paths": [
+    "results/navrl_v2_latency_obstacle_fix/"
+   ]
+  },
+  {
+   "id": "2026-08-06-latency-p3-ego-motion",
+   "title_ko": "★ 지연 보상 P3 — 촬영 시점 자세로 좌표 변환",
+   "question": "지연된 측정을 '지금'의 자세로 세계좌표에 올린 것이 진짜 원인인가?",
+   "theme": "latency",
+   "knob": "NAVRL_LATENCY_EGO_MOTION_FIX",
+   "levels": [
+    {
+     "label": "off (naive lift)",
+     "value": false,
+     "is_baseline": true
+    },
+    {
+     "label": "on (capture-time pose)",
+     "value": true
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 40.21,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "raw 0.1 s",
+     "capture": 0.3782
+    },
+    {
+     "label": "P3 on",
+     "capture": 0.7804
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "지연 손실의 94.2%를 회수한다. 즉 앞선 '지연 0.1 s = −42.7 pp'는 지연의 비용이 아니라 모델링 결함이었다. 기본값 ON으로 승격 — 보상이 아니라 올바른 모델이기 때문이다.",
+   "supersedes": [
+    "2026-08-05-r3-perception-screen"
+   ],
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-06",
+   "results_paths": [
+    "results/navrl_v2_latency_ego_motion/"
+   ],
+   "launcher": "aerial_gym/rl_training/rl_games/eval_navrl_v2_latency_ego_motion.sh"
+  },
+  {
+   "id": "2026-08-06-latency-budget",
+   "title_ko": "지연 예산 곡선 (P3 켠 상태)",
+   "question": "올바른 모델에서 지연은 실제로 얼마를 깎는가?",
+   "theme": "latency",
+   "knob": "NAVRL_DETECTION_LATENCY_S",
+   "levels": [
+    {
+     "label": "0 s (clean)",
+     "value": 0.0,
+     "is_baseline": true
+    },
+    {
+     "label": "0.1",
+     "value": 0.1
+    },
+    {
+     "label": "0.2",
+     "value": 0.2
+    },
+    {
+     "label": "0.3",
+     "value": 0.3
+    },
+    {
+     "label": "0.5",
+     "value": 0.5
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -2.5,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "clean",
+     "capture": 0.8054
+    },
+    {
+     "label": "0.1 s",
+     "capture": 0.7804
+    },
+    {
+     "label": "0.2 s",
+     "capture": 0.7663
+    },
+    {
+     "label": "0.3 s",
+     "capture": 0.7258
+    },
+    {
+     "label": "0.5 s",
+     "capture": 0.6477
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "≤0.2 s는 허용, ≥0.3 s부터 급격히 나빠진다. 이것이 현재의 정식 지연 표이며 R3의 지연 셀을 대체한다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-06",
+   "results_paths": [
+    "results/navrl_v2_latency_budget/"
+   ],
+   "launcher": "aerial_gym/rl_training/rl_games/eval_navrl_v2_latency_budget.sh"
+  },
+  {
+   "id": "2026-08-07-mask-backfill",
+   "title_ko": "dropout 대책 — 표적 마스크 backfill",
+   "question": "검출이 끊긴 프레임에서 마스크를 되메우면 회복되는가?",
+   "theme": "perception",
+   "knob": "NAVRL_TARGET_MASK_BACKFILL",
+   "levels": [
+    {
+     "label": "off",
+     "value": false,
+     "is_baseline": true
+    },
+    {
+     "label": "on",
+     "value": true
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 2.54,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "dropout raw (seed47)",
+     "capture": 0.6784
+    },
+    {
+     "label": "dropout raw (seed51)",
+     "capture": 0.6886
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "seed47 +2.54 pp, seed51 +1.77 pp로 재현되지만 사전등록 게이트 ≥4 pp(SE≈1.3 pp)에 미달. 게다가 clean 조건을 −1.4~−2.4 pp 깎는다. 채택하지 않는다.",
+   "seeds": [
+    47,
+    51
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "≥ +4 pp",
+   "worklog_date": "2026-08-07",
+   "results_paths": [
+    "results/navrl_v2_target_mask_backfill/"
+   ]
+  },
+  {
+   "id": "2026-08-07-lidar-assoc-h2",
+   "title_ko": "dropout 대책 H2 — LiDAR-표적 연관 끄기",
+   "question": "LiDAR를 표적에 연관시키는 것이 오히려 해로운가?",
+   "theme": "perception",
+   "knob": "NAVRL_LIDAR_TARGET_ASSOC",
+   "levels": [
+    {
+     "label": "on (기본)",
+     "value": true,
+     "is_baseline": true
+    },
+    {
+     "label": "off",
+     "value": false
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 3.42,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "assoc on (seed47)",
+     "capture": 0.6784
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "seed47 +3.42 pp, seed51 +3.09 pp — 재현된 유일한 생존자다. dropout 하에서 LiDAR→표적 연관은 순손실이라는 뜻이지만, 게이트를 넘지 못해 채택은 보류.",
+   "seeds": [
+    47,
+    51
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-07",
+   "results_paths": [
+    "results/navrl_v2_lidar_fallback/"
+   ]
+  },
+  {
+   "id": "2026-08-07-lidar-range-only-h3",
+   "title_ko": "dropout 대책 H3 — 거리만 갱신 (공분산 정직성)",
+   "question": "LiDAR로 방위까지 고치지 말고 거리만 갱신하면?",
+   "theme": "perception",
+   "knob": "NAVRL_LIDAR_RANGE_ONLY_UPDATE",
+   "levels": [
+    {
+     "label": "off",
+     "value": false,
+     "is_baseline": true
+    },
+    {
+     "label": "on",
+     "value": true
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 1.46,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "dropout raw",
+     "capture": 0.6784
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "손실의 11.5%만 회복. '공분산 정직성'은 이 채널의 일부일 뿐이다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-07",
+   "results_paths": [
+    "results/navrl_v2_lidar_range_only/"
+   ]
+  },
+  {
+   "id": "2026-08-07-lidar-assoc-gate",
+   "title_ko": "dropout 대책 — 연관 게이트 폭 조이기",
+   "question": "연관 허용 반경을 좁히면 나쁜 연관만 걸러지는가?",
+   "theme": "perception",
+   "knob": "NAVRL_LIDAR_ASSOC_GATE_M",
+   "levels": [
+    {
+     "label": "기본",
+     "value": null,
+     "is_baseline": true
+    },
+    {
+     "label": "0.65 m",
+     "value": 0.65
+    },
+    {
+     "label": "0.35 m",
+     "value": 0.35
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 1.71,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "dropout raw",
+     "capture": 0.6784
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "게이트를 좁혀도 +1.5~1.7 pp에 그친다. 통과하는 연관 자체가 해롭다는 뜻이라 이 방향은 기각.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-07",
+   "results_paths": [
+    "results/navrl_v2_lidar_assoc_gate/"
+   ]
+  },
+  {
+   "id": "2026-08-10-lidar-silent-h4",
+   "title_ko": "dropout 대책 H4 — 이산 'seen' 플래그 제거",
+   "question": "관측에 들어가는 이산 플래그가 dropout 손실을 만드는가?",
+   "theme": "perception",
+   "knob": "NAVRL_LIDAR_SILENT_CORRECT",
+   "levels": [
+    {
+     "label": "off",
+     "value": false,
+     "is_baseline": true
+    },
+    {
+     "label": "on",
+     "value": true
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 2.36,
+    "ci95_pp": [
+     -0.47,
+     5.19
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "dropout raw",
+     "capture": 0.6784
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "p=0.103으로 CI가 0을 포함. 채택 보류. 'H2 효과의 69%'라는 표현은 비율일 뿐이며 가법적 분해가 아니다(검수 지적).",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-10",
+   "results_paths": [
+    "results/navrl_v2_lidar_silent_correct/"
+   ]
+  },
+  {
+   "id": "2026-08-10-density-curve-riskcap",
+   "title_ko": "밀도 곡선 — ep24000/off vs ep25000/riskcap",
+   "question": "밀도가 올라갈수록 riskcap의 이득이 커지는가?",
+   "theme": "control",
+   "knob": null,
+   "levels": [
+    {
+     "label": "ep24000 / governor off",
+     "value": "A",
+     "is_baseline": true
+    },
+    {
+     "label": "ep25000 / riskcap",
+     "value": "C"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 9.27,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "INCONCLUSIVE",
+   "validity": "superseded",
+   "superseded_by": "2026-08-11-gate1-governor-adaptation",
+   "verdict_note": "Δ가 밀도에 따라 +4.54 → +9.27 pp로 커지는 패턴을 봤지만, 체크포인트와 거버너를 동시에 바꾼 비교라 어느 쪽 기여인지 말할 수 없다.",
+   "confounded_by": "체크포인트(ep24000 vs ep25000)와 거버너(off vs riskcap)가 동시에 달랐다. 이후 검수에서 시드(42 vs 47)와 평가기 SHA 차이도 추가 교란으로 확인됐다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-08-10",
+   "results_paths": [
+    "results/navrl_v2_density_curve_riskcap/"
+   ]
+  },
+  {
+   "id": "2026-08-10-density-speed-map-20",
+   "title_ko": "밀도 × 속도 20셀 맵 (v2 1차)",
+   "question": "밀도와 속도 사이에 상호작용이 있는가?",
+   "theme": "curriculum",
+   "knob": "NAVRL_V2_FIXED_TARGET_SPEED",
+   "knob_extra": [
+    "NAVRL_V2_DENSITIES"
+   ],
+   "levels": [
+    {
+     "label": "5밀도 × 4속도",
+     "value": "20 cells",
+     "is_baseline": true
+    },
+    {
+     "label": "기준 130 bars / 0.3 m/s",
+     "value": "130/0.3"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -11.4,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "INCONCLUSIVE",
+   "validity": "superseded",
+   "superseded_by": "2026-08-11-gate2-speed-density",
+   "verdict_note": "상호작용 우도비 p=0.337로 검출 실패. 220 bars가 분포 밖(OOD)이라 검정력이 낮았다.",
+   "seeds": [
+    47
+   ],
+   "episodes_per_cell": 2050,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-10",
+   "results_paths": [
+    "results/navrl_v2_density_speed_map/"
+   ]
+  },
+  {
+   "id": "2026-08-11-gate1-governor-adaptation",
+   "title_ko": "★ Gate 1 — 거버너와 적응 학습을 분리",
+   "question": "밀도 곡선의 개선은 거버너 덕인가, 추가 학습 덕인가?",
+   "theme": "control",
+   "knob": "NAVRL_SPEED_GOVERNOR",
+   "levels": [
+    {
+     "label": "A · ep24000 / off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "B · ep24000 / riskcap",
+     "value": "riskcap"
+    },
+    {
+     "label": "C · ep25000 / riskcap",
+     "value": "riskcap+adapt"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": 9.18,
+    "ci95_pp": null,
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "B−A (거버너)",
+     "extra": {
+      "delta_pp_range": "+3.37 … +9.18"
+     }
+    },
+    {
+     "label": "C−B (적응)",
+     "extra": {
+      "delta_pp_range": "+0.59 … +2.68"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "귀속 문제 해결. 130~220 bars 전 구간에서 거버너가 주효과이고 적응 학습이 그 위에 순차로 얹힌다 — 상호작용이 아니다.",
+   "supersedes": [
+    "2026-08-10-density-curve-riskcap"
+   ],
+   "seeds": [
+    53
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-11",
+   "results_paths": [
+    "results/navrl_v2_governor_adaptation_abc_seed53_schema2/"
+   ],
+   "_note": "220 bars는 학습 분포 밖(OOD)이므로 보조 자료로만 읽는다."
+  },
+  {
+   "id": "2026-08-11-gate2-speed-density",
+   "title_ko": "★ Gate 2 — 밀도 × 속도 상호작용",
+   "question": "밀도가 높을수록 빠른 표적이 더 치명적인가?",
+   "theme": "curriculum",
+   "knob": "NAVRL_V2_FIXED_TARGET_SPEED",
+   "knob_extra": [
+    "NAVRL_V2_DENSITIES"
+   ],
+   "levels": [
+    {
+     "label": "0.3 m/s",
+     "value": 0.3,
+     "is_baseline": true
+    },
+    {
+     "label": "1.5 m/s",
+     "value": 1.5
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -5.94,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "저밀도 fast−slow",
+     "extra": {
+      "delta_pp": -0.36
+     }
+    },
+    {
+     "label": "고밀도 fast−slow",
+     "extra": {
+      "delta_pp": -5.94
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "우도비 χ²(1)=12.76, p=3.54e-4로 상호작용 검출. 4개 밀도 모두 학습 분포 안이라 08-10의 p=0.337을 대체한다.",
+   "supersedes": [
+    "2026-08-10-density-speed-map-20",
+    "2026-07-30-density-speed-map-v1"
+   ],
+   "seeds": [
+    59,
+    61
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "우도비 검정 p < 0.05",
+   "worklog_date": "2026-08-11",
+   "results_paths": [
+    "results/navrl_v2_speed_density_interaction_seed59_61_schema2/"
+   ]
+  },
+  {
+   "id": "2026-08-11-detector-offline-gate-v2",
+   "title_ko": "학습형 검출기 v2 — 오프라인 게이트 14종",
+   "question": "손으로 만든 해석적 검출기를 학습형으로 대체할 수 있는가?",
+   "theme": "perception",
+   "knob": null,
+   "levels": [
+    {
+     "label": "1×1 unweighted BCE (기존)",
+     "value": "pixel_1x1",
+     "is_baseline": true
+    },
+    {
+     "label": "balanced BCE @0.55",
+     "value": "balanced_bce"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "오프라인 게이트 통과 수",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "balanced_bce",
+     "extra": {
+      "checks_passed": "14/14"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "사전등록한 14개 검사 전부 통과. 앞선 −13.9 pp를 만든 1×1 artifact를 대체한다.",
+   "seeds": [],
+   "episodes_per_cell": null,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "14개 검사 전부 통과",
+   "worklog_date": "2026-08-11",
+   "results_paths": [
+    "results/navrl_detector_offline_gate_v2/"
+   ]
+  },
+  {
+   "id": "2026-08-11-detector-nav-ab-83-89",
+   "title_ko": "학습형 검출기 v2 — 항법 비열등성 (1차)",
+   "question": "오프라인 게이트를 통과한 검출기가 항법에서도 밀리지 않는가?",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_CHECKPOINT",
+   "levels": [
+    {
+     "label": "analytic bootstrap",
+     "value": "analytic",
+     "is_baseline": true
+    },
+    {
+     "label": "learned v2",
+     "value": "learned_v2"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -0.07,
+    "ci95_pp": [
+     -1.79,
+     1.64
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "analytic",
+     "capture": 0.8049,
+     "n_episodes": 4100
+    },
+    {
+     "label": "learned v2",
+     "capture": 0.8042,
+     "n_episodes": 4100
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "비열등성 마진 −2.0 pp를 CI 하한이 넘어 PASS.",
+   "seeds": [
+    83,
+    89
+   ],
+   "episodes_per_cell": 4100,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "CI 하한 > −2.0 pp",
+   "worklog_date": "2026-08-11",
+   "results_paths": [
+    "results/navrl_v2_detector_navigation_ab_seed83_89_schema2/"
+   ]
+  },
+  {
+   "id": "2026-08-12-detector-nav-ab-97-101",
+   "title_ko": "학습형 검출기 v2 — 항법 비열등성 (재현)",
+   "question": "1차 결과가 새 시드에서 재현되는가?",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_CHECKPOINT",
+   "levels": [
+    {
+     "label": "analytic bootstrap",
+     "value": "analytic",
+     "is_baseline": true
+    },
+    {
+     "label": "learned v2",
+     "value": "learned_v2"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -0.015,
+    "ci95_pp": [
+     -1.752,
+     1.723
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "analytic",
+     "capture": 0.798,
+     "n_episodes": 4098
+    },
+    {
+     "label": "learned v2",
+     "capture": 0.798,
+     "n_episodes": 4100
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "독립 재현 PASS. 1차와 절대 pooling하지 않는다.",
+   "seeds": [
+    97,
+    101
+   ],
+   "episodes_per_cell": 4098,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "CI 하한 > −2.0 pp",
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_detector_navigation_ab_replication_seed97_101_schema2/"
+   ],
+   "_note": "런처가 셀 완료 후 요약 단계에서 죽어, 요약은 사전등록 수식으로 런처 밖에서 재계산했다(공개함)."
+  },
+  {
+   "id": "2026-08-12-appearance-domain-shift",
+   "title_ko": "외형 도메인 시프트 사다리 (8축 28셀)",
+   "question": "표적 외형이 바뀌면 검출기가 어디서 무너지는가?",
+   "theme": "perception",
+   "knob": null,
+   "knob_extra": [
+    "NAVRL_APP_HUE_DEG",
+    "NAVRL_APP_LIGHT_GAIN",
+    "NAVRL_APP_MOTION_BLUR"
+   ],
+   "levels": [
+    {
+     "label": "nominal",
+     "value": "nominal",
+     "is_baseline": true
+    },
+    {
+     "label": "hue 180°",
+     "value": 180
+    },
+    {
+     "label": "light gain",
+     "value": "±0.5"
+    },
+    {
+     "label": "albedo / texture / blur / mount / fov",
+     "value": "envelope"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "검출 재현율",
+   "effect": {
+    "value_pp": -73.5,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "bootstrap @hue180",
+     "extra": {
+      "recall": 0.248
+     }
+    },
+    {
+     "label": "learned v2 @hue180",
+     "extra": {
+      "recall": 0.215
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "색상이 지배 축이다. 학습형 v2가 부트스트랩보다 오히려 더 취약하다(21.5% vs 24.8%). 인지 수준 측정이며 항법 성능이 아니다.",
+   "seeds": [
+    103
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_detector_domain_shift/"
+   ]
+  },
+  {
+   "id": "2026-08-12-detector-gate-v3-v7",
+   "title_ko": "검출기 아키텍처 v3 → v7 (도메인 랜덤화 하)",
+   "question": "외형 변화에 견디는 검출기를 만들 수 있는가?",
+   "theme": "perception",
+   "knob": null,
+   "levels": [
+    {
+     "label": "v3 balanced_bce",
+     "value": "v3",
+     "is_baseline": true
+    },
+    {
+     "label": "v4 spatial+focal_dice",
+     "value": "v4"
+    },
+    {
+     "label": "v5 pixel1x1+focal_dice",
+     "value": "v5"
+    },
+    {
+     "label": "v6 spatial_cnn",
+     "value": "v6"
+    },
+    {
+     "label": "v7 spatial_cnn_wide",
+     "value": "v7"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "오프라인 게이트 통과 수",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "v3/v4/v5",
+     "extra": {
+      "result": "FAIL"
+     }
+    },
+    {
+     "label": "v6",
+     "extra": {
+      "checks_passed": "12/14"
+     }
+    },
+    {
+     "label": "v7 @0.70",
+     "extra": {
+      "checks_passed": "14/14"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "exploratory",
+   "verdict_note": "v7이 14/14 통과. 다만 이것은 v3→v7의 순차적 모델 개발이지 손대지 않은 단일 확증 사슬이 아니다 — 1픽셀 허용오차와 선택된 envelope를 함께 공개해야 한다(검수 지적).",
+   "seeds": [],
+   "episodes_per_cell": null,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "14개 검사 전부 통과",
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_detector_offline_gate_v7_confirmatory/"
+   ]
+  },
+  {
+   "id": "2026-08-12-appearance-nav-ab",
+   "title_ko": "검출기 × 외형 envelope 항법 A/B (4셀)",
+   "question": "인지 강건성이 시스템 강건성으로 이어지는가?",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_CHECKPOINT",
+   "knob_extra": [
+    "NAVRL_DETECTOR_THRESHOLD"
+   ],
+   "levels": [
+    {
+     "label": "nominal / analytic",
+     "value": "analytic@nominal",
+     "is_baseline": true
+    },
+    {
+     "label": "nominal / learned v7@0.70",
+     "value": "v7@nominal"
+    },
+    {
+     "label": "envelope / analytic",
+     "value": "analytic@envelope"
+    },
+    {
+     "label": "envelope / learned v7@0.70",
+     "value": "v7@envelope"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -5.021,
+    "ci95_pp": [
+     -6.799,
+     -3.243
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "nominal analytic",
+     "capture": 0.8092
+    },
+    {
+     "label": "nominal v7@0.70",
+     "capture": 0.759
+    },
+    {
+     "label": "envelope analytic",
+     "capture": 0.4988
+    },
+    {
+     "label": "envelope v7@0.70",
+     "capture": 0.6663
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "★ 이 프로젝트의 핵심 음성 결과. 오프라인에서 14/14 통과한 검출기가 nominal 항법을 −5.02 pp 깎는다. 즉 인지 강건성 ≠ 시스템 강건성. envelope에서는 반대로 +16.8 pp 우세하다.",
+   "confounded_by": "E1 셀은 검출기 구현과 임계값(0.55→0.70)을 동시에 바꿨다. 원인 규명은 후속 진단으로 분리했다.",
+   "seeds": [
+    151,
+    157
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "비열등성 마진 −2.0 pp",
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_appearance_navigation_ab_seed151_157/"
+   ],
+   "launcher": "aerial_gym/rl_training/rl_games/eval_navrl_v2_appearance_navigation_ab.sh"
+  },
+  {
+   "id": "2026-08-12-detector-threshold-diagnostic",
+   "title_ko": "★ E1 원인 진단 — 임계값인가 출력 분포인가",
+   "question": "학습형 검출기가 항법을 깎는 원인이 임계값 0.70인가?",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_THRESHOLD",
+   "knob_extra": [
+    "NAVRL_DETECTOR_CHECKPOINT"
+   ],
+   "levels": [
+    {
+     "label": "analytic @0.55",
+     "value": 0.55,
+     "is_baseline": true
+    },
+    {
+     "label": "v7 @0.55",
+     "value": 0.55
+    },
+    {
+     "label": "v7 @0.70",
+     "value": 0.7
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -5.192,
+    "ci95_pp": [
+     -6.982,
+     -3.401
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "analytic@0.55",
+     "capture": 0.8058,
+     "n_episodes": 4098
+    },
+    {
+     "label": "v7@0.55",
+     "capture": 0.7539,
+     "n_episodes": 4100
+    },
+    {
+     "label": "v7@0.70",
+     "capture": 0.7683,
+     "n_episodes": 4100
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "임계값 가설 기각. v7@0.55가 오히려 더 나쁘고(−5.19 pp), 임계값 자체의 효과는 +1.44 pp로 CI가 0을 포함한다. 원인은 학습형 검출기의 출력 분포가 analytic으로 학습된 actor와 맞지 않는 것 — 사후 임계값 조정이 아니라 매칭된 재학습이 답이다.",
+   "seeds": [
+    191,
+    193
+   ],
+   "episodes_per_cell": 4098,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_detector_threshold_diagnostic_seed191_193/"
+   ],
+   "_note": "나 자신의 대안 설명(임계값 탓)을 반증한 실험이다."
+  },
+  {
+   "id": "2026-08-12-detector-threshold-void",
+   "title_ko": "E1 진단 1차 시도 (시드 173/179)",
+   "question": "같은 진단, 앞선 시드",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_THRESHOLD",
+   "levels": [
+    {
+     "label": "analytic @0.55",
+     "value": 0.55,
+     "is_baseline": true
+    },
+    {
+     "label": "v7 @0.70",
+     "value": 0.7
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "INCONCLUSIVE",
+   "validity": "withdrawn",
+   "verdict_note": "3개 셀 중 2개만 완료. 재시도하지 않고 새 시드로 다시 사전등록했다.",
+   "retraction": {
+    "reason": "scope",
+    "text": "캠페인 도중 소스 매니페스트가 바뀌어 무결성 가드가 3번째 셀을 거부했다. 가드는 의도대로 작동했고, 같은 시드로 재시도하면 '한 번 연 시드' 원칙을 깨므로 폐기했다.",
+    "found_at": "2026-08-12",
+    "found_by": "self"
+   },
+   "seeds": [
+    173,
+    179
+   ],
+   "episodes_per_cell": 4098,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_detector_threshold_diagnostic_seed173_179_VOID_source_drift/"
+   ]
+  },
+  {
+   "id": "2026-08-12-pose-clock-offset",
+   "title_ko": "타임스탬프 정렬 오차 (clock offset)",
+   "question": "P3가 전제하는 '정확한 타임스탬프'가 틀어지면 얼마나 아픈가?",
+   "theme": "latency",
+   "knob": "NAVRL_POSE_CLOCK_OFFSET_S",
+   "levels": [
+    {
+     "label": "0 (정확)",
+     "value": 0.0,
+     "is_baseline": true
+    },
+    {
+     "label": "−0.05",
+     "value": -0.05
+    },
+    {
+     "label": "−0.02",
+     "value": -0.02
+    },
+    {
+     "label": "+0.02",
+     "value": 0.02
+    },
+    {
+     "label": "+0.05",
+     "value": 0.05
+    },
+    {
+     "label": "+0.10 (내장 앵커)",
+     "value": 0.1
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -17.28,
+    "ci95_pp": [
+     -20.02,
+     -14.53
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "exact",
+     "capture": 0.7906
+    },
+    {
+     "label": "−0.05 s",
+     "extra": {
+      "delta_pp": -2.82
+     }
+    },
+    {
+     "label": "+0.05 s",
+     "extra": {
+      "delta_pp": -17.28
+     }
+    },
+    {
+     "label": "+0.10 s",
+     "extra": {
+      "delta_pp": -39.77
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "부호 비대칭이 크다 — 같은 크기라도 +쪽이 6배 아프다. +0.10 s 셀은 naive 변환을 그대로 재현하는 내장 앵커라 노브가 실제로 작동함을 캠페인 안에서 증명한다. 단 이것은 상수 오프셋 민감도이지 하드웨어 허용 스펙이 아니다.",
+   "seeds": [
+    163
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_pose_premise_seed163/"
+   ],
+   "launcher": "aerial_gym/rl_training/rl_games/eval_navrl_v2_pose_premise.sh"
+  },
+  {
+   "id": "2026-08-12-pose-noise-global-rng",
+   "title_ko": "포즈 잡음 민감도 (1차)",
+   "question": "odometry 위치·yaw 오차가 성능을 얼마나 깎는가?",
+   "theme": "latency",
+   "knob": "NAVRL_POSE_NOISE_YAW_DEG",
+   "knob_extra": [
+    "NAVRL_POSE_NOISE_POS_M"
+   ],
+   "levels": [
+    {
+     "label": "0 (정확)",
+     "value": 0.0,
+     "is_baseline": true
+    },
+    {
+     "label": "yaw 0.5/2/5°",
+     "value": "0.5/2/5"
+    },
+    {
+     "label": "pos 1/3/10 cm",
+     "value": "0.01/0.03/0.10"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -12.49,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "PASS",
+   "validity": "withdrawn",
+   "superseded_by": "2026-08-12-pose-noise-isolated-rng",
+   "verdict_note": "수치는 그럴듯했지만 비교 자체가 오염됐다.",
+   "retraction": {
+    "reason": "rng_contamination",
+    "text": "포즈 잡음 생성이 전역 PyTorch RNG를 소비해서 arm마다 장애물 배치·표적 이동·리셋이 달라졌다. 즉 '잡음의 효과'와 '다른 씬의 효과'가 분리되지 않는다. 전용 시드 생성기로 격리해 재실행했다.",
+    "found_at": "2026-08-12",
+    "found_by": "codex"
+   },
+   "seeds": [
+    163
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_pose_premise_seed163/"
+   ]
+  },
+  {
+   "id": "2026-08-12-pose-noise-isolated-rng",
+   "title_ko": "포즈 잡음 민감도 (RNG 격리 재실행)",
+   "question": "잡음만 바꾸고 씬은 고정했을 때 실제 효과는?",
+   "theme": "latency",
+   "knob": "NAVRL_POSE_NOISE_YAW_DEG",
+   "knob_extra": [
+    "NAVRL_POSE_NOISE_POS_M",
+    "NAVRL_POSE_NOISE_SEED"
+   ],
+   "levels": [
+    {
+     "label": "0 (정확)",
+     "value": 0.0,
+     "is_baseline": true
+    },
+    {
+     "label": "yaw 0.5°",
+     "value": 0.5
+    },
+    {
+     "label": "yaw 2°",
+     "value": 2.0
+    },
+    {
+     "label": "yaw 5°",
+     "value": 5.0
+    },
+    {
+     "label": "pos 1 cm",
+     "value": 0.01
+    },
+    {
+     "label": "pos 3 cm",
+     "value": 0.03
+    },
+    {
+     "label": "pos 10 cm",
+     "value": 0.1
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -12.75,
+    "ci95_pp": [
+     -15.47,
+     -10.03
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "exact",
+     "capture": 0.7849
+    },
+    {
+     "label": "yaw 0.5°",
+     "extra": {
+      "delta_pp": -0.69
+     }
+    },
+    {
+     "label": "yaw 2°",
+     "extra": {
+      "delta_pp": -3.28
+     }
+    },
+    {
+     "label": "yaw 5°",
+     "extra": {
+      "delta_pp": -12.75
+     }
+    },
+    {
+     "label": "pos 10 cm",
+     "extra": {
+      "delta_pp": -1.47
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "yaw는 2°에서 검출되고 5°에서 심각하다. 위치 오차는 10 cm까지 CI가 0을 포함해 미검출. 단 스텝별 iid 가우시안·단일 환경 시드에 한정되며, 실제 odometry의 바이어스·드리프트·상관 오차는 미검증이다. 1° 셀은 존재하지 않는다.",
+   "supersedes": [
+    "2026-08-12-pose-noise-global-rng"
+   ],
+   "seeds": [
+    181
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_pose_noise_rng_audit_seed181/"
+   ]
+  },
+  {
+   "id": "2026-08-12-hardware-tolerance-claim",
+   "title_ko": "'하드웨어 허용 스펙 +20 ms / yaw 1° / 10 cm' 주장",
+   "question": "위 민감도들로 실기 하드웨어 요구사항을 제시할 수 있는가?",
+   "theme": "platform",
+   "knob": null,
+   "levels": [
+    {
+     "label": "주장 없음",
+     "value": "none",
+     "is_baseline": true
+    },
+    {
+     "label": "스펙으로 제시",
+     "value": "spec"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "주장 가능성",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "FAIL",
+   "validity": "withdrawn",
+   "verdict_note": "제시할 수 없다. 주장을 철회했다.",
+   "retraction": {
+    "reason": "spec_error",
+    "text": "사전등록된 적이 없고, yaw 1° 셀은 아예 측정된 적이 없으며(0.5°와 2° 사이를 보간한 값이었다), 근거가 단일 환경 시드의 스텝별 iid 가우시안뿐이다. 상수 오프셋 민감도를 하드웨어 허용 스펙으로 제시하는 것은 과대주장이다.",
+    "found_at": "2026-08-12",
+    "found_by": "codex"
+   },
+   "seeds": [
+    163,
+    181
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-08-12",
+   "results_paths": []
+  },
+  {
+   "id": "2026-08-12-bar-ceiling-reachability",
+   "title_ko": "205밀도 천장 — 기하가 원인인가",
+   "question": "충돌한 에피소드들은 애초에 갈 수 있는 길이 있었는가?",
+   "theme": "curriculum",
+   "knob": null,
+   "levels": [
+    {
+     "label": "팽창 0.40 m",
+     "value": 0.4,
+     "is_baseline": true
+    },
+    {
+     "label": "0.65 m",
+     "value": 0.65
+    },
+    {
+     "label": "0.766 m",
+     "value": 0.766
+    }
+   ],
+   "metric": "other",
+   "metric_label": "연결된 충돌 에피소드 비율",
+   "effect": {
+    "value_pp": 0.0,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "0.40 / 0.65 / 0.766 m",
+     "extra": {
+      "connected": "333/333 (100%) selected 205-bar contact endpoint pairs, 전 반경"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "seed167의 205-bar bar-contact 종료 episode 333개에서 spawn→그 episode의 final target 경로가 centre-disk oracle(반경 0.40/0.65/0.766 m)상 존재했다. 이는 선택된 endpoint pair의 필요조건만 통과한 것이며 global/random-pair/300-bar 연결성, actual per-bar AABB, 동역학·선회반경·제동·이동 표적·600스텝 예산은 검증하지 않는다.",
+   "supersedes": [
+    "2026-08-12-reachability-wrong-frame"
+   ],
+   "seeds": [
+    167
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "비관 반경에서 ≥95% 연결",
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_bar_ceiling/reachability.json"
+   ]
+  },
+  {
+   "id": "2026-08-12-reachability-wrong-frame",
+   "title_ko": "도달성 오라클 1차 결과 (100 / 97.3 / 94.6%)",
+   "question": "같은 질문, 첫 계산",
+   "theme": "curriculum",
+   "knob": null,
+   "levels": [
+    {
+     "label": "팽창 0.40 m",
+     "value": 0.4,
+     "is_baseline": true
+    },
+    {
+     "label": "0.766 m",
+     "value": 0.766
+    }
+   ],
+   "metric": "other",
+   "metric_label": "연결된 충돌 에피소드 비율",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [],
+   "verdict": "INCONCLUSIVE",
+   "validity": "withdrawn",
+   "superseded_by": "2026-08-12-bar-ceiling-reachability",
+   "verdict_note": "100 / 97.3 / 94.6%라는 수치는 전부 무효다.",
+   "retraction": {
+    "reason": "wrong_frame",
+    "text": "오라클이 아레나를 −20…20 m로 가정했는데 실제 덤프는 0…40 m 좌표계였다. 좌표계를 고쳐 재계산하니 세 반경 모두 333/333(100%)이다. 사전등록 판정선(비관 ≥95%)에 94.6%로 미달한 것을 '낙관 100% + 상계 논리'로 무죄 선언했던 것도 사후 완화였다.",
+    "found_at": "2026-08-12",
+    "found_by": "codex"
+   },
+   "seeds": [
+    167
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_bar_ceiling/"
+   ]
+  },
+  {
+   "id": "2026-08-12-contact-diagnostics",
+   "title_ko": "접촉 시점 진단 — 표현과 제동 여유",
+   "question": "충돌한 막대는 관측에 들어 있었는가? 멈출 수 있었는가?",
+   "theme": "representation",
+   "knob": null,
+   "levels": [
+    {
+     "label": "접촉 에피소드 전체",
+     "value": "all",
+     "is_baseline": true
+    }
+   ],
+   "metric": "other",
+   "metric_label": "토큰 포함률 · 제동 여유",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "토큰 연관",
+     "extra": {
+      "hit_token": 0.832,
+      "hit_in_fov": 0.853
+     }
+    },
+    {
+     "label": "제동 여유",
+     "extra": {
+      "executed_m": -0.157,
+      "requested_m": -1.162
+     }
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "exploratory",
+   "verdict_note": "충돌 막대의 16.8%가 8토큰 입력에 없었고, 접촉 시점 제동 여유가 음수였다. 다만 이는 접촉 순간의 스냅샷이라 인과가 아니다 — 접근하는 동안 토큰에 있었는지는 안 쟀다. 두 관측이 독립 축이 아니라 '놓친 장애물'이라는 한 원인의 두 증상일 수 있다(검수 지적).",
+   "seeds": [
+    167
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_bar_ceiling/"
+   ]
+  },
+  {
+   "id": "2026-08-12-v5a-semantics-smoke",
+   "title_ko": "에피소드 종료 의미론 수정 — 학습 스모크",
+   "question": "601스텝 legacy 종료를 정확히 600 + bootstrap으로 고쳐도 학습이 되는가?",
+   "theme": "optimization",
+   "knob": "NAVRL_EPISODE_LEN_STEPS",
+   "levels": [
+    {
+     "label": "legacy 601-step",
+     "value": 601,
+     "is_baseline": true
+    },
+    {
+     "label": "exact 600 + time_outs bootstrap",
+     "value": 600
+    }
+   ],
+   "metric": "other",
+   "metric_label": "공학 게이트 (KL · rollback · OOB)",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "corrected",
+     "extra": {
+      "kl_max": 0.0158,
+      "rollback": 0,
+      "oob": 0,
+      "capture_last100": 0.7869
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "exploratory",
+   "verdict_note": "조건부 공학 PASS — 발산하지 않는다는 좁은 목적만 통과. 밀도 승급은 epoch 1,000이 정확히 warmup 경계라 미검증이고, held-out 평가도 없다. 78.69%를 성능으로 인용하면 안 된다.",
+   "seeds": [
+    197
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-12",
+   "results_paths": [
+    "results/navrl_v2_v5a_semantics_smoke_seed197/"
+   ]
+  },
+  {
+   "id": "2026-08-13-ref5in-envelope",
+   "title_ko": "★ 기준 플랫폼 ref5in — 비행 포락선 게이트",
+   "question": "내부 정합성을 맞춘 5인치 기체가 명령을 추종하는가?",
+   "theme": "platform",
+   "knob": "NAVRL_ROBOT",
+   "levels": [
+    {
+     "label": "navrl_quad (legacy)",
+     "value": "navrl_quad",
+     "is_baseline": true
+    },
+    {
+     "label": "navrl_ref5in_quad",
+     "value": "navrl_ref5in_quad"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "포락선 게이트 통과 수",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "ref5in",
+     "extra": {
+      "checks_passed": "21/21",
+      "hover_err_m": 0.0001,
+      "forward_t90_s": 0.8,
+      "yaw_t90_s": 0.2
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "legacy URDF가 5인치 충돌박스 + 7인치 모터 팔 + 완구급 질량을 섞고 있었다는 진단에서 나온 수정안. 병진 기동(T/W·수평/상승 가속)과 XY 충돌 단면을 보존하고 질량·관성·추력만 정합시켰다. 시뮬레이터 게이트일 뿐 하드웨어 검증이 아니며, 항법 성능은 아무것도 말하지 않는다.",
+   "seeds": [
+    911
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "bars": 0,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "호버·전진·반전·yaw 추종 + 런타임 정합성",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref_platform_verification/"
+   ],
+   "launcher": "tools/verify_navrl_ref_platform.py"
+  },
+  {
+   "id": "2026-08-13-ref5in-p1a-smoke",
+   "title_ko": "ref5in P1a — 500 epoch 스모크",
+   "question": "새 기체로 fresh PPO가 안전하게 도는가?",
+   "theme": "platform",
+   "knob": "NAVRL_ROBOT",
+   "levels": [
+    {
+     "label": "500 epoch @ LR 3e-5",
+     "value": 500,
+     "is_baseline": true
+    }
+   ],
+   "metric": "other",
+   "metric_label": "안전 게이트 (behavior-KL · rollback)",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "P1a",
+     "capture": 0.7212,
+     "crash": 0.2453,
+     "timeout": 0.0334,
+     "extra": {
+      "behavior_kl_max": 0.05842,
+      "rollback": 1
+     }
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "결과 게이트는 통과했지만 안전 게이트 실패 — behavior-KL 0.05842 > 0.04, rollback 1회.",
+   "seeds": [
+    197
+   ],
+   "episodes_per_cell": 3709,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "behavior-KL ≤ 0.04, rollback 0",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_smoke_seed197/"
+   ]
+  },
+  {
+   "id": "2026-08-13-ref5in-p1b-smoke",
+   "title_ko": "ref5in P1b — LR 절반 + 예산 750",
+   "question": "학습률을 낮추면 KL이 잡히는가?",
+   "theme": "platform",
+   "knob": null,
+   "levels": [
+    {
+     "label": "P1a · LR 3e-5 / 500 ep",
+     "value": "p1a",
+     "is_baseline": true
+    },
+    {
+     "label": "P1b · LR 1.5e-5 / 750 ep",
+     "value": "p1b"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "안전 + 거리 커리큘럼 게이트",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "P1b",
+     "capture": 0.6955,
+     "crash": 0.2812,
+     "timeout": 0.0233,
+     "extra": {
+      "kl_max": 0.013,
+      "rollback": 0,
+      "distance_m": "[6,27]"
+     }
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "안전 게이트는 회복했으나 실제 general-spawn 최대가 27 m에서 끝났다. 내부 k_min_cur=20은 sampler minimum이 아니며 실제 범위는 [6,27] m였다.",
+   "confounded_by": "학습률과 예산을 동시에 바꿔 어느 쪽이 KL을 잡았는지 분리되지 않는다.",
+   "seeds": [
+    197
+   ],
+   "episodes_per_cell": 3780,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_smoke_seed197/p1b/"
+   ]
+  },
+  {
+   "id": "2026-08-13-ref5in-p1c-smoke",
+   "title_ko": "ref5in P1c — 예산만 900으로",
+   "question": "예산만 늘리면 거리 커리큘럼이 끝까지 가는가?",
+   "theme": "platform",
+   "knob": null,
+   "levels": [
+    {
+     "label": "P1b · 750 ep",
+     "value": 750,
+     "is_baseline": true
+    },
+    {
+     "label": "P1c · 900 ep",
+     "value": 900
+    }
+   ],
+   "metric": "other",
+   "metric_label": "전 게이트",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "P1c",
+     "capture": 0.7277,
+     "crash": 0.2394,
+     "timeout": 0.033,
+     "extra": {
+      "kl_max": 0.0124,
+      "rollback": 0,
+      "distance_m": "[6,28]"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "exploratory",
+   "verdict_note": "공학 PASS. 성능 주장이 아니라 '이 기체로 학습이 돈다'는 것까지다.",
+   "seeds": [
+    197
+   ],
+   "episodes_per_cell": 3338,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_smoke_seed197/p1c/"
+   ],
+   "_note": "P1c의 첫 실행은 주석 한 줄 수정이 소스 영수증을 깨뜨려 무효 처리했다 — fail-closed 가드가 의도대로 작동한 사례다."
+  },
+  {
+   "id": "2026-08-13-ref5in-p2-heldout",
+   "title_ko": "ref5in P2 — held-out 결정 셀",
+   "question": "새 기체 정책이 사전등록 게이트를 통과하는가?",
+   "theme": "platform",
+   "knob": null,
+   "levels": [
+    {
+     "label": "held-out 70 bars, governor off",
+     "value": "p2",
+     "is_baseline": true
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "wilson",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "P2",
+     "capture": 0.6828,
+     "crash": 0.2616,
+     "timeout": 0.0556,
+     "n_episodes": 2049
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "capture 68.28%(≥65 PASS), crash 26.16%(≤33 PASS)이나 timeout 5.56%가 ≤5% 게이트를 넘겨 STRICT FAIL. Wilson CI 4.65~6.64%가 5%를 포함하지만 게이트는 점추정 기준이며, 사후에 완화하지 않는다.",
+   "seeds": [
+    313
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "capture ≥65%, crash ≤33%, timeout ≤5%",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_p2_seed313/"
+   ]
+  },
+  {
+   "id": "2026-08-13-ref5in-outcome-diagnostic",
+   "title_ko": "ref5in P2 실패 진단 — 층별 분해",
+   "question": "timeout 초과가 어느 조건에서 나오는가?",
+   "theme": "platform",
+   "knob": null,
+   "levels": [
+    {
+     "label": "거리 q0 (가까움)",
+     "value": "q0",
+     "is_baseline": true
+    },
+    {
+     "label": "q1",
+     "value": "q1"
+    },
+    {
+     "label": "q2",
+     "value": "q2"
+    },
+    {
+     "label": "q3 (멂)",
+     "value": "q3"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -22.11,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "거리 q3 − q0",
+     "extra": {
+      "capture_delta_pp": -22.11,
+      "timeout_delta_pp": 14.91
+     }
+    },
+    {
+     "label": "속도 범위",
+     "extra": {
+      "capture_range_pp": 5.67
+     }
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "exploratory",
+   "verdict_note": "거리가 지배 요인이다(q3−q0 −22.11 pp, timeout +14.91 pp). 진단 목적이라 결정 권한이 없다.",
+   "retraction": null,
+   "confounded_by": "1차 판독의 속도 구간이 [0.3,1.5]가 아니라 [0,1.5]로 잘못 잡혀 있었다 — 속도 관련 수치는 교정 재생 버전만 유효하다.",
+   "seeds": [
+    317
+   ],
+   "episodes_per_cell": 8193,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": false,
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_outcome_diagnostic_v2_seed317/"
+   ]
+  },
+  {
+   "id": "2026-08-13-ref5in-d1-adaptation",
+   "title_ko": "ref5in D1 — 장거리 제한 adaptation",
+   "question": "최장 거리 노출을 늘리면 q3/CV timeout을 12% 이하로 낮출 수 있는가?",
+   "theme": "platform",
+   "knob": "NAVRL_GENERAL_GOAL_DIST_MIN",
+   "levels": [
+    {
+     "label": "D0 · P1c epoch900",
+     "value": "d0",
+     "is_baseline": true
+    },
+    {
+     "label": "D1 · +1000 epoch [22.5,28] m",
+     "value": "d1"
+    }
+   ],
+   "metric": "timeout",
+   "effect": {
+    "value_pp": -6.17,
+    "ci95_pp": [
+     -9.57,
+     -2.77
+    ],
+    "ci_method": "normal",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "D0 q3/CV",
+     "capture": 0.4884,
+     "crash": 0.29,
+     "timeout": 0.2216,
+     "n_episodes": 993
+    },
+    {
+     "label": "D1 q3/CV",
+     "capture": 0.6403,
+     "crash": 0.1998,
+     "timeout": 0.1598,
+     "n_episodes": 1051
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "q3/CV timeout은 유의한 방향으로 6.17 pp 줄었지만 절대값 15.98%가 사전등록 ≤12% gate를 넘었다. global/q3 crash gate는 통과했다. 효과 없음이 아니라 기준 미달이다.",
+   "confounded_by": "D0→D1은 checkpoint adaptation과 장거리 학습분포 변경, 평가 seed가 함께 달라 순수 원인별 효과가 아니다.",
+   "seeds": [
+    197,
+    331
+   ],
+   "episodes_per_cell": 8193,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "global crash ≤27%, q3 crash ≤30%, q3/CV timeout ≤12%",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_d1_eval_seed331/"
+   ],
+   "launcher": "tools/run_navrl_ref5in_d1_eval.py"
+  },
+  {
+   "id": "2026-08-13-ref5in-cv-heading",
+   "title_ko": "ref5in 동결정책 — CV 초기 진행방향",
+   "question": "최장 거리 CV timeout이 초기 radial heading에 민감한가?",
+   "theme": "platform",
+   "knob": "NAVRL_EVAL_CV_INITIAL_HEADING",
+   "levels": [
+    {
+     "label": "toward",
+     "value": "toward",
+     "is_baseline": true
+    },
+    {
+     "label": "tangent-left",
+     "value": "tangent_left"
+    },
+    {
+     "label": "tangent-right",
+     "value": "tangent_right"
+    },
+    {
+     "label": "away",
+     "value": "away"
+    }
+   ],
+   "metric": "timeout",
+   "effect": {
+    "value_pp": 23.32,
+    "ci95_pp": [
+     21.26,
+     25.38
+    ],
+    "ci_method": "normal",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "toward",
+     "capture": 0.782,
+     "crash": 0.1859,
+     "timeout": 0.0322,
+     "n_episodes": 2050
+    },
+    {
+     "label": "tangent-left",
+     "capture": 0.6374,
+     "crash": 0.202,
+     "timeout": 0.1606,
+     "n_episodes": 2049
+    },
+    {
+     "label": "tangent-right",
+     "capture": 0.6249,
+     "crash": 0.1927,
+     "timeout": 0.1824,
+     "n_episodes": 2050
+    },
+    {
+     "label": "away",
+     "capture": 0.5351,
+     "crash": 0.1995,
+     "timeout": 0.2654,
+     "n_episodes": 2050
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "exploratory",
+   "verdict_note": "away−toward timeout +23.32 pp로 radial-heading channel screen을 통과했다. tangent L/R 최대 차이는 2.19 pp라 chirality-sensitive outcome 설명은 기각했다.",
+   "confounded_by": "초기 heading은 유효 경로길이, target visibility, 벽 반사 시점을 동시에 바꾼다. 순수 path-length 인과효과가 아니다.",
+   "seeds": [
+    337
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 70,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "away−toward timeout ≥8 pp; tangent 좌우 outcome |Δ| ≥5 pp",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_cv_heading_seed337/"
+   ],
+   "launcher": "tools/run_navrl_ref5in_cv_heading_diagnostic.py"
+  },
+  {
+   "id": "2026-08-13-ref5in-cv-heading-near-open",
+   "title_ko": "ref5in 동결정책 — 1막대 radial heading",
+   "question": "70막대 heading penalty에 dense obstacle occlusion이 필요한가?",
+   "theme": "platform",
+   "knob": "NAVRL_NUM_BARS",
+   "levels": [
+    {
+     "label": "toward · 1 bar",
+     "value": "toward",
+     "is_baseline": true
+    },
+    {
+     "label": "away · 1 bar",
+     "value": "away"
+    }
+   ],
+   "metric": "timeout",
+   "effect": {
+    "value_pp": 54.32,
+    "ci95_pp": [
+     52.16,
+     56.48
+    ],
+    "ci_method": "normal",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "toward",
+     "capture": 0.9551,
+     "crash": 0.0434,
+     "timeout": 0.0015,
+     "n_episodes": 2050
+    },
+    {
+     "label": "away",
+     "capture": 0.3685,
+     "crash": 0.0869,
+     "timeout": 0.5447,
+     "n_episodes": 2049
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "exploratory",
+   "verdict_note": "away−toward timeout +54.32 pp로 >=15 pp screen을 통과했다. dense obstacle occlusion은 필요하지 않다.",
+   "confounded_by": "heading은 kinematic path, camera FOV 체류시간, 벽 반사 시점을 함께 바꾼다.",
+   "seeds": [
+    347
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 1,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "away−toward timeout <=8 pp / >=15 pp",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_cv_heading_near_open_seed347/"
+   ],
+   "launcher": "tools/run_navrl_ref5in_cv_heading_near_open.py"
+  },
+  {
+   "id": "2026-08-13-ref5in-cv-heading-telemetry",
+   "title_ko": "ref5in 동결정책 — outcome별 가시성·벽 반사",
+   "question": "away timeout은 FOV 손실과 벽 반사 중 어느 관측 채널과 더 연관되는가?",
+   "theme": "platform",
+   "knob": null,
+   "levels": [
+    {
+     "label": "toward · 1 bar",
+     "value": "toward",
+     "is_baseline": true
+    },
+    {
+     "label": "away · 1 bar",
+     "value": "away"
+    }
+   ],
+   "metric": "timeout",
+   "effect": {
+    "value_pp": 54.27,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "toward",
+     "capture": 0.9429,
+     "crash": 0.0537,
+     "timeout": 0.0034,
+     "n_episodes": 2050,
+     "extra": {
+      "capture_visible": 0.3538,
+      "timeout_visible": 0.0152
+     }
+    },
+    {
+     "label": "away",
+     "capture": 0.3597,
+     "crash": 0.0942,
+     "timeout": 0.5461,
+     "n_episodes": 2049,
+     "extra": {
+      "capture_visible": 0.1502,
+      "timeout_visible": 0.0059,
+      "capture_wall_any": 0.9973,
+      "timeout_wall_any": 0.9964
+     }
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "exploratory",
+   "verdict_note": "away capture−timeout visibility +14.43 pp는 사전 20 pp FOV 우선 screen에 미달했다. wall-any는 양 outcome 모두 99% 이상이다.",
+   "confounded_by": "step-weighted visibility는 episode 길이의 영향을 받고, wall reflection 표에는 반사 전 OOB 종료에 의한 생존 선택편향이 있다.",
+   "seeds": [
+    353
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 1,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "gate": "away capture−timeout visibility >=20 pp",
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_ref5in_cv_heading_telemetry_seed353/"
+   ],
+   "launcher": "tools/run_navrl_ref5in_cv_heading_telemetry.py"
+  },
+  {
+   "id": "2026-08-13-detector-coupling-probe",
+   "title_ko": "★ v7 오차를 analytic에 주입 — 결합인가 출력 성질인가",
+   "question": "v7 교체 손실 −5.19 pp는 정책이 analytic 통계에 결합된 탓인가, v7 출력이 덜 쓸모있는 탓인가?",
+   "theme": "perception",
+   "knob": "NAVRL_DETNOISE_RANGE_STD_M",
+   "knob_extra": [
+    "NAVRL_DETNOISE_RANGE_RHO",
+    "NAVRL_DETNOISE_BEARING_STD_RAD",
+    "NAVRL_DETNOISE_DROPOUT_P01",
+    "NAVRL_DETECTOR_CHECKPOINT"
+   ],
+   "levels": [
+    {
+     "label": "analytic clean",
+     "value": "clean",
+     "is_baseline": true
+    },
+    {
+     "label": "analytic + v7-matched noise 0.5×",
+     "value": 0.5
+    },
+    {
+     "label": "analytic + v7-matched noise 1.0×",
+     "value": 1.0
+    },
+    {
+     "label": "analytic + v7-matched noise 1.5×",
+     "value": 1.5
+    },
+    {
+     "label": "learned v7 @0.55",
+     "value": "v7"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": -3.45,
+    "ci95_pp": [
+     -5.91,
+     -1.0
+    ],
+    "ci_method": "normal",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "analytic_clean",
+     "capture": 0.816,
+     "crash": 0.1557,
+     "timeout": 0.0283,
+     "n_episodes": 2049
+    },
+    {
+     "label": "noise 0.5×",
+     "capture": 0.8098,
+     "crash": 0.1673,
+     "timeout": 0.0229,
+     "n_episodes": 2050,
+     "extra": {
+      "delta_pp": -0.63
+     }
+    },
+    {
+     "label": "noise 1.0×",
+     "capture": 0.7815,
+     "crash": 0.1922,
+     "timeout": 0.0263,
+     "n_episodes": 2050,
+     "extra": {
+      "delta_pp": -3.45
+     }
+    },
+    {
+     "label": "noise 1.5×",
+     "capture": 0.745,
+     "crash": 0.2311,
+     "timeout": 0.0239,
+     "n_episodes": 2051,
+     "extra": {
+      "delta_pp": -7.1
+     }
+    },
+    {
+     "label": "learned_v7",
+     "capture": 0.774,
+     "crash": 0.205,
+     "timeout": 0.021,
+     "n_episodes": 2049,
+     "extra": {
+      "delta_pp": -4.2
+     }
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "사전등록 1차 조건은 충족했다 — 사다리가 단조(0.63<3.45<7.10 pp)이고 1.0× arm의 CI가 v7 실물의 −4.20 pp를 포함한다. 그러나 게이트 0(주입 std가 프로파일의 ±10%)을 실측 0.6134 m vs 0.7053 m(−13.0%)로 실패했다: 구간내 분산만 재현하고 거리 의존 계통 편향을 단일 전역 bias로 뭉갰기 때문이다. 사전등록이 게이트 미충족 시 판정 금지를 명시했으므로 판정을 보류한다. 다만 실패 방향이 보수적이다 — v7보다 약한 잡음으로 손실의 82%를 재현했다.",
+   "confounded_by": "마스크 크기·형상 채널은 프로파일만 하고 주입하지 않았다. 잔여 −0.75 pp(Δ_v7 − Δ_1.0×)의 일부가 여기 있을 수 있다. 또 프로파일은 analytic이 조종하는 궤적에서 쟀으므로 v7이 조종할 때의 오차 분포와 다를 수 있다(공변량 이동).",
+   "seeds": [
+    409
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "checkpoint": "ep25000+riskcap",
+    "sha256_prefix": "f70221393660"
+   },
+   "preregistered": true,
+   "gate": "게이트 0: 주입 range std가 프로파일 0.705 m의 ±10% 이내 · 판정: Δ_1.0×의 CI가 Δ_v7 점추정을 포함 + 사다리 단조",
+   "launcher": "aerial_gym/rl_training/rl_games/eval_navrl_v2_detector_coupling.sh",
+   "results_paths": [
+    "results/navrl_detector_coupling_probe_seed409/",
+    "results/navrl_detector_v7_error_profile_seed419/"
+   ],
+   "worklog_date": "2026-08-13",
+   "_note": "v7은 표적을 덜 보지 않는다(검출률 18.09% vs 17.87%). 차이는 거의 전적으로 range 오차(std 0.705 m, lag-1 상관 0.644, 원거리에서 부호 반전)다."
+  },
+  {
+   "id": "2026-08-13-detector-profile-void-governor",
+   "title_ko": "v7 오차 프로파일링 1차 시도 (seed 401)",
+   "question": "같은 프로파일링, 첫 실행",
+   "theme": "perception",
+   "knob": "NAVRL_SPEED_GOVERNOR",
+   "levels": [
+    {
+     "label": "riskcap (계약)",
+     "value": "riskcap",
+     "is_baseline": true
+    },
+    {
+     "label": "off (실제로 돈 것)",
+     "value": "off"
+    }
+   ],
+   "metric": "capture",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "seed401 (계약 위반)",
+     "capture": 0.715,
+     "crash": 0.2674,
+     "timeout": 0.0176,
+     "n_episodes": 2049
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "withdrawn",
+   "verdict_note": "분석에 사용하지 않았다. 시드 401은 소진 처리하고 419로 재실행했다.",
+   "retraction": {
+    "reason": "scope",
+    "text": "평가기를 직접 호출하면서 NAVRL_SPEED_GOVERNOR=riskcap을 빠뜨려 governor off로 돌았다(결과 JSON의 speed_governor_mode='off'가 증거). 프로파일링은 정의상 '정책이 방문하는 상태 위에서의 검출기 오차'를 재므로 궤적 분포가 다르면 계약에 해당하지 않는다. 재발 방지로 계약을 런처 한 곳에서 export하도록 바꿨다.",
+    "found_at": "2026-08-13",
+    "found_by": "self"
+   },
+   "seeds": [
+    401
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 205,
+    "machine": "rtx3070"
+   },
+   "preregistered": true,
+   "worklog_date": "2026-08-13",
+   "results_paths": [
+    "results/navrl_detector_v7_error_profile_seed401_VOID_governor_off/"
+   ]
+  },
+  {
+   "id": "2026-08-14-ref5in-first-acquisition-seed359",
+   "title_ko": "★ 최초취득 진단 — away timeout의 87.5%가 표적을 한 번도 못 봤다",
+   "question": "hard-distance timeout은 표적을 놓쳐서인가, 애초에 한 번도 못 봐서인가?",
+   "theme": "perception",
+   "knob": null,
+   "knob_extra": [
+    "NAVRL_LIDAR_RANGE"
+   ],
+   "levels": [
+    {
+     "label": "away heading (주 관심)",
+     "value": "away",
+     "is_baseline": true
+    },
+    {
+     "label": "toward heading (보조 재현)",
+     "value": "toward"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "never-acquired rate (outcome별)",
+   "effect": {
+    "value_pp": 87.52,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "away capture",
+     "n_episodes": 762,
+     "extra": {
+      "never_acquired": "0.00%",
+      "first_visible_mean": 318.8
+     }
+    },
+    {
+     "label": "away crash",
+     "n_episodes": 189,
+     "extra": {
+      "never_acquired": "93.12%",
+      "first_visible_mean": 360.8
+     }
+    },
+    {
+     "label": "away timeout",
+     "n_episodes": 1098,
+     "extra": {
+      "never_acquired": "87.52%",
+      "first_visible_mean": 565.2
+     }
+    },
+    {
+     "label": "toward capture",
+     "n_episodes": 1932,
+     "extra": {
+      "never_acquired": "0.00%",
+      "first_visible_mean": 82.1
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "사전등록 primary(away timeout−capture never-acquired ≥ 30 pp)를 +87.52 pp로 통과했다. 임계보다 강한 신호는 두 capture cohort가 모두 정확히 0.00%라는 것 — 이 조건에서 최초 취득이 capture의 필요조건처럼 동작한다. 독립 재계산에서 fused와 camera 최초취득이 6개 cohort 전부 일치해, LiDAR가 camera보다 먼저 취득을 준 적이 없다: 사실상 camera range 발견이다.",
+   "confounded_by": "outcome은 궤적의 결과다. 일찍 crash한 episode는 취득 기회 자체가 적으므로 never-acquired와 outcome의 연관에는 생존 선택이 섞여 있다. 연관 계측이지 인과가 아니며 해결책도 아니다. toward/timeout은 n=2라 그 100%를 추정치로 쓰지 않는다.",
+   "seeds": [
+    359
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 1,
+    "target_speed_ms": null,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "checkpoint": "ref5in D1 terminal ep1900",
+    "sha256_prefix": "197ea26999d6"
+   },
+   "preregistered": true,
+   "gate": "RESEARCH_PLAN 8.28 — primary: away timeout−capture never-acquired ≥ 30 pp; secondary(미적용): first-visible ≥ 100 step",
+   "launcher": "tools/run_navrl_ref5in_cv_first_acquisition.py",
+   "results_paths": [
+    "results/navrl_ref5in_cv_first_acquisition_seed359/"
+   ],
+   "worklog_date": "2026-08-14",
+   "_note": "실행 중 2회 VOID(내 export 가드의 list/tuple 비교 버그, 그리고 다른 세션의 untracked 런처로 인한 dirty runtime). 둘 다 summary 미생성·primary screen 미계산이라 같은 시드로 재실행했고 근거를 각 VOID.md에 남겼다."
+  },
+  {
+   "id": "2026-08-20-ref5in-camera-range-control",
+   "title_ko": "★ camera range 20→28 m 인과 대조 — timeout 55.8%→18.2%",
+   "question": "장거리 CV timeout의 원인이 정말 초기 표적 미관측인가? (단일 변수 개입)",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_MAX_RANGE",
+   "levels": [
+    {
+     "label": "20 m (대조)",
+     "value": 20.0,
+     "is_baseline": true
+    },
+    {
+     "label": "28 m (개입)",
+     "value": 28.0
+    }
+   ],
+   "metric": "timeout",
+   "effect": {
+    "value_pp": -37.65,
+    "ci95_pp": null,
+    "ci_method": "none",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "camera_20m",
+     "capture": 0.3639,
+     "crash": 0.078,
+     "timeout": 0.558,
+     "n_episodes": 2050,
+     "extra": {
+      "pooled_never_acquired": "57.22%"
+     }
+    },
+    {
+     "label": "camera_28m",
+     "capture": 0.7496,
+     "crash": 0.0688,
+     "timeout": 0.1816,
+     "n_episodes": 2049,
+     "extra": {
+      "pooled_never_acquired": "20.30%"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "verdict_note": "사전등록 primary(timeout 감소 ≥20 pp)를 −37.65 pp로 통과했고, guard도 깨끗하다 — crash가 오르기는커녕 0.92 pp 내려 실패모드 이동이 아니다. 조작이 인지 계층에 실제로 먹혔는지는 receipt가 아니라 행동으로 확인했다: pooled never-acquired 57.22%→20.30%. 임계 없는 방향 검정이라 사후 조정 여지가 없다.",
+   "confounded_by": "진단이지 해결책 채택이 아니다. 28 m 검출은 정책의 학습 분포(20 m) 밖이라 정책이 그것을 잘 활용한다는 보장이 없고, capture 36.4→75.0%는 부수 관측이지 gate가 아니다. 20 m는 시뮬 파라미터이지 특정 센서 사양이 아니므로 실기 함의로 읽을 수 없다.",
+   "seeds": [
+    367
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 1,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "checkpoint": "ref5in D1 terminal ep1900",
+    "sha256_prefix": "197ea26999d6"
+   },
+   "preregistered": true,
+   "gate": "VERIFICATION.md §8.29 — primary: timeout 감소 ≥20 pp; guard: crash 증가 ≥10 pp면 실패모드 이동",
+   "launcher": "tools/run_navrl_ref5in_camera_range_control.py",
+   "results_paths": [
+    "results/navrl_ref5in_camera_range_control_seed367/"
+   ],
+   "worklog_date": "2026-08-20",
+   "supersedes": [],
+   "_note": "seed 359의 연관(never-acquired 87.52% vs 0.00%)을 단일 변수 개입으로 재현했다. P2/D1/P3 상태는 불변."
+  },
+  {
+   "id": "2026-08-23-ref5in-detection-range-stage1",
+   "title_ko": "★ 검출 거리 Stage 1 — 방향은 개선, 사전 gate는 미달",
+   "question": "정직한 고해상도 검출 조건에서 20→28 m clip 적응이 최초 미취득을 15 pp 이상 줄이는가?",
+   "theme": "perception",
+   "knob": "NAVRL_DETECTOR_MAX_RANGE",
+   "levels": [
+    {
+     "label": "20 m clip",
+     "value": 20.0,
+     "is_baseline": true
+    },
+    {
+     "label": "28 m clip",
+     "value": 28.0
+    }
+   ],
+   "metric": "other",
+   "metric_label": "pooled never-acquired rate",
+   "effect": {
+    "value_pp": -5.270863836017569,
+    "ci95_pp": null,
+    "ci_method": "none; frozen threshold screen",
+    "direction": "lower_is_better"
+   },
+   "arms": [
+    {
+     "label": "clip20",
+     "capture": 0.8223523670082967,
+     "crash": 0.15666178623718888,
+     "timeout": 0.020985846754514398,
+     "n_episodes": 2049,
+     "extra": {
+      "never_acquired": "8.443%",
+      "terminal_epoch": 2900,
+      "terminal_frame": 11878400,
+      "rollback_total": 0
+     }
+    },
+    {
+     "label": "clip28",
+     "capture": 0.8867740361151781,
+     "crash": 0.11273792093704246,
+     "timeout": 0.0004880429477794046,
+     "n_episodes": 2049,
+     "extra": {
+      "never_acquired": "3.172%",
+      "terminal_epoch": 2900,
+      "terminal_frame": 11878400,
+      "rollback_total": 0
+     }
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "quality/provenance gate 17/17은 통과했지만 primary는 −5.271 pp로 사전등록한 ≤−15 pp를 못 넘었다. 공식 판정은 RANGE_INCONCLUSIVE_AT_THIS_BUDGET이며 stage2_authorised=false다. capture +6.442 pp는 판정에서 제외된 부수 관측이다.",
+   "confounded_by": "두 arm 모두 far-zone target range가 analytic exact다. 따라서 센서 clip 효과의 시뮬레이션 증거이지 실기 28 m range 품질이나 sim-to-real 준비 완료의 증거가 아니다. warm-start는 20 m lineage여서 28 m arm에 불리할 수 있으나, 그 한계는 결과 전에 고정됐고 gate를 사후 완화하지 않는다.",
+   "seeds": [
+    457,
+    461
+   ],
+   "episodes_per_cell": 2049,
+   "env": {
+    "bars": 70,
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "detect_resolution": "1920x1200",
+    "detector_min_pixels": 50,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "warm_start": "ref5in D1 terminal ep1900",
+    "warm_start_sha256_prefix": "197ea26999d6",
+    "adaptation_epochs_per_arm": 1000
+   },
+   "preregistered": true,
+   "gate": "docs/prereg_2026-08-22_detection_range_2stage.md — Stage 1 primary: clip28−clip20 pooled never-acquired ≤ −15 pp",
+   "launcher": "tools/run_navrl_ref5in_detection_range_stage1.py",
+   "results_paths": [
+    "results/navrl_ref5in_detection_range_stage1_s457/summary.json",
+    "results/navrl_ref5in_detection_range_stage1_s457/summary.md"
+   ],
+   "worklog_date": "2026-08-23",
+   "_note": "Stage 2는 자동으로 시작하지 않았고 실행 권한도 없다. 다음 authority는 docs/SIM2REAL_3DAY_EXECUTION_PLAN.md다."
+  },
+  {
+   "id": "2026-08-25-physical-target-routed-simulator-gate-seed827-attempt2",
+   "title_ko": "★ routed physical-target simulator gate attempt 2 — 실행 무결성 통과, route mechanism 실패",
+   "question": "exact-AABB global route를 실제 ref5in target controller에 연결했을 때 사전등록한 경로·추종 계약을 통과하는가?",
+   "theme": "protocol",
+   "knob": null,
+   "levels": [
+    {
+     "label": "route off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "global A* routed",
+     "value": "global_astar_v1"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "routed mechanism gate",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none; preregistered deterministic threshold screen",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "execution integrity",
+     "extra": {
+      "cells_passed": "32/32",
+      "verdict": "PASS_32_CELL_INTEGRITY"
+     }
+    },
+    {
+     "label": "routed, 70 bars pooled over 4 speeds",
+     "extra": {
+      "plan_success": "14.5467% (gate ≥99%)",
+      "fallback_intervals": "35.9297% (gate ≤1%)"
+     }
+    },
+    {
+     "label": "routed, 70 bars, 0.6 m/s",
+     "extra": {
+      "goal_completions_per_env": "0.25 (gate ≥0.5)"
+     }
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "lineage_status": "historical_attempt2",
+   "verdict_note": "32/32 cell source·contract integrity는 통과했지만 route mechanism은 실패했다. 70 bars에서도 pooled plan success 14.5467%, fallback 35.9297%, 0.6 m/s goals/env 0.25로 세 사전 gate를 모두 놓쳤다. 모든 routed cell은 motor saturation·tilt·contact gate를 통과했으며, 반복되는 unsafe_start recovery와 fail-closed zero-command fallback deadlock이 주 병목이다. 따라서 physical PPO training은 BLOCKED다.",
+   "confounded_by": "이것은 neutral pursuer command를 사용한 target-route mechanism gate이며 PPO policy를 로드하지 않았다. 요격 capture 성능이나 hardware 검증으로 해석할 수 없다.",
+   "seeds": [827],
+   "env": {
+    "bars": [70, 150, 205, 300],
+    "target_speed_mps": [0.6, 0.9, 1.2, 1.5],
+    "envs_per_cell": 32,
+    "steps_per_cell": 300,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "loaded": false,
+    "pursuer_action": "neutral/all-zero policy action"
+   },
+   "preregistered": true,
+   "gate": "docs/preregistration_physical_target_routed_simulator_gate_2026-08-25.md — plan ≥99%, fallback ≤1%, goals/env ≥0.5; integrity fail-closed",
+   "launcher": "tools/verify_navrl_physical_target_routed_simulator_gate.py",
+   "results_paths": [
+    "results/navrl_physical_target_routed_gate_seed827_attempt2/summary.json",
+    "results/navrl_physical_target_routed_gate_seed827_attempt2/receipt.json",
+    "results/navrl_physical_target_routed_gate_seed827_attempt2/execution_manifest.json",
+    "results/navrl_physical_target_routed_gate_seed827_attempt2/source_manifest.json",
+    "results/navrl_physical_target_routed_gate_seed827_attempt2/children/"
+   ],
+   "worklog_date": "2026-08-25",
+   "_note": "Verdicts: PASS_32_CELL_INTEGRITY / FAIL_ROUTE_MECHANISM / BLOCKED_PHYSICAL_TRAINING. Motor·tilt·contact는 이번 route 실패의 주원인으로 지지되지 않는다."
+  },
+  {
+   "id": "2026-08-25-physical-target-route-recovery-forensics-seed827",
+   "title_ko": "★ routed target recovery forensics — RECOVERY_DOMINANT",
+   "question": "local-step invalidation 뒤 route recovery가 initial planning보다 fallback을 지배하는가?",
+   "theme": "protocol",
+   "knob": null,
+   "levels": [
+    {
+     "label": "global_astar_v1 · 8-cell frozen slice",
+     "value": "route-on recovery",
+     "is_baseline": true
+    }
+   ],
+   "metric": "other",
+   "metric_label": "evaluation-only recovery diagnosis",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "Wilson 95% lower bounds on unique local origins; descriptive rule frozen before data",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "receipt",
+     "extra": {
+      "cells_verified": "8/8",
+      "diagnostic_verdict": "RECOVERY_DOMINANT"
+     }
+    },
+    {
+     "label": "local invalidation → fallback",
+     "extra": {
+      "local_invalidations": 358,
+      "local_fallback_intervals": 35666,
+      "amplification": "99.6257x",
+      "fallback_age_steps": "median 101; p90 219; max 287"
+     }
+    },
+    {
+     "label": "unique-origin envelope",
+     "extra": {
+      "n": 200,
+      "hard_free_soft_unsafe": "97.0% (Wilson lower 93.61%)",
+      "exact_hard_connector": "96.5% (Wilson lower 92.95%)"
+     }
+    }
+   ],
+   "verdict": "PASS",
+   "validity": "canonical",
+   "lineage_status": "historical_v1_diagnostic",
+   "diagnostic_verdict": "RECOVERY_DOMINANT",
+   "verdict_note": "Initial plans were ok=349, unsafe_start=17, no_connected_goal=6; replans were unsafe_start=3774, ok=101, no_path=82, unsafe_goal=79. The result supports a recovery state-machine deadlock hypothesis, not a global connectivity proof.",
+   "confounded_by": "Evaluation-only observer with neutral pursuer command; no PPO policy. It changed no target commands, planner decisions, reward, observations, termination, PPO, or attempt2 artifacts. The 0.45 m reserve was not lowered or tuned.",
+   "seeds": [827],
+   "env": {
+    "bars": [70, 150, 205, 300],
+    "target_speed_mps": [0.6, 1.5],
+    "envs_per_cell": 32,
+    "steps_per_cell": 300,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "loaded": false,
+    "pursuer_action": "neutral/all-zero policy action"
+   },
+   "preregistered": true,
+   "gate": "docs/preregistration_physical_target_route_recovery_forensics_2026-08-25.md — unique-origin n ≥64; Wilson lower bounds >0.5; local amplification > cooldown 10",
+   "launcher": "tools/diagnose_navrl_physical_target_route_recovery.py",
+   "results_paths": [
+    "docs/physical_target_route_recovery_result_2026-08-25.md",
+    "results/navrl_physical_target_route_recovery_forensics_seed827/summary.json",
+    "results/navrl_physical_target_route_recovery_forensics_seed827/summary.md",
+    "results/navrl_physical_target_route_recovery_forensics_seed827/receipt.json",
+    "results/navrl_physical_target_route_recovery_forensics_seed827/.COMPLETE.json"
+   ],
+   "worklog_date": "2026-08-25",
+   "_note": "RECOVERY_DOMINANT is a descriptive evaluation-only historical label. It is not the current Track B bottleneck or tuning authority."
+  },
+  {
+   "id": "2026-08-26-physical-target-recovery-v2-lower1p25-gate-seed827",
+   "title_ko": "★ recovery-v2 lower-1.25 게이트 — 무결성 통과, route mechanism 실패",
+   "question": "baseline_1p25 계약에서 recovery-v2가 사전등록한 32-cell route mechanism gate를 통과하는가?",
+   "theme": "protocol",
+   "knob": null,
+   "levels": [
+    {
+     "label": "route off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "global A* recovery-v2",
+     "value": "global_astar_recovery_v2"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "recovery-v2 lower-1.25 mechanism gate",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none; preregistered deterministic threshold screen",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "32-cell integrity",
+     "extra": {
+      "cells_passed": "7/32, all route-off",
+      "recovery_cells_passed": "0/16",
+      "verdict": "PASS_32_CELL_INTEGRITY"
+     }
+    },
+    {
+     "label": "70-bar · four-speed pool",
+     "extra": {
+      "plan_success": "190/203 = 93.60% (gate ≥99%)",
+      "fallback": "18381/38400 = 47.87% (gate ≤1%)"
+     }
+    },
+    {
+     "label": "70 bars × 0.6 m/s",
+     "extra": {
+      "goal_completions_per_env": "7/32 = 0.21875 (gate ≥0.5)"
+     }
+    },
+    {
+     "label": "recovery occupancy",
+     "extra": {
+      "no_connector": "96854/153600 = 63.06%",
+      "hard_breach_entries": "0/534"
+     }
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "verdict_note": "PASS_32_CELL_INTEGRITY / FAIL_ROUTE_MECHANISM. recovery-v2는 plan success를 v1보다 높였지만 NO_CONNECTOR 점유와 fallback 때문에 gate를 통과하지 못했다. baseline_1p25는 canonical 1.5와 별도 계약이며, 이 결과는 1.5 성공·hardware 검증·PPO·retune·rerun 권한을 만들지 않는다.",
+   "confounded_by": "Neutral pursuer command의 target-route mechanism gate이며 PPO policy를 로드하지 않았다. baseline_1p25를 canonical 1.5 m/s 계약과 합치거나 hardware 성능으로 읽을 수 없다.",
+   "seeds": [
+    827
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "bars": [
+     70,
+     150,
+     205,
+     300
+    ],
+    "target_speed_mps": [
+     0.6,
+     0.9,
+     1.2,
+     1.25
+    ],
+    "envs_per_cell": 32,
+    "steps_per_cell": 300,
+    "contract_variant": "baseline_1p25",
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "loaded": false,
+    "pursuer_action": "neutral/all-zero policy action"
+   },
+   "preregistered": true,
+   "gate": "docs/preregistration_physical_target_recovery_v2_lower1p25_gate_2026-08-26.md — plan ≥99%, fallback ≤1%, goals/env ≥0.5; integrity fail-closed",
+   "launcher": "tools/verify_navrl_physical_target_recovery_v2_gate.py",
+   "results_paths": [
+    "results/navrl_physical_target_recovery_v2_gate_lower1p25_seed827/summary.json",
+    "results/navrl_physical_target_recovery_v2_gate_lower1p25_seed827/receipt.json",
+    "docs/physical_target_recovery_v2_lower1p25_result_2026-08-26.md",
+    "docs/preregistration_physical_target_recovery_v2_lower1p25_gate_2026-08-26.md"
+   ],
+   "worklog_date": "2026-08-26",
+   "_note": "Current Track B gate authority. The finalized result closes further Track B GPU/PPO/retune/rerun work."
+  },
+  {
+   "id": "2026-08-26-recovery-v2-no-connector-forensics-seed827",
+   "title_ko": "★ recovery-v2 NO_CONNECTOR no-anchor forensics — INCONCLUSIVE",
+   "question": "70-bar NO_CONNECTOR latch 직전에 7×7 hard-safe connector가 이미 존재했는가?",
+   "theme": "protocol",
+   "knob": null,
+   "levels": [
+    {
+     "label": "70 bars × four speeds · pre-latch observer",
+     "value": "no_connector_forensics",
+     "is_baseline": true
+    }
+   ],
+   "metric": "other",
+   "metric_label": "descriptive no-anchor decision rule",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "Wilson 95%; primary requires n ≥20",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "frozen primary",
+     "extra": {
+      "decision_rule": "INCONCLUSIVE",
+      "primary_n": 1,
+      "anchor_present": "0/1",
+      "hard_free_soft_unsafe": "1/1",
+      "identity_void": false
+     }
+    },
+    {
+     "label": "106 NO_CONNECTOR classes",
+     "extra": {
+      "failed_certificate": 49,
+      "brake_timeout": 32,
+      "failed_resume": 23,
+      "connect_timeout": 1,
+      "brake_no_anchor": 1
+     }
+    }
+   ],
+   "verdict": "INCONCLUSIVE",
+   "validity": "canonical",
+   "verdict_note": "Primary n=1은 사전등록 최소 n=20에 미달했다. identity_void=false지만 32-cell FAIL을 바꾸지 않으며 cell/grid rerun, gain·margin·env retune, PPO, hardware 또는 canonical 1.5 m/s 주장을 허가하지 않는다.",
+   "seeds": [
+    827
+   ],
+   "episodes_per_cell": null,
+   "env": {
+    "bars": 70,
+    "target_speed_mps": [
+     0.6,
+     0.9,
+     1.2,
+     1.25
+    ],
+    "envs_per_cell": 32,
+    "steps_per_cell": 300,
+    "contract_variant": "baseline_1p25",
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "loaded": false,
+    "pursuer_action": "neutral/all-zero policy action"
+   },
+   "preregistered": true,
+   "gate": "docs/preregistration_physical_target_recovery_v2_no_connector_forensics_2026-08-26.md — primary n ≥20; frozen descriptive decision rule; identity fail-closed",
+   "launcher": "tools/diagnose_navrl_physical_target_recovery_v2_no_connector.py",
+   "results_paths": [
+    "results/navrl_physical_target_recovery_v2_no_connector_forensics_seed827/summary.json",
+    "results/navrl_physical_target_recovery_v2_no_connector_forensics_seed827/receipt.json",
+    "docs/physical_target_recovery_v2_no_connector_forensics_result_2026-08-26.md",
+    "docs/preregistration_physical_target_recovery_v2_no_connector_forensics_2026-08-26.md"
+   ],
+   "worklog_date": "2026-08-26",
+   "_note": "Evaluation-only current forensic authority; descriptive and terminal for Track B."
+  },
+  {
+   "id": "2026-08-31-corrected-nonoverlap-route-gate-r2-seed829",
+   "title_ko": "★ corrected non-overlap route gate r2 — 32셀 완주, 경로 메커니즘 실패",
+   "question": "막대 겹침을 제거한 현행 환경에서 physical target route/controller가 fresh PPO 전 사전등록 gate를 통과하는가?",
+   "theme": "protocol",
+   "knob": null,
+   "levels": [
+    {
+     "label": "route off",
+     "value": "off",
+     "is_baseline": true
+    },
+    {
+     "label": "global A* routed",
+     "value": "global_astar_v1"
+    }
+   ],
+   "metric": "other",
+   "metric_label": "corrected non-overlap route mechanism gate",
+   "effect": {
+    "value_pp": null,
+    "ci95_pp": null,
+    "ci_method": "none; frozen deterministic threshold screen",
+    "direction": "higher_is_better"
+   },
+   "arms": [
+    {
+     "label": "execution integrity",
+     "extra": {
+      "cells": "32/32",
+      "verdict": "PASS_32_CELL_INTEGRITY"
+     }
+    },
+    {
+     "label": "routed 70 bars pooled over 4 speeds",
+     "extra": {
+      "plan_success": "17.7831% (gate ≥99%)",
+      "fallback_intervals": "30.0156% (gate ≤1%)"
+     }
+    },
+    {
+     "label": "routed 70 bars × 0.6 m/s",
+     "extra": {
+      "goal_completions_per_env": "0.21875 (gate ≥0.5)"
+     }
+    }
+   ],
+   "verdict": "FAIL",
+   "validity": "canonical",
+   "lineage_status": "corrected_nonoverlap_current",
+   "verdict_note": "source/import/runtime receipt를 포함한 32/32 integrity는 통과했지만 route mechanism과 full 1.5 m/s contract는 실패했다. 어떤 밀도에서도 승인 가능한 routed speed가 없으며 unsafe_start가 지배했다. fresh PPO 500-epoch smoke와 70→205 long run은 시작하지 않았다(0 epoch).",
+   "confounded_by": "Neutral pursuer/no-policy target mechanism diagnostic이다. capture/crash/timeout, learned density ceiling, hardware 또는 sim-to-real 성능으로 해석할 수 없다.",
+   "seeds": [829],
+   "episodes_per_cell": null,
+   "env": {
+    "bars": [70, 115, 160, 205],
+    "target_speed_mps": [0.6, 0.9, 1.2, 1.5],
+    "envs_per_cell": 32,
+    "steps_per_cell": 300,
+    "placement": "footprint_clearance",
+    "surface_clearance_m": 0.45,
+    "machine": "rtx3070"
+   },
+   "policy": {
+    "loaded": false,
+    "fresh_ppo_epochs_run": 0,
+    "pursuer_action": "neutral/all-zero policy action"
+   },
+   "preregistered": true,
+   "gate": "docs/preregistration_corrected_nonoverlap_route_gate_r2_2026-08-31.md — plan ≥99%, fallback ≤1%, goals/env ≥0.5, all 1.5 cells pass; integrity fail-closed",
+   "launcher": "tools/verify_navrl_corrected_nonoverlap_route_gate_r2.py",
+   "results_paths": [
+    "results/navrl_corrected_nonoverlap_route_gate_r2_seed829/summary.json",
+    "results/navrl_corrected_nonoverlap_route_gate_r2_seed829/receipt.json",
+    "results/navrl_corrected_nonoverlap_route_gate_r2_seed829/execution_manifest.json",
+    "results/navrl_corrected_nonoverlap_route_gate_r2_seed829/source_manifest.json",
+    "docs/corrected_nonoverlap_route_gate_r2_result_2026-08-31.md",
+    "docs/preregistration_corrected_nonoverlap_route_gate_r2_2026-08-31.md"
+   ],
+   "worklog_date": "2026-08-31",
+   "_note": "Current corrected-environment authority: PASS_32_CELL_INTEGRITY / FAIL_ROUTE_MECHANISM / BLOCKED_PHYSICAL_TRAINING. PPO remains required eventually but unauthorized now."
+  }
+ ]
+}

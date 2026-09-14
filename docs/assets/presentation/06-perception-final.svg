@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">실영상 인지 — 구현 경로와 검증 결과</title><desc id="desc">FINAL PERCEPTION PATH · 기존 결과의 요약이며 새로운 실험이나 구현 계약이 아닙니다.</desc><rect width="1600" height="900" fill="#f4f7fa"/><g font-family="Arial, Noto Sans CJK KR, sans-serif">
+<text x="52" y="48" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">MOTAR / RESEARCH EVIDENCE</text>
+<text x="1548" y="48" font-size="16" fill="#526775" font-weight="700" text-anchor="end">2026-09-10 · SOFTWARE EVALUATED</text>
+<text x="52" y="108" font-size="39" fill="#142d3b" font-weight="700" text-anchor="start">실영상 인지 — 구현 경로와 검증 결과</text>
+<text x="52" y="153" font-size="22" fill="#526775" font-weight="400" text-anchor="start">FINAL PERCEPTION PATH · 기존 결과의 요약이며 새로운 실험이나 구현 계약이 아닙니다.</text>
+<rect x="52" y="200" width="482" height="318" rx="20" fill="white" stroke="#dce5ea"/>
+<text x="78" y="242" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">01 / DATA &amp; DETECTOR</text>
+<text x="78" y="288" font-size="29" fill="#142d3b" font-weight="700" text-anchor="start">NPS-Drones · Det-Fly</text>
+<text x="78" y="339" font-size="22" fill="#526775" font-weight="400" text-anchor="start">joint + multi-scale 학습 완료</text>
+<text x="78" y="378" font-size="22" fill="#526775" font-weight="400" text-anchor="start">Det-Fly validation AP50: 0.7166</text>
+<text x="78" y="417" font-size="22" fill="#526775" font-weight="400" text-anchor="start">K = 5 후보를 유지</text>
+<text x="78" y="456" font-size="22" fill="#526775" font-weight="400" text-anchor="start">zero-shot 평가와 직접 전후 비교 금지</text>
+<rect x="559" y="200" width="482" height="318" rx="20" fill="white" stroke="#dce5ea"/>
+<text x="585" y="242" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">02 / TEMPORAL COMPARISON</text>
+<text x="585" y="288" font-size="29" fill="#142d3b" font-weight="700" text-anchor="start">동일 검출기 위의 비교</text>
+<text x="585" y="339" font-size="22" fill="#526775" font-weight="400" text-anchor="start">CNN + KF: 채택하지 않음</text>
+<text x="585" y="378" font-size="22" fill="#526775" font-weight="400" text-anchor="start">GRU · T=8: 채택하지 않음</text>
+<text x="585" y="417" font-size="22" fill="#526775" font-weight="400" text-anchor="start">Transformer · T=16: P7c v2 선택</text>
+<text x="585" y="456" font-size="22" fill="#526775" font-weight="400" text-anchor="start">validation utility: 0.6855</text>
+<rect x="1066" y="200" width="482" height="318" rx="20" fill="white" stroke="#dce5ea"/>
+<text x="1092" y="242" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">03 / FROZEN EVALUATION</text>
+<text x="1092" y="288" font-size="29" fill="#142d3b" font-weight="700" text-anchor="start">스트리밍과 최종 test</text>
+<text x="1092" y="339" font-size="22" fill="#526775" font-weight="400" text-anchor="start">S1: 14.72 → 22.48 FPS</text>
+<text x="1092" y="378" font-size="22" fill="#526775" font-weight="400" text-anchor="start">2,296 validation 프레임 출력 일치</text>
+<text x="1092" y="417" font-size="22" fill="#526775" font-weight="400" text-anchor="start">S4 test utility: 0.4701</text>
+<text x="1092" y="456" font-size="22" fill="#526775" font-weight="400" text-anchor="start">test: 1,725 프레임 · 다른 영상</text>
+<rect x="52" y="548" width="1496" height="218" rx="20" fill="#e4f1ee" stroke="#dce5ea"/>
+<text x="80" y="590" font-size="25" fill="#007f73" font-weight="700" text-anchor="start">P8 → P9 → P10 / Inject measured errors · PPO retraining</text>
+<text x="80" y="637" font-size="23" fill="#526775" font-weight="400" text-anchor="start">P8: 단일 GT 1,310프레임에서 측정 · 8 px 미만 / 64 px 이상은 지원 근거 없음</text>
+<text x="80" y="682" font-size="27" fill="#142d3b" font-weight="700" text-anchor="start">P10 사전등록 주 효과: +1.41 pp, 95% CI [−0.38, +3.21] — 0 포함</text>
+<text x="80" y="726" font-size="23" fill="#526775" font-weight="400" text-anchor="start">8셀 평가 완료 · 학습 시드 1개 · 유의한 회복이나 clean 성능 보존을 입증하지 못함</text>
+<path d="M52 804H1548" stroke="#cbd8df"/>
+<text x="52" y="839" font-size="20" fill="#a55316" font-weight="400" text-anchor="start">센서 융합과 실제 비행은 별도 미검증 범위 · validation/test 차이를 짝지은 효과로 해석하지 않음</text>
+<text x="52" y="875" font-size="16" fill="#526775" font-weight="400" text-anchor="start">근거: results/perception_{streaming_overlap_s1,s4,p8,p10}_2026-09-09/README.md</text>
+</g></svg>

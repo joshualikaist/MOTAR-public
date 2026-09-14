@@ -1,0 +1,248 @@
+{
+  "arms": {
+    "left_lr": {
+      "command_xy_mean_mps": [
+        2.45951771736145,
+        -2.2648561000823975
+      ],
+      "deterministic_action_mean": [
+        0.9838070869445801,
+        -0.905942440032959,
+        0.6087177991867065,
+        -0.3124086856842041
+      ],
+      "horizontal_speed_from_mean_mps": 3.3434713332246964,
+      "latent_mu_mean": [
+        2.4040989875793457,
+        -1.5044125318527222,
+        0.7068818807601929,
+        -0.3232124149799347
+      ],
+      "near_zero_horizontal_rate": 0.0,
+      "sigma_mean": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.05000000074505806,
+        0.07999999821186066
+      ]
+    },
+    "left_rl": {
+      "command_xy_mean_mps": [
+        2.459312677383423,
+        -2.2592343389987946
+      ],
+      "deterministic_action_mean": [
+        0.9837250709533691,
+        -0.9036937355995178,
+        0.6059137582778931,
+        -0.30462679266929626
+      ],
+      "horizontal_speed_from_mean_mps": 3.3395147317612093,
+      "latent_mu_mean": [
+        2.4015519618988037,
+        -1.4920090436935425,
+        0.7024391889572144,
+        -0.3146118223667145
+      ],
+      "near_zero_horizontal_rate": 0.0,
+      "sigma_mean": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.05000000074505806,
+        0.07999999821186066
+      ]
+    },
+    "right_lr": {
+      "command_xy_mean_mps": [
+        2.4333712458610535,
+        -2.30451837182045
+      ],
+      "deterministic_action_mean": [
+        0.9733484983444214,
+        -0.9218073487281799,
+        0.613927960395813,
+        -0.4455893337726593
+      ],
+      "horizontal_speed_from_mean_mps": 3.3514326110249257,
+      "latent_mu_mean": [
+        2.152320384979248,
+        -1.60092294216156,
+        0.7152011394500732,
+        -0.47918328642845154
+      ],
+      "near_zero_horizontal_rate": 0.0,
+      "sigma_mean": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.05000000074505806,
+        0.07999999821186066
+      ]
+    },
+    "right_rl": {
+      "command_xy_mean_mps": [
+        2.4338242411613464,
+        -2.300858646631241
+      ],
+      "deterministic_action_mean": [
+        0.9735296964645386,
+        -0.9203434586524963,
+        0.6119005680084229,
+        -0.4384077489376068
+      ],
+      "horizontal_speed_from_mean_mps": 3.3492463254652307,
+      "latent_mu_mean": [
+        2.155777931213379,
+        -1.5912675857543945,
+        0.7119537591934204,
+        -0.470257967710495
+      ],
+      "near_zero_horizontal_rate": 0.0,
+      "sigma_mean": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.05000000074505806,
+        0.07999999821186066
+      ]
+    },
+    "symmetric_lr": {
+      "command_xy_mean_mps": [
+        2.444424480199814,
+        -2.293745130300522
+      ],
+      "deterministic_action_mean": [
+        0.9777697920799255,
+        -0.9174980521202087,
+        0.6132228374481201,
+        -0.40278422832489014
+      ],
+      "horizontal_speed_from_mean_mps": 3.352085583957768,
+      "latent_mu_mean": [
+        2.244136095046997,
+        -1.5729773044586182,
+        0.714070200920105,
+        -0.42696788907051086
+      ],
+      "near_zero_horizontal_rate": 0.0,
+      "sigma_mean": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.05000000074505806,
+        0.07999999821186066
+      ]
+    },
+    "symmetric_rl": {
+      "command_xy_mean_mps": [
+        2.4445804953575134,
+        -2.289334088563919
+      ],
+      "deterministic_action_mean": [
+        0.9778321981430054,
+        -0.9157336354255676,
+        0.6108588576316833,
+        -0.3951372504234314
+      ],
+      "horizontal_speed_from_mean_mps": 3.349182641681874,
+      "latent_mu_mean": [
+        2.2455577850341797,
+        -1.561936378479004,
+        0.7102903127670288,
+        -0.4178732633590698
+      ],
+      "near_zero_horizontal_rate": 0.0,
+      "sigma_mean": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.05000000074505806,
+        0.07999999821186066
+      ]
+    }
+  },
+  "checks": {
+    "perturbations_restore_motion_all_orders": true,
+    "perturbed_lateral_decisive_all_orders": true,
+    "perturbed_lateral_signs_opposite": false,
+    "policy_reflection_quality": false,
+    "slot_permutation_quality": true,
+    "symmetric_horizontal_stall_both_orders": false,
+    "symmetric_lateral_near_zero_both_orders": false
+  },
+  "decision_authority": "diagnostic_only_no_training_or_replacement_authority",
+  "fixture_contract": {
+    "reflection_pair_max_abs": {
+      "left_lr_to_right_rl": 0.0,
+      "left_rl_to_right_lr": 0.0,
+      "symmetric_lr_to_rl": 0.0
+    }
+  },
+  "independent_fixture_count": 1,
+  "limitations": [
+    "All six inputs encode physical two-surface geometry, but remain synthetic policy fixtures rather than sensor frames replayed from the simulator.",
+    "Equal-distance token ordering is not assumed invariant: both orders are measured, and excessive action sensitivity forces an inconclusive verdict.",
+    "This side forward-pass does not execute commands or measure capture/crash outcomes.",
+    "The reported sample count is repeated inference of one fixed fixture per arm, not independent environment samples and not a confidence-interval basis.",
+    "A positive result motivates a simulator replay or candidate-head ablation; it does not by itself establish a causal high-density failure mechanism."
+  ],
+  "max_velocity_mps": 2.5,
+  "offset_deg": 5.0,
+  "pair": {
+    "perturbed_abs_lateral_min": 0.9036937355995178,
+    "perturbed_horizontal_speed_min_mps": 3.3395147317612093,
+    "reflection_abs_errors": {
+      "left_lr_to_right_rl": [
+        0.010277390480041504,
+        1.8262858390808105,
+        0.0031827688217163086,
+        0.7508164644241333
+      ],
+      "left_rl_to_right_lr": [
+        0.010376572608947754,
+        1.8255010843276978,
+        0.008014202117919922,
+        0.7502161264419556
+      ],
+      "symmetric_lr_to_symmetric_rl": [
+        6.240606307983398e-05,
+        1.8332316875457764,
+        0.0023639798164367676,
+        0.7979214787483215
+      ]
+    },
+    "reflection_max_abs": 1.8332316875457764,
+    "slot_permutation_abs_errors": {
+      "left_lr_vs_left_rl": [
+        8.20159912109375e-05,
+        0.002248704433441162,
+        0.0028040409088134766,
+        0.007781893014907837
+      ],
+      "right_lr_vs_right_rl": [
+        0.0001811981201171875,
+        0.0014638900756835938,
+        0.0020273923873901367,
+        0.00718158483505249
+      ],
+      "symmetric_lr_vs_symmetric_rl": [
+        6.240606307983398e-05,
+        0.0017644166946411133,
+        0.0023639798164367676,
+        0.00764697790145874
+      ]
+    },
+    "slot_permutation_max_abs": 0.007781893014907837,
+    "symmetric_abs_lateral_max": 0.9174980521202087,
+    "symmetric_horizontal_speed_max_mps": 3.352085583957768
+  },
+  "preregistered_gates": {
+    "near_zero_horizontal_speed_mps": 0.25,
+    "perturbed_abs_lateral_min": 0.25,
+    "perturbed_horizontal_speed_min_mps": 0.75,
+    "reflection_max_abs_action": 0.15,
+    "slot_permutation_max_abs_action": 0.15,
+    "symmetric_abs_lateral_max": 0.1,
+    "symmetric_horizontal_speed_max_mps": 0.25
+  },
+  "probe": "frozen_policy_symmetric_corridor_synthetic_screen",
+  "samples": 542,
+  "schema_version": 1,
+  "verdict": "INCONCLUSIVE_POLICY_CHIRALITY"
+}

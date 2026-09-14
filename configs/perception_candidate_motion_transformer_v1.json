@@ -1,0 +1,22 @@
+{
+  "architecture": "candidate_motion_transformer",
+  "batch_size": 256,
+  "candidate_embedding_dim": 128,
+  "dropout": 0.1,
+  "epochs_max": 40,
+  "evaluation_iou": 0.3,
+  "feedforward_dim": 256,
+  "gradient_clip_norm": 1.0,
+  "hidden_dim": 128,
+  "history_length": 16,
+  "learning_rate": 0.001,
+  "model_selection": "minimum validation cross_entropy; earliest epoch wins exact ties",
+  "motion_feature_dimension": 12,
+  "num_heads": 4,
+  "num_layers": 2,
+  "patience": 8,
+  "seed": 17,
+  "selection_rule": "(hit_frames - proxy_false_lock_frames) / frames; exact ties prefer current P7 then P7b then P7c",
+  "token_contract": "P7b candidate token plus audited box dynamics, dense optical flow, GMC and residual motion",
+  "weight_decay": 0.0001
+}

@@ -1,0 +1,14 @@
+# General-spawn G0 fine-tune -- speed-axis eval
+# checkpoint: runs/ppo_260724_0209_navrl/nn/gen_ppo.pth (warm-started from altitude-PI ppo_260724_0110, +~1200 epoch)
+# training: train_navrl_general_8m_finetune.sh -- NAVRL_GENERAL_TRAIN=1 (randomized drone+target spawn),
+#           LiDAR 8m, 25 bars, K_COMPETENCE K_FINAL=16 K_MIN_FINAL=10, OOB_MARGIN=1.0, yaw 3.0, max_vel 2.5
+# eval: 128 envs, ~2049 episodes/cell, deterministic, SAME general-spawn recipe as training
+# NOTE: NOT directly comparable to baseline/altitude_pi (those use fixed x~0 -> far-goal spawns; this
+#       samples drone+target randomly across the arena, a different + broader distribution).
+target_speed_ms,capture,crash,timeout,crash_bar_contact_share,crash_below_share,crash_oob_share
+0.0,0.803,0.120,0.077,0.767,0.176,0.057
+0.5,0.873,0.124,0.002,0.827,0.102,0.071
+0.75,0.837,0.160,0.003,0.851,0.101,0.049
+1.0,0.850,0.146,0.004,0.826,0.134,0.040
+1.25,0.837,0.161,0.002,0.800,0.136,0.064
+1.5,0.819,0.180,0.001,0.826,0.098,0.076

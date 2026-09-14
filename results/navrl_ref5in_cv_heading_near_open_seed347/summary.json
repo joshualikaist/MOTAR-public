@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_cv_heading_near_open.py",
+  "created_at_utc": "2026-08-13T09:54:57.711511+00:00",
+  "scope": "post_d1_frozen_cv_initial_heading_near_open_seed347",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "generic_provenance_override": {
+    "used": true,
+    "sole_verified_mismatch": "cfg_target_pattern: checkpoint=mixed expected=cv",
+    "reason": "controlled CV-only evaluation of a mixed-pattern training checkpoint"
+  },
+  "condition": {
+    "seed": 347,
+    "bars": 1,
+    "requested_episodes_per_cell": 2049,
+    "goal_dist_m": [
+      22.5,
+      28.0
+    ],
+    "target_pattern": "cv",
+    "target_speed_mps": [
+      0.3,
+      1.5
+    ],
+    "action_selection": "deterministic",
+    "episode_len_steps": 600,
+    "modes": [
+      "toward",
+      "away"
+    ]
+  },
+  "cells": {
+    "toward": {
+      "episodes": 2050,
+      "capture": 1958,
+      "capture_rate": 0.9551219512195122,
+      "capture_wilson95": [
+        0.9452764529520586,
+        0.9632649497867137
+      ],
+      "crash": 89,
+      "crash_rate": 0.04341463414634146,
+      "crash_wilson95": [
+        0.035413921618324906,
+        0.05312332065017357
+      ],
+      "timeout": 3,
+      "timeout_rate": 0.0014634146341463415,
+      "timeout_wilson95": [
+        0.0004978150777562853,
+        0.004293917399172603
+      ],
+      "target_hidden_fraction": 0.6552597329108194,
+      "closest_nocrash_mean_m": 0.4748751936230594,
+      "capture_mean_step": 137.02349336057202
+    },
+    "away": {
+      "episodes": 2049,
+      "capture": 755,
+      "capture_rate": 0.36847242557345045,
+      "capture_wilson95": [
+        0.34784966651427973,
+        0.38958743673399443
+      ],
+      "crash": 178,
+      "crash_rate": 0.08687164470473402,
+      "crash_wilson95": [
+        0.07543663331249113,
+        0.09985282086065968
+      ],
+      "timeout": 1116,
+      "timeout_rate": 0.5446559297218155,
+      "timeout_wilson95": [
+        0.5230294433390258,
+        0.5661152878401315
+      ],
+      "target_hidden_fraction": 0.9509271849212303,
+      "closest_nocrash_mean_m": 13.030731987190208,
+      "capture_mean_step": 391.89668874172185
+    }
+  },
+  "comparisons": {
+    "away_minus_toward": {
+      "capture": {
+        "difference": -0.5866495256460618,
+        "difference_ci95": [
+          -0.609378104100398,
+          -0.5639209471917255
+        ]
+      },
+      "crash": {
+        "difference": 0.04345701055839256,
+        "difference_ci95": [
+          0.02840575951138529,
+          0.058508261605399826
+        ]
+      },
+      "timeout": {
+        "difference": 0.5431925150876692,
+        "difference_ci95": [
+          0.5215661689939248,
+          0.5648188611814136
+        ]
+      }
+    }
+  },
+  "screen": {
+    "near_open_timeout_difference": 0.5431925150876692,
+    "dense_70bar_timeout_difference": 0.23317073170731709,
+    "difference_reduction": -0.31002178338035213,
+    "thresholds": {
+      "occlusion_required_max": 0.08,
+      "occlusion_not_necessary_min": 0.15
+    },
+    "interpretation": "obstacle_occlusion_not_necessary_kinematic_fov_wall_channel_sufficient"
+  },
+  "limitations": [
+    "mechanism diagnostic only; cannot revise P2 or D1 and cannot unlock P3",
+    "one frozen training seed and one evaluation seed",
+    "one bar is near-open, not obstacle-free",
+    "heading still changes kinematics, FOV visibility, and time to wall together",
+    "same seed is not episode-paired because vector environments reset asynchronously"
+  ]
+}

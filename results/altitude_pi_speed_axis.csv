@@ -1,0 +1,12 @@
+# Altitude PI-hold fix -- speed-axis eval (vs results/baseline_speed_axis_peak986.csv)
+# checkpoint: runs/ppo_260724_0110_navrl/nn/gen_ppo.pth (warm-started from peak_cap986, ~450 epoch PI-hold retrain)
+# config: 25 bars, goals 13-16m, drone max_vel=2.5, yaw_rate=3.0, LiDAR 8m, target pattern=mixed
+# eval: 128 envs, ~2049 episodes/cell, deterministic policy
+# code change: navrl_task.py transform_action_to_command -- altitude hold P -> PI (Ki=1.0, anti-windup, per-episode reset)
+target_speed_ms,capture,crash,timeout,crash_bar_contact_share,crash_below_share,crash_oob_share
+0.0,0.804,0.191,0.005,0.542,0.023,0.435
+0.5,0.822,0.178,0.000,0.559,0.016,0.425
+0.75,0.813,0.187,0.000,0.603,0.016,0.381
+1.0,0.808,0.192,0.000,0.604,0.018,0.378
+1.25,0.786,0.214,0.000,0.580,0.018,0.402
+1.5,0.778,0.222,0.000,0.637,0.020,0.344

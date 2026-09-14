@@ -1,0 +1,87 @@
+params:
+  seed: 8
+  algo:
+    name: a2c_continuous
+
+  model:
+    name: continuous_a2c_logstd
+
+  load_checkpoint: False
+
+  network:
+    name: actor_critic
+    separate: False
+    space:
+      continuous:
+        mu_activation: None
+        sigma_activation: None
+        mu_init:
+          name: default
+        sigma_init:
+          name: const_initializer
+          val: 0
+        fixed_sigma: True
+    mlp:
+      units: [256,128,64]
+      d2rl: False
+      activation: elu
+      initializer:
+        name: default
+        scale: 2
+  config:
+    # NOTE: env_name / num_actors / env_config.num_envs 는 runner.update_config 에서
+    # --task, --num_envs 로 항상 덮어쓰입니다 (train.sh: task=position_setpoint_task, NUM_ENVS=128).
+    # 아래 값은 그 인자가 없을 때만 쓰이는 폴백이라 실제 기본(128)에 맞춰 둡니다.
+    env_name: position_setpoint_task
+    env_config:
+      num_envs: 128
+
+    name: gen_ppo
+    reward_shaper:
+      # Task rewards are budgeted to ~1000 ep max; no extra down-scale here.
+      scale_value: 1.0
+
+    normalize_advantage: True
+    gamma: 0.99
+    tau: 0.95
+    ppo: True
+    learning_rate: 1e-4
+    lr_schedule: adaptive
+    kl_threshold: 0.016
+    save_best_after: 10
+    # Periodic checkpoint every N epochs (0 = disable). Guards against abrupt kills between "best" saves.
+    save_frequency: 100
+    score_to_win: 100000
+    grad_norm: 1.0
+    entropy_coef: 0.006
+    truncate_grads: True
+    e_clip: 0.2
+    clip_value: False
+    num_actors: 128
+    horizon_length: 64
+    # Must divide (num_actors * horizon_length) = 128*64 = 8192.
+    minibatch_size: 512
+    mini_epochs: 4
+    critic_coef: 2
+    normalize_input: False
+    bounds_loss_coef: 0.0001
+    # Hard cap: stop at this epoch if still running. Early stop (below) may finish sooner after min_epoch.
+    max_epochs: 15000
+    normalize_value: True
+    # 수렴(plateau): min_epoch 이후 연속 consecutive_epochs 구간에서
+    # max(mean_reward) − min(mean_reward) ≤ reward_band 이면 조기 종료.
+    # (에폭 간 |Δr| 누적이 아님 — 밴드 안에서 진동·수렴했는지 본다.)
+    early_stop_stable:
+      enable: True
+      min_epoch: 6000
+      reward_band: 150.0
+      consecutive_epochs: 2000
+    use_diagnostics: True
+    value_bootstrap: True
+    #weight_decay: 0.0001
+    use_smooth_clamp: False
+
+    player:
+      render: True
+      deterministic: True
+      games_num: 100000

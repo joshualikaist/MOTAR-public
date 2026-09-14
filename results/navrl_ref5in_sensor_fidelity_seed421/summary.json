@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_sensor_fidelity.py",
+  "created_at_utc": "2026-08-22T13:01:17.482182+00:00",
+  "scope": "sensor_model_fidelity_frozen_ref5in_seed421",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "preregistration": "docs/prereg_2026-08-22_sensor_fidelity.md",
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "shared_condition": {
+    "seed": 421,
+    "bars": 70,
+    "requested_episodes_per_arm": 2049,
+    "robot_name": "navrl_ref5in_quad",
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "speed_governor_mode": "off",
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "target_camera_max_range_m": 20.0,
+    "camera_width": 160,
+    "camera_height": 90,
+    "manipulated_axis": "sensor_model_fidelity(detect_resolution + detector_min_pixels)"
+  },
+  "narrow_provenance_override": {
+    "baseline": {
+      "used": false
+    },
+    "fidelity": {
+      "used": true,
+      "arm": "fidelity",
+      "sole_verified_mismatch": "cfg_detector_min_pixels: checkpoint=2 expected=50.0",
+      "reason": "evaluating the frozen ref5in D1 checkpoint at a detection threshold it was not trained at is the manipulation itself; the evaluator's v2 provenance gate pins cfg_detector_min_pixels to the training value, so the single-field mismatch is verified at run time and only then overridden (prereg section 5-b)"
+    }
+  },
+  "arms": {
+    "baseline": {
+      "condition": {
+        "detect_width": 160,
+        "detect_height": 90,
+        "detector_min_pixels": 2,
+        "camera_width": 160,
+        "camera_height": 90,
+        "target_camera_max_range_m": 20.0,
+        "actual_episodes": 2049,
+        "num_envs": 128,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "never_acquired": 387,
+        "never_acquired_rate": 0.18887262079062958,
+        "never_acquired_rate_pp": 18.887262079062957,
+        "never_acquired_wilson95": [
+          0.17251316763621477,
+          0.20639649218113149
+        ],
+        "acquired": 1662,
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 1445,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 1445,
+            "first_visible_step_mean": 127.66920415224914,
+            "first_visible_step_median": 89,
+            "first_visible_step_p90": null,
+            "visible_hidden_transitions_mean_per_episode": 3.043598615916955
+          },
+          "crash": {
+            "episodes": 406,
+            "never_acquired": 220,
+            "never_acquired_rate": 0.541871921182266,
+            "acquired": 186,
+            "first_visible_step_mean": 117.1774193548387,
+            "first_visible_step_median": 83,
+            "first_visible_step_p90": null,
+            "visible_hidden_transitions_mean_per_episode": 1.435960591133005
+          },
+          "timeout": {
+            "episodes": 198,
+            "never_acquired": 167,
+            "never_acquired_rate": 0.8434343434343434,
+            "acquired": 31,
+            "first_visible_step_mean": 556.0967741935484,
+            "first_visible_step_median": 558,
+            "first_visible_step_p90": null,
+            "visible_hidden_transitions_mean_per_episode": 0.37373737373737376
+          }
+        },
+        "first_visible_step_p90_unavailable_reason": "navrl_task.py first_acquisition_payload() exports first_visible_step_mean and a lower first_visible_step_median only; the underlying per-outcome histogram (_fa_eval_outcome_first_hist) is not written to the result JSON, so no p90 is derivable from any recorded field. Recording it would require a runtime-source change, which this eval-only preregistration does not authorise.",
+        "target_hidden_fraction": 0.8211937364425163,
+        "outcome_raw": {
+          "capture": 1445,
+          "capture_rate": 0.7052220595412396,
+          "capture_wilson95": [
+            0.6851109352022201,
+            0.724565124479044
+          ],
+          "crash": 406,
+          "crash_rate": 0.19814543679843827,
+          "crash_wilson95": [
+            0.18145814756926507,
+            0.21596244003391715
+          ],
+          "timeout": 198,
+          "timeout_rate": 0.09663250366032211,
+          "timeout_wilson95": [
+            0.0845840688730608,
+            0.1101905724430752
+          ]
+        }
+      }
+    },
+    "fidelity": {
+      "condition": {
+        "detect_width": 1920,
+        "detect_height": 1200,
+        "detector_min_pixels": 50,
+        "camera_width": 160,
+        "camera_height": 90,
+        "target_camera_max_range_m": 20.0,
+        "actual_episodes": 2049,
+        "num_envs": 128,
+        "episode_len_steps": 600
+      },
+      "measurements": {
+        "episodes": 2049,
+        "never_acquired": 391,
+        "never_acquired_rate": 0.1908247925817472,
+        "never_acquired_rate_pp": 19.08247925817472,
+        "never_acquired_wilson95": [
+          0.1743950655470766,
+          0.2084116316988667
+        ],
+        "acquired": 1658,
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 1456,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 1456,
+            "first_visible_step_mean": 121.35645604395604,
+            "first_visible_step_median": 78,
+            "first_visible_step_p90": null,
+            "visible_hidden_transitions_mean_per_episode": 2.894230769230769
+          },
+          "crash": {
+            "episodes": 381,
+            "never_acquired": 213,
+            "never_acquired_rate": 0.5590551181102362,
+            "acquired": 168,
+            "first_visible_step_mean": 134.32142857142858,
+            "first_visible_step_median": 99,
+            "first_visible_step_p90": null,
+            "visible_hidden_transitions_mean_per_episode": 1.272965879265092
+          },
+          "timeout": {
+            "episodes": 212,
+            "never_acquired": 178,
+            "never_acquired_rate": 0.839622641509434,
+            "acquired": 34,
+            "first_visible_step_mean": 551.0588235294117,
+            "first_visible_step_median": 553,
+            "first_visible_step_p90": null,
+            "visible_hidden_transitions_mean_per_episode": 0.36792452830188677
+          }
+        },
+        "first_visible_step_p90_unavailable_reason": "navrl_task.py first_acquisition_payload() exports first_visible_step_mean and a lower first_visible_step_median only; the underlying per-outcome histogram (_fa_eval_outcome_first_hist) is not written to the result JSON, so no p90 is derivable from any recorded field. Recording it would require a runtime-source change, which this eval-only preregistration does not authorise.",
+        "target_hidden_fraction": 0.822335530775488,
+        "outcome_raw": {
+          "capture": 1456,
+          "capture_rate": 0.7105905319668131,
+          "capture_wilson95": [
+            0.6905753237559236,
+            0.7298175888539824
+          ],
+          "crash": 381,
+          "crash_rate": 0.18594436310395315,
+          "crash_wilson95": [
+            0.16969160740222367,
+            0.20337249627222703
+          ],
+          "timeout": 212,
+          "timeout_rate": 0.10346510492923378,
+          "timeout_wilson95": [
+            0.09101124721467892,
+            0.11740302510154675
+          ]
+        }
+      }
+    }
+  },
+  "primary_metric": "pooled_never_acquired_rate",
+  "never_acquired_delta_pp": 0.1952171791117614,
+  "thresholds_pp": {
+    "cost_confirmed_at_or_above": 10.0,
+    "neutral_band_abs": 3.0
+  },
+  "verdict": "FIDELITY_NEUTRAL",
+  "verdict_basis": {
+    "metric": "pooled never-acquired rate over all outcomes",
+    "source_field": "result[\"target_motion\"][\"first_acquisition\"][outcome][\"never_acquired\"] summed over capture/crash/timeout, divided by the same cohorts' episode counts",
+    "baseline_arm": "baseline",
+    "fidelity_arm": "fidelity",
+    "baseline_never_acquired_pp": 18.887262079062957,
+    "fidelity_never_acquired_pp": 19.08247925817472,
+    "delta_pp": 0.1952171791117614,
+    "direction": "fidelity minus baseline; positive means the honest sensor acquires less",
+    "outcome_rates_excluded_from_verdict": true
+  },
+  "quality_gates": {
+    "G1_checkpoint_identity": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G2_result_receipt_binding": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G3_manifest_provenance": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G4_runtime_clean": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G5_import_origin": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G6_episode_contract": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G7_arm_condition_pinned": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "baseline": true,
+        "fidelity": true
+      }
+    },
+    "G8_runtime_byte_map_identity": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "cross_arm",
+      "passed": true
+    },
+    "G9_single_axis_manipulation": {
+      "owner": "tools/run_navrl_ref5in_sensor_fidelity.py",
+      "scope": "cross_arm",
+      "passed": true
+    }
+  },
+  "failed_gates": [],
+  "held_fixed": {
+    "target_camera_max_range_m": 20.0,
+    "detector_threshold": 0.55,
+    "perception_perturb": false,
+    "detection_dropout_active": 0.0,
+    "detection_latency_s": 0.0,
+    "range_error_m": 0.0,
+    "appearance_appearance_hue_deg": 0.0,
+    "appearance_appearance_light_gain": 0.0,
+    "appearance_appearance_albedo_jitter": 0.0,
+    "appearance_appearance_texture_std": 0.0,
+    "appearance_appearance_motion_blur": 0.0,
+    "camera_mount_rot_deg": 0.0,
+    "camera_mount_trans_m": 0.0,
+    "camera_fov_scale_err": 0.0,
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "obstacle_selector": "cluster_sector",
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "speed_governor_mode": "off",
+    "seed": 421
+  },
+  "import_origin": {
+    "baseline": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator",
+      "origin": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator"
+    },
+    "fidelity": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator",
+      "origin": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator"
+    }
+  },
+  "limitations": [
+    "L1: 잡동사니 배경 미모델링. 렌더가 표적을 평평한 순수 빨강으로 칠하고 분할기가 색 규칙이라 픽셀 클래스가 자명하게 분리된다. 따라서 지름 8 px 임계는 하늘 배경 기준이며 실기의 도심·수목 배경(15–20 px)보다 관대하다. 본 실험 결과는 여전히 낙관 편향이다.",
+    "L2: 모션 블러 미모델링. 5인치 기체가 고 yaw rate에서 10 ms 노출이면 12 px 표적이 여러 픽셀로 번진다. 현재 모델에 없다.",
+    "L3: 거리 오차 0. navrl_detector.py:130이 정확한 해석적 교차 거리를 쓰고 NAVRL_RANGE_ERROR_M=0이다. 정책은 임의 거리에서 오차 0의 거리를 받는다. 실기에서는 28 m 스테레오 시차가 1.2–2.4 px로 측정 불가다. 이 실험은 그것을 고치지 않으므로, 결과는 '거리는 여전히 공짜로 주어진 상태에서의 검출 충실도'만 말한다.",
+    "L4: 단일 정책·단일 seed·70막대 1조건. 계보나 밀도 전반으로 일반화하지 않는다.",
+    "L5: 임계 50 px²는 문헌 중앙값이지 이 시스템에서 측정된 값이 아니다. 감이 아니라 유도된 값이지만 여전히 외부 기준의 이식이다."
+  ],
+  "sources": {
+    "baseline": {
+      "evaluation_result": "results/navrl_ref5in_sensor_fidelity_seed421/cells/baseline/70bars.json",
+      "evaluation_receipt": "results/navrl_ref5in_sensor_fidelity_seed421/cells/baseline/70bars.receipt.json",
+      "evaluation_log": "results/navrl_ref5in_sensor_fidelity_seed421/cells/baseline/70bars.log",
+      "launcher_log": "results/navrl_ref5in_sensor_fidelity_seed421/cells/baseline/sensor_fidelity.log"
+    },
+    "fidelity": {
+      "evaluation_result": "results/navrl_ref5in_sensor_fidelity_seed421/cells/fidelity/70bars.json",
+      "evaluation_receipt": "results/navrl_ref5in_sensor_fidelity_seed421/cells/fidelity/70bars.receipt.json",
+      "evaluation_log": "results/navrl_ref5in_sensor_fidelity_seed421/cells/fidelity/70bars.log",
+      "launcher_log": "results/navrl_ref5in_sensor_fidelity_seed421/cells/fidelity/sensor_fidelity.log"
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "accel_half_window_samples": 5,
+  "checks": {
+    "C1_convention": {
+      "all_candidates": {
+        "XYZ_T_bodyz+1": 86.21674107738265,
+        "XYZ_T_bodyz-1": 93.78325892261736,
+        "XYZ_T_ned2enu_bodyz+1": 146.0329431679691,
+        "XYZ_T_ned2enu_bodyz-1": 33.96705683203092,
+        "XYZ_bodyz+1": 67.3042381386162,
+        "XYZ_bodyz-1": 112.6957618613838,
+        "XYZ_ned2enu_bodyz+1": 102.90625541372734,
+        "XYZ_ned2enu_bodyz-1": 77.09374458627266,
+        "ZYX_T_bodyz+1": 76.03534981827792,
+        "ZYX_T_bodyz-1": 103.96465018172208,
+        "ZYX_T_ned2enu_bodyz+1": 93.66258084545143,
+        "ZYX_T_ned2enu_bodyz-1": 86.33741915454857,
+        "ZYX_bodyz+1": 99.4001100208034,
+        "ZYX_bodyz-1": 80.59988997919662,
+        "ZYX_ned2enu_bodyz+1": 91.11401023998698,
+        "ZYX_ned2enu_bodyz-1": 88.88598976001303,
+        "xyz_T_bodyz+1": 112.6957618613838,
+        "xyz_T_bodyz-1": 67.3042381386162,
+        "xyz_T_ned2enu_bodyz+1": 77.09374458627266,
+        "xyz_T_ned2enu_bodyz-1": 102.90625541372734,
+        "xyz_bodyz+1": 89.05415870382329,
+        "xyz_bodyz-1": 90.94584129617671,
+        "xyz_ned2enu_bodyz+1": 162.2912962145371,
+        "xyz_ned2enu_bodyz-1": 17.708703785462895,
+        "zyx_T_bodyz+1": 78.22794807521794,
+        "zyx_T_bodyz-1": 101.77205192478208,
+        "zyx_T_ned2enu_bodyz+1": 100.05642941775034,
+        "zyx_T_ned2enu_bodyz-1": 79.94357058224966,
+        "zyx_bodyz+1": 103.96465018172208,
+        "zyx_bodyz-1": 76.03534981827792,
+        "zyx_ned2enu_bodyz+1": 86.33741915454857,
+        "zyx_ned2enu_bodyz-1": 93.66258084545143
+      },
+      "margin_deg": 16.258353046568025,
+      "median_direction_error_deg": 17.708703785462895,
+      "pass": true,
+      "runner_up": "XYZ_T_ned2enu_bodyz-1",
+      "thresholds": {
+        "max_median_deg": 30.0,
+        "min_margin_deg": 10.0
+      },
+      "winner": "xyz_ned2enu_bodyz-1"
+    },
+    "C2_attitude_reliability_no_drag": {
+      "correlation": 0.18199507055241204,
+      "median_measured_ms2": 1.0709894922882661,
+      "median_predicted_ms2": 1.2119849750953056,
+      "pass": false,
+      "samples": 740,
+      "slope": 0.8850589944493779,
+      "superseded_by": "C2b_attitude_reliability_with_drag",
+      "thresholds": {
+        "min_correlation": 0.5,
+        "slope_range": [
+          0.6,
+          1.4
+        ]
+      },
+      "why_superseded": "the model omits aerodynamic drag, which at these speeds tilts the aircraft without accelerating it"
+    },
+    "C2b_attitude_reliability_with_drag": {
+      "correlation": 0.6359535535521205,
+      "drag_coefficient": -0.016787421981653113,
+      "fixed_before_running": true,
+      "median_speed_ms": 3.7486414659715175,
+      "pass": false,
+      "residual_improvement": 0.043915168979642046,
+      "residual_ms2": 0.8328220196722442,
+      "residual_without_drag_ms2": 0.8710754450349719,
+      "samples": 740,
+      "thresholds": {
+        "drag_coefficient_must_be_negative": true,
+        "min_correlation": 0.5,
+        "min_residual_improvement": 0.2,
+        "thrust_gain_range": [
+          0.6,
+          1.4
+        ]
+      },
+      "thrust_gain": 0.7315574763650333
+    },
+    "C3_identifiability": {
+      "aspect_range_correlation": 0.21478090035060465,
+      "aspect_span_per_range_bin_deg": {
+        "30-50 m": 21.642194455754066,
+        "50-70 m": 24.58067505239213,
+        "70-90 m": 25.897188859611788,
+        "90-110 m": 23.260245353734142
+      },
+      "cells": {
+        "30-50 m / 0-45 deg": {
+          "blocks": 0,
+          "frames": 0
+        },
+        "30-50 m / 45-60 deg": {
+          "blocks": 0,
+          "frames": 0
+        },
+        "30-50 m / 60-75 deg": {
+          "blocks": 1,
+          "frames": 76
+        },
+        "30-50 m / 75-90 deg": {
+          "blocks": 1,
+          "frames": 30
+        },
+        "50-70 m / 0-45 deg": {
+          "blocks": 0,
+          "frames": 0
+        },
+        "50-70 m / 45-60 deg": {
+          "blocks": 1,
+          "frames": 161
+        },
+        "50-70 m / 60-75 deg": {
+          "blocks": 3,
+          "frames": 256
+        },
+        "50-70 m / 75-90 deg": {
+          "blocks": 2,
+          "frames": 217
+        },
+        "70-90 m / 0-45 deg": {
+          "blocks": 0,
+          "frames": 0
+        },
+        "70-90 m / 45-60 deg": {
+          "blocks": 1,
+          "frames": 13
+        },
+        "70-90 m / 60-75 deg": {
+          "blocks": 4,
+          "frames": 636
+        },
+        "70-90 m / 75-90 deg": {
+          "blocks": 4,
+          "frames": 331
+        },
+        "90-110 m / 0-45 deg": {
+          "blocks": 0,
+          "frames": 0
+        },
+        "90-110 m / 45-60 deg": {
+          "blocks": 0,
+          "frames": 0
+        },
+        "90-110 m / 60-75 deg": {
+          "blocks": 4,
+          "frames": 1097
+        },
+        "90-110 m / 75-90 deg": {
+          "blocks": 4,
+          "frames": 357
+        }
+      },
+      "pass": true,
+      "populated_cells": 6,
+      "range_bins_with_wide_aspect": [
+        "30-50 m",
+        "50-70 m",
+        "70-90 m",
+        "90-110 m"
+      ],
+      "thresholds": {
+        "max_correlation": 0.7,
+        "min_aspect_span_deg": 20.0,
+        "min_blocks_per_cell": 2,
+        "min_cells": 6,
+        "min_frames_per_cell": 20
+      }
+    },
+    "C4_timing": {
+      "aspect_span_deg": 30.750178390539382,
+      "fraction_of_span": 0.028594281153570312,
+      "p90_aspect_shift_deg": 0.8792792464215253,
+      "pass": true,
+      "threshold_fraction": 0.05,
+      "timing_offset_frames": -3.6
+    }
+  },
+  "failed_checks": [
+    "C2b_attitude_reliability_with_drag"
+  ],
+  "note": "Opening this gate permits E3-P to be preregistered. It does not authorise any analysis of apparent size, and no number here may shape E3-P's hypotheses.",
+  "runtime": {
+    "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+    "python": "3.8.20"
+  },
+  "source_commit": "2c857c97be71834d0791ae8ee4984ffb62b7680a",
+  "status": "E3P_GATE_BLOCKED",
+  "tool_sha256": "8ce5bd48aeca49f6f240e60f2356c46c1f5c2c17ceba6556ab0b883528614823",
+  "track_sha256": "7f9aba2bb604f0b461a7e88d6cdef0b0410b4db0b1679604d1b7ee381390d19c"
+}

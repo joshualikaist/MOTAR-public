@@ -1,0 +1,712 @@
+{
+  "appearance_envelope": {
+    "NAVRL_APP_ALBEDO_JITTER": 0.3,
+    "NAVRL_APP_HUE_DEG": 60.0,
+    "NAVRL_APP_LIGHT_GAIN": 0.5,
+    "NAVRL_APP_MOTION_BLUR": 0.3,
+    "NAVRL_APP_TEXTURE_STD": 0.2,
+    "NAVRL_CAM_FOV_SCALE_ERR": 0.0,
+    "NAVRL_CAM_MOUNT_ROT_DEG": 0.0,
+    "NAVRL_CAM_MOUNT_TRANS_M": 0.0
+  },
+  "artifact": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/artifacts/navrl_target_detector_v6_confirmatory.pth",
+  "artifact_sha256": "b700778e3d686ed88e6a93d99e07a17ae9b15174bf5181911146a2dbc0a29a9b",
+  "campaign": "navrl_detector_offline_gate_v2",
+  "candidate_receipts": [
+    {
+      "candidate": "pixel_1x1+balanced_bce",
+      "pos_weight": 2048.0
+    },
+    {
+      "candidate": "pixel_1x1+focal_dice",
+      "pos_weight": 2048.0
+    },
+    {
+      "candidate": "spatial_cnn+balanced_bce",
+      "pos_weight": 2048.0
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "pos_weight": 2048.0
+    }
+  ],
+  "created_at_utc": "2026-08-11T16:08:15.919308+00:00",
+  "datasets": [
+    {
+      "absent_frames": 1664,
+      "forced_partial_frames": 499,
+      "frames": 8192,
+      "fully_occluded_frames": 3896,
+      "name": "train",
+      "positive_pixel_rate": 0.00042583889444358647,
+      "seed": 113,
+      "small_target_frames": 1169,
+      "visible_frames": 2632
+    },
+    {
+      "absent_frames": 416,
+      "forced_partial_frames": 113,
+      "frames": 2048,
+      "fully_occluded_frames": 980,
+      "name": "validation",
+      "positive_pixel_rate": 0.0004192437045276165,
+      "seed": 127,
+      "small_target_frames": 302,
+      "visible_frames": 652
+    },
+    {
+      "absent_frames": 832,
+      "forced_partial_frames": 221,
+      "frames": 4096,
+      "fully_occluded_frames": 2006,
+      "name": "test",
+      "positive_pixel_rate": 0.00042816161294467747,
+      "seed": 131,
+      "small_target_frames": 530,
+      "visible_frames": 1258
+    }
+  ],
+  "gate_checks": {
+    "absent_fpr<=0.01": true,
+    "bearing_mae<=1.5deg": true,
+    "far_recall>=0.85": true,
+    "frame_precision>=0.98": true,
+    "frame_recall>=0.95": false,
+    "full_occlusion_fpr<=0.01": true,
+    "partial_recall>=0.85": true,
+    "pixel_precision>=0.95": true,
+    "range_mae<=0.25m": false,
+    "small_recall>=0.80": true,
+    "test_absent_frames>=500": true,
+    "test_full_occlusion_frames>=100": true,
+    "test_partial_frames>=50": true,
+    "test_small_frames>=100": true
+  },
+  "gate_passed": false,
+  "next_step": "do not run navigation evaluation; revise detector architecture/data",
+  "schema_version": 2,
+  "script": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/tools/train_navrl_target_detector_v2.py",
+  "script_sha256": "497b154d5f6e05eb2f869354c57714f22be92109ce7e3b7ab1a1d422812eeeb2",
+  "selected_candidate": "spatial_cnn+focal_dice",
+  "selected_pos_weight": 2048.0,
+  "selected_threshold": 0.5,
+  "target_batches_per_layout": 4,
+  "test_metrics": {
+    "absent_false_positive_rate": 0.001201923076923077,
+    "absent_frames": 832,
+    "bearing_mae_deg": 0.039907023310661316,
+    "far_14_20m_frames": 315,
+    "far_14_20m_recall": 0.8571428571428571,
+    "frame_f1": 0.9646962233169131,
+    "frame_precision": 0.9974533106960951,
+    "frame_recall": 0.9340222575516693,
+    "fully_occluded_false_positive_rate": 0.0009970089730807576,
+    "fully_occluded_frames": 2006,
+    "partial_occlusion_frames": 221,
+    "partial_occlusion_recall": 0.9457013574660633,
+    "pixel_iou": 0.8928972843624234,
+    "pixel_precision": 0.9997031980411071,
+    "pixel_recall": 0.9751722499406035,
+    "range_bin_recall": {
+      "10-14m": {
+        "frames": 188,
+        "recall": 0.9095744680851063
+      },
+      "14-17m": {
+        "frames": 185,
+        "recall": 0.8702702702702703
+      },
+      "17-20m": {
+        "frames": 130,
+        "recall": 0.8384615384615385
+      },
+      "2-6m": {
+        "frames": 490,
+        "recall": 0.9795918367346939
+      },
+      "6-10m": {
+        "frames": 265,
+        "recall": 0.9584905660377359
+      }
+    },
+    "range_mae_m": 0.27399152517318726,
+    "small_target_frames": 530,
+    "small_target_recall": 0.8547169811320755,
+    "threshold": 0.5
+  },
+  "validation_metrics": {
+    "absent_false_positive_rate": 0.0,
+    "absent_frames": 416,
+    "bearing_mae_deg": 0.033333249390125275,
+    "far_14_20m_frames": 188,
+    "far_14_20m_recall": 0.8457446808510638,
+    "frame_f1": 0.9609561752988047,
+    "frame_precision": 1.0,
+    "frame_recall": 0.9248466257668712,
+    "fully_occluded_false_positive_rate": 0.0,
+    "fully_occluded_frames": 980,
+    "partial_occlusion_frames": 113,
+    "partial_occlusion_recall": 0.9203539823008849,
+    "pixel_iou": 0.8928836174944403,
+    "pixel_precision": 1.0,
+    "pixel_recall": 0.9741992882562278,
+    "range_bin_recall": {
+      "10-14m": {
+        "frames": 104,
+        "recall": 0.9134615384615384
+      },
+      "14-17m": {
+        "frames": 114,
+        "recall": 0.8421052631578947
+      },
+      "17-20m": {
+        "frames": 74,
+        "recall": 0.8513513513513513
+      },
+      "2-6m": {
+        "frames": 245,
+        "recall": 0.9673469387755103
+      },
+      "6-10m": {
+        "frames": 114,
+        "recall": 0.9736842105263158
+      }
+    },
+    "range_mae_m": 0.2457869052886963,
+    "small_target_frames": 302,
+    "small_target_recall": 0.8443708609271523,
+    "threshold": 0.5
+  },
+  "validation_top10": [
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.033333249390125275,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8457446808510638,
+        "frame_f1": 0.9609561752988047,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9248466257668712,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.9203539823008849,
+        "pixel_iou": 0.8928836174944403,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9741992882562278,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.9134615384615384
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8421052631578947
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8513513513513513
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.9673469387755103
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9736842105263158
+          }
+        },
+        "range_mae_m": 0.2457869052886963,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8443708609271523,
+        "threshold": 0.5
+      },
+      "rank": [
+        1,
+        0.8443708609271523,
+        0.9609561752988047,
+        0.8928836174944403,
+        -0.050000000000000044
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.033428095281124115,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8404255319148937,
+        "frame_f1": 0.9592976855546689,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9217791411042945,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.911504424778761,
+        "pixel_iou": 0.8935491054858585,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9735522484632805,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.9134615384615384
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8333333333333334
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8513513513513513
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.9673469387755103
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.24348533153533936,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8377483443708609,
+        "threshold": 0.525
+      },
+      "rank": [
+        1,
+        0.8377483443708609,
+        0.9592976855546689,
+        0.8935491054858585,
+        -0.025000000000000022
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03383215516805649,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8351063829787234,
+        "frame_f1": 0.9584664536741214,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9202453987730062,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.911504424778761,
+        "pixel_iou": 0.8940599211954502,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.972662568747978,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.9134615384615384
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8333333333333334
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8378378378378378
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.9673469387755103
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.23931078612804413,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8344370860927153,
+        "threshold": 0.55
+      },
+      "rank": [
+        1,
+        0.8344370860927153,
+        0.9584664536741214,
+        0.8940599211954502,
+        -0.0
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03320470452308655,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8351063829787234,
+        "frame_f1": 0.9576338928856915,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9187116564417178,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.9026548672566371,
+        "pixel_iou": 0.894670239690338,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9720964089291492,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.9134615384615384
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8333333333333334
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8378378378378378
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.963265306122449
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.23700198531150818,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8344370860927153,
+        "threshold": 0.575
+      },
+      "rank": [
+        1,
+        0.8344370860927153,
+        0.9576338928856915,
+        0.894670239690338,
+        -0.02499999999999991
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03312201797962189,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.824468085106383,
+        "frame_f1": 0.9559647718174541,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9156441717791411,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.9026548672566371,
+        "pixel_iou": 0.8957353051012025,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9699935296020705,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.9134615384615384
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8157894736842105
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8378378378378378
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.963265306122449
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.2180102914571762,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8278145695364238,
+        "threshold": 0.625
+      },
+      "rank": [
+        1,
+        0.824468085106383,
+        0.9559647718174541,
+        0.8957353051012025,
+        -0.07499999999999996
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03307139500975609,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.824468085106383,
+        "frame_f1": 0.9559647718174541,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9156441717791411,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.9026548672566371,
+        "pixel_iou": 0.8953254305524491,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9712876091879651,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.9134615384615384
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8157894736842105
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8378378378378378
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.963265306122449
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.23099379241466522,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8278145695364238,
+        "threshold": 0.6
+      },
+      "rank": [
+        1,
+        0.824468085106383,
+        0.9559647718174541,
+        0.8953254305524491,
+        -0.04999999999999993
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03267921134829521,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8191489361702128,
+        "frame_f1": 0.9534510433386838,
+        "frame_precision": 1.0,
+        "frame_recall": 0.911042944785276,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.9026548672566371,
+        "pixel_iou": 0.8960047882687416,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9686185700420575,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.8942307692307693
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8157894736842105
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8243243243243243
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.963265306122449
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.21503685414791107,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8178807947019867,
+        "threshold": 0.65
+      },
+      "rank": [
+        1,
+        0.8178807947019867,
+        0.9534510433386838,
+        0.8960047882687416,
+        -0.09999999999999998
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.033075783401727676,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8138297872340425,
+        "frame_f1": 0.9517684887459806,
+        "frame_precision": 1.0,
+        "frame_recall": 0.9079754601226994,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.8938053097345132,
+        "pixel_iou": 0.8960815164456433,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9673244904561631,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.8942307692307693
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8070175438596491
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8243243243243243
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.9591836734693877
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.21219564974308014,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8112582781456954,
+        "threshold": 0.675
+      },
+      "rank": [
+        1,
+        0.8112582781456954,
+        0.9517684887459806,
+        0.8960815164456433,
+        -0.125
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03281727433204651,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8138297872340425,
+        "frame_f1": 0.9509251810136766,
+        "frame_precision": 1.0,
+        "frame_recall": 0.906441717791411,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.8938053097345132,
+        "pixel_iou": 0.8973684210526316,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9653024911032029,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.8846153846153846
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8070175438596491
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8243243243243243
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.9591836734693877
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.2009631097316742,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8079470198675497,
+        "threshold": 0.725
+      },
+      "rank": [
+        1,
+        0.8079470198675497,
+        0.9509251810136766,
+        0.8973684210526316,
+        -0.17499999999999993
+      ]
+    },
+    {
+      "candidate": "spatial_cnn+focal_dice",
+      "metrics": {
+        "absent_false_positive_rate": 0.0,
+        "absent_frames": 416,
+        "bearing_mae_deg": 0.03334015980362892,
+        "far_14_20m_frames": 188,
+        "far_14_20m_recall": 0.8138297872340425,
+        "frame_f1": 0.9509251810136766,
+        "frame_precision": 1.0,
+        "frame_recall": 0.906441717791411,
+        "fully_occluded_false_positive_rate": 0.0,
+        "fully_occluded_frames": 980,
+        "partial_occlusion_frames": 113,
+        "partial_occlusion_recall": 0.8938053097345132,
+        "pixel_iou": 0.8963835534213686,
+        "pixel_precision": 1.0,
+        "pixel_recall": 0.9662730507926237,
+        "range_bin_recall": {
+          "10-14m": {
+            "frames": 104,
+            "recall": 0.8846153846153846
+          },
+          "14-17m": {
+            "frames": 114,
+            "recall": 0.8070175438596491
+          },
+          "17-20m": {
+            "frames": 74,
+            "recall": 0.8243243243243243
+          },
+          "2-6m": {
+            "frames": 245,
+            "recall": 0.9591836734693877
+          },
+          "6-10m": {
+            "frames": 114,
+            "recall": 0.9649122807017544
+          }
+        },
+        "range_mae_m": 0.20760339498519897,
+        "small_target_frames": 302,
+        "small_target_recall": 0.8079470198675497,
+        "threshold": 0.7
+      },
+      "rank": [
+        1,
+        0.8079470198675497,
+        0.9509251810136766,
+        0.8963835534213686,
+        -0.1499999999999999
+      ]
+    }
+  ]
+}

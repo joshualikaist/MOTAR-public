@@ -1,0 +1,49 @@
+schema: navrl_hardware_identification_v1
+status: synthetic_simulation_design_point
+hardware_validated: false
+platform: navrl_ref5in_quad
+as_built:
+  assembly_state: unassembled
+  assembly_state_recorded_at: 2026-08-23
+  exact_bom_frozen: false
+  measured_auw_kg: null
+  note: >-
+    The user confirmed that no physical aircraft has been assembled. Simulation design-point
+    values below must not be copied into the as-built contract.
+design_reference_frame:
+  selection_status: provisional_packaging_reference
+  selected_at: 2026-08-23
+  manufacturer: iFlight
+  model: AOS 5 V5.1 Frame Kit
+  official_source: https://shop.iflight.com/AOS5-V5-Pro3735
+  official_wheelbase_m: 0.228
+  official_frame_mass_g_nominal: 165
+  official_frame_mass_g_tolerance: 5
+  official_arm_thickness_m: 0.006
+  official_stack_mounts_mm: [20x20, 30.5x30.5]
+  purchase_authorized: false
+  note: >-
+    This is the closest documented current 5-inch reference found for the 220 mm simulation
+    design point, not an as-built platform. Purchase remains blocked until a scaled payload CAD
+    proves fit, propeller/LiDAR/camera clearance, center of gravity, and the complete 1.20 kg mass
+    budget. A passed packaging gate may promote this exact revision into the frozen BOM.
+identified:
+  simulation_mass_kg: 1.20
+  analytic_inertia_kg_m2: [0.004142, 0.004142, 0.005769]
+  collision_box_m: [0.28, 0.28, 0.12]
+  motor_arm_xy_m: 0.0777817
+  simulation_max_thrust_per_motor_n: 9.60
+  simulation_motor_time_constant_s: 0.04
+  simulation_yaw_torque_ratio_m: 0.01
+pending_measurements:
+  - exact_as_built_bom_and_mass
+  - center_of_gravity_xyz
+  - cad_inertia_tensor
+  - thrust_curve_for_frozen_motor_prop_esc_battery
+  - rising_and_falling_motor_time_constants
+  - reaction_torque_ratio
+  - battery_voltage_sag_and_power_limit
+  - thermal_continuous_thrust_limit
+claim_guard: >-
+  Passing simulator consistency or flight-envelope tests must not be described as hardware
+  validation until hardware_validated is true and every pending measurement has traceable data.

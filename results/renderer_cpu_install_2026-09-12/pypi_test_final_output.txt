@@ -1,0 +1,150 @@
+/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/networkx/classes/graph.py:23: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+  from collections import Mapping
+/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/networkx/classes/reportviews.py:95: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+  from collections import Mapping, Set, Iterable
+/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/networkx/readwrite/graphml.py:346: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  (np.int, "int"), (np.int8, "int"),
+/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py:898: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  value = np.asanyarray(value).astype(np.float)
+..EEEEE.EE....../tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/trimesh/creation.py:889: RuntimeWarning: invalid value encountered in divide
+  unit = vectors / scalar.reshape((-1, 1))
+E....................................................................
+======================================================================
+ERROR: test_every_shipped_asset_is_closed_and_wound_outward (test_renderer_urdf_asset.RealAssetTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 132, in test_every_shipped_asset_is_closed_and_wound_outward
+    asset = load_urdf_asset(path, backend)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_interceptor_has_nine_links_and_three_materials (test_renderer_urdf_asset.RealAssetTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 121, in test_interceptor_has_nine_links_and_three_materials
+    asset = load_urdf_asset(INTERCEPTOR)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_joint_origins_place_the_motors_where_the_urdf_says (test_renderer_urdf_asset.RealAssetTest)
+The four motors sit at +-0.0777817 in x and y, per the URDF's own arithmetic.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 153, in test_joint_origins_place_the_motors_where_the_urdf_says
+    asset = load_urdf_asset(INTERCEPTOR, backend)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_loading_is_deterministic (test_renderer_urdf_asset.RealAssetTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 163, in test_loading_is_deterministic
+    first, second = load_urdf_asset(INTERCEPTOR), load_urdf_asset(INTERCEPTOR)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_receipt_records_the_backend_the_library_versions_and_the_colour_choice (test_renderer_urdf_asset.RealAssetTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 170, in test_receipt_records_the_backend_the_library_versions_and_the_colour_choice
+    record = load_urdf_asset(INTERCEPTOR).as_dict()
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_the_library_subdivides_curves_more_finely_than_the_declared_counts (test_renderer_urdf_asset.RealAssetTest)
+Recorded because it changes ray-cast cost, and because the receipt must explain it.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 180, in test_the_library_subdivides_curves_more_finely_than_the_declared_counts
+    library = load_urdf_asset(INTERCEPTOR, "urdfpy")
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_the_two_backends_agree_on_every_asset_on_the_appearance_path (test_renderer_urdf_asset.RealAssetTest)
+Agreement is about what the URDF states, not about how finely it is subdivided.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 189, in test_the_two_backends_agree_on_every_asset_on_the_appearance_path
+    self.assertEqual(compare_backends(path), [], path.name)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 470, in compare_backends
+    library, builtin = load_urdf_asset_urdfpy(path), load_urdf_asset_builtin(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+======================================================================
+ERROR: test_non_positive_dimensions_are_refused_naming_the_shape (test_renderer_urdf_asset.RefusalTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 232, in test_non_positive_dimensions_are_refused_naming_the_shape
+    self.refused_by_both(f"""
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tests/test_renderer_urdf_asset.py", line 210, in refused_by_both
+    load_urdf_asset(path, backend)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 241, in load_urdf_asset
+    return (load_urdf_asset_urdfpy if backend == "urdfpy" else load_urdf_asset_builtin)(path)
+  File "/tmp/motar-evidence-clone-C38xRP/repo/tools/renderer_validation/urdf_asset.py", line 274, in load_urdf_asset_urdfpy
+    meshes = visual.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 742, in meshes
+    return self.geometry.meshes
+  File "/tmp/motar-renderer-cpu-UUC3hs/venv/lib/python3.8/site-packages/urdfpy/urdf.py", line 398, in meshes
+    if len(self._meshes) == 0:
+TypeError: object of type 'NoneType' has no len()
+
+----------------------------------------------------------------------
+Ran 146 tests in 3.005s
+
+FAILED (errors=8)

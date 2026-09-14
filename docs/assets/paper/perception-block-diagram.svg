@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">Streaming perception pipeline</title><desc id="desc">Existing documented image-processing branches, temporal buffer and frame-local selection output. No camera-to-policy integration is implied.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#253341"/></marker></defs><rect width="1600" height="900" fill="white"/><g font-family="Arial, Noto Sans CJK KR, sans-serif" fill="#16232f">
+<text x="55" y="68" font-size="35" font-weight="700" text-anchor="start" fill="#253341">Streaming perception pipeline</text>
+<g data-block="true">
+<rect x="55" y="310" width="215" height="150" rx="3" fill="#f1f4f6" stroke="#253341" stroke-width="2"/>
+<text x="162.5" y="353" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Frame input</text>
+<text x="162.5" y="393" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">BGR image</text>
+<text x="162.5" y="426" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">sequence · time</text>
+</g>
+<g data-block="true">
+<rect x="365" y="170" width="260" height="150" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="495.0" y="213" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Frozen detector</text>
+<text x="495.0" y="253" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Per-frame candidates</text>
+<text x="495.0" y="286" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Top-K, K = 5</text>
+</g>
+<g data-block="true">
+<rect x="365" y="475" width="260" height="150" rx="3" fill="#f1f4f6" stroke="#253341" stroke-width="2"/>
+<text x="495.0" y="518" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Optical flow</text>
+<text x="495.0" y="558" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Previous / current</text>
+<text x="495.0" y="591" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">grayscale frames</text>
+</g>
+<path d="M270 355 L315 355 L315 245 L365 245" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M315 355 L315 550 L365 550" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<circle cx="315" cy="355" r="4" fill="#253341"/>
+<text x="380" y="145" font-size="22" font-weight="400" text-anchor="start" fill="#253341">GPU branch</text>
+<text x="380" y="455" font-size="22" font-weight="400" text-anchor="start" fill="#253341">CPU branch</text>
+<g data-block="true">
+<rect x="715" y="310" width="250" height="175" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="840.0" y="353" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Feature assembly</text>
+<text x="840.0" y="393" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Candidates + GMC</text>
+<text x="840.0" y="426" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Motion features</text>
+</g>
+<path d="M625 245 L665 245 L665 360 L715 360" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M625 550 L665 550 L665 435 L715 435" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="652" y="680" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Parallel branches</text>
+<g data-block="true">
+<rect x="1050" y="310" width="205" height="175" rx="3" fill="white" stroke="#253341" stroke-width="2"/>
+<text x="1152.5" y="353" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">History buffer</text>
+<text x="1152.5" y="393" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">T = 16 frames</text>
+<text x="1152.5" y="426" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Sequence-local</text>
+</g>
+<path d="M965 397 L1050 397" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="1340" y="310" width="205" height="175" rx="3" fill="#eaf1f8" stroke="#253341" stroke-width="2"/>
+<text x="1442.5" y="353" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Transformer</text>
+<text x="1442.5" y="393" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Temporal selector</text>
+<text x="1442.5" y="426" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">P7c v2</text>
+</g>
+<path d="M1255 397 L1340 397" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g data-block="true">
+<rect x="1165" y="610" width="380" height="115" rx="3" fill="#f1f4f6" stroke="#253341" stroke-width="2"/>
+<text x="1355.0" y="653" font-size="27" font-weight="700" text-anchor="middle" fill="#253341">Selection output</text>
+<text x="1355.0" y="693" font-size="23" font-weight="400" text-anchor="middle" fill="#253341">Candidate rank or NO_LOCK</text>
+</g>
+<path d="M1442 485 L1442 610" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1080" y="550" font-size="21" font-weight="400" text-anchor="start" fill="#253341">State reset on sequence change</text>
+<path d="M55 784H1545" stroke="#b6c0c8"/>
+<text x="55" y="824" font-size="22" font-weight="400" text-anchor="start" fill="#52606d">Solid arrows: implemented data flow. GMC: global motion compensation.</text>
+<text x="55" y="859" font-size="22" font-weight="400" text-anchor="start" fill="#52606d">Frame-local selection only; GT annotations are not inference inputs.</text>
+</g></svg>

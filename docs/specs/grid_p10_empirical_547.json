@@ -1,0 +1,53 @@
+{
+  "cells": [
+    {
+      "bars": 205,
+      "env": {
+        "NAVRL_SPEED_GOVERNOR": "riskcap"
+      },
+      "name": "source_clean_s547",
+      "policy": "ep25000"
+    },
+    {
+      "bars": 205,
+      "env": {
+        "NAVRL_P9_ERROR_MODEL": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/perception_p9_2026-09-09/p9_error_injector.json",
+        "NAVRL_P9_EXPECTED_SHA256": "89879d798a5b10cfb2c0de785dbcfb1754815630b0cd4f91a453de28e728eda9",
+        "NAVRL_P9_SEED": "547",
+        "NAVRL_SPEED_GOVERNOR": "riskcap"
+      },
+      "name": "source_p9_s547",
+      "policy": "ep25000"
+    },
+    {
+      "bars": 205,
+      "env": {
+        "NAVRL_SPEED_GOVERNOR": "riskcap"
+      },
+      "name": "adapted_clean_s547",
+      "policy": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260909_0532_navrl_v2-p10-empirical-readapt-s811/nn/last_gen_ppo_ep_26000_rew_26.62291.pth"
+    },
+    {
+      "bars": 205,
+      "env": {
+        "NAVRL_P9_ERROR_MODEL": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/perception_p9_2026-09-09/p9_error_injector.json",
+        "NAVRL_P9_EXPECTED_SHA256": "89879d798a5b10cfb2c0de785dbcfb1754815630b0cd4f91a453de28e728eda9",
+        "NAVRL_P9_SEED": "547",
+        "NAVRL_SPEED_GOVERNOR": "riskcap"
+      },
+      "name": "adapted_p9_s547",
+      "policy": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260909_0532_navrl_v2-p10-empirical-readapt-s811/nn/last_gen_ppo_ep_26000_rew_26.62291.pth"
+    }
+  ],
+  "contract": "v2",
+  "episodes": 2049,
+  "frame_sample_every": 100,
+  "note": "P10 held-out evaluation. 4 arms over {source ep25000, P10-adapted} x {clean, P9 empirical error}. Training seed 811 is deliberately absent from the evaluation seeds. Contract: docs/plans/perception_p9_p10_execution_2026-09-09.md.",
+  "predictions": {
+    "primary": "pooled adapted-P9 minus source-P9 capture pp, two-sided normal 95% CI",
+    "scope": "descriptive with one training seed; not a seed-general PPO claim; no post-hoc pass margin",
+    "secondary": "crash and timeout differences; clean retention = adapted-clean minus source-clean"
+  },
+  "prereg": "docs/plans/perception_p9_p10_execution_2026-09-09.md#P10",
+  "seed": 547
+}

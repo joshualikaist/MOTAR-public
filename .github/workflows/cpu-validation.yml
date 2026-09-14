@@ -1,0 +1,63 @@
+name: CPU public validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      PYTHONNOUSERSITE: '1'
+      CUDA_VISIBLE_DEVICES: ''
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Isolated CPU environment
+        run: |
+          python -m venv "$RUNNER_TEMP/renderer-env"
+          "$RUNNER_TEMP/renderer-env/bin/python" -m pip install pip==25.0.1
+          "$RUNNER_TEMP/renderer-env/bin/python" -m pip install --timeout 60 --retries 3 -r requirements-renderer-cpu.txt
+          "$RUNNER_TEMP/renderer-env/bin/python" -m pip check
+      - name: Environment, renderer, packaging and evidence tests
+        run: |
+          "$RUNNER_TEMP/renderer-env/bin/python" -B tools/motar_doctor.py --profile renderer-cpu
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_renderer*.py'
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_cpu_install_evidence.py'
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_public*.py'
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_repository_claims.py'
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_research_overview.py'
+      - name: Actual CPU smoke and exporter counterfactuals
+        run: |
+          "$RUNNER_TEMP/renderer-env/bin/python" -B tools/run_renderer_validation.py --device cpu --seed 0 --num-scenes 1 --width 160 --height 120 --frames 2 --output "$RUNNER_TEMP/renderer-smoke"
+          "$RUNNER_TEMP/renderer-env/bin/python" -B tools/validate_renderer_export.py --output "$RUNNER_TEMP/export-checks"
+      - name: Citation, shared status, notices and public links
+        run: |
+          python -m venv "$RUNNER_TEMP/docs-env"
+          "$RUNNER_TEMP/docs-env/bin/python" -m pip install -r requirements-public-validation.txt
+          "$RUNNER_TEMP/docs-env/bin/python" -m pip check
+          "$RUNNER_TEMP/docs-env/bin/cffconvert" --validate
+          "$RUNNER_TEMP/docs-env/bin/python" -B tools/check_public_docs.py --schema
+          node tests/test_status_site.js
+          node tests/test_public_status_manifest.js
+      - name: Retain technical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-generic-cpu-evidence
+          path: |
+            ${{ runner.temp }}/renderer-smoke
+            ${{ runner.temp }}/export-checks
+          retention-days: 7

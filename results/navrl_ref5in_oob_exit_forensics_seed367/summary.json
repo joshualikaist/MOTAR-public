@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_oob_exit_forensics.py",
+  "created_at_utc": "2026-08-21T08:13:50.580513+00:00",
+  "scope": "frozen_seed367_oob_exit_forensics_20m_28m",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "generic_provenance_override": {
+    "used": true,
+    "sole_verified_mismatch": "cfg_target_pattern: checkpoint=mixed expected=cv",
+    "reason": "controlled CV-only evaluation of a mixed-pattern training checkpoint"
+  },
+  "condition": {
+    "seed": 367,
+    "bars": 1,
+    "requested_episodes_per_cell": 2049,
+    "goal_dist_m": [
+      22.5,
+      28.0
+    ],
+    "target_pattern": "cv",
+    "cv_initial_heading": "away",
+    "target_speed_mps": [
+      0.3,
+      1.5
+    ],
+    "action_selection": "deterministic",
+    "episode_len_steps": 600,
+    "manipulated_variable": "vision.detector_max_range",
+    "arms_m": {
+      "camera_20m": 20.0,
+      "camera_28m": 28.0
+    }
+  },
+  "manipulation_check": {
+    "metric": "pooled never-acquired rate (all outcomes)",
+    "control": 0.5721951219512195,
+    "treated": 0.20302586627623231,
+    "note": "direction test only; confirms the longer camera range actually changed what the perception module could see, which a receipt alone cannot show"
+  },
+  "seed359_away_timeout_never_acquired_rate": 0.8752276867030966,
+  "cells": {
+    "camera_20m": {
+      "episodes": 2050,
+      "capture": 746,
+      "capture_rate": 0.36390243902439023,
+      "capture_wilson95": [
+        0.3433479799948099,
+        0.3849660056813772
+      ],
+      "crash": 160,
+      "crash_rate": 0.07804878048780488,
+      "crash_wilson95": [
+        0.06721000863443072,
+        0.09046596846199148
+      ],
+      "timeout": 1144,
+      "timeout_rate": 0.5580487804878049,
+      "timeout_wilson95": [
+        0.5364622274398902,
+        0.5794181872717004
+      ],
+      "target_hidden_fraction": 0.9522690603384387,
+      "closest_nocrash_mean_m": 13.53298094636864,
+      "capture_mean_step": 387.0067024128686,
+      "target_camera_max_range_m": 20.0,
+      "first_acquisition": {
+        "capture": {
+          "episodes": 746,
+          "never_acquired": 0,
+          "never_acquired_rate": 0.0,
+          "acquired": 746,
+          "first_visible_step_mean": 319.0911528150134,
+          "first_visible_step_median": 313,
+          "visible_hidden_transitions_mean_per_episode": 2.1152815013404824
+        },
+        "crash": {
+          "episodes": 160,
+          "never_acquired": 154,
+          "never_acquired_rate": 0.9625,
+          "acquired": 6,
+          "first_visible_step_mean": 328.3333333333333,
+          "first_visible_step_median": 281,
+          "visible_hidden_transitions_mean_per_episode": 0.13125
+        },
+        "timeout": {
+          "episodes": 1144,
+          "never_acquired": 1019,
+          "never_acquired_rate": 0.8907342657342657,
+          "acquired": 125,
+          "first_visible_step_mean": 561.664,
+          "first_visible_step_median": 562,
+          "visible_hidden_transitions_mean_per_episode": 0.15821678321678323
+        }
+      },
+      "oob_exit_forensics": {
+        "by_acquisition": {
+          "acquired": {
+            "exits": 6,
+            "goal_closing_speed_mean_mps": -0.3847631315390269,
+            "goal_distance_mean_m": 4.978716452916463,
+            "outward_radial_speed_mean_mps": 0.8938807994127274,
+            "share": 0.0379746835443038,
+            "speed_mean_mps": 2.122672696908315
+          },
+          "never_acquired": {
+            "exits": 152,
+            "goal_closing_speed_mean_mps": -0.8335758300596162,
+            "goal_distance_mean_m": 33.765827994597586,
+            "outward_radial_speed_mean_mps": 1.0016671672806536,
+            "share": 0.9620253164556962,
+            "speed_mean_mps": 1.3585734941849583
+          }
+        },
+        "edge_counts": {
+          "x_max": 36,
+          "x_min": 34,
+          "y_max": 42,
+          "y_min": 46
+        },
+        "edge_shares": {
+          "x_max": 0.22784810126582278,
+          "x_min": 0.21518987341772153,
+          "y_max": 0.26582278481012656,
+          "y_min": 0.2911392405063291
+        },
+        "exits": 158,
+        "goal_closing_speed_mean_mps": -0.8165323098626318,
+        "goal_distance_mean_m": 32.67264654364767,
+        "never_acquired": 152,
+        "never_acquired_share": 0.9620253164556962,
+        "outward_radial_speed_mean_mps": 0.9975740140704792,
+        "speed_mean_mps": 1.3875899196048327,
+        "step_mean": 164.1012658227848,
+        "step_median": 84
+      }
+    },
+    "camera_28m": {
+      "episodes": 2049,
+      "capture": 1536,
+      "capture_rate": 0.7496339677891655,
+      "capture_wilson95": [
+        0.7304204428053122,
+        0.7679132183765346
+      ],
+      "crash": 141,
+      "crash_rate": 0.06881405563689605,
+      "crash_wilson95": [
+        0.05864091301373501,
+        0.08060094494489317
+      ],
+      "timeout": 372,
+      "timeout_rate": 0.1815519765739385,
+      "timeout_wilson95": [
+        0.16546221776053233,
+        0.198833551699575
+      ],
+      "target_hidden_fraction": 0.7748098357701813,
+      "closest_nocrash_mean_m": 4.719810953945609,
+      "capture_mean_step": 230.31770833333334,
+      "target_camera_max_range_m": 28.0,
+      "first_acquisition": {
+        "capture": {
+          "episodes": 1536,
+          "never_acquired": 0,
+          "never_acquired_rate": 0.0,
+          "acquired": 1536,
+          "first_visible_step_mean": 117.2734375,
+          "first_visible_step_median": 28,
+          "visible_hidden_transitions_mean_per_episode": 4.616536458333333
+        },
+        "crash": {
+          "episodes": 141,
+          "never_acquired": 120,
+          "never_acquired_rate": 0.851063829787234,
+          "acquired": 21,
+          "first_visible_step_mean": 192.8095238095238,
+          "first_visible_step_median": 34,
+          "visible_hidden_transitions_mean_per_episode": 0.7943262411347518
+        },
+        "timeout": {
+          "episodes": 372,
+          "never_acquired": 296,
+          "never_acquired_rate": 0.7956989247311828,
+          "acquired": 76,
+          "first_visible_step_mean": 548.8552631578947,
+          "first_visible_step_median": 547,
+          "visible_hidden_transitions_mean_per_episode": 0.49731182795698925
+        }
+      },
+      "oob_exit_forensics": {
+        "by_acquisition": {
+          "acquired": {
+            "exits": 18,
+            "goal_closing_speed_mean_mps": 0.37057434187995064,
+            "goal_distance_mean_m": 8.556062850687239,
+            "outward_radial_speed_mean_mps": 0.6191977345281177,
+            "share": 0.13043478260869565,
+            "speed_mean_mps": 2.1125673982832165
+          },
+          "never_acquired": {
+            "exits": 120,
+            "goal_closing_speed_mean_mps": -1.158768996844689,
+            "goal_distance_mean_m": 32.73843275705973,
+            "outward_radial_speed_mean_mps": 1.2602061316370965,
+            "share": 0.8695652173913043,
+            "speed_mean_mps": 1.5605498284101487
+          }
+        },
+        "edge_counts": {
+          "x_max": 31,
+          "x_min": 35,
+          "y_max": 39,
+          "y_min": 33
+        },
+        "edge_shares": {
+          "x_max": 0.2246376811594203,
+          "x_min": 0.2536231884057971,
+          "y_max": 0.2826086956521739,
+          "y_min": 0.2391304347826087
+        },
+        "exits": 138,
+        "goal_closing_speed_mean_mps": -0.9592894308161044,
+        "goal_distance_mean_m": 29.58421059795048,
+        "never_acquired": 120,
+        "never_acquired_share": 0.8695652173913043,
+        "outward_radial_speed_mean_mps": 1.1765963408178177,
+        "speed_mean_mps": 1.6325521201327227,
+        "step_mean": 111.93478260869566,
+        "step_median": 19
+      }
+    }
+  },
+  "screen": {
+    "primary_metric": "timeout_rate_reduction",
+    "control_timeout_rate": 0.5580487804878049,
+    "treated_timeout_rate": 0.1815519765739385,
+    "timeout_rate_drop": 0.3764968039138664,
+    "timeout_drop_threshold": 0.2,
+    "initial_unobservability_causal_support": true,
+    "control_crash_rate": 0.07804878048780488,
+    "treated_crash_rate": 0.06881405563689605,
+    "crash_rate_rise": -0.00923472485090883,
+    "crash_rise_limit": 0.1,
+    "failure_mode_shifted": false,
+    "interpretation": "initial_unobservability_dominant_cause_supported"
+  },
+  "limitations": [
+    "the frozen policy was trained with a 20 m camera; the 28 m arm is outside its training support, so a NULL result cannot be read as 'initial unobservability is not causal' -- it is indistinguishable from 'this policy cannot exploit long-range detections'. Only a reduction is strong evidence, and only in one direction",
+    "one frozen training seed and one held-out evaluation seed",
+    "away heading only; toward was already near-ceiling and is not re-measured",
+    "changing the camera range changes the observation distribution, not just whether the target is observable at spawn",
+    "diagnostic only; cannot revise P2/D1 or unlock P3"
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_cv_heading_diagnostic.py",
+  "created_at_utc": "2026-08-13T09:38:56.991486+00:00",
+  "scope": "post_d1_frozen_cv_initial_heading_seed337",
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "generic_provenance_override": {
+    "used": true,
+    "sole_verified_mismatch": "cfg_target_pattern: checkpoint=mixed expected=cv",
+    "reason": "controlled CV-only evaluation of a mixed-pattern training checkpoint"
+  },
+  "condition": {
+    "seed": 337,
+    "bars": 70,
+    "requested_episodes_per_cell": 2049,
+    "goal_dist_m": [
+      22.5,
+      28.0
+    ],
+    "target_pattern": "cv",
+    "target_speed_mps": [
+      0.3,
+      1.5
+    ],
+    "action_selection": "deterministic",
+    "episode_len_steps": 600,
+    "modes": [
+      "toward",
+      "tangent_left",
+      "tangent_right",
+      "away"
+    ]
+  },
+  "cells": {
+    "toward": {
+      "episodes": 2050,
+      "capture": 1603,
+      "capture_rate": 0.7819512195121952,
+      "capture_wilson95": [
+        0.7635581421127642,
+        0.7992895864863896
+      ],
+      "crash": 381,
+      "crash_rate": 0.18585365853658536,
+      "crash_wilson95": [
+        0.16960805100202678,
+        0.20327441055877774
+      ],
+      "timeout": 66,
+      "timeout_rate": 0.03219512195121951,
+      "timeout_wilson95": [
+        0.02538609001620007,
+        0.04075409730804143
+      ]
+    },
+    "tangent_left": {
+      "episodes": 2049,
+      "capture": 1306,
+      "capture_rate": 0.6373840897999024,
+      "capture_wilson95": [
+        0.6163287157517355,
+        0.6579252932857812
+      ],
+      "crash": 414,
+      "crash_rate": 0.2020497803806735,
+      "crash_wilson95": [
+        0.1852288786226181,
+        0.2199857838377582
+      ],
+      "timeout": 329,
+      "timeout_rate": 0.1605661298194241,
+      "timeout_wilson95": [
+        0.14530714525361396,
+        0.17709547184907518
+      ]
+    },
+    "tangent_right": {
+      "episodes": 2050,
+      "capture": 1281,
+      "capture_rate": 0.6248780487804878,
+      "capture_wilson95": [
+        0.6037045352469962,
+        0.6455844241325598
+      ],
+      "crash": 395,
+      "crash_rate": 0.1926829268292683,
+      "crash_wilson95": [
+        0.17619082098388567,
+        0.21032463054298833
+      ],
+      "timeout": 374,
+      "timeout_rate": 0.1824390243902439,
+      "timeout_wilson95": [
+        0.16631984501689429,
+        0.1997461215608755
+      ]
+    },
+    "away": {
+      "episodes": 2050,
+      "capture": 1097,
+      "capture_rate": 0.5351219512195122,
+      "capture_wilson95": [
+        0.5134856437990164,
+        0.5566268760264838
+      ],
+      "crash": 409,
+      "crash_rate": 0.19951219512195123,
+      "crash_wilson95": [
+        0.18278178316077645,
+        0.21736665833216703
+      ],
+      "timeout": 544,
+      "timeout_rate": 0.2653658536585366,
+      "timeout_wilson95": [
+        0.24670453187866076,
+        0.28490488428709554
+      ]
+    }
+  },
+  "comparisons": {
+    "away_minus_toward": {
+      "capture": {
+        "difference": -0.24682926829268292,
+        "difference_ci95": [
+          -0.27485894141788697,
+          -0.2187995951674789
+        ]
+      },
+      "crash": {
+        "difference": 0.013658536585365866,
+        "difference_ci95": [
+          -0.010482990003627565,
+          0.0378000631743593
+        ]
+      },
+      "timeout": {
+        "difference": 0.23317073170731709,
+        "difference_ci95": [
+          0.2125868801764405,
+          0.25375458323819367
+        ]
+      }
+    },
+    "tangent_left_minus_right": {
+      "capture": {
+        "difference": 0.012506041019414549,
+        "difference_ci95": [
+          -0.017033116998210227,
+          0.04204519903703932
+        ]
+      },
+      "crash": {
+        "difference": 0.009366853551405208,
+        "difference_ci95": [
+          -0.01500032574134336,
+          0.03373403284415377
+        ]
+      },
+      "timeout": {
+        "difference": -0.021872894570819784,
+        "difference_ci95": [
+          -0.044942199075334435,
+          0.0011964099336948635
+        ]
+      }
+    }
+  },
+  "screen": {
+    "radial_heading_channel_support": true,
+    "chirality_sensitive": false,
+    "all_cells_timeout_ge_12pct": false,
+    "tangent_max_abs_outcome_difference": 0.021872894570819784,
+    "interpretation": "supports_radial_heading_channel_path_visibility_wall_coupled"
+  },
+  "limitations": [
+    "mechanism diagnostic only; cannot revise P2 or D1 and cannot unlock P3",
+    "one frozen training seed and one evaluation seed at 70 bars",
+    "same seed is not episode-paired because vector environments reset asynchronously",
+    "heading is controlled only at reset; obstacle steering and wall reflection may alter it afterward",
+    "radial heading changes path length, target visibility, and time to wall together"
+  ]
+}

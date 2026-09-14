@@ -1,0 +1,1653 @@
+{
+  "decision": {
+    "aggregate": {
+      "analytic_flat": {
+        "max_device_memory_after_mib": 5643.0,
+        "max_torch_reserved_mib": 242.0,
+        "median_step_ms": 43.65563951432705,
+        "median_steps_per_second": 20.824772411991248
+      },
+      "mesh_flat": {
+        "max_device_memory_after_mib": 5687.0,
+        "max_torch_reserved_mib": 286.0,
+        "median_step_ms": 43.911167012993246,
+        "median_steps_per_second": 20.672015402567254
+      },
+      "mesh_shaded": {
+        "max_device_memory_after_mib": 5707.0,
+        "max_torch_reserved_mib": 308.0,
+        "median_step_ms": 44.17268658289686,
+        "median_steps_per_second": 20.52582947417596
+      }
+    },
+    "checks": {
+      "all_fixed_action_trajectory_hashes_equal_by_field": true,
+      "all_pose_runtimes_equal": true,
+      "analytic_flat_repeat_output_hashes_equal": true,
+      "analytic_flat_runtime_equal": true,
+      "flat_target_variance_zero": true,
+      "geometry_effect_nonzero": true,
+      "mesh_flat_debug_valid": true,
+      "mesh_flat_occlusion_exercised": true,
+      "mesh_flat_repeat_output_hashes_equal": true,
+      "mesh_flat_runtime_equal": true,
+      "mesh_flat_shaded_depth_equal": true,
+      "mesh_flat_shaded_mask_equal": true,
+      "mesh_nonempty_4_5m": true,
+      "mesh_nonempty_5_6m": true,
+      "mesh_nonempty_6_7m": true,
+      "mesh_shaded_debug_valid": true,
+      "mesh_shaded_occlusion_exercised": true,
+      "mesh_shaded_repeat_output_hashes_equal": true,
+      "mesh_shaded_runtime_equal": true,
+      "pose_repeat_hashes_equal": true,
+      "shaded_target_variance_nonzero": true
+    },
+    "contrasts": {
+      "mesh_flat": {
+        "absolute_median_increase_ms": 0.25552749866619706,
+        "nvml_after_difference_mib": 44.0,
+        "nvml_available": true,
+        "relative_median_increase_percent": 0.5853252901777724,
+        "throughput_loss_percent": 0.7335350725659474,
+        "torch_reserved_increase_mib": 44.0
+      },
+      "mesh_shaded": {
+        "absolute_median_increase_ms": 0.5170470685698092,
+        "nvml_after_difference_mib": 64.0,
+        "nvml_available": true,
+        "relative_median_increase_percent": 1.1843763470699427,
+        "throughput_loss_percent": 1.4355159898081322,
+        "torch_reserved_increase_mib": 66.0
+      }
+    },
+    "go_cost": true,
+    "integrity_pass": true,
+    "no_go_cost": false,
+    "verdict": "TECHNICAL_GO"
+  },
+  "interpretation": "D8-A technical integration only. A GO does not establish detector accuracy, shortcut reduction, association improvement, policy robustness, adaptation, real-flight performance, or deployment readiness.",
+  "pose_runs": [
+    {
+      "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+      "hashes": {
+        "analytic_flat": {
+          "depth": "285bdd97f05d135a77897221a8cd5860de223d9907df652be29429c7c505b0fd",
+          "mask": "485ba42ca67b619f54e6d76d2276a3f4772c889081c752460072e7f5a36df5cc",
+          "rgb": "bbf958ee8ab61a16b5b058c2f8192567dd7740f21d85f25aca4bdc13bc52d54b"
+        },
+        "mesh_flat": {
+          "depth": "6745c893fc14900e4b4cb05c76f47489812372569c145f7a4443f392779d233b",
+          "mask": "8515f1bd02b0fdfb094fd6eab9ad2bf9aa3be7bfadeb5d312711ed75f3fda3ea",
+          "rgb": "2498bd4eb1a3115b9dafb9df682fea4005f94c52e3ffdcc933417e7dabe91781"
+        },
+        "mesh_shaded": {
+          "depth": "6745c893fc14900e4b4cb05c76f47489812372569c145f7a4443f392779d233b",
+          "mask": "8515f1bd02b0fdfb094fd6eab9ad2bf9aa3be7bfadeb5d312711ed75f3fda3ea",
+          "rgb": "208e05ffb97e33f78cd73f56626b7ead6701460ef65a591288f6aa237e4e9802"
+        }
+      },
+      "height": 90,
+      "kind": "pose",
+      "launcher": {
+        "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+        "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+        "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+        "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+      },
+      "mesh_flat_shaded_depth_equal": true,
+      "mesh_flat_shaded_mask_equal": true,
+      "poses": [
+        {
+          "analytic_pixels": 18,
+          "area_ratio": 0.4444444444444444,
+          "distance_m": 4.5,
+          "mask_iou": 0.4444444444444444,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 8,
+          "mesh_shaded_red_variance": 0.0031867052894085646,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 13,
+          "area_ratio": 0.5384615384615384,
+          "distance_m": 4.5,
+          "mask_iou": 0.5384615384615384,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 7,
+          "mesh_shaded_red_variance": 0.0027450204361230135,
+          "occlusion": false,
+          "rpy_deg": [
+            15,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 18,
+          "area_ratio": 0.8888888888888888,
+          "distance_m": 4.5,
+          "mask_iou": 0.8888888888888888,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 16,
+          "mesh_shaded_red_variance": 0.0039530424401164055,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            20,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 21,
+          "area_ratio": 0.5714285714285714,
+          "distance_m": 4.5,
+          "mask_iou": 0.5714285714285714,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 12,
+          "mesh_shaded_red_variance": 0.004069620743393898,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            22
+          ]
+        },
+        {
+          "analytic_pixels": 20,
+          "area_ratio": 0.6,
+          "distance_m": 4.5,
+          "mask_iou": 0.6,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 12,
+          "mesh_shaded_red_variance": 0.007366374135017395,
+          "occlusion": false,
+          "rpy_deg": [
+            25,
+            15,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 16,
+          "area_ratio": 0.625,
+          "distance_m": 4.5,
+          "mask_iou": 0.625,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 10,
+          "mesh_shaded_red_variance": 0.0034774572122842073,
+          "occlusion": false,
+          "rpy_deg": [
+            -20,
+            10,
+            18
+          ]
+        },
+        {
+          "analytic_pixels": 26,
+          "area_ratio": 0.5384615384615384,
+          "distance_m": 4.5,
+          "mask_iou": 0.5384615384615384,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 14,
+          "mesh_shaded_red_variance": 0.0650947317481041,
+          "occlusion": false,
+          "rpy_deg": [
+            10,
+            -18,
+            -25
+          ]
+        },
+        {
+          "analytic_pixels": 4,
+          "area_ratio": 0.5,
+          "distance_m": 5.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 2,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 8,
+          "area_ratio": 0.5,
+          "distance_m": 5.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 4,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            15,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.8333333333333334,
+          "distance_m": 5.5,
+          "mask_iou": 0.8333333333333334,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 10,
+          "mesh_shaded_red_variance": 0.005073327571153641,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            20,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 6,
+          "area_ratio": 0.6666666666666666,
+          "distance_m": 5.5,
+          "mask_iou": 0.6666666666666666,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 4,
+          "mesh_shaded_red_variance": 0.0040413313545286655,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            22
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.5833333333333334,
+          "distance_m": 5.5,
+          "mask_iou": 0.5833333333333334,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 7,
+          "mesh_shaded_red_variance": 0.012827475555241108,
+          "occlusion": false,
+          "rpy_deg": [
+            25,
+            15,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 11,
+          "area_ratio": 0.5454545454545454,
+          "distance_m": 5.5,
+          "mask_iou": 0.5454545454545454,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 6,
+          "mesh_shaded_red_variance": 0.004543208051472902,
+          "occlusion": false,
+          "rpy_deg": [
+            -20,
+            10,
+            18
+          ]
+        },
+        {
+          "analytic_pixels": 16,
+          "area_ratio": 0.625,
+          "distance_m": 5.5,
+          "mask_iou": 0.625,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 10,
+          "mesh_shaded_red_variance": 0.07071535289287567,
+          "occlusion": false,
+          "rpy_deg": [
+            10,
+            -18,
+            -25
+          ]
+        },
+        {
+          "analytic_pixels": 4,
+          "area_ratio": 0.5,
+          "distance_m": 6.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 2,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 7,
+          "area_ratio": 0.42857142857142855,
+          "distance_m": 6.5,
+          "mask_iou": 0.42857142857142855,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 3,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            15,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.6666666666666666,
+          "distance_m": 6.5,
+          "mask_iou": 0.6666666666666666,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 8,
+          "mesh_shaded_red_variance": 0.021833635866642,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            20,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 4,
+          "area_ratio": 0.5,
+          "distance_m": 6.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 2,
+          "mesh_shaded_red_variance": 0.005053999833762646,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            22
+          ]
+        },
+        {
+          "analytic_pixels": 9,
+          "area_ratio": 0.5555555555555556,
+          "distance_m": 6.5,
+          "mask_iou": 0.5555555555555556,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 5,
+          "mesh_shaded_red_variance": 0.004932887386530638,
+          "occlusion": false,
+          "rpy_deg": [
+            25,
+            15,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 7,
+          "area_ratio": 0.5714285714285714,
+          "distance_m": 6.5,
+          "mask_iou": 0.5714285714285714,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 4,
+          "mesh_shaded_red_variance": 0.007329871412366629,
+          "occlusion": false,
+          "rpy_deg": [
+            -20,
+            10,
+            18
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.5,
+          "distance_m": 6.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 6,
+          "mesh_shaded_red_variance": 0.039159368723630905,
+          "occlusion": false,
+          "rpy_deg": [
+            10,
+            -18,
+            -25
+          ]
+        },
+        {
+          "analytic_pixels": 0,
+          "area_ratio": null,
+          "distance_m": 4.0,
+          "mask_iou": null,
+          "mesh_flat_red_variance": null,
+          "mesh_pixels": 0,
+          "mesh_shaded_red_variance": null,
+          "occlusion": true,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime": {
+        "cuda": "12.1",
+        "cudnn": 90100,
+        "cudnn_allow_tf32": true,
+        "cudnn_benchmark": false,
+        "deterministic_algorithms": false,
+        "device_capability": "8.6",
+        "device_name": "NVIDIA GeForce RTX 3070",
+        "driver_cuda": "12.1",
+        "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+        "matmul_allow_tf32": false,
+        "numpy": "1.23.0",
+        "opencv": "4.13.0",
+        "opencv_threads": 24,
+        "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+        "python": "3.8.20",
+        "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+        "torch": "2.4.1+cu121"
+      },
+      "seed": 20260913,
+      "treatment_diagnostics": {
+        "mesh_flat": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 164,
+          "scene_occluded_hits": 12,
+          "visible_hits": 152
+        },
+        "mesh_shaded": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 164,
+          "scene_occluded_hits": 12,
+          "visible_hits": 152
+        }
+      },
+      "width": 160
+    },
+    {
+      "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+      "hashes": {
+        "analytic_flat": {
+          "depth": "285bdd97f05d135a77897221a8cd5860de223d9907df652be29429c7c505b0fd",
+          "mask": "485ba42ca67b619f54e6d76d2276a3f4772c889081c752460072e7f5a36df5cc",
+          "rgb": "bbf958ee8ab61a16b5b058c2f8192567dd7740f21d85f25aca4bdc13bc52d54b"
+        },
+        "mesh_flat": {
+          "depth": "6745c893fc14900e4b4cb05c76f47489812372569c145f7a4443f392779d233b",
+          "mask": "8515f1bd02b0fdfb094fd6eab9ad2bf9aa3be7bfadeb5d312711ed75f3fda3ea",
+          "rgb": "2498bd4eb1a3115b9dafb9df682fea4005f94c52e3ffdcc933417e7dabe91781"
+        },
+        "mesh_shaded": {
+          "depth": "6745c893fc14900e4b4cb05c76f47489812372569c145f7a4443f392779d233b",
+          "mask": "8515f1bd02b0fdfb094fd6eab9ad2bf9aa3be7bfadeb5d312711ed75f3fda3ea",
+          "rgb": "208e05ffb97e33f78cd73f56626b7ead6701460ef65a591288f6aa237e4e9802"
+        }
+      },
+      "height": 90,
+      "kind": "pose",
+      "launcher": {
+        "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+        "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+        "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+        "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+      },
+      "mesh_flat_shaded_depth_equal": true,
+      "mesh_flat_shaded_mask_equal": true,
+      "poses": [
+        {
+          "analytic_pixels": 18,
+          "area_ratio": 0.4444444444444444,
+          "distance_m": 4.5,
+          "mask_iou": 0.4444444444444444,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 8,
+          "mesh_shaded_red_variance": 0.0031867052894085646,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 13,
+          "area_ratio": 0.5384615384615384,
+          "distance_m": 4.5,
+          "mask_iou": 0.5384615384615384,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 7,
+          "mesh_shaded_red_variance": 0.0027450204361230135,
+          "occlusion": false,
+          "rpy_deg": [
+            15,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 18,
+          "area_ratio": 0.8888888888888888,
+          "distance_m": 4.5,
+          "mask_iou": 0.8888888888888888,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 16,
+          "mesh_shaded_red_variance": 0.0039530424401164055,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            20,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 21,
+          "area_ratio": 0.5714285714285714,
+          "distance_m": 4.5,
+          "mask_iou": 0.5714285714285714,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 12,
+          "mesh_shaded_red_variance": 0.004069620743393898,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            22
+          ]
+        },
+        {
+          "analytic_pixels": 20,
+          "area_ratio": 0.6,
+          "distance_m": 4.5,
+          "mask_iou": 0.6,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 12,
+          "mesh_shaded_red_variance": 0.007366374135017395,
+          "occlusion": false,
+          "rpy_deg": [
+            25,
+            15,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 16,
+          "area_ratio": 0.625,
+          "distance_m": 4.5,
+          "mask_iou": 0.625,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 10,
+          "mesh_shaded_red_variance": 0.0034774572122842073,
+          "occlusion": false,
+          "rpy_deg": [
+            -20,
+            10,
+            18
+          ]
+        },
+        {
+          "analytic_pixels": 26,
+          "area_ratio": 0.5384615384615384,
+          "distance_m": 4.5,
+          "mask_iou": 0.5384615384615384,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 14,
+          "mesh_shaded_red_variance": 0.0650947317481041,
+          "occlusion": false,
+          "rpy_deg": [
+            10,
+            -18,
+            -25
+          ]
+        },
+        {
+          "analytic_pixels": 4,
+          "area_ratio": 0.5,
+          "distance_m": 5.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 2,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 8,
+          "area_ratio": 0.5,
+          "distance_m": 5.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 4,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            15,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.8333333333333334,
+          "distance_m": 5.5,
+          "mask_iou": 0.8333333333333334,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 10,
+          "mesh_shaded_red_variance": 0.005073327571153641,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            20,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 6,
+          "area_ratio": 0.6666666666666666,
+          "distance_m": 5.5,
+          "mask_iou": 0.6666666666666666,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 4,
+          "mesh_shaded_red_variance": 0.0040413313545286655,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            22
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.5833333333333334,
+          "distance_m": 5.5,
+          "mask_iou": 0.5833333333333334,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 7,
+          "mesh_shaded_red_variance": 0.012827475555241108,
+          "occlusion": false,
+          "rpy_deg": [
+            25,
+            15,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 11,
+          "area_ratio": 0.5454545454545454,
+          "distance_m": 5.5,
+          "mask_iou": 0.5454545454545454,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 6,
+          "mesh_shaded_red_variance": 0.004543208051472902,
+          "occlusion": false,
+          "rpy_deg": [
+            -20,
+            10,
+            18
+          ]
+        },
+        {
+          "analytic_pixels": 16,
+          "area_ratio": 0.625,
+          "distance_m": 5.5,
+          "mask_iou": 0.625,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 10,
+          "mesh_shaded_red_variance": 0.07071535289287567,
+          "occlusion": false,
+          "rpy_deg": [
+            10,
+            -18,
+            -25
+          ]
+        },
+        {
+          "analytic_pixels": 4,
+          "area_ratio": 0.5,
+          "distance_m": 6.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 2,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 7,
+          "area_ratio": 0.42857142857142855,
+          "distance_m": 6.5,
+          "mask_iou": 0.42857142857142855,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 3,
+          "mesh_shaded_red_variance": 0.0,
+          "occlusion": false,
+          "rpy_deg": [
+            15,
+            0,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.6666666666666666,
+          "distance_m": 6.5,
+          "mask_iou": 0.6666666666666666,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 8,
+          "mesh_shaded_red_variance": 0.021833635866642,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            20,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 4,
+          "area_ratio": 0.5,
+          "distance_m": 6.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 2,
+          "mesh_shaded_red_variance": 0.005053999833762646,
+          "occlusion": false,
+          "rpy_deg": [
+            0,
+            0,
+            22
+          ]
+        },
+        {
+          "analytic_pixels": 9,
+          "area_ratio": 0.5555555555555556,
+          "distance_m": 6.5,
+          "mask_iou": 0.5555555555555556,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 5,
+          "mesh_shaded_red_variance": 0.004932887386530638,
+          "occlusion": false,
+          "rpy_deg": [
+            25,
+            15,
+            0
+          ]
+        },
+        {
+          "analytic_pixels": 7,
+          "area_ratio": 0.5714285714285714,
+          "distance_m": 6.5,
+          "mask_iou": 0.5714285714285714,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 4,
+          "mesh_shaded_red_variance": 0.007329871412366629,
+          "occlusion": false,
+          "rpy_deg": [
+            -20,
+            10,
+            18
+          ]
+        },
+        {
+          "analytic_pixels": 12,
+          "area_ratio": 0.5,
+          "distance_m": 6.5,
+          "mask_iou": 0.5,
+          "mesh_flat_red_variance": 0.0,
+          "mesh_pixels": 6,
+          "mesh_shaded_red_variance": 0.039159368723630905,
+          "occlusion": false,
+          "rpy_deg": [
+            10,
+            -18,
+            -25
+          ]
+        },
+        {
+          "analytic_pixels": 0,
+          "area_ratio": null,
+          "distance_m": 4.0,
+          "mask_iou": null,
+          "mesh_flat_red_variance": null,
+          "mesh_pixels": 0,
+          "mesh_shaded_red_variance": null,
+          "occlusion": true,
+          "rpy_deg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime": {
+        "cuda": "12.1",
+        "cudnn": 90100,
+        "cudnn_allow_tf32": true,
+        "cudnn_benchmark": false,
+        "deterministic_algorithms": false,
+        "device_capability": "8.6",
+        "device_name": "NVIDIA GeForce RTX 3070",
+        "driver_cuda": "12.1",
+        "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+        "matmul_allow_tf32": false,
+        "numpy": "1.23.0",
+        "opencv": "4.13.0",
+        "opencv_threads": 24,
+        "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+        "python": "3.8.20",
+        "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+        "torch": "2.4.1+cu121"
+      },
+      "seed": 20260913,
+      "treatment_diagnostics": {
+        "mesh_flat": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 164,
+          "scene_occluded_hits": 12,
+          "visible_hits": 152
+        },
+        "mesh_shaded": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 164,
+          "scene_occluded_hits": 12,
+          "visible_hits": 152
+        }
+      },
+      "width": 160
+    }
+  ],
+  "protocol": {
+    "arms": [
+      "analytic_flat",
+      "mesh_flat",
+      "mesh_shaded"
+    ],
+    "envs": 128,
+    "fixed_actions": true,
+    "height": 90,
+    "measured": 500,
+    "policy_loaded": false,
+    "pose_repeats": 2,
+    "step_repeats": 3,
+    "warmup": 50,
+    "width": 160
+  },
+  "provenance": {
+    "head": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+    "launcher": {
+      "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+      "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+      "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+      "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+    },
+    "preregistration_commit": "e5380523b892e324bc4abe304776926a8694afaf",
+    "tree_clean": true
+  },
+  "schema": "dynamic_mesh_detector_d8a_v1",
+  "seed": 20260913,
+  "source_sha256": {
+    "aerial_gym/task/navrl_task/navrl_detector.py": "ff04a2dc410342079bd58333c53c571266a7f44c9864ef4e3f6910dd7f6312fa",
+    "aerial_gym/task/navrl_task/navrl_dynamic_mesh_shadow.py": "6a67c098f409698bff040a3e3bec86c0b0009e57a341b550ebfc07d2e668020e",
+    "aerial_gym/task/navrl_task/navrl_dynamic_mesh_treatment.py": "f55c11e2564a2a90fb8f9ae77d317f6b919836722ca997332100940889ab6f5a",
+    "docs/preregistration_dynamic_mesh_detector_d8_2026-09-13.md": "67acdca3878fc6a57ca5a6f3947c0bebe7e39d3a6cc9a391d40a17dd8cd36064",
+    "resources/models/environment_assets/objects/navrl_target_drone_v3.urdf": "c843e0bd9004ab596d5b948dc7566c9f3d3e28b7a3d98d3e8f4de581465dcad0",
+    "tests/test_dynamic_mesh_treatment.py": "177346ed8ac41a3142d031144e4457ba209f15fbd24fd809e9e98737bb8fdee0",
+    "tools/probe_dynamic_mesh_treatment.py": "1a1a6a139bd3d07086b7cb3f05b40033bb15a0e1a36c1251482d0b5ca42fca2d",
+    "tools/renderer_validation/urdf_asset.py": "071d7bcee9eded43cdc2b0210eb676533a16c0e65ce1d7760e2b5f0221e41909"
+  },
+  "stage": "D8-A",
+  "step_runs": {
+    "analytic_flat": [
+      {
+        "device_memory_after_mib": 5643.0,
+        "device_memory_before_mib": 5637.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "77159afe7a32f74ee8c23f8af6920f7c3d8c246aed104d12f2924372e2e4bfbb",
+          "raw_rgb": "6d685a13d6336987a0fac9c7b5fce297edc53334e603114f051ee52c0dbd4563",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "122a0dd3e890563cec072e1dfc23318b106a4cb9bea61eddb4ea8ac4d9671a4a",
+          "target_depth": "050ddd5ca73d59ca48b459302799ffad05d6aa156e9e76fd7bbd7c59663f8ae5",
+          "target_mask": "1b95ecd242d303e27b40a2c16cc5cc02dcdb4720e88b2de6c5949e29a3a0fc32",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "analytic_flat",
+        "process_rss_mib": 5343.85546875,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 726178,
+        "timing": {
+          "max_ms": 860.4520210064948,
+          "mean_ms": 47.6830749285873,
+          "median_ms": 43.65563951432705,
+          "min_ms": 41.564184008166194,
+          "n": 500,
+          "p95_ms": 55.42854405939579,
+          "steps_per_second": 20.971801870950078
+        },
+        "torch_peak_allocated_mib": 178.02197265625,
+        "torch_peak_reserved_mib": 242.0,
+        "treatment": null,
+        "treatment_contract": null,
+        "visible_env_frames": 53726,
+        "warmup": 50,
+        "width": 160
+      },
+      {
+        "device_memory_after_mib": 5637.0,
+        "device_memory_before_mib": 5637.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "77159afe7a32f74ee8c23f8af6920f7c3d8c246aed104d12f2924372e2e4bfbb",
+          "raw_rgb": "6d685a13d6336987a0fac9c7b5fce297edc53334e603114f051ee52c0dbd4563",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "122a0dd3e890563cec072e1dfc23318b106a4cb9bea61eddb4ea8ac4d9671a4a",
+          "target_depth": "050ddd5ca73d59ca48b459302799ffad05d6aa156e9e76fd7bbd7c59663f8ae5",
+          "target_mask": "1b95ecd242d303e27b40a2c16cc5cc02dcdb4720e88b2de6c5949e29a3a0fc32",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "analytic_flat",
+        "process_rss_mib": 5355.6328125,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 726178,
+        "timing": {
+          "max_ms": 857.4912800686434,
+          "mean_ms": 48.01973247132264,
+          "median_ms": 43.5278300428763,
+          "min_ms": 41.17978399153799,
+          "n": 500,
+          "p95_ms": 58.736570994369686,
+          "steps_per_second": 20.824772411991248
+        },
+        "torch_peak_allocated_mib": 178.02197265625,
+        "torch_peak_reserved_mib": 242.0,
+        "treatment": null,
+        "treatment_contract": null,
+        "visible_env_frames": 53726,
+        "warmup": 50,
+        "width": 160
+      },
+      {
+        "device_memory_after_mib": 5637.0,
+        "device_memory_before_mib": 5637.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "77159afe7a32f74ee8c23f8af6920f7c3d8c246aed104d12f2924372e2e4bfbb",
+          "raw_rgb": "6d685a13d6336987a0fac9c7b5fce297edc53334e603114f051ee52c0dbd4563",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "122a0dd3e890563cec072e1dfc23318b106a4cb9bea61eddb4ea8ac4d9671a4a",
+          "target_depth": "050ddd5ca73d59ca48b459302799ffad05d6aa156e9e76fd7bbd7c59663f8ae5",
+          "target_mask": "1b95ecd242d303e27b40a2c16cc5cc02dcdb4720e88b2de6c5949e29a3a0fc32",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "analytic_flat",
+        "process_rss_mib": 5353.9375,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 726178,
+        "timing": {
+          "max_ms": 850.1622430048883,
+          "mean_ms": 48.16690851957537,
+          "median_ms": 43.761135486420244,
+          "min_ms": 41.4426380302757,
+          "n": 500,
+          "p95_ms": 55.38764700759202,
+          "steps_per_second": 20.76114142956866
+        },
+        "torch_peak_allocated_mib": 178.02197265625,
+        "torch_peak_reserved_mib": 242.0,
+        "treatment": null,
+        "treatment_contract": null,
+        "visible_env_frames": 53726,
+        "warmup": 50,
+        "width": 160
+      }
+    ],
+    "mesh_flat": [
+      {
+        "device_memory_after_mib": 5686.0,
+        "device_memory_before_mib": 5685.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "9aba95a0f2655f52bb30d37d9988689a387ca23d50c409552d0c9eb17d20fbe6",
+          "raw_rgb": "b5078e6ee353f3cd8f6c5309e0287512fccce0a9dadeb6b1f8a77b03281ac9ad",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "240672a6ed45cb661537ab546d265a6d7a17b4d83250687b98e624e2c037e13e",
+          "target_depth": "4becb2ee258e87938951ae319775ea191a334f8fb4b4c7830e8aafbbf2cf15c6",
+          "target_mask": "89a649ae6d3bc447942b9ceb141a6ccef5be524e7f10c7f9b5f607defadb327f",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "mesh_flat",
+        "process_rss_mib": 5338.02734375,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 409825,
+        "timing": {
+          "max_ms": 850.821460946463,
+          "mean_ms": 48.48639752762392,
+          "median_ms": 44.137013028375804,
+          "min_ms": 41.56819800846279,
+          "n": 500,
+          "p95_ms": 56.14430794958025,
+          "steps_per_second": 20.624341072777675
+        },
+        "torch_peak_allocated_mib": 236.08349609375,
+        "torch_peak_reserved_mib": 286.0,
+        "treatment": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 576,
+          "scene_occluded_hits": 0,
+          "visible_hits": 576
+        },
+        "treatment_contract": {
+          "ambient": 0.45,
+          "build_signature_stable": true,
+          "directional": 0.55,
+          "light_direction": [
+            -0.4504281282424927,
+            -0.3002854287624359,
+            0.8407991528511047
+          ],
+          "material_gains": [
+            0.5741929411888123,
+            0.550000011920929,
+            0.7868121266365051,
+            1.0
+          ],
+          "materials": 4,
+          "triangles": 1548
+        },
+        "visible_env_frames": 53195,
+        "warmup": 50,
+        "width": 160
+      },
+      {
+        "device_memory_after_mib": 5687.0,
+        "device_memory_before_mib": 5681.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "9aba95a0f2655f52bb30d37d9988689a387ca23d50c409552d0c9eb17d20fbe6",
+          "raw_rgb": "b5078e6ee353f3cd8f6c5309e0287512fccce0a9dadeb6b1f8a77b03281ac9ad",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "240672a6ed45cb661537ab546d265a6d7a17b4d83250687b98e624e2c037e13e",
+          "target_depth": "4becb2ee258e87938951ae319775ea191a334f8fb4b4c7830e8aafbbf2cf15c6",
+          "target_mask": "89a649ae6d3bc447942b9ceb141a6ccef5be524e7f10c7f9b5f607defadb327f",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "mesh_flat",
+        "process_rss_mib": 5337.0078125,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 409825,
+        "timing": {
+          "max_ms": 1553.2237209845334,
+          "mean_ms": 47.97454093792476,
+          "median_ms": 43.66722051054239,
+          "min_ms": 41.488211951218545,
+          "n": 500,
+          "p95_ms": 51.59940291196108,
+          "steps_per_second": 20.844389137436885
+        },
+        "torch_peak_allocated_mib": 236.08349609375,
+        "torch_peak_reserved_mib": 286.0,
+        "treatment": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 576,
+          "scene_occluded_hits": 0,
+          "visible_hits": 576
+        },
+        "treatment_contract": {
+          "ambient": 0.45,
+          "build_signature_stable": true,
+          "directional": 0.55,
+          "light_direction": [
+            -0.4504281282424927,
+            -0.3002854287624359,
+            0.8407991528511047
+          ],
+          "material_gains": [
+            0.5741929411888123,
+            0.550000011920929,
+            0.7868121266365051,
+            1.0
+          ],
+          "materials": 4,
+          "triangles": 1548
+        },
+        "visible_env_frames": 53195,
+        "warmup": 50,
+        "width": 160
+      },
+      {
+        "device_memory_after_mib": 5681.0,
+        "device_memory_before_mib": 5680.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "9aba95a0f2655f52bb30d37d9988689a387ca23d50c409552d0c9eb17d20fbe6",
+          "raw_rgb": "b5078e6ee353f3cd8f6c5309e0287512fccce0a9dadeb6b1f8a77b03281ac9ad",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "240672a6ed45cb661537ab546d265a6d7a17b4d83250687b98e624e2c037e13e",
+          "target_depth": "4becb2ee258e87938951ae319775ea191a334f8fb4b4c7830e8aafbbf2cf15c6",
+          "target_mask": "89a649ae6d3bc447942b9ceb141a6ccef5be524e7f10c7f9b5f607defadb327f",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "mesh_flat",
+        "process_rss_mib": 5343.953125,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 409825,
+        "timing": {
+          "max_ms": 851.2012130813673,
+          "mean_ms": 48.374576959526166,
+          "median_ms": 43.911167012993246,
+          "min_ms": 41.681539034470916,
+          "n": 500,
+          "p95_ms": 55.307492963038385,
+          "steps_per_second": 20.672015402567254
+        },
+        "torch_peak_allocated_mib": 236.08349609375,
+        "torch_peak_reserved_mib": 286.0,
+        "treatment": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 576,
+          "scene_occluded_hits": 0,
+          "visible_hits": 576
+        },
+        "treatment_contract": {
+          "ambient": 0.45,
+          "build_signature_stable": true,
+          "directional": 0.55,
+          "light_direction": [
+            -0.4504281282424927,
+            -0.3002854287624359,
+            0.8407991528511047
+          ],
+          "material_gains": [
+            0.5741929411888123,
+            0.550000011920929,
+            0.7868121266365051,
+            1.0
+          ],
+          "materials": 4,
+          "triangles": 1548
+        },
+        "visible_env_frames": 53195,
+        "warmup": 50,
+        "width": 160
+      }
+    ],
+    "mesh_shaded": [
+      {
+        "device_memory_after_mib": 5707.0,
+        "device_memory_before_mib": 5702.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "9aba95a0f2655f52bb30d37d9988689a387ca23d50c409552d0c9eb17d20fbe6",
+          "raw_rgb": "f7be2c94e2dc4acd501aff8222589dcb2d082906a196acd9ed9f78aa64b1500f",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "d4baf4f933767c3c7f31108b9df89e594153a408ebee80de7839e9faf366f886",
+          "target_depth": "4becb2ee258e87938951ae319775ea191a334f8fb4b4c7830e8aafbbf2cf15c6",
+          "target_mask": "89a649ae6d3bc447942b9ceb141a6ccef5be524e7f10c7f9b5f607defadb327f",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "mesh_shaded",
+        "process_rss_mib": 5336.6171875,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 409825,
+        "timing": {
+          "max_ms": 852.6687489356846,
+          "mean_ms": 48.55884747393429,
+          "median_ms": 44.00543944211677,
+          "min_ms": 41.39309504535049,
+          "n": 500,
+          "p95_ms": 56.533541996032,
+          "steps_per_second": 20.593569493937967
+        },
+        "torch_peak_allocated_mib": 258.08349609375,
+        "torch_peak_reserved_mib": 308.0,
+        "treatment": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 576,
+          "scene_occluded_hits": 0,
+          "visible_hits": 576
+        },
+        "treatment_contract": {
+          "ambient": 0.45,
+          "build_signature_stable": true,
+          "directional": 0.55,
+          "light_direction": [
+            -0.4504281282424927,
+            -0.3002854287624359,
+            0.8407991528511047
+          ],
+          "material_gains": [
+            0.5741929411888123,
+            0.550000011920929,
+            0.7868121266365051,
+            1.0
+          ],
+          "materials": 4,
+          "triangles": 1548
+        },
+        "visible_env_frames": 53195,
+        "warmup": 50,
+        "width": 160
+      },
+      {
+        "device_memory_after_mib": 5704.0,
+        "device_memory_before_mib": 5703.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "9aba95a0f2655f52bb30d37d9988689a387ca23d50c409552d0c9eb17d20fbe6",
+          "raw_rgb": "f7be2c94e2dc4acd501aff8222589dcb2d082906a196acd9ed9f78aa64b1500f",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "d4baf4f933767c3c7f31108b9df89e594153a408ebee80de7839e9faf366f886",
+          "target_depth": "4becb2ee258e87938951ae319775ea191a334f8fb4b4c7830e8aafbbf2cf15c6",
+          "target_mask": "89a649ae6d3bc447942b9ceb141a6ccef5be524e7f10c7f9b5f607defadb327f",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "mesh_shaded",
+        "process_rss_mib": 5337.91015625,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 409825,
+        "timing": {
+          "max_ms": 859.1086239321157,
+          "mean_ms": 48.76129324687645,
+          "median_ms": 44.17268658289686,
+          "min_ms": 41.6568930959329,
+          "n": 500,
+          "p95_ms": 57.04949900973588,
+          "steps_per_second": 20.508069688329236
+        },
+        "torch_peak_allocated_mib": 258.08349609375,
+        "torch_peak_reserved_mib": 308.0,
+        "treatment": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 576,
+          "scene_occluded_hits": 0,
+          "visible_hits": 576
+        },
+        "treatment_contract": {
+          "ambient": 0.45,
+          "build_signature_stable": true,
+          "directional": 0.55,
+          "light_direction": [
+            -0.4504281282424927,
+            -0.3002854287624359,
+            0.8407991528511047
+          ],
+          "material_gains": [
+            0.5741929411888123,
+            0.550000011920929,
+            0.7868121266365051,
+            1.0
+          ],
+          "materials": 4,
+          "triangles": 1548
+        },
+        "visible_env_frames": 53195,
+        "warmup": 50,
+        "width": 160
+      },
+      {
+        "device_memory_after_mib": 5703.0,
+        "device_memory_before_mib": 5706.0,
+        "envs": 128,
+        "git_commit": "c50a26d86f820611da879a84e3a252c787bd3dd9",
+        "hashes": {
+          "raw_depth": "9aba95a0f2655f52bb30d37d9988689a387ca23d50c409552d0c9eb17d20fbe6",
+          "raw_rgb": "f7be2c94e2dc4acd501aff8222589dcb2d082906a196acd9ed9f78aa64b1500f",
+          "robot_position": "b9ac42c5f64cda2ac81d481e509c760cc19925657007359f18c68cd442c9bc36",
+          "structured_observation": "d4baf4f933767c3c7f31108b9df89e594153a408ebee80de7839e9faf366f886",
+          "target_depth": "4becb2ee258e87938951ae319775ea191a334f8fb4b4c7830e8aafbbf2cf15c6",
+          "target_mask": "89a649ae6d3bc447942b9ceb141a6ccef5be524e7f10c7f9b5f607defadb327f",
+          "target_position": "b6057ece4e63e66c3c900da3c30ce096c41642db512b4711d80de43da0b5749a"
+        },
+        "height": 90,
+        "kind": "step",
+        "launcher": {
+          "ninja": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+          "ninja_sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+          "ninja_version": "1.13.0.git.kitware.jobserver-pipe-1",
+          "python": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8"
+        },
+        "measured": 500,
+        "mode": "mesh_shaded",
+        "process_rss_mib": 5349.51171875,
+        "runtime": {
+          "cuda": "12.1",
+          "cudnn": 90100,
+          "cudnn_allow_tf32": true,
+          "cudnn_benchmark": false,
+          "deterministic_algorithms": false,
+          "device_capability": "8.6",
+          "device_name": "NVIDIA GeForce RTX 3070",
+          "driver_cuda": "12.1",
+          "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+          "matmul_allow_tf32": false,
+          "numpy": "1.23.0",
+          "opencv": "4.13.0",
+          "opencv_threads": 24,
+          "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+          "python": "3.8.20",
+          "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+          "torch": "2.4.1+cu121"
+        },
+        "seed": 20260913,
+        "target_pixel_sum": 409825,
+        "timing": {
+          "max_ms": 859.0349870501086,
+          "mean_ms": 48.71910298475996,
+          "median_ms": 44.37549848807976,
+          "min_ms": 42.17645199969411,
+          "n": 500,
+          "p95_ms": 56.9777520140633,
+          "steps_per_second": 20.52582947417596
+        },
+        "torch_peak_allocated_mib": 258.08349609375,
+        "torch_peak_reserved_mib": 308.0,
+        "treatment": {
+          "invalid_depth": 0,
+          "invalid_face": 0,
+          "invalid_material": 0,
+          "invalid_normal": 0,
+          "occluded_survivors": 0,
+          "raw_mesh_hits": 576,
+          "scene_occluded_hits": 0,
+          "visible_hits": 576
+        },
+        "treatment_contract": {
+          "ambient": 0.45,
+          "build_signature_stable": true,
+          "directional": 0.55,
+          "light_direction": [
+            -0.4504281282424927,
+            -0.3002854287624359,
+            0.8407991528511047
+          ],
+          "material_gains": [
+            0.5741929411888123,
+            0.550000011920929,
+            0.7868121266365051,
+            1.0
+          ],
+          "materials": 4,
+          "triangles": 1548
+        },
+        "visible_env_frames": 53195,
+        "warmup": 50,
+        "width": 160
+      }
+    ]
+  }
+}

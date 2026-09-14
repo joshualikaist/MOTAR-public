@@ -1,0 +1,76 @@
+{
+  "checkpoints": {
+    "T0": {
+      "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260905_1525_navrl_v2-ref5in-a8-readapt-off-s197/nn/last_gen_ppo_ep_2900_rew_219.2355.pth",
+      "sha256": "ea6f6e83dc7b6706c0bbb39fd1a4429a1cba6ad6e97ac70dbf5f284e62139eaf"
+    },
+    "T1": {
+      "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260905_1614_navrl_v2-ref5in-a8-readapt-riskcap-s197/nn/last_gen_ppo_ep_2900_rew_211.86726.pth",
+      "sha256": "4e657c59070802d3dcfe94892ff8ba841a07293edd3fac5d13e69447c9f7f021"
+    }
+  },
+  "contract": "ref5in",
+  "episodes": 2049,
+  "evaluation_commit": "b99c103126727dd66beffb448188a6788429d134",
+  "governor_defaults": {
+    "NAVRL_SPEED_GOVERNOR_BRAKE_MPS2": "2.0",
+    "NAVRL_SPEED_GOVERNOR_FIXED_MPS": "2.0",
+    "NAVRL_SPEED_GOVERNOR_FREE_MPS": "3.53553390593",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45",
+    "NAVRL_SPEED_GOVERNOR_MARGIN_M": "0.45",
+    "NAVRL_SPEED_GOVERNOR_REACTION_S": "0.1",
+    "NAVRL_SPEED_GOVERNOR_RELEASE_M": "5.0",
+    "NAVRL_SPEED_GOVERNOR_SLOW_M": "3.0",
+    "NAVRL_SPEED_GOVERNOR_TTC_S": "1.0"
+  },
+  "schema_version": 2,
+  "spec": {
+    "cells": [
+      {
+        "bars": 70,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "T0_d070_riskcap",
+        "policy": "T0"
+      },
+      {
+        "bars": 70,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "stopcap"
+        },
+        "name": "T0_d070_stopcap",
+        "policy": "T0"
+      },
+      {
+        "bars": 70,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "T1_d070_riskcap",
+        "policy": "T1"
+      },
+      {
+        "bars": 70,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "stopcap"
+        },
+        "name": "T1_d070_stopcap",
+        "policy": "T1"
+      }
+    ],
+    "contract": "ref5in",
+    "design": "T0 and T1 are the SAME ref5in airframe, same 1,000 extra epochs from the same ep1900 source, same goal band, same seed. They differ only in whether riskcap was inside the training loop. If the ep25000 pattern reproduces here, co-adaptation is the cause; if it does not, the airframe or the assumed brake parameter is.",
+    "episodes": 2049,
+    "frame_sample_every": 100,
+    "predictions": {
+      "T0 stopcap-riskcap": "<= -3 pp (like the ep1900 source: -6.47 pp)",
+      "T1 stopcap-riskcap": "within +-2 pp of zero (like ep25000: -0.34 pp)"
+    },
+    "prereg": "docs/plans/lateral_contact_density_plan_2026-09-05.md#D4",
+    "question": "Is the stopping law's advantage over riskcap destroyed by co-adaptation with riskcap, or by something else about the ep25000 lineage (0.25 kg airframe, 6-28 m goals, 205-bar curriculum)?",
+    "seed": 521
+  },
+  "spec_path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/docs/specs/grid_d4_coadaptation_stopcap.json",
+  "spec_sha256": "03270f3b2b4647c5ddb635c804e19e5b8ace80fd9bc0144b635641595effd74b"
+}

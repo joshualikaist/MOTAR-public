@@ -1,0 +1,3278 @@
+{
+  "blockers": [],
+  "brake_comparison": {
+    "caveat": "Historical screen has its recorded provenance limitations; M5 cannot repair them.",
+    "historical_L_line": {
+      "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/stopcap/205bars.json",
+      "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/riskcap/205bars.json",
+      "ci95_pp": [
+        2.9778816458771145,
+        7.733038666641465
+      ],
+      "delta_pp": 5.35546015625929,
+      "denominator": "actual_episodes",
+      "excludes_zero": true,
+      "n_a": 2051,
+      "n_b": 2050,
+      "status": "AVAILABLE"
+    },
+    "historical_provenance": "FAIL",
+    "label": "FLIP_IS_DENSITY",
+    "stopcap_new_minus_old": {
+      "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+      "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/stopcap/205bars.json",
+      "ci95_pp": [
+        -7.440707087384251,
+        -2.6689919274162253
+      ],
+      "delta_pp": -5.054849507400238,
+      "denominator": "actual_episodes",
+      "excludes_zero": true,
+      "n_a": 2049,
+      "n_b": 2051,
+      "status": "AVAILABLE"
+    }
+  },
+  "caveats": [
+    "M1/M2 require external CPU test evidence tied to the evaluation commit; results do not prove them.",
+    "M5 is a repeatability check, not proof that historical source was clean or identical.",
+    "DENSITY_LIMITED and FLIP_IS_DENSITY are preregistered labels, not isolated density effects: P3 also changes checkpoint, robot platform, goal range and seed.",
+    "Outcome CIs use the A5 independent two-proportion Wald formula and actual episode counts; same-seed arms are not treated as paired observations.",
+    "Intervention and below-3m CIs use recorded frame/sample counts with that same formula. Frames are temporally dependent; these are nominal unclustered CIs, not episode-level CIs.",
+    "Label precedence when rules overlap is frozen in prereg \u00a74: ARC_HURTS_UNDER_RISKCAP beats INTERACTION.",
+    "P1 uses all four arms in one root; its factorial does not import A4 controls or require cross-root M5."
+  ],
+  "check_p1_only": false,
+  "condition_differences_P1_P3": {
+    "bars": {
+      "P1": 70,
+      "P3": 205
+    },
+    "distractor_count": {
+      "P1": 0,
+      "P3": null
+    },
+    "goal_dist_min_m": {
+      "P1": 22.5,
+      "P3": 6.0
+    },
+    "robot_asset_sha256": {
+      "P1": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+      "P3": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be"
+    },
+    "robot_config_sha256": {
+      "P1": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+      "P3": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e"
+    },
+    "robot_name": {
+      "P1": "navrl_ref5in_quad",
+      "P3": "navrl_quad"
+    },
+    "seed": {
+      "P1": 509,
+      "P3": 49
+    }
+  },
+  "density_limited": true,
+  "integrity": {
+    "M1": {
+      "evidence": "Cap-law equivalence test tied to evaluation commit",
+      "status": "EXTERNAL_CPU_TEST_REQUIRED"
+    },
+    "M2": {
+      "evidence": "Shared clearance dispatch and zero-yaw equivalence tests tied to evaluation commit",
+      "status": "EXTERNAL_CPU_TEST_REQUIRED"
+    },
+    "M3": {
+      "P1": {
+        "arms": [
+          "dwa_arc",
+          "riskcap",
+          "riskcap_arc",
+          "stopcap"
+        ],
+        "errors": [],
+        "root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509",
+        "status": "PASS"
+      },
+      "P2": {
+        "arms": [
+          "dwa_arc",
+          "riskcap",
+          "riskcap_arc",
+          "stopcap"
+        ],
+        "errors": [],
+        "root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491",
+        "status": "PASS"
+      },
+      "P3": {
+        "arms": [
+          "dwa_arc",
+          "riskcap",
+          "riskcap_arc",
+          "stopcap"
+        ],
+        "errors": [],
+        "root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49",
+        "status": "PASS"
+      }
+    },
+    "M4": {
+      "commits": {
+        "P1": [
+          "742022e818d513095564278d699b9f14173611b0"
+        ],
+        "P2": [
+          "742022e818d513095564278d699b9f14173611b0"
+        ],
+        "P3": [
+          "742022e818d513095564278d699b9f14173611b0"
+        ]
+      },
+      "errors": [],
+      "scope": "Recorded evaluation commits; bars.json cannot independently attest all on-disk source bytes.",
+      "status": "PASS"
+    },
+    "M5": {
+      "P1": {
+        "action": "Cross-root zero check passes; does not establish source equivalence.",
+        "actual_episodes": 2051,
+        "comparison": {
+          "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+          "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/riskcap/70bars.json",
+          "ci95_pp": [
+            -2.389958952020729,
+            2.389958952020729
+          ],
+          "delta_pp": 0.0,
+          "denominator": "actual_episodes",
+          "excludes_zero": false,
+          "n_a": 2051,
+          "n_b": 2051,
+          "status": "AVAILABLE"
+        },
+        "expected_percent": "18.77",
+        "historical_actual_episodes": 2051,
+        "historical_episode_count_matches_prereg": false,
+        "historical_percent": "18.77",
+        "observed_percent": "18.77",
+        "prereg_historical_episodes": 2049,
+        "required_for_P1_factorial": false,
+        "status": "PASS"
+      },
+      "P3": {
+        "action": "Cross-root zero check passes; does not establish source equivalence.",
+        "actual_episodes": 2050,
+        "comparison": {
+          "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+          "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/riskcap/205bars.json",
+          "ci95_pp": [
+            -2.2415931595972163,
+            2.2415931595972163
+          ],
+          "delta_pp": 0.0,
+          "denominator": "actual_episodes",
+          "excludes_zero": false,
+          "n_a": 2050,
+          "n_b": 2050,
+          "status": "AVAILABLE"
+        },
+        "expected_percent": "15.95",
+        "historical_actual_episodes": 2050,
+        "historical_episode_count_matches_prereg": true,
+        "historical_percent": "15.95",
+        "observed_percent": "15.95",
+        "prereg_historical_episodes": 2050,
+        "status": "PASS"
+      }
+    },
+    "M6": {
+      "comparison": "Exact decoded values and numeric JSON literals; mode varies by arm.",
+      "errors": [],
+      "expected": {
+        "speed_governor_brake_mps2": 2.0,
+        "speed_governor_fixed_mps": 2.0,
+        "speed_governor_free_mps": 3.53553390593,
+        "speed_governor_half_width_m": 0.45,
+        "speed_governor_margin_m": 0.45,
+        "speed_governor_reaction_s": 0.1,
+        "speed_governor_release_m": 5.0,
+        "speed_governor_slow_m": 3.0,
+        "speed_governor_target_exclusion": "camera_lidar_association",
+        "speed_governor_ttc_s": 1.0
+      },
+      "status": "PASS"
+    },
+    "conditions": {
+      "P1": {
+        "errors": [],
+        "status": "PASS"
+      },
+      "P2": {
+        "errors": [],
+        "status": "PASS"
+      },
+      "P3": {
+        "errors": [],
+        "status": "PASS"
+      }
+    },
+    "historical_A4": {
+      "arms": [
+        "dwa_arc",
+        "fixed2p0",
+        "off",
+        "omni",
+        "riskcap",
+        "stopcap"
+      ],
+      "errors": [],
+      "root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509",
+      "status": "PASS"
+    },
+    "historical_SCREEN": {
+      "arms": [
+        "fixed2p0",
+        "off",
+        "riskcap",
+        "stopcap",
+        "ttc"
+      ],
+      "errors": [
+        "runtime_source_manifest_sha256 differs within root",
+        "runtime_git_dirty is not false: fixed2p0, off, riskcap, stopcap, ttc"
+      ],
+      "root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen",
+      "status": "FAIL"
+    }
+  },
+  "parts": {
+    "P1": {
+      "arms": {
+        "dwa_arc": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 509,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.868839919219646,
+            "mean_executed_speed_mps": 2.2479769667341376,
+            "path_length_mean_m": 46.66353638301371
+          },
+          "file_sha256": "a6e74dd222ee732e9e9fc0bf559d17073359596a1e88c5f936efa662dc7ba958",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 518016,
+              "rate": 0.06590916110699284
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.7920937042459737
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.10444119082479258
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 518016,
+              "rate": 0.04074970657276995
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.10346510492923378
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+        },
+        "riskcap": {
+          "actual_episodes": 2051,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 509,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.1545714761965025,
+            "mean_executed_speed_mps": 2.2407261273943306,
+            "path_length_mean_m": 44.41491010837541
+          },
+          "file_sha256": "d8afbbe97ac88d965a7efc40526e34974fa77832ab6277ad5c9893c918372124",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 497920,
+              "rate": 0.07580133354755784
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2051,
+              "rate": 0.7133105802047781
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2051,
+              "rate": 0.18771331058020477
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 497920,
+              "rate": 0.0575855559125964
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2051,
+              "rate": 0.09897610921501707
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+        },
+        "riskcap_arc": {
+          "actual_episodes": 2050,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 509,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.836220407503686,
+            "mean_executed_speed_mps": 2.2271798741392486,
+            "path_length_mean_m": 45.29069512229346
+          },
+          "file_sha256": "dfbde016373448b94cc13e423f60deaefcafb4bfd900903b46cd96cbf97e91e4",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 512640,
+              "rate": 0.06242587390761548
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.7024390243902439
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.19121951219512195
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 512640,
+              "rate": 0.06325296504369537
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.10634146341463414
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+        },
+        "stopcap": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 509,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.121487998312566,
+            "mean_executed_speed_mps": 1.8498741409813222,
+            "path_length_mean_m": 46.335070268512936
+          },
+          "file_sha256": "6c9a73004150c62e6bed367fcc0f89c8e5b0f58c8d481305fe3a7c80899f3f9f",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 624000,
+              "rate": 0.21851442307692306
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.6793557833089312
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.12298682284040996
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 624000,
+              "rate": 0.1930801282051282
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.19765739385065886
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+        }
+      },
+      "classification": {
+        "label": "LAW_CARRIES_SAFETY",
+        "matched_labels": [
+          "LAW_CARRIES_SAFETY"
+        ],
+        "status": "CLASSIFIED"
+      },
+      "cost_labels": {
+        "ARC_COST_NEUTRAL_UNDER_RISKCAP": true,
+        "ARC_REMOVES_COST": true
+      },
+      "design": "within_root_four_arm",
+      "effects": {
+        "below_3m": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              -1.4364954515602353,
+              -1.2385964764282371
+            ],
+            "delta_pp": -1.3375459639942362,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 512640,
+            "n_b": 497920,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "ci95_pp": [
+              -15.383321598666754,
+              -15.137730795319293
+            ],
+            "delta_pp": -15.260526196993023,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 518016,
+            "n_b": 624000,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              0.2537154229719365,
+              0.44294201690353474
+            ],
+            "delta_pp": 0.3483287199377356,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 518016,
+            "n_b": 512640,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              14.14514225448147,
+              14.397475651391577
+            ],
+            "delta_pp": 14.271308952936524,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 624000,
+            "n_b": 497920,
+            "status": "AVAILABLE"
+          }
+        },
+        "capture": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              -3.870541849288347,
+              1.6962306863814969
+            ],
+            "delta_pp": -1.087155581453425,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2050,
+            "n_b": 2051,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "ci95_pp": [
+              8.595807575883537,
+              13.95177661152496
+            ],
+            "delta_pp": 11.273792093704248,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              6.318874631116117,
+              11.61206134002985
+            ],
+            "delta_pp": 8.965467985572984,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              -6.208731155380841,
+              -0.5822282237885399
+            ],
+            "delta_pp": -3.3954796895846906,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2051,
+            "status": "AVAILABLE"
+          }
+        },
+        "crash": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              -2.048151160013535,
+              2.749391482996973
+            ],
+            "delta_pp": 0.3506201614917187,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2050,
+            "n_b": 2051,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "ci95_pp": [
+              -3.797723692565186,
+              0.0885972894417113
+            ],
+            "delta_pp": -1.8545632015617375,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              -10.834629405701813,
+              -6.52103486836406
+            ],
+            "delta_pp": -8.677832137032937,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              -8.681314001789096,
+              -4.263983546169866
+            ],
+            "delta_pp": -6.472648773979481,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2051,
+            "status": "AVAILABLE"
+          }
+        },
+        "intervention": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              0.47385790777238307,
+              0.6596239184474124
+            ],
+            "delta_pp": 0.5667409131098977,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 512640,
+            "n_b": 497920,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "ci95_pp": [
+              -15.344803277642605,
+              -15.12128104882905
+            ],
+            "delta_pp": -15.233042163235828,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 518016,
+            "n_b": 624000,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              -2.335994109046283,
+              -2.164657585138801
+            ],
+            "delta_pp": -2.250325847092542,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 518016,
+            "n_b": 512640,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              13.432074316238557,
+              13.666840142267807
+            ],
+            "delta_pp": 13.549457229253182,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 624000,
+            "n_b": 497920,
+            "status": "AVAILABLE"
+          }
+        },
+        "timeout": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              -1.1212167470323549,
+              2.5942875869557707
+            ],
+            "delta_pp": 0.7365354199617078,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2050,
+            "n_b": 2051,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "ci95_pp": [
+              -11.590048296885824,
+              -7.248409487399195
+            ],
+            "delta_pp": -9.41922889214251,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              -2.163801672035772,
+              1.5885299749556983
+            ],
+            "delta_pp": -0.2876358485400368,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+            "ci95_pp": [
+              7.713203452171015,
+              12.023053474957344
+            ],
+            "delta_pp": 9.86812846356418,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2051,
+            "status": "AVAILABLE"
+          }
+        }
+      },
+      "eligible": true,
+      "root_disposition": "VALID_RESULT_PROVENANCE"
+    },
+    "P2": {
+      "arms": {
+        "dwa_arc": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 491,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.92044717113961,
+            "mean_executed_speed_mps": 2.2399092622457566,
+            "path_length_mean_m": 46.77734955113052
+          },
+          "file_sha256": "002a1591d3b82b4f88ddb8461e705be9ba23578bc008d3d40b147615568462d2",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 521728,
+              "rate": 0.06334143461727183
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.7798926305514885
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.1171303074670571
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 521728,
+              "rate": 0.039443924803729144
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.10297706198145437
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+        },
+        "riskcap": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 491,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.141681012292358,
+            "mean_executed_speed_mps": 2.225605571583812,
+            "path_length_mean_m": 44.99679761650623
+          },
+          "file_sha256": "bf7b9efee07262dcbc9e1571204c5e9347ed9e5923065aca2325abcb94d32f30",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 508288,
+              "rate": 0.07651370876353564
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.7047340165934602
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.18350414836505613
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 508288,
+              "rate": 0.05768776756484513
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.11176183504148365
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+        },
+        "riskcap_arc": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 491,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.992701964966204,
+            "mean_executed_speed_mps": 2.2416018267399744,
+            "path_length_mean_m": 43.57960533112055
+          },
+          "file_sha256": "5cfb9c5978e636a800ce1ff149e844932d9b319e5b14db9a17b23643ef1a5507",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 488320,
+              "rate": 0.06047264089121887
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.716447047340166
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.19424109321620303
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 488320,
+              "rate": 0.06258396133682831
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.08931185944363104
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+        },
+        "stopcap": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 70,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 22.5,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+            "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+            "robot_name": "navrl_ref5in_quad",
+            "seed": 491,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.191106141355521,
+            "mean_executed_speed_mps": 1.8339466899029269,
+            "path_length_mean_m": 45.73624003631994
+          },
+          "file_sha256": "ca806269ba01a39a35eb6754e3a76a137be0470231e67d1fbee42fb7c5109a4a",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 622208,
+              "rate": 0.2283609339642049
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.6671547096144461
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.1283552952659834
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 622208,
+              "rate": 0.20261713124871425
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.20448999511957053
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+        }
+      },
+      "classification": {
+        "label": "LAW_CARRIES_SAFETY",
+        "matched_labels": [
+          "LAW_CARRIES_SAFETY"
+        ],
+        "status": "CLASSIFIED"
+      },
+      "cost_labels": {
+        "ARC_COST_NEUTRAL_UNDER_RISKCAP": false,
+        "ARC_REMOVES_COST": true
+      },
+      "design": "within_root_four_arm",
+      "effects": {
+        "below_3m": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              -1.7031525012156077,
+              -1.5050610732477454
+            ],
+            "delta_pp": -1.6041067872316765,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 488320,
+            "n_b": 508288,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "ci95_pp": [
+              -16.625433293534414,
+              -16.378466575852194
+            ],
+            "delta_pp": -16.501949934693304,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 521728,
+            "n_b": 622208,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              0.1928675412456457,
+              0.38089120396494675
+            ],
+            "delta_pp": 0.2868793726052962,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 521728,
+            "n_b": 488320,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              15.057364878232313,
+              15.312080161901537
+            ],
+            "delta_pp": 15.184722520066925,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 622208,
+            "n_b": 508288,
+            "status": "AVAILABLE"
+          }
+        },
+        "capture": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              -1.605403232229735,
+              3.948009381570877
+            ],
+            "delta_pp": 1.171303074670571,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "ci95_pp": [
+              8.556861715988898,
+              13.990722471419577
+            ],
+            "delta_pp": 11.273792093704238,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              3.693671810540218,
+              8.99544483172429
+            ],
+            "delta_pp": 6.344558321132254,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              -6.597756273547484,
+              -0.918105122255342
+            ],
+            "delta_pp": -3.7579306979014127,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          }
+        },
+        "crash": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              -1.3228653109082387,
+              3.4702542811376187
+            ],
+            "delta_pp": 1.0736944851146901,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "ci95_pp": [
+              -3.1315825334265552,
+              0.8865849736412938
+            ],
+            "delta_pp": -1.1224987798926307,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              -9.9186097934942,
+              -5.503547356334986
+            ],
+            "delta_pp": -7.711078574914593,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              -7.729997565217115,
+              -3.2997730545974293
+            ],
+            "delta_pp": -5.514885309907272,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          }
+        },
+        "intervention": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              0.3962180384694647,
+              0.5830207159271711
+            ],
+            "delta_pp": 0.4896193771983179,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 488320,
+            "n_b": 508288,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "ci95_pp": [
+              -16.430302677707267,
+              -16.204338611289756
+            ],
+            "delta_pp": -16.317320644498512,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 521728,
+            "n_b": 622208,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              -2.400056653777684,
+              -2.2279506528421487
+            ],
+            "delta_pp": -2.3140036533099164,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 521728,
+            "n_b": 488320,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              14.374261893394095,
+              14.611610843379726
+            ],
+            "delta_pp": 14.49293636838691,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 622208,
+            "n_b": 508288,
+            "status": "AVAILABLE"
+          }
+        },
+        "timeout": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              -4.085140815440712,
+              -0.4048543041298105
+            ],
+            "delta_pp": -2.2449975597852614,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "ci95_pp": [
+              -12.338021895902635,
+              -7.964564731720595
+            ],
+            "delta_pp": -10.151293313811616,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+            "ci95_pp": [
+              -0.43813832162736466,
+              3.1711788291920304
+            ],
+            "delta_pp": 1.3665202537823329,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+            "ci95_pp": [
+              7.05671210246754,
+              11.488919913149836
+            ],
+            "delta_pp": 9.272816007808688,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          }
+        }
+      },
+      "eligible": true,
+      "root_disposition": "VALID_RESULT_PROVENANCE"
+    },
+    "P3": {
+      "arms": {
+        "dwa_arc": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 205,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 6.0,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+            "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+            "robot_name": "navrl_quad",
+            "seed": 49,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.780866194744075,
+            "mean_executed_speed_mps": 2.7655548392392677,
+            "path_length_mean_m": 33.82392702472862
+          },
+          "file_sha256": "030e2a8dbaa53f97e559cc8f1d8ad34a696e40b06aaae82c55c6c59612b28487",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 313088,
+              "rate": 0.20404167518397384
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.8062469497315764
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.16691068814055637
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 313088,
+              "rate": 0.20393307951757972
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.026842362127867253
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+        },
+        "riskcap": {
+          "actual_episodes": 2050,
+          "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 205,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 6.0,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+            "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+            "robot_name": "navrl_quad",
+            "seed": 49,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.2238473050694045,
+            "mean_executed_speed_mps": 2.7413389366564176,
+            "path_length_mean_m": 32.03701510313493
+          },
+          "file_sha256": "eba4803f22d0730501d07068f1552184420388701f4649f18751a29141c61901",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 299776,
+              "rate": 0.1863958422288642
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.8170731707317073
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.15951219512195122
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 299776,
+              "rate": 0.2565882525619129
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.023414634146341463
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+        },
+        "riskcap_arc": {
+          "actual_episodes": 2050,
+          "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 205,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 6.0,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+            "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+            "robot_name": "navrl_quad",
+            "seed": 49,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.883831120631825,
+            "mean_executed_speed_mps": 2.6860302283424238,
+            "path_length_mean_m": 31.45121073757764
+          },
+          "file_sha256": "2b42a7c39f23443287059be886f41e672f0d67f2614672389c2bc0d3cf340682",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 301568,
+              "rate": 0.2022893675721562
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.806829268292683
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.16829268292682928
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 301568,
+              "rate": 0.33085738539898135
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2050,
+              "rate": 0.024878048780487806
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+        },
+        "stopcap": {
+          "actual_episodes": 2049,
+          "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+          "condition": {
+            "action_selection": "deterministic",
+            "bars": 205,
+            "distractor_count": 0,
+            "episode_len_steps": 600,
+            "goal_dist_max_m": 28.0,
+            "goal_dist_min_m": 6.0,
+            "num_envs": 128,
+            "reflection_mode": "original",
+            "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+            "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+            "robot_name": "navrl_quad",
+            "seed": 49,
+            "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+            "target_pattern": "mixed",
+            "target_speed_max_mps": 1.5,
+            "target_speed_min_mps": 0.3,
+            "target_speed_mode": "uniform"
+          },
+          "descriptive": {
+            "governor_compute_us_mean_per_env": 6.25415506817701,
+            "mean_executed_speed_mps": 1.763711029723242,
+            "path_length_mean_m": 32.406986541962354
+          },
+          "file_sha256": "e7e2f2a0f4608509e737a361a4e5888d271d6b4c9fedb5a095938294b36a4a64",
+          "metrics": {
+            "below_3m": {
+              "denominator": "corridor_clearance_frames",
+              "n": 454528,
+              "rate": 0.46915701562940015
+            },
+            "capture": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.6974133723767691
+            },
+            "crash": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.16251830161054173
+            },
+            "intervention": {
+              "denominator": "samples",
+              "n": 454528,
+              "rate": 0.45307659814136864
+            },
+            "timeout": {
+              "denominator": "actual_episodes",
+              "n": 2049,
+              "rate": 0.14006832601268912
+            }
+          },
+          "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+          "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+          "runtime_git_dirty": false,
+          "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+        }
+      },
+      "classification": {
+        "label": "INCONCLUSIVE",
+        "matched_labels": [],
+        "status": "CLASSIFIED"
+      },
+      "cost_labels": {
+        "ARC_COST_NEUTRAL_UNDER_RISKCAP": true,
+        "ARC_REMOVES_COST": true
+      },
+      "design": "within_root_four_arm",
+      "effects": {
+        "below_3m": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              1.3893764654983571,
+              1.7893286031600426
+            ],
+            "delta_pp": 1.5893525343291999,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 301568,
+            "n_b": 299776,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "ci95_pp": [
+              -26.713961332168047,
+              -26.30910675691721
+            ],
+            "delta_pp": -26.51153404454263,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 313088,
+            "n_b": 454528,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "ci95_pp": [
+              -0.025975388752643797,
+              0.3764369111161704
+            ],
+            "delta_pp": 0.17523076118176328,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": false,
+            "n_a": 313088,
+            "n_b": 301568,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              28.07491266786879,
+              28.4773220122384
+            ],
+            "delta_pp": 28.276117340053595,
+            "denominator": "corridor_clearance_frames",
+            "excludes_zero": true,
+            "n_a": 454528,
+            "n_b": 299776,
+            "status": "AVAILABLE"
+          }
+        },
+        "capture": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              -3.4163675523113244,
+              1.3675870645064667
+            ],
+            "delta_pp": -1.0243902439024288,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2050,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "ci95_pp": [
+              8.259377650662369,
+              13.507337820299082
+            ],
+            "delta_pp": 10.883357735480725,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "ci95_pp": [
+              -2.4767938502203686,
+              2.3603301379990533
+            ],
+            "delta_pp": -0.05823185611065762,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              -14.565476865712249,
+              -9.366482805275375
+            ],
+            "delta_pp": -11.965979835493812,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          }
+        },
+        "crash": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              -1.3880810176696574,
+              3.1441785786452687
+            ],
+            "delta_pp": 0.8780487804878057,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2050,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "ci95_pp": [
+              -1.8320684509711858,
+              2.710545756974114
+            ],
+            "delta_pp": 0.43923865300146414,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "ci95_pp": [
+              -2.425119571364405,
+              2.1487206141098243
+            ],
+            "delta_pp": -0.13819947862729054,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              -1.9497619229807934,
+              2.550983220698895
+            ],
+            "delta_pp": 0.300610648859051,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          }
+        },
+        "intervention": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              7.197464074164191,
+              7.656362493249494
+            ],
+            "delta_pp": 7.426913283706843,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 301568,
+            "n_b": 299776,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "ci95_pp": [
+              -25.116498409561228,
+              -24.71220531519656
+            ],
+            "delta_pp": -24.914351862378894,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 313088,
+            "n_b": 454528,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "ci95_pp": [
+              -12.91179815756998,
+              -12.473063018710349
+            ],
+            "delta_pp": -12.692430588140164,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 313088,
+            "n_b": 301568,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              19.435789877702337,
+              19.861879238188802
+            ],
+            "delta_pp": 19.64883455794557,
+            "denominator": "samples",
+            "excludes_zero": true,
+            "n_a": 454528,
+            "n_b": 299776,
+            "status": "AVAILABLE"
+          }
+        },
+        "timeout": {
+          "G_risk": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              -0.7933974719028075,
+              1.0860803987320762
+            ],
+            "delta_pp": 0.14634146341463428,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2050,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "G_stop": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "ci95_pp": [
+              -12.980308752043127,
+              -9.664884024921244
+            ],
+            "delta_pp": -11.322596388482186,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2049,
+            "status": "AVAILABLE"
+          },
+          "L_arc": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+            "ci95_pp": [
+              -0.7753474022783123,
+              1.1682100717542017
+            ],
+            "delta_pp": 0.1964313347379447,
+            "denominator": "actual_episodes",
+            "excludes_zero": false,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          },
+          "L_line": {
+            "a": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+            "b": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+            "ci95_pp": [
+              10.026233550655409,
+              13.304504822614124
+            ],
+            "delta_pp": 11.665369186634766,
+            "denominator": "actual_episodes",
+            "excludes_zero": true,
+            "n_a": 2049,
+            "n_b": 2050,
+            "status": "AVAILABLE"
+          }
+        }
+      },
+      "eligible": true,
+      "root_disposition": "VALID_RESULT_PROVENANCE"
+    }
+  },
+  "prereg": "docs/prereg_2026-09-05_a7_arc_attribution.md",
+  "replication": "REPLICATED",
+  "result_checks_passed": true,
+  "schema_version": 1,
+  "sources": {
+    "A4": {
+      "dwa_arc": {
+        "actual_episodes": 2050,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.529333560370069,
+          "mean_executed_speed_mps": 2.2421402769293577,
+          "path_length_mean_m": 46.48410645261174
+        },
+        "file_sha256": "a6b2144d577497986fb38e46f95e82fdb1095fd3434c1851aaf2f09ee1696168",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 516096,
+            "rate": 0.06251937624007936
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.7780487804878049
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.11073170731707317
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 516096,
+            "rate": 0.039703853546626984
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.11121951219512195
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/dwa_arc/70bars.json",
+        "runtime_git_commit": "262b73d50552b029abdbea21878f265fe0d158ef",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "504fb4d13fa74bfb8fad6911ad1c232ebf2ba1b5c006a364402c560da636e2dd"
+      },
+      "fixed2p0": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 5.770384101460929,
+          "mean_executed_speed_mps": 1.8550728930596854,
+          "path_length_mean_m": 46.31113147147698
+        },
+        "file_sha256": "ee005a9aa79fbf7c1438f5d4080629e5f2c483ae76a161a9918e56d529b68e70",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 623104,
+            "rate": 0.07683468570254724
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.6910688140556369
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.15666178623718888
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 623104,
+            "rate": 0.614733656018899
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.15226939970717424
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/fixed2p0/70bars.json",
+        "runtime_git_commit": "262b73d50552b029abdbea21878f265fe0d158ef",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "504fb4d13fa74bfb8fad6911ad1c232ebf2ba1b5c006a364402c560da636e2dd"
+      },
+      "off": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 5.727759175951583,
+          "mean_executed_speed_mps": 2.270817158325601,
+          "path_length_mean_m": 43.97582091396907
+        },
+        "file_sha256": "1fb33206a9cb723f4f569e49e0046d7bdbf4f3bf00d9bbced5318fe8f0eb579b",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 484480,
+            "rate": 0.07272952443857332
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.6954612005856515
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.2113225963884822
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 484480,
+            "rate": 0.0
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.09321620302586628
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/off/70bars.json",
+        "runtime_git_commit": "262b73d50552b029abdbea21878f265fe0d158ef",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "504fb4d13fa74bfb8fad6911ad1c232ebf2ba1b5c006a364402c560da636e2dd"
+      },
+      "omni": {
+        "actual_episodes": 2050,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 5.104279119501835,
+          "mean_executed_speed_mps": 1.0454662743776566,
+          "path_length_mean_m": 37.397733061923645
+        },
+        "file_sha256": "a346cfcecc69eec90ff1c792ef587e5c5686134629819cb1815a280396cde215",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 874880,
+            "rate": 0.8350882406730066
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.42585365853658536
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.07609756097560975
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 874880,
+            "rate": 0.701795674835406
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.4980487804878049
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/omni/70bars.json",
+        "runtime_git_commit": "262b73d50552b029abdbea21878f265fe0d158ef",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "504fb4d13fa74bfb8fad6911ad1c232ebf2ba1b5c006a364402c560da636e2dd"
+      },
+      "riskcap": {
+        "actual_episodes": 2051,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 5.881404272340637,
+          "mean_executed_speed_mps": 2.2407261273943306,
+          "path_length_mean_m": 44.41491010837541
+        },
+        "file_sha256": "6a647afe97a7f64f16029bb6b4d12cbb9affd32ea664ca52f1510dda537d5f43",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 497920,
+            "rate": 0.07580133354755784
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.7133105802047781
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.18771331058020477
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 497920,
+            "rate": 0.0575855559125964
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.09897610921501707
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/riskcap/70bars.json",
+        "runtime_git_commit": "262b73d50552b029abdbea21878f265fe0d158ef",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "504fb4d13fa74bfb8fad6911ad1c232ebf2ba1b5c006a364402c560da636e2dd"
+      },
+      "stopcap": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 5.8787681637346765,
+          "mean_executed_speed_mps": 1.8498741409813222,
+          "path_length_mean_m": 46.335070268512936
+        },
+        "file_sha256": "0a6d08bb865a36da4a5cab20a25cdb1b05e5228fed7a2eca813a72efa5c7969d",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 624000,
+            "rate": 0.21851442307692306
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.6793557833089312
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.12298682284040996
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 624000,
+            "rate": 0.1930801282051282
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.19765739385065886
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_contact_geometry_seed509/stopcap/70bars.json",
+        "runtime_git_commit": "262b73d50552b029abdbea21878f265fe0d158ef",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "504fb4d13fa74bfb8fad6911ad1c232ebf2ba1b5c006a364402c560da636e2dd"
+      }
+    },
+    "P1": {
+      "dwa_arc": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.868839919219646,
+          "mean_executed_speed_mps": 2.2479769667341376,
+          "path_length_mean_m": 46.66353638301371
+        },
+        "file_sha256": "a6e74dd222ee732e9e9fc0bf559d17073359596a1e88c5f936efa662dc7ba958",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 518016,
+            "rate": 0.06590916110699284
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.7920937042459737
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.10444119082479258
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 518016,
+            "rate": 0.04074970657276995
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.10346510492923378
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/dwa_arc/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+      },
+      "riskcap": {
+        "actual_episodes": 2051,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.1545714761965025,
+          "mean_executed_speed_mps": 2.2407261273943306,
+          "path_length_mean_m": 44.41491010837541
+        },
+        "file_sha256": "d8afbbe97ac88d965a7efc40526e34974fa77832ab6277ad5c9893c918372124",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 497920,
+            "rate": 0.07580133354755784
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.7133105802047781
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.18771331058020477
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 497920,
+            "rate": 0.0575855559125964
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.09897610921501707
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+      },
+      "riskcap_arc": {
+        "actual_episodes": 2050,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.836220407503686,
+          "mean_executed_speed_mps": 2.2271798741392486,
+          "path_length_mean_m": 45.29069512229346
+        },
+        "file_sha256": "dfbde016373448b94cc13e423f60deaefcafb4bfd900903b46cd96cbf97e91e4",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 512640,
+            "rate": 0.06242587390761548
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.7024390243902439
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.19121951219512195
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 512640,
+            "rate": 0.06325296504369537
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.10634146341463414
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/riskcap_arc/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+      },
+      "stopcap": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 509,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.121487998312566,
+          "mean_executed_speed_mps": 1.8498741409813222,
+          "path_length_mean_m": 46.335070268512936
+        },
+        "file_sha256": "6c9a73004150c62e6bed367fcc0f89c8e5b0f58c8d481305fe3a7c80899f3f9f",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 624000,
+            "rate": 0.21851442307692306
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.6793557833089312
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.12298682284040996
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 624000,
+            "rate": 0.1930801282051282
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.19765739385065886
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed509/stopcap/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "a0be87ff3fca74b85e334c48aa8480869c93bb4117afc3a1746384bb08e196ab"
+      }
+    },
+    "P2": {
+      "dwa_arc": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 491,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.92044717113961,
+          "mean_executed_speed_mps": 2.2399092622457566,
+          "path_length_mean_m": 46.77734955113052
+        },
+        "file_sha256": "002a1591d3b82b4f88ddb8461e705be9ba23578bc008d3d40b147615568462d2",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 521728,
+            "rate": 0.06334143461727183
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.7798926305514885
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.1171303074670571
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 521728,
+            "rate": 0.039443924803729144
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.10297706198145437
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/dwa_arc/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+      },
+      "riskcap": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 491,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.141681012292358,
+          "mean_executed_speed_mps": 2.225605571583812,
+          "path_length_mean_m": 44.99679761650623
+        },
+        "file_sha256": "bf7b9efee07262dcbc9e1571204c5e9347ed9e5923065aca2325abcb94d32f30",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 508288,
+            "rate": 0.07651370876353564
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.7047340165934602
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.18350414836505613
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 508288,
+            "rate": 0.05768776756484513
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.11176183504148365
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+      },
+      "riskcap_arc": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 491,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.992701964966204,
+          "mean_executed_speed_mps": 2.2416018267399744,
+          "path_length_mean_m": 43.57960533112055
+        },
+        "file_sha256": "5cfb9c5978e636a800ce1ff149e844932d9b319e5b14db9a17b23643ef1a5507",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 488320,
+            "rate": 0.06047264089121887
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.716447047340166
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.19424109321620303
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 488320,
+            "rate": 0.06258396133682831
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.08931185944363104
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/riskcap_arc/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+      },
+      "stopcap": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 70,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 22.5,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+          "robot_config_sha256": "ebb71802f19b630ba6c2ac4c04b113c269d8bbd3e40e094e126913caa8731297",
+          "robot_name": "navrl_ref5in_quad",
+          "seed": 491,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.191106141355521,
+          "mean_executed_speed_mps": 1.8339466899029269,
+          "path_length_mean_m": 45.73624003631994
+        },
+        "file_sha256": "ca806269ba01a39a35eb6754e3a76a137be0470231e67d1fbee42fb7c5109a4a",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 622208,
+            "rate": 0.2283609339642049
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.6671547096144461
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.1283552952659834
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 622208,
+            "rate": 0.20261713124871425
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.20448999511957053
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_seed491/stopcap/70bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "09a0273b09f8a4afc68041070b568855fe160a9e8933cccc33f37bc2b8970565"
+      }
+    },
+    "P3": {
+      "dwa_arc": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.780866194744075,
+          "mean_executed_speed_mps": 2.7655548392392677,
+          "path_length_mean_m": 33.82392702472862
+        },
+        "file_sha256": "030e2a8dbaa53f97e559cc8f1d8ad34a696e40b06aaae82c55c6c59612b28487",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 313088,
+            "rate": 0.20404167518397384
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.8062469497315764
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.16691068814055637
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 313088,
+            "rate": 0.20393307951757972
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.026842362127867253
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/dwa_arc/205bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+      },
+      "riskcap": {
+        "actual_episodes": 2050,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.2238473050694045,
+          "mean_executed_speed_mps": 2.7413389366564176,
+          "path_length_mean_m": 32.03701510313493
+        },
+        "file_sha256": "eba4803f22d0730501d07068f1552184420388701f4649f18751a29141c61901",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 299776,
+            "rate": 0.1863958422288642
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.8170731707317073
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.15951219512195122
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 299776,
+            "rate": 0.2565882525619129
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.023414634146341463
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap/205bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+      },
+      "riskcap_arc": {
+        "actual_episodes": 2050,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.883831120631825,
+          "mean_executed_speed_mps": 2.6860302283424238,
+          "path_length_mean_m": 31.45121073757764
+        },
+        "file_sha256": "2b42a7c39f23443287059be886f41e672f0d67f2614672389c2bc0d3cf340682",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 301568,
+            "rate": 0.2022893675721562
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.806829268292683
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.16829268292682928
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 301568,
+            "rate": 0.33085738539898135
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.024878048780487806
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/riskcap_arc/205bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+      },
+      "stopcap": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": 0,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": 6.25415506817701,
+          "mean_executed_speed_mps": 1.763711029723242,
+          "path_length_mean_m": 32.406986541962354
+        },
+        "file_sha256": "e7e2f2a0f4608509e737a361a4e5888d271d6b4c9fedb5a095938294b36a4a64",
+        "metrics": {
+          "below_3m": {
+            "denominator": "corridor_clearance_frames",
+            "n": 454528,
+            "rate": 0.46915701562940015
+          },
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.6974133723767691
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.16251830161054173
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 454528,
+            "rate": 0.45307659814136864
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.14006832601268912
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_arc_attribution_205bars_seed49/stopcap/205bars.json",
+        "runtime_git_commit": "742022e818d513095564278d699b9f14173611b0",
+        "runtime_git_dirty": false,
+        "runtime_source_manifest_sha256": "921a964890491d71b7731b85e2ed15e1e1e6ec7c5fedbdbb14382fb994b44dce"
+      }
+    },
+    "SCREEN": {
+      "fixed2p0": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": null,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": null,
+          "mean_executed_speed_mps": 1.9781938181468393,
+          "path_length_mean_m": null
+        },
+        "file_sha256": "8c1ba75a0b6fa0674cdaf8b840a1b5c8a291816f3f5927666ceab7cd0daee89b",
+        "metrics": {
+          "below_3m": null,
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.813079551000488
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.14055636896046853
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 390912,
+            "rate": 0.9567114849377865
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.04636408003904344
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/fixed2p0/205bars.json",
+        "runtime_git_commit": "db523d184ec05f0de63311c82ef55a13a4b99dc0",
+        "runtime_git_dirty": true,
+        "runtime_source_manifest_sha256": "28b6a2d7b976ba96635b20318b842d96c6cf1589e42a84fae3a8e9f1eab8306c"
+      },
+      "off": {
+        "actual_episodes": 2049,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": null,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": null,
+          "mean_executed_speed_mps": 2.940188157803651,
+          "path_length_mean_m": null
+        },
+        "file_sha256": "c2ab38ad54895b0d876000c3e1b695feb98f5f3ce276d38b0bb03ae0371e9625",
+        "metrics": {
+          "below_3m": null,
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.7315763787213275
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.2518301610541728
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 272640,
+            "rate": 0.0
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2049,
+            "rate": 0.016593460224499756
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/off/205bars.json",
+        "runtime_git_commit": "db523d184ec05f0de63311c82ef55a13a4b99dc0",
+        "runtime_git_dirty": true,
+        "runtime_source_manifest_sha256": "1874fbb0cbb70f27f0eeab3fd24ee4048bc4f37614e55cc19b35e608d57f3a4a"
+      },
+      "riskcap": {
+        "actual_episodes": 2050,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": null,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": null,
+          "mean_executed_speed_mps": 2.7413389366564176,
+          "path_length_mean_m": null
+        },
+        "file_sha256": "5f0428d7141829c2ad7a6dd2d719e6337f8184fadc25827598d7c53a6eec8473",
+        "metrics": {
+          "below_3m": null,
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.8170731707317073
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.15951219512195122
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 299776,
+            "rate": 0.2565882525619129
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2050,
+            "rate": 0.023414634146341463
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/riskcap/205bars.json",
+        "runtime_git_commit": "db523d184ec05f0de63311c82ef55a13a4b99dc0",
+        "runtime_git_dirty": true,
+        "runtime_source_manifest_sha256": "b5c5e777d36c2b9fe3e98523938c0359ceb3f7f188d9485def90c08a92f647cc"
+      },
+      "stopcap": {
+        "actual_episodes": 2051,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": null,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": null,
+          "mean_executed_speed_mps": 1.9633448713523192,
+          "path_length_mean_m": null
+        },
+        "file_sha256": "e73677ab719ee33f57d69edd937fafea22cd99040449562d2cd8eec9deaf06b6",
+        "metrics": {
+          "below_3m": null,
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.6918576304241834
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.21306679668454412
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 389632,
+            "rate": 0.36854775788436267
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.09507557289127255
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/stopcap/205bars.json",
+        "runtime_git_commit": "db523d184ec05f0de63311c82ef55a13a4b99dc0",
+        "runtime_git_dirty": true,
+        "runtime_source_manifest_sha256": "4b13fdff48a97b8c0d4f48232f1941083df5d3415b681f44b438d27ea6810bdd"
+      },
+      "ttc": {
+        "actual_episodes": 2051,
+        "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+        "condition": {
+          "action_selection": "deterministic",
+          "bars": 205,
+          "distractor_count": null,
+          "episode_len_steps": 600,
+          "goal_dist_max_m": 28.0,
+          "goal_dist_min_m": 6.0,
+          "num_envs": 128,
+          "reflection_mode": "original",
+          "robot_asset_sha256": "ad9a3110037cb01f94caa11054e367e557e9089b4edd520d0aa59b78578988be",
+          "robot_config_sha256": "a76f8a3dd1ce7a39614a989ecf3b6a493e7703f2f4cbaa7f77132a9e6322223e",
+          "robot_name": "navrl_quad",
+          "seed": 49,
+          "target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+          "target_pattern": "mixed",
+          "target_speed_max_mps": 1.5,
+          "target_speed_min_mps": 0.3,
+          "target_speed_mode": "uniform"
+        },
+        "descriptive": {
+          "governor_compute_us_mean_per_env": null,
+          "mean_executed_speed_mps": 1.5194302205762533,
+          "path_length_mean_m": null
+        },
+        "file_sha256": "b72c8c6152a1e77fc130901ac65b114abf1d9d67d2a2c4ffd1356c8cfd18ca43",
+        "metrics": {
+          "below_3m": null,
+          "capture": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.7469527059970746
+          },
+          "crash": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.0424183325207216
+          },
+          "intervention": {
+            "denominator": "samples",
+            "n": 565760,
+            "rate": 0.5594333286199095
+          },
+          "timeout": {
+            "denominator": "actual_episodes",
+            "n": 2051,
+            "rate": 0.2106289614822038
+          }
+        },
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_ep25000_stopcap_seed49_screen/ttc/205bars.json",
+        "runtime_git_commit": "db523d184ec05f0de63311c82ef55a13a4b99dc0",
+        "runtime_git_dirty": true,
+        "runtime_source_manifest_sha256": "fb7bd486a52406e1f67ffd47bef8b23da4d8eae71cfaf0a4981d1fba09eb539e"
+      }
+    }
+  },
+  "status": "RESULT_CHECKS_PASSED_CPU_EVIDENCE_REQUIRED",
+  "withdraw_GEOMETRY_MATTERS": false
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "source_kind": "synthetic_fixture",
+  "claim_status": "SYNTHETIC_ONLY",
+  "run_id": "synthetic_sensor_profile",
+  "input": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_sim2real_software_preflight_2026-08-24/synthetic_measurements.csv",
+  "frame_count": 4,
+  "profile": {
+    "trial_count": 2,
+    "trials": [
+      {
+        "trial_id": "fixture_t0",
+        "distance_m": 8.0,
+        "lighting": "normal",
+        "motion": "static",
+        "frames": 2,
+        "detection_recall": 1.0,
+        "false_positive_rate": null,
+        "range_valid_fraction": 1.0,
+        "bearing_abs_error_deg": {
+          "count": 2,
+          "p50": 0.30000000000000004,
+          "p90": 0.37999999999999995,
+          "p95": 0.3899999999999999,
+          "max": 0.3999999999999999
+        },
+        "range_abs_error_m": {
+          "count": 2,
+          "p50": 0.14999999999999947,
+          "p90": 0.18999999999999934,
+          "p95": 0.19499999999999929,
+          "max": 0.1999999999999993
+        },
+        "source_to_host_latency_ms": {
+          "count": 2,
+          "p50": 2.0,
+          "p90": 2.0,
+          "p95": 2.0,
+          "max": 2.0
+        }
+      },
+      {
+        "trial_id": "fixture_t1",
+        "distance_m": 20.0,
+        "lighting": "low",
+        "motion": "lateral",
+        "frames": 2,
+        "detection_recall": 0.5,
+        "false_positive_rate": null,
+        "range_valid_fraction": 0.0,
+        "bearing_abs_error_deg": {
+          "count": 1,
+          "p50": 0.7999999999999998,
+          "p90": 0.7999999999999998,
+          "p95": 0.7999999999999998,
+          "max": 0.7999999999999998
+        },
+        "range_abs_error_m": {
+          "count": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "max": null
+        },
+        "source_to_host_latency_ms": {
+          "count": 2,
+          "p50": 4.0,
+          "p90": 4.0,
+          "p95": 4.0,
+          "max": 4.0
+        }
+      }
+    ],
+    "cells": [
+      {
+        "distance_m": 8.0,
+        "lighting": "normal",
+        "motion": "static",
+        "trial_count": 1,
+        "trial_macro_detection_recall": 1.0,
+        "trial_macro_range_valid_fraction": 1.0,
+        "trial_p95_latency_ms_mean": 2.0
+      },
+      {
+        "distance_m": 20.0,
+        "lighting": "low",
+        "motion": "lateral",
+        "trial_count": 1,
+        "trial_macro_detection_recall": 0.5,
+        "trial_macro_range_valid_fraction": 0.0,
+        "trial_p95_latency_ms_mean": 4.0
+      }
+    ]
+  },
+  "quality": {
+    "trial_unit_reporting": true,
+    "ground_truth_required": true,
+    "threshold_decision": "NOT_APPLIED",
+    "note": "This profile does not select simulator noise or a two-zone boundary."
+  }
+}

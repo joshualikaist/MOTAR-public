@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">색 검출기 기준선</title><desc id="desc">기존 구조도와 최신 해석 범위를 함께 읽는 발표용 요약</desc><rect width="1600" height="900" fill="#f4f7fa"/><g font-family="Arial, Noto Sans CJK KR, sans-serif">
+<text x="52" y="48" font-size="17" fill="#007f73" font-weight="700" text-anchor="start">MOTAR / RESEARCH EVIDENCE</text>
+<text x="1548" y="48" font-size="16" fill="#526775" font-weight="700" text-anchor="end">2026-09-10 · KNOWN FAILURE</text>
+<text x="52" y="108" font-size="39" fill="#142d3b" font-weight="700" text-anchor="start">색 검출기 기준선</text>
+<text x="52" y="153" font-size="22" fill="#526775" font-weight="400" text-anchor="start">기존 구조도와 최신 해석 범위를 함께 읽는 발표용 요약</text>
+<svg x="52" y="185" xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 794" role="img" aria-labelledby="context-title context-desc"><title id="context-title">KNOWN FAILURE / 기존 기준선 · 2026-09-10</title><desc id="context-desc">단일 중심점으로 후보를 합치는 실패가 있습니다. 현재 실영상 인지의 대표 성능이 아닙니다. 과거 실패 경로를 보존한 비교 자료입니다.</desc>
+<!-- ORIGINAL_PANEL_START -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 644" width="960" height="644" role="img" aria-labelledby="pTitle pDesc">
+  <title id="pTitle">Current baseline, known failure: MOTAR colour detector</title>
+  <desc id="pDesc">Historical baseline only. RGB-D frames pass a 1x1 pixel classifier, every positive pixel is collapsed into one centroid without connected components, and the centroid is associated with a LiDAR return. A same-coloured decoy enters at the classifier and is never separated, producing a 90.27 percent false target lock rate at five distractors.</desc>
+  <style>
+    .t   { font: 600 15px system-ui, sans-serif; fill: #0f172a; }
+    .h   { font: 700 13px system-ui, sans-serif; fill: #0f172a; }
+    .b   { font: 12px system-ui, sans-serif; fill: #334155; }
+    .m   { font: 11px ui-monospace, monospace; fill: #475569; }
+    .bad { font: 700 12px system-ui, sans-serif; fill: #b91c1c; }
+    .badb{ font: 12px system-ui, sans-serif; fill: #b91c1c; }
+    .ok  { font: 12px system-ui, sans-serif; fill: #047857; }
+    .cap { font: 11px system-ui, sans-serif; fill: #64748b; }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 8; }
+    .boxbad { fill: #fef2f2; stroke: #dc2626; stroke-width: 2; rx: 8; }
+    .boxin  { fill: #f0f9ff; stroke: #0284c7; stroke-width: 1.5; rx: 8; }
+    .boxout { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 8; }
+    .ar  { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#a); }
+    .arbad { stroke: #dc2626; stroke-width: 2.5; fill: none; marker-end: url(#ab); stroke-dasharray: 6 4; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="620" fill="#f8fafc"/>
+  <text x="24" y="34" class="t">CURRENT BASELINE — KNOWN FAILURE</text>
+  <text x="24" y="54" class="cap">historical experiment path · AppearanceTargetSegmenter + single centroid · final perception에 사용하지 않음</text>
+
+  <!-- Stage 1 -->
+  <rect x="24" y="76" width="180" height="96" class="boxin"/>
+  <text x="36" y="98" class="h">1 · RGB-D 프레임</text>
+  <text x="36" y="118" class="m">160 × 90 px</text>
+  <text x="36" y="136" class="m">HFOV 87°</text>
+  <text x="36" y="154" class="m">fx = 84.3 px/rad</text>
+
+  <path d="M204,124 L246,124" class="ar"/>
+
+  <!-- Stage 2 -->
+  <rect x="248" y="76" width="196" height="96" class="boxbad"/>
+  <text x="260" y="98" class="h">2 · 픽셀 분류기</text>
+  <text x="260" y="118" class="m">Conv2d(4→1, 1×1)</text>
+  <text x="260" y="136" class="m">R·3 −G·2 −B·2 −0.9</text>
+  <text x="260" y="154" class="badb">= 색만 본다</text>
+
+  <path d="M444,124 L486,124" class="ar"/>
+
+  <!-- Stage 3 -->
+  <rect x="488" y="76" width="204" height="96" class="boxbad"/>
+  <text x="500" y="98" class="h">3 · 단일 중심점 붕괴</text>
+  <text x="500" y="118" class="m">u = Σ(mask·u)/Σmask</text>
+  <text x="500" y="136" class="badb">connected components</text>
+  <text x="500" y="154" class="badb">없음 → 후보 1개뿐</text>
+
+  <path d="M692,124 L734,124" class="ar"/>
+
+  <!-- Stage 4 -->
+  <rect x="736" y="76" width="200" height="96" class="box"/>
+  <text x="748" y="98" class="h">4 · LiDAR 연관</text>
+  <text x="748" y="118" class="m">bearing ±15°</text>
+  <text x="748" y="136" class="m">range ±0.55 m</text>
+  <text x="748" y="154" class="b">→ 표적 토큰</text>
+
+  <!-- Decoy injection -->
+  <rect x="248" y="212" width="196" height="86" class="boxbad"/>
+  <text x="260" y="234" class="h">동색 디코이</text>
+  <text x="260" y="254" class="badb">같은 빨강 → 같은 점수</text>
+  <text x="260" y="272" class="badb">분류기가 구분 못 함</text>
+  <text x="260" y="290" class="m">표적 색 [0.88,0.08,0.045]</text>
+
+  <path d="M346,212 L346,178" class="arbad"/>
+  <text x="356" y="196" class="bad">여기서 들어온다</text>
+
+  <!-- Consequence chain -->
+  <rect x="488" y="212" width="204" height="86" class="boxbad"/>
+  <text x="500" y="234" class="h">두 물체가 한 점으로</text>
+  <text x="500" y="254" class="badb">중심점이 둘 사이로</text>
+  <text x="500" y="272" class="m">평균 픽셀 147–181</text>
+  <text x="500" y="290" class="m">표적 자체는 2–5 px</text>
+
+  <path d="M444,255 L486,255" class="arbad"/>
+  <path d="M590,212 L590,178" class="arbad"/>
+
+  <!-- Confidence paradox -->
+  <rect x="736" y="212" width="200" height="86" class="boxbad"/>
+  <text x="748" y="234" class="h">confidence 역설</text>
+  <text x="748" y="254" class="badb">N=1보다 높은 수준 유지</text>
+  <text x="748" y="272" class="m">0.826 → 0.896 → 0.892</text>
+  <text x="748" y="290" class="b">단조 증가는 아님</text>
+
+  <path d="M692,255 L734,255" class="arbad"/>
+
+  <!-- Measured result band -->
+  <rect x="24" y="330" width="912" height="138" class="boxbad"/>
+  <text x="40" y="354" class="t">측정된 결과 — False Target Lock Rate (가시 프레임 기준, seed 479, 2,049 ep/cell)</text>
+  <text x="40" y="378" class="cap">FTLR = (DISTRACTOR_LOCK + GHOST_LOCK) / 가시 프레임 · 분류 반경 0.5 m</text>
+
+  <text x="40"  y="406" class="h">detector</text>
+  <text x="250" y="406" class="h">N=1</text>
+  <text x="360" y="406" class="h">N=3</text>
+  <text x="470" y="406" class="h">N=5</text>
+  <text x="600" y="406" class="h">판정</text>
+
+  <text x="40"  y="430" class="b">default — 5-param 색 규칙</text>
+  <text x="250" y="430" class="badb">52.7 %</text>
+  <text x="360" y="430" class="badb">79.7 %</text>
+  <text x="470" y="430" class="badb">88.5 %</text>
+  <text x="600" y="430" class="bad">COLOR_SHORTCUT_CONFIRMED</text>
+
+  <text x="40"  y="452" class="b">v7 — 11,329-param 학습 CNN</text>
+  <text x="250" y="452" class="badb">60.7 %</text>
+  <text x="360" y="452" class="badb">83.1 %</text>
+  <text x="470" y="452" class="badb">90.3 %</text>
+  <text x="600" y="452" class="bad">COLOR_SHORTCUT_CONFIRMED</text>
+
+  <!-- Key reading -->
+  <rect x="24" y="484" width="450" height="136" class="box"/>
+  <text x="40" y="508" class="h">이 그림이 말하는 것</text>
+  <text x="40" y="532" class="b">학습된 CNN도 시뮬레이터의 색 지름길을 학습했다.</text>
+  <text x="40" y="552" class="b">frame precision 0.99766인 v7이 디코이 앞에서는</text>
+  <text x="40" y="572" class="b">가시 프레임의 <tspan class="bad">90.27 %</tspan>에서 틀린 물체를 잡는다.</text>
+  <text x="40" y="594" class="cap">개선이 아니라 결함의 정량화다 — C/D 단계 설계 근거.</text>
+
+  <rect x="486" y="484" width="450" height="136" class="boxout"/>
+  <text x="502" y="508" class="h">설계가 함의하는 것</text>
+  <text x="502" y="532" class="b">1 · 후보를 <tspan class="ok">여러 개</tspan> 유지해야 한다 (CC / 후보 기반)</text>
+  <text x="502" y="552" class="b">2 · 색 외 단서 필요 — 형상·운동·시간 일관성</text>
+  <text x="502" y="572" class="b">3 · 미래 제안: <tspan class="ok">안전층의 detector 의존 제거</tspan></text>
+  <text x="502" y="594" class="cap">현재 governor는 association으로 표적 return을 제외한다 — 아직 제안과 다르다.</text>
+</svg>
+<!-- ORIGINAL_PANEL_END -->
+<rect y="644" width="960" height="150" fill="#e4f1ee"/><g font-family="Arial, Noto Sans CJK KR, sans-serif"><text x="40" y="683" font-size="20" fill="#007f73" font-weight="700">KNOWN FAILURE / 기존 기준선 · 2026-09-10</text><text x="40" y="722" font-size="18" fill="#526775">단일 중심점으로 후보를 합치는 실패가 있습니다.</text><text x="40" y="751" font-size="18" fill="#526775">현재 실영상 인지의 대표 성능이 아닙니다.</text></g></svg>
+
+<rect x="1040" y="202" width="508" height="557" rx="20" fill="white" stroke="#dce5ea"/>
+<text x="1067" y="250" font-size="27" fill="#007f73" font-weight="700" text-anchor="start">발표에서 강조할 범위</text>
+<text x="1067" y="318" font-size="24" fill="#526775" font-weight="400" text-anchor="start">단일 중심점으로 후보를 합치는 실패가</text>
+<text x="1067" y="357" font-size="24" fill="#526775" font-weight="400" text-anchor="start">있습니다.</text>
+<text x="1067" y="426" font-size="24" fill="#526775" font-weight="400" text-anchor="start">현재 실영상 인지의 대표 성능이 아닙니다.</text>
+<text x="1067" y="495" font-size="24" fill="#526775" font-weight="400" text-anchor="start">과거 실패 경로를 보존한 비교 자료입니다.</text>
+<path d="M52 804H1548" stroke="#cbd8df"/>
+<text x="52" y="839" font-size="20" fill="#a55316" font-weight="400" text-anchor="start">원본 구조 및 실험 수치는 유지 · 추가된 설명은 검증 범위와 현재 상태를 구분합니다.</text>
+<text x="52" y="875" font-size="16" fill="#526775" font-weight="400" text-anchor="start">근거: README.md 해당 파트 및 연결된 결과 보고서 / 원본: motar-perception-detection.svg</text>
+</g></svg>

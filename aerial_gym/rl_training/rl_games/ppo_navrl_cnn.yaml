@@ -1,0 +1,67 @@
+params:
+  seed: 42
+  algo:
+    name: a2c_continuous
+
+  model:
+    name: continuous_a2c_logstd
+
+  load_checkpoint: False
+
+  network:
+    # NavRL-style LiDAR CNN feature extractor (navrl_network.py): the 36x4 scan keeps its
+    # spatial structure through a 3-layer conv stack -> 128-d embedding, concatenated with
+    # S_int (12) and fused by a [256, 256] ELU MLP. Compare against the flat-MLP baseline
+    # (ppo_navrl.yaml) under identical PPO settings.
+    name: navrl_cnn
+    separate: False
+    space:
+      continuous:
+        mu_activation: None
+        sigma_activation: None
+        mu_init:
+          name: default
+        sigma_init:
+          name: const_initializer
+          val: 0
+        fixed_sigma: True
+
+  config:
+    env_name: navrl_task
+    env_config:
+      num_envs: 512
+    name: gen_ppo
+    reward_shaper:
+      scale_value: 0.1
+    normalize_advantage: True
+    gamma: 0.99
+    tau: 0.95
+    ppo: True
+    learning_rate: 3e-4
+    lr_schedule: adaptive
+    kl_threshold: 0.016
+    save_best_after: 20
+    save_frequency: 50
+    score_to_win: 100000
+    grad_norm: 1.0
+    entropy_coef: 0.0
+    truncate_grads: True
+    e_clip: 0.2
+    clip_value: False
+    num_actors: 512
+    horizon_length: 32
+    minibatch_size: 4096
+    mini_epochs: 4
+    critic_coef: 2
+    normalize_input: True
+    bounds_loss_coef: 0.0001
+    max_epochs: 6000
+    normalize_value: True
+    use_diagnostics: True
+    value_bootstrap: True
+    use_smooth_clamp: False
+
+    player:
+      render: False
+      deterministic: True
+      games_num: 100

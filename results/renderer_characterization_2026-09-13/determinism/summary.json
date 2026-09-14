@@ -1,0 +1,68 @@
+{
+  "arguments": [
+    "--arm",
+    "quadrotor_mesh",
+    "--views",
+    "fit",
+    "--width",
+    "160",
+    "--height",
+    "120",
+    "--device",
+    "cuda:0",
+    "--shading",
+    "lambertian"
+  ],
+  "array_sha256": {
+    "depth_m": "af58df5cf096810974e9880a48a9323abd5f829a80342d74c54579055c09084f",
+    "face_id": "918122670dcbd46184ad1001e7782dce581afd213b18d8d96326f7f0dce0bbfb",
+    "instance_id": "27f30b2f7794f14aa57121765d8762ddfce91c876803e99dd0500506f8af3776",
+    "normal_world": "b42435a2ab423a7625425daf3a3f10354dbb9e3b0601dbfe095936bd8e537241",
+    "range_m": "6c308151f0a3cbdb4337a9ce31397af91e79fdb9be78d2d39631e888f02cfad3",
+    "rgb": "30bf6e3ce4102a888eb1864c961ace5054a2c1c6fc0e0276b8e091efc079350b",
+    "valid": "629cf56603e55eda30a75d5c02ec4a60298aa8b7f06c15d28f0cc866c6390ca8"
+  },
+  "causality_vs_d8b": "NOT_TESTED",
+  "experiment": "RC-determinism",
+  "failed_gates": [],
+  "gates": {
+    "D_identical_arrays": {
+      "arrays": [
+        "depth_m",
+        "face_id",
+        "instance_id",
+        "normal_world",
+        "range_m",
+        "rgb",
+        "valid"
+      ],
+      "differing": [],
+      "gate": "D_identical_arrays",
+      "passed": true,
+      "thresholds": {
+        "rule": "identical sha256 per array"
+      }
+    },
+    "D_identical_metadata": {
+      "compared_fields": [
+        "schema",
+        "description",
+        "config"
+      ],
+      "differences": {},
+      "excluded": [
+        "source",
+        "runtime",
+        "output path"
+      ],
+      "gate": "D_identical_metadata",
+      "passed": true,
+      "thresholds": {
+        "rule": "identical apart from runtime and path"
+      }
+    }
+  },
+  "processes": 2,
+  "scope": "Cross-process reproducibility of the export path.",
+  "verdict": "DETERMINISTIC"
+}

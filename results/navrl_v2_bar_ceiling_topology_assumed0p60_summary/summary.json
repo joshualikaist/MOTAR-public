@@ -1,0 +1,90 @@
+{
+  "schema_version": "motar.topology-summary.v1",
+  "verdict": "exploratory_only",
+  "source": {
+    "layout_dump": "results/navrl_v2_bar_ceiling/episodes_seed167.npz",
+    "layout_dump_sha256": "c509c2fa79a245a6ea34376651e76051e5ccfa9f149b01f9e79184c7d1ac9cb8",
+    "per_layout_labels": "results/navrl_v2_bar_ceiling_topology_assumed0p60_all1989.json",
+    "per_layout_labels_sha256": "6ca8c40599d51d9c9547de18a7528a1b3f73559916684455a2d0aa6c85973ac8",
+    "evaluation_result": "results/navrl_v2_bar_ceiling/instrumented/205bars.json",
+    "topology_tool_commit": "8a2eaf3",
+    "reproduction_command": "/home/fair/miniconda3/envs/aerialgym/bin/python tools/analyze_navrl_topology_labels.py /home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_v2_bar_ceiling/episodes_seed167.npz --default-bar-size-m 0.60 --output results/navrl_v2_bar_ceiling_topology_assumed0p60_all1989.json"
+  },
+  "contract": {
+    "bars_per_layout": 205,
+    "bar_size_source": "assumed_default",
+    "assumed_square_bar_size_m": 0.6,
+    "grid_resolution_m": 0.1,
+    "vehicle_half_width_m": 0.14,
+    "side_clearance_m": 0.2,
+    "total_inflation_m": 0.34,
+    "sensor_range_m": 12.0,
+    "cluster_surface_gap_m": 0.45,
+    "endpoint_snap_radius_m": 0.6
+  },
+  "coverage": {
+    "evaluation_episodes": 2049,
+    "dumped_episodes": 1989,
+    "omitted_timeout_episodes": 60,
+    "outcome_counts": {
+      "capture": 1641,
+      "bar_contact": 333,
+      "below": 10,
+      "out_of_bounds": 5,
+      "timeout": 0
+    },
+    "path_exists_count": 1989,
+    "local_culdesac_proxy_count": 0,
+    "exact_bar_size_layout_count": 0
+  },
+  "outcome_descriptives": {
+    "capture": {
+      "n": 1641,
+      "shortest_path_detour_ratio_mean": 1.0691982679800356,
+      "shortest_path_detour_ratio_median": 1.072254944576977,
+      "minimum_usable_side_clearance_m_mean": 0.25935234313086997,
+      "minimum_usable_side_clearance_m_median": 0.231875,
+      "obstacle_count_within_sensor_range_mean": 48.79159049360146,
+      "obstacle_count_within_sensor_range_median": 50.0,
+      "cluster_count_within_sensor_range_mean": 45.91529555149299,
+      "cluster_count_within_sensor_range_median": 48.0
+    },
+    "bar_contact": {
+      "n": 333,
+      "shortest_path_detour_ratio_mean": 1.0710444366232523,
+      "shortest_path_detour_ratio_median": 1.073446040905324,
+      "minimum_usable_side_clearance_m_mean": 0.23189943009650132,
+      "minimum_usable_side_clearance_m_median": 0.22250000000000142,
+      "obstacle_count_within_sensor_range_mean": 45.91591591591592,
+      "obstacle_count_within_sensor_range_median": 46.0,
+      "cluster_count_within_sensor_range_mean": 43.153153153153156,
+      "cluster_count_within_sensor_range_median": 43.0
+    },
+    "below": {
+      "n": 10,
+      "shortest_path_detour_ratio_mean": 1.061318316219297,
+      "minimum_usable_side_clearance_m_mean": 0.23019125575306756,
+      "obstacle_count_within_sensor_range_mean": 47.3,
+      "cluster_count_within_sensor_range_mean": 43.7
+    },
+    "out_of_bounds": {
+      "n": 5,
+      "shortest_path_detour_ratio_mean": 1.0714132618152088,
+      "minimum_usable_side_clearance_m_mean": 0.2317187499999998,
+      "obstacle_count_within_sensor_range_mean": 48.0,
+      "cluster_count_within_sensor_range_mean": 45.0
+    }
+  },
+  "capture_minus_bar_contact": {
+    "shortest_path_detour_ratio_mean": -0.0018461686432167,
+    "minimum_usable_side_clearance_m_mean": 0.02745291303436865,
+    "obstacle_count_within_sensor_range_mean": 2.87567457768554,
+    "cluster_count_within_sensor_range_mean": 2.762142398339833
+  },
+  "limitations": [
+    "The legacy dump records only captured or crashed_out terminations. All 60 timeout episodes from the 2049-episode evaluation are absent, so this file cannot support any timeout or timeout/dead-end claim.",
+    "Every bar is treated as a 0.60 m square because the legacy dump omitted actual per-bar footprints. The real asset pool varies from 0.4 to 0.8 m, so all geometry labels are exploratory rather than publication-exact.",
+    "Path and cul-de-sac labels are static 2-D GT diagnostics. They do not model dynamics, target motion, episode horizon, or a planner decision.",
+    "Outcome groups are observational and may differ in spawn, goal, and sampled layout. Mean differences are descriptive associations, not causal effects."
+  ]
+}

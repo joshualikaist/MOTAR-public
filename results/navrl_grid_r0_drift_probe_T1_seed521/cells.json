@@ -1,0 +1,58 @@
+{
+  "checkpoints": {
+    "T1": {
+      "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260905_1614_navrl_v2-ref5in-a8-readapt-riskcap-s197/nn/last_gen_ppo_ep_2900_rew_211.86726.pth",
+      "sha256": "4e657c59070802d3dcfe94892ff8ba841a07293edd3fac5d13e69447c9f7f021"
+    }
+  },
+  "contract": "ref5in",
+  "episodes": 2049,
+  "evaluated_source_fingerprint": "3aa30cd8bf73d133383ec1858cae4f25f9c005d3:a6c1fb748bb669a9e459d502722a3b4dccffa0e2:bbc38eed16caa4a47f787294146e24997a25203d",
+  "evaluation_commit": "4937f7746e7b7afaacdafa75f4648c8b998efd79",
+  "frozen_paths": [
+    "aerial_gym",
+    "tools",
+    "resources/robots"
+  ],
+  "governor_defaults": {
+    "NAVRL_SPEED_GOVERNOR_BRAKE_MPS2": "2.0",
+    "NAVRL_SPEED_GOVERNOR_FIXED_MPS": "2.0",
+    "NAVRL_SPEED_GOVERNOR_FREE_MPS": "3.53553390593",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45",
+    "NAVRL_SPEED_GOVERNOR_MARGIN_M": "0.45",
+    "NAVRL_SPEED_GOVERNOR_REACTION_S": "0.1",
+    "NAVRL_SPEED_GOVERNOR_RELEASE_M": "5.0",
+    "NAVRL_SPEED_GOVERNOR_SLOW_M": "3.0",
+    "NAVRL_SPEED_GOVERNOR_TTC_S": "1.0"
+  },
+  "schema_version": 2,
+  "spec": {
+    "cells": [
+      {
+        "bars": 70,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "T1_d070_riskcap_rep1",
+        "policy": "T1"
+      },
+      {
+        "bars": 70,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "T1_d070_riskcap_rep2",
+        "policy": "T1"
+      }
+    ],
+    "contract": "ref5in",
+    "design": "The identical cell twice in one root at one commit. Three outcomes: both equal 343 (D4 value; A8 was the anomaly), both equal 358 (A8 value; D4 was), or they differ from each other (the cell itself is non-deterministic).",
+    "episodes": 2049,
+    "frame_sample_every": 100,
+    "prereg": "docs/plans/confirmation_phase_plan_2026-09-06.md#R-A",
+    "question": "Is T1/riskcap (the one cell that failed to reproduce across commits, 343 vs 358 crashes) intrinsically non-deterministic, or was one of the two earlier runs the anomaly?",
+    "seed": 521
+  },
+  "spec_path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/docs/specs/grid_r0_drift_probe_T1.json",
+  "spec_sha256": "f6ab71dbc0850503ddb9aaa29ef56923324dd51fb2ef1e96bf5096c8ebdf8201"
+}

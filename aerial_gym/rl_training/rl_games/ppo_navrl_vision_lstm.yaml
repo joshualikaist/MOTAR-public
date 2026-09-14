@@ -1,0 +1,101 @@
+params:
+  seed: 42
+  algo:
+    name: a2c_continuous
+
+  model:
+    name: continuous_a2c_logstd
+
+  load_checkpoint: False
+
+  network:
+    # Multi-sensor policy: 2-channel 36x4 LiDAR (range + target mask) and 40x24
+    # forward camera obstacle depth use separate CNNs, fused with ego + camera detector state.
+    # ego+detector state by a [256, 256] ELU MLP. The actor NEVER sees the ground-truth
+    # target position; the separate privileged critic below does (asymmetric actor-critic).
+    # LSTM variant: dones-masked recurrence for the POMDP (target occluded / out of
+    # FOV / beyond range). seq_length lives under config below; the divisibility rule
+    # horizon*actors/num_minibatches %% seq_length == 0 holds (4096 %% 8 == 0).
+    name: navrl_vision
+    separate: False
+    rnn:
+      name: lstm
+      units: 128
+      layers: 1
+    space:
+      continuous:
+        mu_activation: None
+        sigma_activation: None
+        mu_init:
+          name: default
+        sigma_init:
+          name: const_initializer
+          val: 0
+        fixed_sigma: True
+
+  config:
+    env_name: navrl_task
+    env_config:
+      num_envs: 256          # RTX 3070 8GB default (vision adds the detector + 2ch scan only)
+    name: gen_ppo
+    reward_shaper:
+      scale_value: 0.1
+    normalize_advantage: True
+    gamma: 0.99
+    tau: 0.95
+    ppo: True
+    learning_rate: 3e-4
+    lr_schedule: adaptive
+    kl_threshold: 0.016
+    save_best_after: 20
+    save_frequency: 50
+    score_to_win: 100000
+    grad_norm: 1.0
+    entropy_coef: 0.0
+    truncate_grads: True
+    e_clip: 0.2
+    clip_value: False
+    num_actors: 256
+    horizon_length: 32
+    minibatch_size: 4096     # 32 * 256 = 8192 batch -> 2 minibatches
+    seq_length: 8
+    zero_rnn_on_done: True
+    mini_epochs: 4
+    critic_coef: 2
+    normalize_input: True
+    bounds_loss_coef: 0.0001
+    max_epochs: 6000
+    normalize_value: True
+    use_diagnostics: True
+    value_bootstrap: True
+    use_smooth_clamp: False
+
+    # Asymmetric (privileged) critic: trained on obs['states'] = actor obs + ground-truth
+    # target extras (navrl_task._process_obs_vision). The actor stays sensor-only; this
+    # critic exists only at train time and is dropped at deployment. Standard remedy for
+    # the POMDP value-variance problem (critic conditions on the true target state).
+    central_value_config:
+      minibatch_size: 4096
+      mini_epochs: 4
+      learning_rate: 5e-4
+      lr_schedule: None
+      clip_value: False
+      normalize_input: True
+      truncate_grads: True
+      grad_norm: 1.0
+      network:
+        name: actor_critic
+        central_value: True
+        mlp:
+          units: [256, 256]
+          activation: elu
+          d2rl: False
+          initializer:
+            name: default
+          regularizer:
+            name: None
+
+    player:
+      render: False
+      deterministic: True
+      games_num: 100

@@ -1,0 +1,46 @@
+{
+ "contract": "v2",
+ "seed": 547,
+ "episodes": 2049,
+ "frame_sample_every": 100,
+ "cells": [
+  {
+   "name": "source_clean_s547",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "source_p9_s547",
+   "policy": "ep25000",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap",
+    "NAVRL_P9_ERROR_MODEL": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/perception_p9_2026-09-09/p9_error_injector.json",
+    "NAVRL_P9_EXPECTED_SHA256": "89879d798a5b10cfb2c0de785dbcfb1754815630b0cd4f91a453de28e728eda9",
+    "NAVRL_P9_SEED": "547"
+   }
+  },
+  {
+   "name": "adapted_clean_s547",
+   "policy": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260910_2357_navrl_v2-p10-empirical-readapt-s857/nn/last_gen_ppo_ep_26000_rew_33.95342.pth",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap"
+   }
+  },
+  {
+   "name": "adapted_p9_s547",
+   "policy": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260910_2357_navrl_v2-p10-empirical-readapt-s857/nn/last_gen_ppo_ep_26000_rew_33.95342.pth",
+   "bars": 205,
+   "env": {
+    "NAVRL_SPEED_GOVERNOR": "riskcap",
+    "NAVRL_P9_ERROR_MODEL": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/perception_p9_2026-09-09/p9_error_injector.json",
+    "NAVRL_P9_EXPECTED_SHA256": "89879d798a5b10cfb2c0de785dbcfb1754815630b0cd4f91a453de28e728eda9",
+    "NAVRL_P9_SEED": "547"
+   }
+  }
+ ]
+}

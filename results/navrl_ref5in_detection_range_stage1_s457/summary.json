@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_detection_range_stage1.py",
+  "created_at_utc": "2026-08-23T11:33:57.698206+00:00",
+  "scope": "detection_range_stage1_screening_s457_eval_s461",
+  "stage": 1,
+  "decision_authority": "none",
+  "p2_verdict_changed": false,
+  "d1_verdict_changed": false,
+  "p3_unlocked": false,
+  "stage2_authorised": false,
+  "preregistration": "docs/prereg_2026-08-22_detection_range_2stage.md",
+  "warm_start_checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "warm_start_checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "shared_condition": {
+    "train_seed": 457,
+    "eval_seed": 461,
+    "bars": 70,
+    "requested_episodes_per_arm": 2049,
+    "adaptation_epochs_per_arm": 1000,
+    "adaptation_samples_per_arm": 4096000,
+    "warm_start_epoch": 1900,
+    "terminal_epoch": 2900,
+    "num_envs": 128,
+    "robot_name": "navrl_ref5in_quad",
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "speed_governor_mode": "off",
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "detect_width": 1920,
+    "detect_height": 1200,
+    "detector_min_pixels": 50,
+    "camera_width": 160,
+    "camera_height": 90,
+    "learning_rate": "1.5e-5",
+    "manipulated_axis": "NAVRL_DETECTOR_MAX_RANGE"
+  },
+  "provenance_override": {
+    "clip20": {
+      "used": false,
+      "reason": "each arm is evaluated at the clip it trained at, and the evaluator's v2 provenance gate matches the checkpoint detector geometry to that arm"
+    },
+    "clip28": {
+      "used": false,
+      "reason": "each arm is evaluated at the clip it trained at, and the evaluator's v2 provenance gate matches the checkpoint detector geometry to that arm"
+    }
+  },
+  "arms": {
+    "clip20": {
+      "condition": {
+        "detector_max_range_m": 20.0,
+        "detect_width": 1920,
+        "detect_height": 1200,
+        "detector_min_pixels": 50,
+        "camera_width": 160,
+        "camera_height": 90,
+        "actual_episodes": 2049,
+        "num_envs": 128,
+        "episode_len_steps": 600
+      },
+      "training": {
+        "adopted": false,
+        "detector_max_range_evidence": "set_by_this_launcher_and_verified_in_the_trainer_effective_environment",
+        "run_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1204_navrl_v2-ref5in-detrange-clip20-s457",
+        "terminal_checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1204_navrl_v2-ref5in-detrange-clip20-s457/nn/last_gen_ppo_ep_2900_rew_221.48119.pth",
+        "terminal_checkpoint_sha256": "aa5e3e8131aceb8ccd4691878dbb1893307ef93b6f458c8cd7c2b8bff5b64b12",
+        "terminal_epoch": 2900,
+        "terminal_frame": 11878400,
+        "adaptation_epochs": 1000,
+        "adaptation_samples": 4096000,
+        "exit_reason": "max_epochs",
+        "ppo_rollback_total": 0,
+        "ppo_rollback_streak": 0,
+        "ppo_rollback_log_lines": 0,
+        "kl_skipped_log_lines": 0,
+        "training_source_manifest_sha256": "5123eae45fc02601b230eaa831c9d7a475c69cd3b00c963f4112e2389b9a97e6",
+        "reward_at_end": 221.48118591308594,
+        "last_captured_rate": 0.8421052631578947
+      },
+      "measurements": {
+        "episodes": 2049,
+        "never_acquired": 173,
+        "never_acquired_rate": 0.084431429965837,
+        "never_acquired_rate_pp": 8.443142996583699,
+        "never_acquired_wilson95": [
+          0.07315667155397702,
+          0.09726148583342749
+        ],
+        "acquired": 1876,
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 1685,
+            "never_acquired": 1,
+            "never_acquired_rate": 0.0005934718100890207,
+            "acquired": 1684,
+            "first_visible_step_mean": 101.87114014251782,
+            "first_visible_step_median": 72,
+            "visible_hidden_transitions_mean_per_episode": 2.6065281899109793
+          },
+          "crash": {
+            "episodes": 321,
+            "never_acquired": 138,
+            "never_acquired_rate": 0.42990654205607476,
+            "acquired": 183,
+            "first_visible_step_mean": 99.14207650273224,
+            "first_visible_step_median": 68,
+            "visible_hidden_transitions_mean_per_episode": 1.735202492211838
+          },
+          "timeout": {
+            "episodes": 43,
+            "never_acquired": 34,
+            "never_acquired_rate": 0.7906976744186046,
+            "acquired": 9,
+            "first_visible_step_mean": 470.6666666666667,
+            "first_visible_step_median": 537,
+            "visible_hidden_transitions_mean_per_episode": 0.5116279069767442
+          }
+        },
+        "target_hidden_fraction": 0.7688641215479651,
+        "outcome_raw": {
+          "capture": 1685,
+          "capture_rate": 0.8223523670082967,
+          "capture_wilson95": [
+            0.8052041094200622,
+            0.8382941959770245
+          ],
+          "crash": 321,
+          "crash_rate": 0.15666178623718888,
+          "crash_wilson95": [
+            0.14156752037818612,
+            0.17304102186730894
+          ],
+          "timeout": 43,
+          "timeout_rate": 0.020985846754514398,
+          "timeout_wilson95": [
+            0.015617243593693432,
+            0.028147197364307187
+          ]
+        }
+      }
+    },
+    "clip28": {
+      "condition": {
+        "detector_max_range_m": 28.0,
+        "detect_width": 1920,
+        "detect_height": 1200,
+        "detector_min_pixels": 50,
+        "camera_width": 160,
+        "camera_height": 90,
+        "actual_episodes": 2049,
+        "num_envs": 128,
+        "episode_len_steps": 600
+      },
+      "training": {
+        "adopted": false,
+        "detector_max_range_evidence": "set_by_this_launcher_and_verified_in_the_trainer_effective_environment",
+        "run_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1347_navrl_v2-ref5in-detrange-clip28-s457",
+        "terminal_checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1347_navrl_v2-ref5in-detrange-clip28-s457/nn/last_gen_ppo_ep_2900_rew_232.30646.pth",
+        "terminal_checkpoint_sha256": "caf51fbb5afe22f6473f2a5dccaeda5330cfee7c54ba269e63752c1a2859ba18",
+        "terminal_epoch": 2900,
+        "terminal_frame": 11878400,
+        "adaptation_epochs": 1000,
+        "adaptation_samples": 4096000,
+        "exit_reason": "max_epochs",
+        "ppo_rollback_total": 0,
+        "ppo_rollback_streak": 0,
+        "ppo_rollback_log_lines": 0,
+        "kl_skipped_log_lines": 0,
+        "training_source_manifest_sha256": "5123eae45fc02601b230eaa831c9d7a475c69cd3b00c963f4112e2389b9a97e6",
+        "reward_at_end": 232.30645751953125,
+        "last_captured_rate": 0.7941176470588235
+      },
+      "measurements": {
+        "episodes": 2049,
+        "never_acquired": 65,
+        "never_acquired_rate": 0.0317227916056613,
+        "never_acquired_rate_pp": 3.17227916056613,
+        "never_acquired_wilson95": [
+          0.02496708651406602,
+          0.040231060301218334
+        ],
+        "acquired": 1984,
+        "first_acquisition_by_outcome": {
+          "capture": {
+            "episodes": 1817,
+            "never_acquired": 1,
+            "never_acquired_rate": 0.000550357732526142,
+            "acquired": 1816,
+            "first_visible_step_mean": 42.23513215859031,
+            "first_visible_step_median": 31,
+            "visible_hidden_transitions_mean_per_episode": 2.9548706659328565
+          },
+          "crash": {
+            "episodes": 231,
+            "never_acquired": 64,
+            "never_acquired_rate": 0.27705627705627706,
+            "acquired": 167,
+            "first_visible_step_mean": 53.9940119760479,
+            "first_visible_step_median": 31,
+            "visible_hidden_transitions_mean_per_episode": 2.5974025974025974
+          },
+          "timeout": {
+            "episodes": 1,
+            "never_acquired": 0,
+            "never_acquired_rate": 0.0,
+            "acquired": 1,
+            "first_visible_step_mean": 558.0,
+            "first_visible_step_median": 558,
+            "visible_hidden_transitions_mean_per_episode": 1.0
+          }
+        },
+        "target_hidden_fraction": 0.5606300075112669,
+        "outcome_raw": {
+          "capture": 1817,
+          "capture_rate": 0.8867740361151781,
+          "capture_wilson95": [
+            0.8723239397281695,
+            0.8997766008126196
+          ],
+          "crash": 231,
+          "crash_rate": 0.11273792093704246,
+          "crash_wilson95": [
+            0.09976199533345648,
+            0.12716320476860515
+          ],
+          "timeout": 1,
+          "timeout_rate": 0.0004880429477794046,
+          "timeout_wilson95": [
+            8.615675966831067e-05,
+            0.0027593911980633573
+          ]
+        }
+      }
+    }
+  },
+  "void_arms": [],
+  "primary_metric": "pooled_never_acquired_rate",
+  "never_acquired_delta_pp": -5.270863836017569,
+  "threshold_pp": {
+    "range_helps_at_or_below": -15.0
+  },
+  "verdict": "RANGE_INCONCLUSIVE_AT_THIS_BUDGET",
+  "verdict_basis": {
+    "metric": "pooled never-acquired rate over all outcomes",
+    "source_field": "result[\"target_motion\"][\"first_acquisition\"][outcome][\"never_acquired\"] summed over capture/crash/timeout, divided by the same cohorts' episode counts",
+    "control_arm": "clip20",
+    "treatment_arm": "clip28",
+    "control_never_acquired_pp": 8.443142996583699,
+    "treatment_never_acquired_pp": 3.17227916056613,
+    "delta_pp": -5.270863836017569,
+    "direction": "clip28 minus clip20; negative means the open clip acquires more often",
+    "outcome_rates_excluded_from_verdict": true
+  },
+  "quality_gates": {
+    "T1_budget_reached": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm_training",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "T2_normal_max_epochs_exit": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm_training",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "T3_no_kl_rollback": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm_training",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "T4_terminal_sha_recorded": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm_training",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "T5_training_receipt_clean": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm_training",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "T6_training_condition_pinned": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm_training",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G10_no_provenance_override": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G1_checkpoint_identity": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G2_result_receipt_binding": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G3_manifest_provenance": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G4_runtime_clean": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G5_import_origin": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G6_episode_contract": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G7_arm_condition_pinned": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "per_arm",
+      "passed": true,
+      "arms": {
+        "clip20": true,
+        "clip28": true
+      }
+    },
+    "G11_shared_training_receipt": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "cross_arm",
+      "passed": true
+    },
+    "G8_runtime_byte_map_identity": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "cross_arm",
+      "passed": true
+    },
+    "G9_single_axis_manipulation": {
+      "owner": "tools/run_navrl_ref5in_detection_range_stage1.py",
+      "scope": "cross_arm",
+      "passed": true
+    }
+  },
+  "failed_gates": [],
+  "held_fixed": {
+    "detector_min_pixels": 50,
+    "detector_threshold": 0.55,
+    "perception_perturb": false,
+    "detection_dropout_active": 0.0,
+    "detection_latency_s": 0.0,
+    "range_error_m": 0.0,
+    "appearance_appearance_hue_deg": 0.0,
+    "appearance_appearance_light_gain": 0.0,
+    "appearance_appearance_albedo_jitter": 0.0,
+    "appearance_appearance_texture_std": 0.0,
+    "appearance_appearance_motion_blur": 0.0,
+    "camera_mount_rot_deg": 0.0,
+    "camera_mount_trans_m": 0.0,
+    "camera_fov_scale_err": 0.0,
+    "goal_dist_min_m": 22.5,
+    "goal_dist_max_m": 28.0,
+    "obstacle_selector": "cluster_sector",
+    "action_selection": "deterministic",
+    "reflection_mode": "original",
+    "speed_governor_mode": "off",
+    "seed": 461
+  },
+  "import_origin": {
+    "clip20": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator",
+      "origin": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator"
+    },
+    "clip28": {
+      "checked_by_launcher": true,
+      "enforced": true,
+      "required_source_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator",
+      "origin": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+      "origin_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "manifest_entry": "aerial_gym/__init__.py",
+      "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+      "log_line_occurrences": 1,
+      "pythonpath_reinjected": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator"
+    }
+  },
+  "limitations": [
+    "L1: P2 STRICT FAIL / D1 FAIL / P3 BLOCKED를 변경하지 않는다. 2단계는 70막대 고정 10k이므로 P3(70→205막대, 30k, seed 211)가 아니다.",
+    "L2: RANGE_CONFIRMED가 나와도 정책을 채택하지 않는다 — 채택은 P2 gate 통과가 필요하다.",
+    "L3: 거리 오차가 여전히 0이다(NAVRL_RANGE_ERROR_M=0, 해석적 정확값). 실기 28 m 스테레오 시차는 1.2–2.4 px로 측정 불가다. 따라서 '실기 준비됨'을 주장하지 않는다.",
+    "L4: 잡동사니 배경·모션 블러 미모델링 → 결과는 낙관 편향.",
+    "L5: 1단계 음성은 '효과 없음'이 아니라 '이 예산에서 미결'이다(사전등록 §3)."
+  ],
+  "sources": {
+    "clip20": {
+      "training_record": "results/navrl_ref5in_detection_range_stage1_s457/training/clip20/training_record.json",
+      "training_run_summary": "results/navrl_ref5in_detection_range_stage1_s457/training/clip20/run_summary.json",
+      "training_log": "results/navrl_ref5in_detection_range_stage1_s457/training/clip20/train.log",
+      "evaluation_result": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip20/70bars.json",
+      "evaluation_receipt": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip20/70bars.receipt.json",
+      "evaluation_log": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip20/70bars.log",
+      "launcher_log": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip20/detection_range_eval.log"
+    },
+    "clip28": {
+      "training_record": "results/navrl_ref5in_detection_range_stage1_s457/training/clip28/training_record.json",
+      "training_run_summary": "results/navrl_ref5in_detection_range_stage1_s457/training/clip28/run_summary.json",
+      "training_log": "results/navrl_ref5in_detection_range_stage1_s457/training/clip28/train.log",
+      "evaluation_result": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip28/70bars.json",
+      "evaluation_receipt": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip28/70bars.receipt.json",
+      "evaluation_log": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip28/70bars.log",
+      "launcher_log": "results/navrl_ref5in_detection_range_stage1_s457/cells/clip28/detection_range_eval.log"
+    }
+  }
+}

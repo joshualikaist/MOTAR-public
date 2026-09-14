@@ -1,0 +1,604 @@
+{
+  "cells": [
+    {
+      "active_bar_aabb_count": 70,
+      "bar_offset": 1,
+      "bars": 70,
+      "commanded_env_intervals": 9600,
+      "contact_step_fraction": 0.000625,
+      "controller_counter_contract": {
+        "method": "sum nonnegative before/after deltas prior to any failed-env reset",
+        "physics_substeps": 96000,
+        "saturated_physics_substeps": 4
+      },
+      "envs": 32,
+      "failed_reset_monitoring_env_intervals": 9600,
+      "gates": {
+        "arm_specific_local_feasibility": true,
+        "contact": true,
+        "motors": true,
+        "speed": true,
+        "state": true,
+        "tilt": true,
+        "tracking": true
+      },
+      "import_origin": {
+        "enforced": true,
+        "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+        "sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65"
+      },
+      "initial_layout_sha256": "9aad159eac3ccd9ea15df804f8f9626e6a49b010a15a51850d3c611847e8b782",
+      "initial_robot_pose_sha256": "9b352d572e60615cde4ef0ea0d0aa3bad8ef0304671d51219f269d3178ad9c83",
+      "initial_route_goal_sha256": null,
+      "initial_target_pose_sha256": "99e7fa31be957ec48c06853476d24d7f2cf25d47871c917eb69d3806d0ea3cda",
+      "initial_task_waypoint_sha256": "513f103bc0985bcedb305fe1e5cbcce10b59356ab6a56fadc583d86942452189",
+      "invalid_axis_fraction_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "invalid_state_fraction": 0.0,
+      "max_tilt_deg": 4.542734484426562,
+      "mean_speed_mps": 0.5652977573020118,
+      "mean_speed_ratio": 0.9421629288366864,
+      "motor_saturation_fraction": 4.166666622040793e-05,
+      "neutral_pursuer_command_contract": {
+        "all_commands_finite": true,
+        "command_shape": [
+          32,
+          4
+        ],
+        "mapping": "NavRLTask.transform_action_to_command",
+        "mapping_calls": 300,
+        "mapping_order": "after_target_advance_before_sim_step",
+        "policy_action": "all_zero_[N,4]"
+      },
+      "off_bounded_local_step_infeasible_fraction": 0.0008333333333333334,
+      "pass": true,
+      "position_max_xyz": [
+        38.38761901855469,
+        38.85204315185547,
+        1.0026090145111084
+      ],
+      "position_measurement_env_intervals": 9600,
+      "position_min_xyz": [
+        1.5090171098709106,
+        1.7875823974609375,
+        0.9931668639183044
+      ],
+      "record_contract_sha256": "bc8a6a209eed89baf56ac8a8265ab683aca56925907e16a2561bfa5eb4dbb587",
+      "record_id": "route_off__speed_0.6__bars_70",
+      "reset_wall": {
+        "batches": 6,
+        "initial_batch_s": 1.663487825077027,
+        "max_batch_s": 1.663487825077027,
+        "ms_per_reset_env": 72.10302502713411,
+        "reset_envs": 38,
+        "total_s": 2.7399149510310963
+      },
+      "route": {
+        "counter_delta": {},
+        "end_gauges": {},
+        "fallback_interval_fraction": null,
+        "goal_completions_per_env": null,
+        "initial_reset_included": true,
+        "mode": "off",
+        "plan_success_fraction": null,
+        "planning_wall_ms_per_planned_env": null,
+        "planning_wall_s": 0.0
+      },
+      "route_goal_exclusion_m": 1.0,
+      "route_mode": "off",
+      "routed_local_step_invalidation_fraction": null,
+      "safety_measurement_env_intervals": 9600,
+      "seed": 829,
+      "speed_mps": 0.6,
+      "steps": 300,
+      "task_clock": {
+        "end_num_task_steps": 300,
+        "increment_order": "after physics and any failed-env reset, once per interval",
+        "increments": 300,
+        "start_num_task_steps": 0
+      },
+      "throughput": {
+        "env_intervals_per_s": 742.9536626797438,
+        "rl_steps_per_s": 23.217301958741995,
+        "rollout_wall_s": 12.921398038975894
+      },
+      "tracking_measurement_env_intervals": 8960,
+      "tracking_rmse_mps": 0.12079167992287689,
+      "warmup_steps": 20
+    },
+    {
+      "active_bar_aabb_count": 115,
+      "bar_offset": 1,
+      "bars": 115,
+      "commanded_env_intervals": 9600,
+      "contact_step_fraction": 0.0009375,
+      "controller_counter_contract": {
+        "method": "sum nonnegative before/after deltas prior to any failed-env reset",
+        "physics_substeps": 96000,
+        "saturated_physics_substeps": 0
+      },
+      "envs": 32,
+      "failed_reset_monitoring_env_intervals": 9600,
+      "gates": {
+        "arm_specific_local_feasibility": true,
+        "contact": true,
+        "motors": true,
+        "speed": true,
+        "state": true,
+        "tilt": true,
+        "tracking": true
+      },
+      "import_origin": {
+        "enforced": true,
+        "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+        "sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65"
+      },
+      "initial_layout_sha256": "920224f37428e6900a64d210096ed01e79f02c04f5ed50c8b2b73f47b25e5058",
+      "initial_robot_pose_sha256": "c71fc375f48e74a8714ca7620f0b6982d64f92cb75e3c0d6ba7caffede78ca2d",
+      "initial_route_goal_sha256": null,
+      "initial_target_pose_sha256": "e0c57e37991d3157e8f9bb14a2e16a97421c54c4fa2ff86f899f7aadae5799d3",
+      "initial_task_waypoint_sha256": "bbda8b2e836bd97a5e8b1ffa6ae922ccba6596dfa3940d4ce8aab3ca33d25472",
+      "invalid_axis_fraction_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "invalid_state_fraction": 0.0,
+      "max_tilt_deg": 4.538679486493691,
+      "mean_speed_mps": 0.5431813506143434,
+      "mean_speed_ratio": 0.9053022510239056,
+      "motor_saturation_fraction": 0.0,
+      "neutral_pursuer_command_contract": {
+        "all_commands_finite": true,
+        "command_shape": [
+          32,
+          4
+        ],
+        "mapping": "NavRLTask.transform_action_to_command",
+        "mapping_calls": 300,
+        "mapping_order": "after_target_advance_before_sim_step",
+        "policy_action": "all_zero_[N,4]"
+      },
+      "off_bounded_local_step_infeasible_fraction": 0.0010416666666666667,
+      "pass": true,
+      "position_max_xyz": [
+        38.29750061035156,
+        38.30987548828125,
+        1.003210186958313
+      ],
+      "position_measurement_env_intervals": 9600,
+      "position_min_xyz": [
+        1.5002126693725586,
+        1.3211135864257812,
+        0.9908965229988098
+      ],
+      "record_contract_sha256": "d0b164c327480128dd22edbeef7abad3a5a53a43669ca85ac52a533b23e065e0",
+      "record_id": "route_off__speed_0.6__bars_115",
+      "reset_wall": {
+        "batches": 10,
+        "initial_batch_s": 0.29777468007523566,
+        "max_batch_s": 0.29777468007523566,
+        "ms_per_reset_env": 19.155467832006696,
+        "reset_envs": 41,
+        "total_s": 0.7853741811122745
+      },
+      "route": {
+        "counter_delta": {},
+        "end_gauges": {},
+        "fallback_interval_fraction": null,
+        "goal_completions_per_env": null,
+        "initial_reset_included": true,
+        "mode": "off",
+        "plan_success_fraction": null,
+        "planning_wall_ms_per_planned_env": null,
+        "planning_wall_s": 0.0
+      },
+      "route_goal_exclusion_m": 1.0,
+      "route_mode": "off",
+      "routed_local_step_invalidation_fraction": null,
+      "safety_measurement_env_intervals": 9600,
+      "seed": 829,
+      "speed_mps": 0.6,
+      "steps": 300,
+      "task_clock": {
+        "end_num_task_steps": 600,
+        "increment_order": "after physics and any failed-env reset, once per interval",
+        "increments": 300,
+        "start_num_task_steps": 300
+      },
+      "throughput": {
+        "env_intervals_per_s": 828.7335187206536,
+        "rl_steps_per_s": 25.897922460020425,
+        "rollout_wall_s": 11.583940776064992
+      },
+      "tracking_measurement_env_intervals": 8960,
+      "tracking_rmse_mps": 0.12560125516217374,
+      "warmup_steps": 20
+    },
+    {
+      "active_bar_aabb_count": 160,
+      "bar_offset": 1,
+      "bars": 160,
+      "commanded_env_intervals": 9600,
+      "contact_step_fraction": 0.001979166666666667,
+      "controller_counter_contract": {
+        "method": "sum nonnegative before/after deltas prior to any failed-env reset",
+        "physics_substeps": 96000,
+        "saturated_physics_substeps": 1
+      },
+      "envs": 32,
+      "failed_reset_monitoring_env_intervals": 9600,
+      "gates": {
+        "arm_specific_local_feasibility": true,
+        "contact": true,
+        "motors": true,
+        "speed": true,
+        "state": true,
+        "tilt": true,
+        "tracking": true
+      },
+      "import_origin": {
+        "enforced": true,
+        "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+        "sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65"
+      },
+      "initial_layout_sha256": "e28a72e2f2614986d487e85c592bc66fb2ac4361ff1043dfb612416f930a557a",
+      "initial_robot_pose_sha256": "440ad86d8393781109cf9cf4c3451d1cf3f8a1320b7c6318e41793cc210b4a7f",
+      "initial_route_goal_sha256": null,
+      "initial_target_pose_sha256": "3c24e4609d56e0a20b49e11e0ced140f84c4618cc60a30bf549b6963b8222716",
+      "initial_task_waypoint_sha256": "fac79f93b58d8cae64f968005172936c18e5b66babcdc293677c4c9e036b4a8d",
+      "invalid_axis_fraction_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "invalid_state_fraction": 0.0,
+      "max_tilt_deg": 7.290918726702315,
+      "mean_speed_mps": 0.5470423974096775,
+      "mean_speed_ratio": 0.9117373290161292,
+      "motor_saturation_fraction": 1.0416666555101983e-05,
+      "neutral_pursuer_command_contract": {
+        "all_commands_finite": true,
+        "command_shape": [
+          32,
+          4
+        ],
+        "mapping": "NavRLTask.transform_action_to_command",
+        "mapping_calls": 300,
+        "mapping_order": "after_target_advance_before_sim_step",
+        "policy_action": "all_zero_[N,4]"
+      },
+      "off_bounded_local_step_infeasible_fraction": 0.0028125,
+      "pass": true,
+      "position_max_xyz": [
+        37.80995178222656,
+        37.52308654785156,
+        1.0031710863113403
+      ],
+      "position_measurement_env_intervals": 9600,
+      "position_min_xyz": [
+        2.53064227104187,
+        3.7105712890625,
+        0.9693553447723389
+      ],
+      "record_contract_sha256": "580600910571a151763b7b1993b1ec25fda79e19cc06a97cd720adfa36dcdf9a",
+      "record_id": "route_off__speed_0.6__bars_160",
+      "reset_wall": {
+        "batches": 20,
+        "initial_batch_s": 0.28049973596353084,
+        "max_batch_s": 0.28049973596353084,
+        "ms_per_reset_env": 36.662728384173676,
+        "reset_envs": 51,
+        "total_s": 1.8697991475928575
+      },
+      "route": {
+        "counter_delta": {},
+        "end_gauges": {},
+        "fallback_interval_fraction": null,
+        "goal_completions_per_env": null,
+        "initial_reset_included": true,
+        "mode": "off",
+        "plan_success_fraction": null,
+        "planning_wall_ms_per_planned_env": null,
+        "planning_wall_s": 0.0
+      },
+      "route_goal_exclusion_m": 1.0,
+      "route_mode": "off",
+      "routed_local_step_invalidation_fraction": null,
+      "safety_measurement_env_intervals": 9600,
+      "seed": 829,
+      "speed_mps": 0.6,
+      "steps": 300,
+      "task_clock": {
+        "end_num_task_steps": 900,
+        "increment_order": "after physics and any failed-env reset, once per interval",
+        "increments": 300,
+        "start_num_task_steps": 600
+      },
+      "throughput": {
+        "env_intervals_per_s": 760.4374876972256,
+        "rl_steps_per_s": 23.7636714905383,
+        "rollout_wall_s": 12.624311866937205
+      },
+      "tracking_measurement_env_intervals": 8960,
+      "tracking_rmse_mps": 0.15840903741930515,
+      "warmup_steps": 20
+    },
+    {
+      "active_bar_aabb_count": 205,
+      "bar_offset": 1,
+      "bars": 205,
+      "commanded_env_intervals": 9600,
+      "contact_step_fraction": 0.001875,
+      "controller_counter_contract": {
+        "method": "sum nonnegative before/after deltas prior to any failed-env reset",
+        "physics_substeps": 96000,
+        "saturated_physics_substeps": 11
+      },
+      "envs": 32,
+      "failed_reset_monitoring_env_intervals": 9600,
+      "gates": {
+        "arm_specific_local_feasibility": true,
+        "contact": true,
+        "motors": true,
+        "speed": true,
+        "state": true,
+        "tilt": true,
+        "tracking": true
+      },
+      "import_origin": {
+        "enforced": true,
+        "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+        "sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65"
+      },
+      "initial_layout_sha256": "ca6e4375f1fdf85ed095592e649a626ec0cec92b60184347e4d1778856afa7f0",
+      "initial_robot_pose_sha256": "5d1c68ba8f4d5489845089eae45306e7af01ade552b1823bb74e85e4eff89e2b",
+      "initial_route_goal_sha256": null,
+      "initial_target_pose_sha256": "240dd53b0c9cb3586e3ced0f582c816880029e053f47461397d5eb797c3f72af",
+      "initial_task_waypoint_sha256": "13de4a5d1b0fcf6e08f00a0f07338a2a400c53199558dd0da60a6307214020ed",
+      "invalid_axis_fraction_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "invalid_state_fraction": 0.0,
+      "max_tilt_deg": 7.9666882516732676,
+      "mean_speed_mps": 0.5453270366149289,
+      "mean_speed_ratio": 0.9088783943582148,
+      "motor_saturation_fraction": 0.00011458333028713241,
+      "neutral_pursuer_command_contract": {
+        "all_commands_finite": true,
+        "command_shape": [
+          32,
+          4
+        ],
+        "mapping": "NavRLTask.transform_action_to_command",
+        "mapping_calls": 300,
+        "mapping_order": "after_target_advance_before_sim_step",
+        "policy_action": "all_zero_[N,4]"
+      },
+      "off_bounded_local_step_infeasible_fraction": 0.004791666666666666,
+      "pass": true,
+      "position_max_xyz": [
+        38.422698974609375,
+        38.3250732421875,
+        1.003385305404663
+      ],
+      "position_measurement_env_intervals": 9600,
+      "position_min_xyz": [
+        2.1114463806152344,
+        1.7986373901367188,
+        0.982070803642273
+      ],
+      "record_contract_sha256": "2504ce9bfbaa28e17bb0afefe0c8d42cf7b141c3bc8a5d4d5672eb0595fcc26f",
+      "record_id": "route_off__speed_0.6__bars_205",
+      "reset_wall": {
+        "batches": 19,
+        "initial_batch_s": 0.3346457580337301,
+        "max_batch_s": 0.3346457580337301,
+        "ms_per_reset_env": 40.71526541840285,
+        "reset_envs": 50,
+        "total_s": 2.0357632709201425
+      },
+      "route": {
+        "counter_delta": {},
+        "end_gauges": {},
+        "fallback_interval_fraction": null,
+        "goal_completions_per_env": null,
+        "initial_reset_included": true,
+        "mode": "off",
+        "plan_success_fraction": null,
+        "planning_wall_ms_per_planned_env": null,
+        "planning_wall_s": 0.0
+      },
+      "route_goal_exclusion_m": 1.0,
+      "route_mode": "off",
+      "routed_local_step_invalidation_fraction": null,
+      "safety_measurement_env_intervals": 9600,
+      "seed": 829,
+      "speed_mps": 0.6,
+      "steps": 300,
+      "task_clock": {
+        "end_num_task_steps": 1200,
+        "increment_order": "after physics and any failed-env reset, once per interval",
+        "increments": 300,
+        "start_num_task_steps": 900
+      },
+      "throughput": {
+        "env_intervals_per_s": 758.8387711733923,
+        "rl_steps_per_s": 23.71371159916851,
+        "rollout_wall_s": 12.650908684008755
+      },
+      "tracking_measurement_env_intervals": 8960,
+      "tracking_rmse_mps": 0.15996980366820798,
+      "warmup_steps": 20
+    }
+  ],
+  "densities": [
+    70,
+    115,
+    160,
+    205
+  ],
+  "environment_contract": {
+    "AERIAL_GYM_SIM_NAME": "base_sim",
+    "NAVRL_ARENA_XY": "40",
+    "NAVRL_ARENA_Z": "3",
+    "NAVRL_BAR_POOL": "bars_h3",
+    "NAVRL_BAR_X_MAX": "1",
+    "NAVRL_BAR_X_MIN": "0",
+    "NAVRL_DENSITY_CURRICULUM": "0",
+    "NAVRL_GENERAL_GOAL_DIST_MAX": "28",
+    "NAVRL_GENERAL_GOAL_DIST_MIN": "6",
+    "NAVRL_GENERAL_TRAIN": "1",
+    "NAVRL_MAX_BARS": "300",
+    "NAVRL_NUM_BARS": "70",
+    "NAVRL_PERCEPTION": "0",
+    "NAVRL_PHYSICAL_GEOMETRY_VERSION": "v2",
+    "NAVRL_PLACEMENT_MODE": "footprint_clearance",
+    "NAVRL_PLACEMENT_SURFACE_CLEARANCE_M": "0.45",
+    "NAVRL_ROBOT": "navrl_ref5in_v2_quad",
+    "NAVRL_TARGET_ALT_KP": "4.0",
+    "NAVRL_TARGET_BOUNDARY_MARGIN_M": "0.75",
+    "NAVRL_TARGET_BOX_XY_M": "0.283",
+    "NAVRL_TARGET_DYNAMICS": "physical",
+    "NAVRL_TARGET_LOOKAHEAD_S": "1.0",
+    "NAVRL_TARGET_MASS_KG": "1.20",
+    "NAVRL_TARGET_MAX_ACCEL": "4.0",
+    "NAVRL_TARGET_MAX_MOTOR_THRUST_N": "9.60",
+    "NAVRL_TARGET_MAX_TILT_DEG": "45.0",
+    "NAVRL_TARGET_MAX_TURN_RATE_DEG": "150.0",
+    "NAVRL_TARGET_MOTOR_ARM_XY_M": "0.0777817",
+    "NAVRL_TARGET_MOTOR_TAU_S": "0.04",
+    "NAVRL_TARGET_OBSTACLE_CLEARANCE": "0.77",
+    "NAVRL_TARGET_PATTERN": "waypoint",
+    "NAVRL_TARGET_ROUTE_GOAL_EXCLUSION_M": "1.0",
+    "NAVRL_TARGET_ROUTE_GOAL_TOLERANCE_M": "0.05",
+    "NAVRL_TARGET_ROUTE_MAX_EXPANSIONS": "50000",
+    "NAVRL_TARGET_ROUTE_MAX_WAYPOINTS": "128",
+    "NAVRL_TARGET_ROUTE_MIN_GOAL_DISTANCE_M": "6.0",
+    "NAVRL_TARGET_ROUTE_MODE": "off",
+    "NAVRL_TARGET_ROUTE_REPLAN_COOLDOWN_STEPS": "10",
+    "NAVRL_TARGET_ROUTE_RESOLUTION_M": "0.25",
+    "NAVRL_TARGET_SPEED": "0.6",
+    "NAVRL_TARGET_SPEED_FINAL": "0.6",
+    "NAVRL_TARGET_SPEED_MIN": "0.6",
+    "NAVRL_TARGET_SPEED_RAMP_EPOCHS": "1",
+    "NAVRL_TARGET_TRACKING_MARGIN_M": "0.45",
+    "NAVRL_TARGET_VEL_KP": "2.5",
+    "NAVRL_TARGET_YAW_TORQUE_RATIO_M": "0.01",
+    "NAVRL_VISION": "0",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONPATH": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator"
+  },
+  "envs": 32,
+  "import_origin": {
+    "enforced": true,
+    "manifest_sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65",
+    "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/__init__.py",
+    "sha256": "1ec098503bb19538a715595fdf3b64fe70a2ba286641b21ab962b5a508e29c65"
+  },
+  "instantiated_contract": {
+    "active_route_support_xy_m": null,
+    "bar_offset": 1,
+    "declared_conservative_support_xy_m": [
+      0.20891266117686594,
+      0.20891266117686594
+    ],
+    "physical_target_box_xyz_m": [
+      0.283,
+      0.283,
+      0.12
+    ],
+    "physics": {
+      "physics_dt_s": 0.01,
+      "physics_steps_per_rl_step": 10,
+      "physics_substeps": 1,
+      "rl_step_dt_s": 0.1,
+      "runtime_sim_config_class": "BaseSimConfig"
+    },
+    "robot": {
+      "robot_asset_file": "quad_navrl_ref5in_v2.urdf",
+      "robot_asset_path": "resources/robots/quad/quad_navrl_ref5in_v2.urdf",
+      "robot_asset_sha256": "fcc62c93aa45159f0c6f817c0af8f5c9cb88dce1e78c37ed3268b93b405b0c83",
+      "robot_config_class": "NavRLRef5inV2QuadCfg",
+      "robot_config_file": "navrl_ref5in_v2_quad_config.py",
+      "robot_config_module": "aerial_gym.config.robot_config.navrl_ref5in_v2_quad_config",
+      "robot_config_path": "aerial_gym/config/robot_config/navrl_ref5in_v2_quad_config.py",
+      "robot_config_sha256": "d4a2ef53318a0c0a81b0f2be77ab8123a9676e26983cb7ff513b4fc3cdfcfd3a",
+      "robot_name": "navrl_ref5in_v2_quad"
+    },
+    "sim": {
+      "config_class": "BaseSimConfig",
+      "config_path": "aerial_gym/config/sim_config/base_sim_config.py",
+      "config_sha256": "a555a9c3cd4908277ffec78b5000a03bcec5f03608c9204c338a8f5405adad3a",
+      "name": "base_sim"
+    }
+  },
+  "route_mode": "off",
+  "schema": "navrl_corrected_nonoverlap_route_child_v1",
+  "seed": 829,
+  "software_provenance": {
+    "cuda": {
+      "available": true,
+      "cuda_visible_devices": null,
+      "current_device": 0,
+      "device_count": 1,
+      "driver_versions": [
+        "570.133.07"
+      ],
+      "gpu_names": [
+        "NVIDIA GeForce RTX 3070"
+      ]
+    },
+    "isaac_gym": {
+      "origin": "/home/fair/isaacgym/python/isaacgym/__init__.py",
+      "origin_sha256": "1bd02dc4c4d73315e2f1f77f68236bf6bf7e318e5596ebe3d27e8a9a2fce02ec"
+    },
+    "ninja": {
+      "path": "/home/fair/miniconda3/envs/aerialgym/bin/ninja",
+      "sha256": "696f9628a79d9ce50314cf9556d7cd1a1d1ec52b8fd52828f6f9db1719565b67",
+      "version": "1.13.0.git.kitware.jobserver-pipe-1"
+    },
+    "python": {
+      "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python3.8",
+      "executable_sha256": "14444553917029f14dd9e67582ff29cf059481be397b60b0f1ab9a3344c2578f",
+      "implementation": "CPython",
+      "version": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]"
+    },
+    "repo_modules": {
+      "navrl_task": {
+        "manifest_sha256": "8ca482e77eb1d464a9ab196b7e4bcc518cec19f4cb56138c731aadd9e633aa27",
+        "module": "aerial_gym.task.navrl_task.navrl_task",
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/task/navrl_task/navrl_task.py",
+        "relative_path": "aerial_gym/task/navrl_task/navrl_task.py",
+        "sha256": "8ca482e77eb1d464a9ab196b7e4bcc518cec19f4cb56138c731aadd9e633aa27"
+      },
+      "target_route_planner": {
+        "manifest_sha256": "73d9062859f0fcd8636270dc55aa73530aa45e3dd5f58eec5a697742e152b5c4",
+        "module": "aerial_gym.task.navrl_task.target_route_planner",
+        "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/task/navrl_task/target_route_planner.py",
+        "relative_path": "aerial_gym/task/navrl_task/target_route_planner.py",
+        "sha256": "73d9062859f0fcd8636270dc55aa73530aa45e3dd5f58eec5a697742e152b5c4"
+      }
+    },
+    "torch": {
+      "compiled_cuda_version": "12.1",
+      "origin": "/home/fair/miniconda3/envs/aerialgym/lib/python3.8/site-packages/torch/__init__.py",
+      "origin_sha256": "34fd26c3046775a70a6a654df60afb362b2f2e98b2f9b8e713c8763b7a80ff83",
+      "version": "2.4.1+cu121"
+    }
+  },
+  "source_manifest": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_corrected_nonoverlap_route_gate_seed829/source_manifest.json",
+  "source_manifest_sha256": "67e19983dc5a7729477688340c8e625f431881286f9cfd9e437515fd8f9a8f65",
+  "speed_mps": 0.6,
+  "steps": 300,
+  "warmup_steps": 20
+}

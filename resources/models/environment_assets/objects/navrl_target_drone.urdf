@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- NavRL target rigid body. In physical mode this uses the ref5in simulation design point:
+     1.20 kg, analytic assembled inertia, and a 0.28 x 0.28 x 0.12 m collision/visual box.
+     It is still a synthetic (not hardware-identified) platform contract. -->
+<robot name="navrl_target_drone">
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.20"/>
+      <inertia ixx="0.004142" ixy="0.0" ixz="0.0" iyy="0.004142" iyz="0.0" izz="0.005769"/>
+    </inertial>
+    <visual name="base_link_visual">
+      <geometry>
+        <box size="0.28 0.28 0.12"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="TargetRed">
+        <color rgba="0.9 0.2 0.2 0.95"/>
+      </material>
+    </visual>
+    <collision name="base_link_collision">
+      <geometry>
+        <box size="0.28 0.28 0.12"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+</robot>

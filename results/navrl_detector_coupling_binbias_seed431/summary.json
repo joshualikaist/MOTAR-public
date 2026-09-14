@@ -1,0 +1,95 @@
+{
+  "quality_gate": {
+    "gate": "injected pooled range-error std within profiled v7 std \u00b110%",
+    "profile_npz": "../../../results/navrl_detector_v7_error_profile_seed419/paired_errors.npz",
+    "profile_json": "../../../results/navrl_detector_v7_error_profile_seed419/profile.json",
+    "noise_seed": 9431,
+    "target_std_m": 0.705294319084259,
+    "observed_std_m": 0.7084856033325195,
+    "relative_error": 0.004524755356606347,
+    "tolerance": 0.1,
+    "pass": true,
+    "bias_profile": "2.08289242:0.205442269,4.6608386:0.305296177,8.64073992:0.224064449,19.9609222:-0.553642826",
+    "bins": [
+      {
+        "range_lo_m": 0.2858768701553345,
+        "range_hi_m": 2.082892417907715,
+        "target_bias_m": 0.20544226852862177,
+        "observed_bias_m": 0.19632676243782043,
+        "target_within_bin_std_m": 0.4169388416431745,
+        "observed_within_bin_std_m": 0.41497698426246643,
+        "samples": 13468
+      },
+      {
+        "range_lo_m": 2.082892417907715,
+        "range_hi_m": 4.660838603973389,
+        "target_bias_m": 0.3052961766131163,
+        "observed_bias_m": 0.3073924481868744,
+        "target_within_bin_std_m": 0.36550077199973885,
+        "observed_within_bin_std_m": 0.367746502161026,
+        "samples": 13468
+      },
+      {
+        "range_lo_m": 4.660838603973389,
+        "range_hi_m": 8.640739917755127,
+        "target_bias_m": 0.22406444853691168,
+        "observed_bias_m": 0.22338064014911652,
+        "target_within_bin_std_m": 0.23364375694129896,
+        "observed_within_bin_std_m": 0.231183260679245,
+        "samples": 13467
+      },
+      {
+        "range_lo_m": 8.640739917755127,
+        "range_hi_m": 19.960922241210938,
+        "target_bias_m": -0.5536428259783553,
+        "observed_bias_m": -0.5553876757621765,
+        "target_within_bin_std_m": 1.0695149251239977,
+        "observed_within_bin_std_m": 1.0783644914627075,
+        "samples": 13468
+      }
+    ]
+  },
+  "cells": {
+    "analytic_clean": {
+      "n": 2050,
+      "captured": 1646,
+      "capture": 0.8029268292682927,
+      "crash": 0.1721951219512195,
+      "timeout": 0.024878048780487806,
+      "seed": 431
+    },
+    "analytic_noise_1p0_binbias": {
+      "n": 2049,
+      "captured": 1572,
+      "capture": 0.767203513909224,
+      "crash": 0.21034651049292338,
+      "timeout": 0.02244997559785261,
+      "seed": 431
+    },
+    "learned_v7": {
+      "n": 2049,
+      "captured": 1558,
+      "capture": 0.7603709126403123,
+      "crash": 0.21425085407515862,
+      "timeout": 0.02537823328452904,
+      "seed": 431
+    }
+  },
+  "deltas": {
+    "analytic_noise_1p0_binbias": {
+      "delta_pp": -3.5723315359068697,
+      "ci95_pp": [
+        -6.085014179123385,
+        -1.0596488926903547
+      ]
+    },
+    "learned_v7": {
+      "delta_pp": -4.255591662798041,
+      "ci95_pp": [
+        -6.781686470147765,
+        -1.7294968554483172
+      ]
+    }
+  },
+  "verdict": "SUPPORTED_OUTPUT_COUPLING_CONSISTENT_MATCHED_RETRAINING_REQUIRED"
+}

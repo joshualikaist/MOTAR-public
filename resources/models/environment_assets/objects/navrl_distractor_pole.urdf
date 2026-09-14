@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- NavRL appearance distractor: pole, radius 0.06 m, length 1.60 m.
+
+     Taller and much thinner than the target: at range its silhouette is a narrow vertical strip,
+     which is what a red pipe / marker post looks like to a colour rule.  Static (fix_base_link)
+     but physically real: the collision cylinder is identical to the visual cylinder, so the LiDAR
+     sees it and the drone can hit it.  The renderer paints it the nominal target colour
+     (navrl_detector.py).
+
+     Inertia: solid cylinder, m = 1.5 kg, r = 0.06 m, h = 1.60 m.
+       Ixx = Iyy = m (3 r^2 + h^2) / 12 = 1.5 * (0.0108 + 2.56) / 12 = 0.321350 kg m^2
+       Izz       = m r^2 / 2          = 1.5 * 0.0036 / 2          = 0.0027 kg m^2 -->
+<robot name="navrl_distractor_pole">
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.5"/>
+      <inertia ixx="0.321350" ixy="0.0" ixz="0.0" iyy="0.321350" iyz="0.0" izz="0.0027"/>
+    </inertial>
+    <visual name="base_link_visual">
+      <geometry>
+        <cylinder radius="0.06" length="1.60"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="DistractorRed">
+        <color rgba="0.88 0.08 0.045 1.0"/>
+      </material>
+    </visual>
+    <collision name="base_link_collision">
+      <geometry>
+        <cylinder radius="0.06" length="1.60"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+</robot>

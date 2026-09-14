@@ -1,0 +1,161 @@
+{
+  "stage": "R-C",
+  "date": "2026-09-09",
+  "contract": "docs/plans/confirmation_phase_plan_2026-09-06.md #R-C, item 7 interaction test",
+  "design": "ref5in a8-readapt lineage; T0=trained with governor off, T1=trained with governor riskcap; each evaluated at 70 bars under riskcap and stopcap; 2 training seeds (233, 239); eval seed 521, 2049 episodes/cell",
+  "prediction": "per training seed: T0 stopcap-riskcap <= -3pp (CI excludes 0); T1 stopcap-riskcap within +-2pp (CI includes 0); interaction (T1-T0) positive and significant",
+  "judgment_rule": "2/2 seeds match -> co-training causal claim; 1/2 -> lineage-limited observation; 0/2 -> withdraw C3",
+  "cells": {
+    "T0s233_d070_riskcap": {
+      "captured": 1773,
+      "crash": 235,
+      "timeout": 42,
+      "n": 2050,
+      "checkpoint_sha256": "816c4ceb382c74685ce8bdd789272ba9dc0600e1de812521c6826e69a935b2bf",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T0s233_d070_stopcap": {
+      "captured": 1712,
+      "crash": 177,
+      "timeout": 160,
+      "n": 2049,
+      "checkpoint_sha256": "816c4ceb382c74685ce8bdd789272ba9dc0600e1de812521c6826e69a935b2bf",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T0s239_d070_riskcap": {
+      "captured": 1714,
+      "crash": 312,
+      "timeout": 23,
+      "n": 2049,
+      "checkpoint_sha256": "1497db081201dc93aafd4bc45f8f9d96aefd793be9b9920cc4fb1a9462be11a4",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T0s239_d070_stopcap": {
+      "captured": 1536,
+      "crash": 336,
+      "timeout": 177,
+      "n": 2049,
+      "checkpoint_sha256": "1497db081201dc93aafd4bc45f8f9d96aefd793be9b9920cc4fb1a9462be11a4",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T1s233_d070_riskcap": {
+      "captured": 1673,
+      "crash": 361,
+      "timeout": 15,
+      "n": 2049,
+      "checkpoint_sha256": "2d3dee3a6ee6d794e28ee171b3635a4493e4be3122262d18cd671ab54453a54a",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T1s233_d070_stopcap": {
+      "captured": 1497,
+      "crash": 355,
+      "timeout": 197,
+      "n": 2049,
+      "checkpoint_sha256": "2d3dee3a6ee6d794e28ee171b3635a4493e4be3122262d18cd671ab54453a54a",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T1s239_d070_riskcap": {
+      "captured": 1682,
+      "crash": 351,
+      "timeout": 16,
+      "n": 2049,
+      "checkpoint_sha256": "62df821ccf8d1a08878bc7373d092071fcab974c0554541f95929d4188a67fc0",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    },
+    "T1s239_d070_stopcap": {
+      "captured": 1535,
+      "crash": 319,
+      "timeout": 195,
+      "n": 2049,
+      "checkpoint_sha256": "62df821ccf8d1a08878bc7373d092071fcab974c0554541f95929d4188a67fc0",
+      "runtime_git_commit": "c9fd3b01accddc4500f507c23f155fff6c2b158b",
+      "runtime_git_dirty": false
+    }
+  },
+  "per_seed": {
+    "233": {
+      "T0_stopcap_minus_riskcap": {
+        "delta_pp": -2.935,
+        "se_pp": 1.114,
+        "ci95": [
+          -5.118,
+          -0.752
+        ],
+        "excludes_zero": true
+      },
+      "T1_stopcap_minus_riskcap": {
+        "delta_pp": -8.59,
+        "se_pp": 1.301,
+        "ci95": [
+          -11.139,
+          -6.04
+        ],
+        "excludes_zero": true
+      },
+      "interaction_T1_minus_T0": {
+        "delta_pp": -5.655,
+        "se_pp": 1.713,
+        "ci95": [
+          -9.012,
+          -2.298
+        ],
+        "excludes_zero": true
+      }
+    },
+    "239": {
+      "T0_stopcap_minus_riskcap": {
+        "delta_pp": -8.687,
+        "se_pp": 1.258,
+        "ci95": [
+          -11.153,
+          -6.221
+        ],
+        "excludes_zero": true
+      },
+      "T1_stopcap_minus_riskcap": {
+        "delta_pp": -7.174,
+        "se_pp": 1.279,
+        "ci95": [
+          -9.68,
+          -4.668
+        ],
+        "excludes_zero": true
+      },
+      "interaction_T1_minus_T0": {
+        "delta_pp": 1.513,
+        "se_pp": 1.794,
+        "ci95": [
+          -2.003,
+          5.029
+        ],
+        "excludes_zero": false
+      }
+    }
+  },
+  "pooled_T0": {
+    "delta_pp": -5.463,
+    "se_pp": 0.834,
+    "ci95": [
+      -7.098,
+      -3.828
+    ],
+    "excludes_zero": true
+  },
+  "pooled_T1": {
+    "delta_pp": -7.87,
+    "se_pp": 0.912,
+    "ci95": [
+      -9.658,
+      -6.082
+    ],
+    "excludes_zero": true
+  },
+  "verdict": "0/2: neither seed shows the predicted near-zero T1 effect; both show T1 stopcap-riskcap significantly negative and similar in magnitude to T0. Seed 233's interaction is significant in the OPPOSITE direction (T1 worse than T0). C3 (stopcap penalty is contingent on training filter) is withdrawn."
+}

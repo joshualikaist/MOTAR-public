@@ -1,0 +1,88 @@
+{
+  "checkpoints": {
+    "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260909_0532_navrl_v2-p10-empirical-readapt-s811/nn/last_gen_ppo_ep_26000_rew_26.62291.pth": {
+      "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260909_0532_navrl_v2-p10-empirical-readapt-s811/nn/last_gen_ppo_ep_26000_rew_26.62291.pth",
+      "sha256": "db6d9f055362310de92be1a160a4fbc564547770cfaeea3841908ef07c295e8d"
+    },
+    "ep25000": {
+      "path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260805_0413_navrl_v2-speedgov-ep24000-205bars-main-riskcap-s1/nn/last_gen_ppo_ep_25000_rew_39.742134.pth",
+      "sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40"
+    }
+  },
+  "contract": "v2",
+  "episodes": 2049,
+  "evaluated_source_fingerprint": "221b9c44a73189d85fcb554c2532eeb2563376ed:8e2b72059c51178baa59dde2b793e089b494952e:bbc38eed16caa4a47f787294146e24997a25203d",
+  "evaluation_commit": "1a39933b0d7a0812611cac044b359541458550dc",
+  "frozen_paths": [
+    "aerial_gym",
+    "tools",
+    "resources/robots"
+  ],
+  "governor_defaults": {
+    "NAVRL_SPEED_GOVERNOR_BRAKE_MPS2": "2.0",
+    "NAVRL_SPEED_GOVERNOR_FIXED_MPS": "2.0",
+    "NAVRL_SPEED_GOVERNOR_FREE_MPS": "3.53553390593",
+    "NAVRL_SPEED_GOVERNOR_HALF_WIDTH_M": "0.45",
+    "NAVRL_SPEED_GOVERNOR_MARGIN_M": "0.45",
+    "NAVRL_SPEED_GOVERNOR_REACTION_S": "0.1",
+    "NAVRL_SPEED_GOVERNOR_RELEASE_M": "5.0",
+    "NAVRL_SPEED_GOVERNOR_SLOW_M": "3.0",
+    "NAVRL_SPEED_GOVERNOR_TTC_S": "1.0"
+  },
+  "schema_version": 2,
+  "spec": {
+    "cells": [
+      {
+        "bars": 205,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "source_clean_s541",
+        "policy": "ep25000"
+      },
+      {
+        "bars": 205,
+        "env": {
+          "NAVRL_P9_ERROR_MODEL": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/perception_p9_2026-09-09/p9_error_injector.json",
+          "NAVRL_P9_EXPECTED_SHA256": "89879d798a5b10cfb2c0de785dbcfb1754815630b0cd4f91a453de28e728eda9",
+          "NAVRL_P9_SEED": "541",
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "source_p9_s541",
+        "policy": "ep25000"
+      },
+      {
+        "bars": 205,
+        "env": {
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "adapted_clean_s541",
+        "policy": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260909_0532_navrl_v2-p10-empirical-readapt-s811/nn/last_gen_ppo_ep_26000_rew_26.62291.pth"
+      },
+      {
+        "bars": 205,
+        "env": {
+          "NAVRL_P9_ERROR_MODEL": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/perception_p9_2026-09-09/p9_error_injector.json",
+          "NAVRL_P9_EXPECTED_SHA256": "89879d798a5b10cfb2c0de785dbcfb1754815630b0cd4f91a453de28e728eda9",
+          "NAVRL_P9_SEED": "541",
+          "NAVRL_SPEED_GOVERNOR": "riskcap"
+        },
+        "name": "adapted_p9_s541",
+        "policy": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260909_0532_navrl_v2-p10-empirical-readapt-s811/nn/last_gen_ppo_ep_26000_rew_26.62291.pth"
+      }
+    ],
+    "contract": "v2",
+    "episodes": 2049,
+    "frame_sample_every": 100,
+    "note": "P10 held-out evaluation. 4 arms over {source ep25000, P10-adapted} x {clean, P9 empirical error}. Training seed 811 is deliberately absent from the evaluation seeds. Contract: docs/plans/perception_p9_p10_execution_2026-09-09.md.",
+    "predictions": {
+      "primary": "pooled adapted-P9 minus source-P9 capture pp, two-sided normal 95% CI",
+      "scope": "descriptive with one training seed; not a seed-general PPO claim; no post-hoc pass margin",
+      "secondary": "crash and timeout differences; clean retention = adapted-clean minus source-clean"
+    },
+    "prereg": "docs/plans/perception_p9_p10_execution_2026-09-09.md#P10",
+    "seed": 541
+  },
+  "spec_path": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/docs/specs/grid_p10_empirical_541.json",
+  "spec_sha256": "1794d1c32b2490cf5b73a236461da841bad16a1d8e1143883e5f79efb76b2171"
+}

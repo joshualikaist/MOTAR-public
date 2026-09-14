@@ -1,0 +1,126 @@
+{
+  "candidate_producer": "tools/export_renderer_dataset.py",
+  "candidate_producer_sha256": "d4b4a754eacbb20714c5e1e71978f25455458a8ed3a8105cd1eda5b86fa69da0",
+  "candidate_still_works": {
+    "frames": 1,
+    "has_checkpoint_field": false,
+    "has_density_field": false,
+    "receipt_present": true,
+    "returncode": 0,
+    "schema": "generic_renderer_export_v1",
+    "status": "EXPORTED_UNASSESSED"
+  },
+  "causality_vs_d8b": "NOT_TESTED",
+  "created_at_utc": "2026-09-14T06:08:53.161895Z",
+  "decision": "No value was fabricated for the unavailable fields, and the envelope was not modified to accommodate the producer. A v2.1 with an optional task section is a design change and needs its own decision, not a side effect of this check.",
+  "experiment": "Record Envelope v2 live-generation feasibility",
+  "fail_closed_attempts": [
+    {
+      "attempt": "density_bars unknown",
+      "error_code": "INVALID_DENSITY_BARS",
+      "result": "REFUSED"
+    },
+    {
+      "attempt": "checkpoint absent",
+      "error_code": "MISSING_CHECKPOINT_PATH",
+      "result": "REFUSED"
+    },
+    {
+      "attempt": "config absent",
+      "error_code": "MISSING_CONFIG_PATH",
+      "result": "REFUSED"
+    }
+  ],
+  "field_sources": {
+    "checkpoint_path": {
+      "availability": "NOT_APPLICABLE",
+      "reason": "a generic exporter loads no policy checkpoint"
+    },
+    "checkpoint_sha256": {
+      "availability": "NOT_APPLICABLE",
+      "reason": "no checkpoint exists to hash"
+    },
+    "config_path": {
+      "availability": "NOT_APPLICABLE",
+      "reason": "the exporter is configured by command-line arguments and writes its configuration into its own receipt afterwards; there is no pre-existing config file to hash"
+    },
+    "config_sha256": {
+      "availability": "NOT_APPLICABLE",
+      "reason": "no config file exists to hash"
+    },
+    "created_at_utc": {
+      "availability": "AVAILABLE",
+      "reason": "clock at capture"
+    },
+    "density_bars": {
+      "availability": "NOT_APPLICABLE",
+      "reason": "obstacle-bar density is a simulator-task concept; a static renderer export has no bars and no honest value"
+    },
+    "record_count": {
+      "availability": "AVAILABLE",
+      "reason": "number of exported frames"
+    },
+    "records": {
+      "availability": "AVAILABLE",
+      "reason": "one row per exported frame"
+    },
+    "run_id": {
+      "availability": "AVAILABLE",
+      "reason": "uuid4 minted per run"
+    },
+    "schema_sha256": {
+      "availability": "AVAILABLE",
+      "reason": "sha256 of the schema file"
+    },
+    "schema_version": {
+      "availability": "AVAILABLE",
+      "reason": "constant declared by the contract"
+    },
+    "seed": {
+      "availability": "AVAILABLE",
+      "reason": "the exporter takes --material-seed and --light-seed; either is a real integer seed, though the contract has one slot for two seeds"
+    },
+    "source_dirty": {
+      "availability": "AVAILABLE",
+      "reason": "git status, observed"
+    },
+    "source_files_sha256": {
+      "availability": "AVAILABLE",
+      "reason": "sha256 of the producer's own sources"
+    },
+    "source_git_commit": {
+      "availability": "AVAILABLE",
+      "reason": "git rev-parse HEAD in the repository"
+    }
+  },
+  "fields_without_an_honest_generic_source": [
+    "checkpoint_path",
+    "checkpoint_sha256",
+    "config_path",
+    "config_sha256",
+    "density_bars"
+  ],
+  "producer_invented_nothing": true,
+  "question": "Does Record Envelope v2 fit a real task-independent artifact producer in this repository?",
+  "required_fields": [
+    "schema_version",
+    "schema_sha256",
+    "run_id",
+    "source_git_commit",
+    "source_dirty",
+    "source_files_sha256",
+    "seed",
+    "density_bars",
+    "checkpoint_path",
+    "checkpoint_sha256",
+    "config_path",
+    "config_sha256",
+    "created_at_utc",
+    "record_count",
+    "records"
+  ],
+  "schema": "docs/record_envelope_v2.json",
+  "schema_sha256": "91cc3071bbf4f4ce4b9553affea9ea448dcb4c20a3aa380951e9e58999be1215",
+  "scope": "Generic provenance feasibility only; no policy, task, controller or target performance work",
+  "verdict": "LIVE_GENERIC_VALIDATION_NOT_APPLICABLE"
+}

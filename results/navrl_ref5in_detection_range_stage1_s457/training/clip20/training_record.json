@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_detection_range_stage1.py",
+  "created_at_utc": "2026-08-23T04:47:45.823005+00:00",
+  "arm": "clip20",
+  "adopted": false,
+  "detector_max_range_m": 20.0,
+  "detector_max_range_evidence": "set_by_this_launcher_and_verified_in_the_trainer_effective_environment",
+  "run_root": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1204_navrl_v2-ref5in-detrange-clip20-s457",
+  "terminal_checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1204_navrl_v2-ref5in-detrange-clip20-s457/nn/last_gen_ppo_ep_2900_rew_221.48119.pth",
+  "terminal_checkpoint_sha256": "aa5e3e8131aceb8ccd4691878dbb1893307ef93b6f458c8cd7c2b8bff5b64b12",
+  "warm_start_checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "warm_start_checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "training_source_manifest": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/train_source_receipts/detection_range_stage1_s457/source_manifest.json",
+  "training_source_manifest_sha256": "5123eae45fc02601b230eaa831c9d7a475c69cd3b00c963f4112e2389b9a97e6",
+  "training_source_git_commit": "06edd070b40d776d833d81b41c62b9bfb063589b",
+  "epoch_metrics_csv": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1204_navrl_v2-ref5in-detrange-clip20-s457/aerial_run/epoch_metrics.csv",
+  "finished_marker": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260823_1204_navrl_v2-ref5in-detrange-clip20-s457/.aerial_training_finished",
+  "evaluator_needs_no_override": {
+    "checked_by_launcher": true,
+    "override_required": false,
+    "reason": "each arm is evaluated at the clip it was trained at; the evaluator's v2 provenance gate compares the checkpoint detector geometry to that arm's requested geometry",
+    "clip_not_recorded_in_checkpoint_provenance": false,
+    "clip_attested_by": "env_state.cfg_detector_max_range + v2_evaluation_contract.target_camera_max_range_m",
+    "chain_audit": {
+      "checked_by_launcher": true,
+      "scripts": [
+        "train_navrl_v2_search.sh",
+        "train_navrl.sh"
+      ],
+      "variables_audited": 26,
+      "findings": {
+        "NAVRL_APP_ALBEDO_JITTER": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_APP_HUE_DEG": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_APP_LIGHT_GAIN": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_APP_MOTION_BLUR": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_APP_TEXTURE_STD": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_CAMERA_HEIGHT": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_CAMERA_WIDTH": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_CAM_FOV_SCALE_ERR": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_CAM_MOUNT_ROT_DEG": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_CAM_MOUNT_TRANS_M": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_DENSITY_CURRICULUM": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_DETECTION_LATENCY_S": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_DETECTOR_MAX_RANGE": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_DETECTOR_MIN_PIXELS": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_DETECT_HEIGHT": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_DETECT_WIDTH": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_GENERAL_GOAL_DIST_MAX": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_GENERAL_GOAL_DIST_MIN": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_LATERAL_BIAS_COEF": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: erased -- unset unconditionally; the task reads unset as 0"
+        ],
+        "NAVRL_LEARNING_RATE": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_NUM_BARS": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: erased -- train_navrl_v2_search.sh unsets NAVRL_NUM_BARS only while the density curriculum owns the bar count; this experiment pins NAVRL_DENSITY_CURRICULUM=0, so the fixed 70 bars survive -- and the effective-environment check proves it did"
+        ],
+        "NAVRL_PERCEPTION_PERTURB": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: clobbered to the pinned value '0'"
+        ],
+        "NAVRL_RANGE_ERROR_M": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_REFLECTION_COEF": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: erased -- unset unconditionally; the task reads unset as 0"
+        ],
+        "NAVRL_ROBOT": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ],
+        "NAVRL_SPEED_GOVERNOR": [
+          "train_navrl.sh: pass-through",
+          "train_navrl_v2_search.sh: pass-through"
+        ]
+      },
+      "density_curriculum_pinned_to": "0"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "contract": "independent_renderer_buffers_v1",
+  "scope": "Static graphics only; debug IDs are not model inputs",
+  "causality_vs_d8b": "NOT_TESTED",
+  "buffers": {
+    "rgb": {"dtype": "float32", "layout": "NHWC", "channels": 3, "meaning": "Linear RGB, clamped to [0,1]"},
+    "range_m": {"dtype": "float32", "layout": "NHW", "miss": 0, "meaning": "Euclidean camera-ray distance in metres"},
+    "depth_m": {"dtype": "float32", "layout": "NHW", "miss": 0, "meaning": "Camera +Z optical depth in metres"},
+    "normal_world": {"dtype": "float32", "layout": "NHWC", "channels": 3, "miss": 0, "meaning": "Unit geometric face normal in world coordinates; analytic surface normal for sphere"},
+    "face_id": {"dtype": "int32", "layout": "NHW", "miss": -1, "meaning": "Scene triangle index, or analytic surface slot; used to look up material, not a model input"},
+    "instance_id": {"dtype": "int32", "layout": "NHW", "miss": -1, "meaning": "Debug/evaluation identity; never read by shading or provided to a model"},
+    "valid": {"dtype": "bool", "layout": "NHW", "miss": false, "meaning": "Valid surface hit within ray-range cutoff"}
+  },
+  "backgrounds": {
+    "renderer_characterization_export_v1": [0.0, 0.0, 0.0],
+    "generic_renderer_export_v1": [0.04, 0.04, 0.04]
+  },
+  "camera": {
+    "axes": "+X right, +Y down, +Z forward",
+    "pose": "Camera-to-world xyzw unit quaternion",
+    "pixel_sampling": "Integer column/row, principal point (width/2,height/2), no added half-pixel",
+    "depth_equation": "depth_m = range_m / sqrt(1 + ((u-width/2)/f)^2 + ((v-height/2)/f)^2)"
+  },
+  "status": "EXPORTED_UNASSESSED",
+  "experiment_verdict": "NOT_EVALUATED",
+  "training": "NOT_SUPPORTED"
+}

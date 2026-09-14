@@ -1,0 +1,202 @@
+[
+  {
+    "stage": "r3",
+    "run": 1,
+    "exit_code": 0,
+    "completion_note": "Initial tool yield is retained below; the subsequent session poll completed with exit 0 and no further output.",
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/eval_renderer_r3.py --output results/renderer_reverification_2026-09-11_1951/r3_run1",
+    "result": {
+      "chunk_id": "d02cb7",
+      "wall_time_seconds": 1.001209807,
+      "session_id": 88441,
+      "original_token_count": 94,
+      "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.88 ms\nPASS results/renderer_reverification_2026-09-11_1951/r3_run1\n"
+    }
+  },
+  {
+    "stage": "r3",
+    "run": 2,
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/eval_renderer_r3.py --output results/renderer_reverification_2026-09-11_1951/r3_run2",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.95 ms\nPASS results/renderer_reverification_2026-09-11_1951/r3_run2\n"
+  },
+  {
+    "stage": "r4",
+    "run": 1,
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/eval_renderer_r4.py --output results/renderer_reverification_2026-09-11_1951/r4_run1",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.83 ms\nFAIL results/renderer_reverification_2026-09-11_1951/r4_run1\n"
+  },
+  {
+    "stage": "r4",
+    "run": 2,
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/eval_renderer_r4.py --output results/renderer_reverification_2026-09-11_1951/r4_run2",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.80 ms\nFAIL results/renderer_reverification_2026-09-11_1951/r4_run2\n"
+  },
+  {
+    "stage": "r4b",
+    "run": 1,
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/eval_renderer_r4.py --output results/renderer_reverification_2026-09-11_1951/r4b_run1 --fixture mixed_material_box",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.84 ms\nFAIL results/renderer_reverification_2026-09-11_1951/r4b_run1\n"
+  },
+  {
+    "stage": "r4b",
+    "run": 2,
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/eval_renderer_r4.py --output results/renderer_reverification_2026-09-11_1951/r4b_run2 --fixture mixed_material_box",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.85 ms\nFAIL results/renderer_reverification_2026-09-11_1951/r4b_run2\n"
+  },
+  {
+    "stage": "r5_legacy_small",
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/benchmark_renderer_r5.py --output results/renderer_reverification_2026-09-11_1951/r5_legacy_small",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.20 ms\n 160x120  batch   1  geometry    0.60 ms  flat   0.16  lambertian   0.26  ratio 1.124\n 160x120  batch   8  geometry    0.79 ms  flat   0.18  lambertian   0.26  ratio 1.083\n 160x120  batch  32  geometry    1.41 ms  flat   0.33  lambertian   0.57  ratio 1.138\n 240x135  batch   1  geometry    0.70 ms  flat   0.16  lambertian   0.24  ratio 1.100\n 240x135  batch   8  geometry    0.94 ms  flat   0.18  lambertian   0.30  ratio 1.113\n 240x135  batch  32  geometry    1.97 ms  flat   0.44  lambertian   0.83  ratio 1.161\n 480x270  batch   1  geometry    1.73 ms  flat   0.17  lambertian   0.27  ratio 1.050\n 480x270  batch   8  geometry    2.85 ms  flat   0.45  lambertian   0.88  ratio 1.131\n 480x270  batch  32  geometry    7.18 ms  flat   1.34  lambertian   2.86  ratio 1.178\n{\n  \"status\": \"BENCHMARK_COMPLETE\",\n  \"stage\": \"R5\",\n  \"scope\": \"standalone renderer on a fixed box fixture; not a simulator, policy or training rate\",\n  \"device\": \"cuda:0\",\n  \"seed\": 0,\n  \"git_commit\": \"7c62dbfd1d58a67aa9e3e1ce2362cdd833456312\",\n  \"tracked_tree_clean\": true,\n  \"protocol\": {\n    \"repeats\": 3,\n    \"warmup_iterations\": 3,\n    \"measured_iterations_per_repeat\": 10,\n    \"arm_order\": \"alternated across repeats\",\n    \"synchronised\": true\n  },\n  \"slowdown_lambertian_over_flat\": {\n    \"min\": 1.0496837181036875,\n    \"max\": 1.1782403632859588,\n    \"median\": 1.1240203736255974\n  }\n}\n"
+  },
+  {
+    "stage": "r5_legacy_large",
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/benchmark_renderer_r5.py --output results/renderer_reverification_2026-09-11_1951/r5_legacy_large --batches 64 128 --resolutions 480x270",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.73 ms\n 480x270  batch  64  geometry   12.97 ms  flat   2.57  lambertian   5.45  ratio 1.185\n 480x270  batch 128  geometry   25.34 ms  flat   4.99  lambertian  10.69  ratio 1.188\n{\n  \"status\": \"BENCHMARK_COMPLETE\",\n  \"stage\": \"R5\",\n  \"scope\": \"standalone renderer on a fixed box fixture; not a simulator, policy or training rate\",\n  \"device\": \"cuda:0\",\n  \"seed\": 0,\n  \"git_commit\": \"7c62dbfd1d58a67aa9e3e1ce2362cdd833456312\",\n  \"tracked_tree_clean\": true,\n  \"protocol\": {\n    \"repeats\": 3,\n    \"warmup_iterations\": 3,\n    \"measured_iterations_per_repeat\": 10,\n    \"arm_order\": \"alternated across repeats\",\n    \"synchronised\": true\n  },\n  \"slowdown_lambertian_over_flat\": {\n    \"min\": 1.1846932121790124,\n    \"max\": 1.1879864177960098,\n    \"median\": 1.186339814987511\n  }\n}\n"
+  },
+  {
+    "stage": "r5_legacy_isolated128",
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/benchmark_renderer_r5.py --output results/renderer_reverification_2026-09-11_1951/r5_legacy_isolated128 --batches 128 --resolutions 480x270",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 5.72 ms\n 480x270  batch 128  geometry   25.39 ms  flat   5.01  lambertian  10.68  ratio 1.186\n{\n  \"status\": \"BENCHMARK_COMPLETE\",\n  \"stage\": \"R5\",\n  \"scope\": \"standalone renderer on a fixed box fixture; not a simulator, policy or training rate\",\n  \"device\": \"cuda:0\",\n  \"seed\": 0,\n  \"git_commit\": \"7c62dbfd1d58a67aa9e3e1ce2362cdd833456312\",\n  \"tracked_tree_clean\": true,\n  \"protocol\": {\n    \"repeats\": 3,\n    \"warmup_iterations\": 3,\n    \"measured_iterations_per_repeat\": 10,\n    \"arm_order\": \"alternated across repeats\",\n    \"synchronised\": true\n  },\n  \"slowdown_lambertian_over_flat\": {\n    \"min\": 1.1862103673175002,\n    \"max\": 1.1862103673175002,\n    \"median\": 1.1862103673175002\n  }\n}\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      160,
+      120,
+      1
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 160 --height 120 --batch 1 --output results/renderer_reverification_2026-09-11_1951/r5_direct/160x120_b1.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.62 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/160x120_b1.json 0.8393724470003789\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      160,
+      120,
+      8
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 160 --height 120 --batch 8 --output results/renderer_reverification_2026-09-11_1951/r5_direct/160x120_b8.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.81 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/160x120_b8.json 1.0818218130796613\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      160,
+      120,
+      32
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 160 --height 120 --batch 32 --output results/renderer_reverification_2026-09-11_1951/r5_direct/160x120_b32.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.90 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/160x120_b32.json 1.4555640342828633\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      240,
+      135,
+      1
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 240 --height 135 --batch 1 --output results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b1.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 9.27 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b1.json 0.8718629398289737\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      240,
+      135,
+      8
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 240 --height 135 --batch 8 --output results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b8.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 9.59 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b8.json 0.8495087345058018\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      240,
+      135,
+      32
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 240 --height 135 --batch 32 --output results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b32.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 7.54 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/240x135_b32.json 1.1576644265333882\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      480,
+      270,
+      1
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 480 --height 270 --batch 1 --output results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b1.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 9.39 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b1.json 1.4022140011565882\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      480,
+      270,
+      8
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 480 --height 270 --batch 8 --output results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b8.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 10.38 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b8.json 1.1874065513549703\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      480,
+      270,
+      32
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 480 --height 270 --batch 32 --output results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b32.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.81 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b32.json 1.1540429337557068\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      480,
+      270,
+      64
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 480 --height 270 --batch 64 --output results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b64.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.99 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b64.json 1.2339239253617469\n"
+  },
+  {
+    "stage": "r5_direct",
+    "cell": [
+      480,
+      270,
+      128
+    ],
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py benchmark --width 480 --height 270 --batch 128 --output results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b128.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.44 ms\nMEASURED_NO_SPEED_GATE results/renderer_reverification_2026-09-11_1951/r5_direct/480x270_b128.json 1.1976889904982384\n"
+  },
+  {
+    "stage": "r4_numpy_audit",
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py audit --fixture box --reference results/renderer_reverification_2026-09-11_1951/r4_run1/run.json --output results/renderer_reverification_2026-09-11_1951/r4_numpy_audit.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.06 ms\nPASS results/renderer_reverification_2026-09-11_1951/r4_numpy_audit.json \n"
+  },
+  {
+    "stage": "r4b_numpy_audit",
+    "cmd": "PYTHONNOUSERSITE=1 CUDA_VISIBLE_DEVICES=0 /home/fair/miniconda3/envs/aerialgym/bin/python -B tools/verify_renderer_measurements.py audit --fixture mixed_material_box --reference results/renderer_reverification_2026-09-11_1951/r4b_run1/run.json --output results/renderer_reverification_2026-09-11_1951/r4b_numpy_audit.json",
+    "exit_code": 0,
+    "output": "Warp 1.0.0 initialized:\n   CUDA Toolkit 11.5, Driver 12.8\n   Devices:\n     \"cpu\"      : \"x86_64\"\n     \"cuda:0\"   : \"NVIDIA GeForce RTX 3070\" (8 GiB, sm_86, mempool enabled)\n   Kernel cache:\n     /home/fair/.cache/warp/1.0.0\nModule _renderer_validation_camera_e3f2080c715cd641 load on device 'cuda:0' took 6.03 ms\nPASS results/renderer_reverification_2026-09-11_1951/r4b_numpy_audit.json \n"
+  }
+]

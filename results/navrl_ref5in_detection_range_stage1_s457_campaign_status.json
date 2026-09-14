@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "producer": "tools/run_navrl_ref5in_detection_range_stage1_campaign.py",
+  "pid": 2925530,
+  "host": "fair",
+  "started_at_utc": "2026-08-23T03:03:04.169975+00:00",
+  "updated_at_utc": "2026-08-23T07:00:38.439045+00:00",
+  "status": "complete",
+  "current_phase": null,
+  "completed_phases": [
+    {
+      "name": "preflight",
+      "finished_at_utc": "2026-08-23T03:04:18.734015+00:00"
+    },
+    {
+      "name": "train_clip20",
+      "finished_at_utc": "2026-08-23T04:47:45.823170+00:00"
+    },
+    {
+      "name": "gate0_clip20",
+      "finished_at_utc": "2026-08-23T04:47:46.440615+00:00"
+    },
+    {
+      "name": "train_clip28",
+      "finished_at_utc": "2026-08-23T06:45:12.267448+00:00"
+    },
+    {
+      "name": "gate0_clip28",
+      "finished_at_utc": "2026-08-23T06:45:12.281438+00:00"
+    },
+    {
+      "name": "evaluate_clip20",
+      "finished_at_utc": "2026-08-23T06:53:31.657371+00:00"
+    },
+    {
+      "name": "evaluate_clip28",
+      "finished_at_utc": "2026-08-23T07:00:38.274726+00:00"
+    },
+    {
+      "name": "finalize",
+      "finished_at_utc": "2026-08-23T07:00:38.359172+00:00"
+    },
+    {
+      "name": "verify",
+      "finished_at_utc": "2026-08-23T07:00:38.438843+00:00"
+    }
+  ],
+  "failed_phase": null,
+  "error": null,
+  "traceback": null,
+  "preregistration": "docs/prereg_2026-08-22_detection_range_2stage.md",
+  "stage1_producer": "tools/run_navrl_ref5in_detection_range_stage1.py",
+  "output": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_detection_range_stage1_s457",
+  "summary": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/navrl_ref5in_detection_range_stage1_s457/summary.json",
+  "contract": {
+    "arms": {
+      "clip20": 20.0,
+      "clip28": 28.0
+    },
+    "train_seed": 457,
+    "eval_seed": 461,
+    "warm_start_epoch": 1900,
+    "terminal_epoch": 2900,
+    "adaptation_epochs_per_arm": 1000,
+    "episodes_per_arm": 2049,
+    "goal_distance_m": [
+      22.5,
+      28.0
+    ],
+    "bars": 70,
+    "detector_min_pixels": 50,
+    "detect_resolution": [
+      1920,
+      1200
+    ],
+    "primary_gate": {
+      "metric": "never_acquired_delta_pp_clip28_minus_clip20",
+      "range_helps_at_or_below": -15.0
+    }
+  },
+  "finished_at_utc": "2026-08-23T07:00:38.439041+00:00",
+  "verdict": "RANGE_INCONCLUSIVE_AT_THIS_BUDGET",
+  "stage2_authorised": false,
+  "never_acquired_delta_pp": -5.270863836017569
+}

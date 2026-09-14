@@ -1,0 +1,1278 @@
+{
+  "aggregation_rule": "worst scene per criterion; every per-scene value is recorded",
+  "array_sha256": {
+    "depth_gradient_rgb": "4830960512ae1f4c4a56c0016465b3e97fa045eb3015be31ec425ae9ee1a508e",
+    "face": "21f6d9800156b2f909652a98f76f60e5d6e299f3c363b3bfc0b65e2a8756f48f",
+    "flat_rgb": "b11b07b6a3b6e0e906b8b2df3a5540aacf077c4e408dc59364982434fab520f1",
+    "lambertian_rgb": "660d06f8ad47a88f89771700fe1c4f6b607ecec9d713f01e4dbf8c2d37fccc6b",
+    "lambertian_uniform_color_rgb": "c03b9d22d427c129960025914d162e57e7db0ed4a14537874ad7b54a447fc53d",
+    "normal": "830a7c869dc63c969524233ce891499064d957586398ef962c3b4dc98b2fc889",
+    "range": "99fe3a54ab2f28e6f02382ca85f7cf2efdeadceb609978cb4cda567b31a78f45",
+    "valid": "27d153134adf6069f2de4f9bb53ded8616b232587d4cc0bcb085bfcad55687df"
+  },
+  "camera": {
+    "far_range_m": 20.0,
+    "height": 270,
+    "horizontal_fov_deg": 60.0,
+    "width": 480
+  },
+  "camera_poses": {
+    "note": "pose variation per scene was chosen at implementation time; the preregistration fixed the fixture and camera, not the pose",
+    "orientations": [
+      [
+        0.015541073866188526,
+        -0.024372059851884842,
+        0.00037892634281888604,
+        0.999582052230835
+      ],
+      [
+        0.008980055339634418,
+        0.01845839060842991,
+        -0.0001657923130551353,
+        0.999789297580719
+      ],
+      [
+        -0.024760613217949867,
+        0.0015257918275892735,
+        3.779117469093762e-05,
+        0.9996922612190247
+      ],
+      [
+        0.01786809228360653,
+        -0.024349987506866455,
+        0.00043528646347112954,
+        0.9995437264442444
+      ],
+      [
+        -0.020887909457087517,
+        0.0204924326390028,
+        0.0004282275040168315,
+        0.999571681022644
+      ],
+      [
+        0.01669776812195778,
+        0.0031450369860976934,
+        -5.2522682381095365e-05,
+        0.999855637550354
+      ],
+      [
+        -0.014432692900300026,
+        -0.005884071812033653,
+        -8.49333155201748e-05,
+        0.9998785257339478
+      ],
+      [
+        -0.021161891520023346,
+        0.010308436118066311,
+        0.00021820647816639394,
+        0.9997228980064392
+      ]
+    ],
+    "positions": [
+      [
+        0.07789933681488037,
+        0.05253913253545761,
+        -0.003790798597037792
+      ],
+      [
+        0.002304281573742628,
+        -0.08702445775270462,
+        0.0792500302195549
+      ],
+      [
+        0.047952186316251755,
+        -0.09111083298921585,
+        0.04083811119198799
+      ],
+      [
+        -0.020926207304000854,
+        0.04184810444712639,
+        -0.007483380381017923
+      ],
+      [
+        -0.006882757879793644,
+        0.08104313164949417,
+        0.08534415066242218
+      ],
+      [
+        -0.02754107676446438,
+        0.0027341048698872328,
+        -0.03975629806518555
+      ],
+      [
+        0.06134979799389839,
+        0.08610457926988602,
+        -0.07178505510091782
+      ],
+      [
+        -0.06855207681655884,
+        -0.06260490417480469,
+        -0.0057203080505132675
+      ]
+    ]
+  },
+  "checks": {
+    "A_flat_is_flat_in_every_scene": true,
+    "B_depth_arm_is_a_function_of_depth_in_every_scene": true,
+    "C_lambertian_is_not_depth_alone_in_every_scene": false,
+    "D_within_depth_bin_spread_exceeds_depth_arm_in_every_scene": true
+  },
+  "device": "cuda:0",
+  "diagnostic_arms": [
+    "lambertian_uniform_color"
+  ],
+  "experiment_scope": "renderer-only; no task, detector, model, training or policy. Says nothing about any model's shortcut dependence.",
+  "fixture": {
+    "coverage": [
+      0.2796450617283951,
+      0.30270833333333336,
+      0.2910262345679012,
+      0.2800771604938272,
+      0.30574074074074076,
+      0.2779706790123457,
+      0.2722145061728395,
+      0.284266975308642
+    ],
+    "valid_pixels": [
+      36242,
+      39231,
+      37717,
+      36298,
+      39624,
+      36025,
+      35279,
+      36841
+    ],
+    "visible_faces": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ]
+  },
+  "fixture_name": "mixed_material_box",
+  "generic_kernel_sha256": "e3f2080c715cd641c5ec156323dbdaa125b7f62c17b30ade14cbcc51777b65fc",
+  "git_commit": "7c62dbfd1d58a67aa9e3e1ce2362cdd833456312",
+  "per_scene": {
+    "depth_gradient": [
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3595819468796253,
+        "luminance_mean": 0.3517274077590283,
+        "luminance_min": 0.334360471701622,
+        "luminance_variance": 2.5900656497898168e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.35413121398996544,
+            "luminance_variance": 1.1545237154506416e-05,
+            "material": 0,
+            "pixels": 18697
+          },
+          {
+            "luminance_mean": 0.3531546788448916,
+            "luminance_variance": 1.6791643820903226e-05,
+            "material": 1,
+            "pixels": 9423
+          },
+          {
+            "luminance_mean": 0.34453790510673554,
+            "luminance_variance": 2.161141665304065e-06,
+            "material": 2,
+            "pixels": 8122
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999852021,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36242,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.00022721513360898045
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.37124782528281214,
+        "luminance_mean": 0.3632378618469729,
+        "luminance_min": 0.34548755116462704,
+        "luminance_variance": 2.8807694812764904e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.3656994430732127,
+            "luminance_variance": 1.1847524292742571e-05,
+            "material": 0,
+            "pixels": 21443
+          },
+          {
+            "luminance_mean": 0.3646064942371367,
+            "luminance_variance": 1.794363918992668e-05,
+            "material": 1,
+            "pixels": 9626
+          },
+          {
+            "luminance_mean": 0.35515673692391736,
+            "luminance_variance": 2.7449695363734285e-06,
+            "material": 2,
+            "pixels": 8162
+          }
+        ],
+        "range_luminance_r_squared": 0.999999999986035,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39231,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0002249648055411002
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3460949907183647,
+        "luminance_mean": 0.33859816351291827,
+        "luminance_min": 0.32227860049605367,
+        "luminance_variance": 2.4528369915968516e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.3408711603728472,
+            "luminance_variance": 1.0582072678325533e-05,
+            "material": 0,
+            "pixels": 20116
+          },
+          {
+            "luminance_mean": 0.3398996240659653,
+            "luminance_variance": 1.5634326984992844e-05,
+            "material": 1,
+            "pixels": 9592
+          },
+          {
+            "luminance_mean": 0.3313304378968415,
+            "luminance_variance": 2.3838794379597226e-06,
+            "material": 2,
+            "pixels": 8009
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999853937,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 37717,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.00021400226755371538
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.2917978852212429,
+        "luminance_mean": 0.28535454460797743,
+        "luminance_min": 0.2707994123458862,
+        "luminance_variance": 1.8848433462053943e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.2875621605906332,
+            "luminance_variance": 7.086110716992883e-06,
+            "material": 0,
+            "pixels": 19124
+          },
+          {
+            "luminance_mean": 0.28645663435682456,
+            "luminance_variance": 1.1439771597827137e-05,
+            "material": 1,
+            "pixels": 8888
+          },
+          {
+            "luminance_mean": 0.2790772308570649,
+            "luminance_variance": 1.9870126038340626e-06,
+            "material": 2,
+            "pixels": 8286
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999858628,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36298,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.00018070842578478386
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.33842943970263,
+        "luminance_mean": 0.33112847048402283,
+        "luminance_min": 0.31517694563269616,
+        "luminance_variance": 2.3704910893715946e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.33336020983888864,
+            "luminance_variance": 9.763232712747267e-06,
+            "material": 0,
+            "pixels": 21707
+          },
+          {
+            "luminance_mean": 0.3322806189496111,
+            "luminance_variance": 1.5380330883431367e-05,
+            "material": 1,
+            "pixels": 9756
+          },
+          {
+            "luminance_mean": 0.32381506200389176,
+            "luminance_variance": 2.4185566011498838e-06,
+            "material": 2,
+            "pixels": 8161
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999855872,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39624,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.00020779776480062262
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.35937959771156314,
+        "luminance_mean": 0.3515498090058414,
+        "luminance_min": 0.33353152672052383,
+        "luminance_variance": 2.829670981716475e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.3541426159194875,
+            "luminance_variance": 1.0666190501843578e-05,
+            "material": 0,
+            "pixels": 19446
+          },
+          {
+            "luminance_mean": 0.3528487131522795,
+            "luminance_variance": 1.7597839732497802e-05,
+            "material": 1,
+            "pixels": 8757
+          },
+          {
+            "luminance_mean": 0.343649754435,
+            "luminance_variance": 3.092455499014532e-06,
+            "material": 2,
+            "pixels": 7822
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999863113,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36025,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0002195090662505581
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.32088410357236863,
+        "luminance_mean": 0.313875673351475,
+        "luminance_min": 0.2989139217674732,
+        "luminance_variance": 2.0774457767594184e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.3160111003595272,
+            "luminance_variance": 9.087281334425045e-06,
+            "material": 0,
+            "pixels": 18591
+          },
+          {
+            "luminance_mean": 0.31500704508803223,
+            "luminance_variance": 1.3874824719614532e-05,
+            "material": 1,
+            "pixels": 9058
+          },
+          {
+            "luminance_mean": 0.307329449406988,
+            "luminance_variance": 1.958507248584876e-06,
+            "material": 2,
+            "pixels": 7630
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999847258,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 35279,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.00020114091976995965
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3107188598334789,
+        "luminance_mean": 0.3039237306923408,
+        "luminance_min": 0.2883545630276203,
+        "luminance_variance": 2.1904147016160773e-05,
+        "per_material": [
+          {
+            "luminance_mean": 0.30623831198933466,
+            "luminance_variance": 7.7803366218489e-06,
+            "material": 0,
+            "pixels": 20213
+          },
+          {
+            "luminance_mean": 0.30497615351758045,
+            "luminance_variance": 1.3326139891983396e-05,
+            "material": 1,
+            "pixels": 8716
+          },
+          {
+            "luminance_mean": 0.2968512396532956,
+            "luminance_variance": 2.5096328319003277e-06,
+            "material": 2,
+            "pixels": 7912
+          }
+        ],
+        "range_luminance_r_squared": 0.9999999999863286,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36841,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.00019261371598333052
+      }
+    ],
+    "flat": [
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.508248269867897,
+        "luminance_mean": 0.508248269867897,
+        "luminance_min": 0.508248269867897,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.508248269867897,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 18697
+          },
+          {
+            "luminance_mean": 0.508248269867897,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9423
+          },
+          {
+            "luminance_mean": 0.5082482698678968,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8122
+          }
+        ],
+        "range_luminance_r_squared": 0.0,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36242,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.5225466319203376,
+        "luminance_mean": 0.5225466319203376,
+        "luminance_min": 0.5225466319203376,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.5225466319203376,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 21443
+          },
+          {
+            "luminance_mean": 0.5225466319203376,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9626
+          },
+          {
+            "luminance_mean": 0.5225466319203376,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8162
+          }
+        ],
+        "range_luminance_r_squared": 0.0,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39231,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.4881294433057308,
+        "luminance_mean": 0.4881294433057307,
+        "luminance_min": 0.4881294433057308,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.4881294433057307,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 20116
+          },
+          {
+            "luminance_mean": 0.4881294433057308,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9592
+          },
+          {
+            "luminance_mean": 0.4881294433057309,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8009
+          }
+        ],
+        "range_luminance_r_squared": 9.800012663215466e-31,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 37717,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.412288879263401,
+        "luminance_mean": 0.412288879263401,
+        "luminance_min": 0.412288879263401,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.4122888792634011,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 19124
+          },
+          {
+            "luminance_mean": 0.412288879263401,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8888
+          },
+          {
+            "luminance_mean": 0.412288879263401,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8286
+          }
+        ],
+        "range_luminance_r_squared": 0.0,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36298,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.4761589365661144,
+        "luminance_mean": 0.47615893656611447,
+        "luminance_min": 0.4761589365661144,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.4761589365661144,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 21707
+          },
+          {
+            "luminance_mean": 0.4761589365661144,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9756
+          },
+          {
+            "luminance_mean": 0.4761589365661144,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8161
+          }
+        ],
+        "range_luminance_r_squared": 1.1079539999785645e-31,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39624,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.5085342241644859,
+        "luminance_mean": 0.5085342241644859,
+        "luminance_min": 0.5085342241644859,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.508534224164486,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 19446
+          },
+          {
+            "luminance_mean": 0.5085342241644859,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8757
+          },
+          {
+            "luminance_mean": 0.508534224164486,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 7822
+          }
+        ],
+        "range_luminance_r_squared": 0.0,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36025,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.4548925048172474,
+        "luminance_mean": 0.4548925048172475,
+        "luminance_min": 0.4548925048172474,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.4548925048172475,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 18591
+          },
+          {
+            "luminance_mean": 0.4548925048172474,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9058
+          },
+          {
+            "luminance_mean": 0.45489250481724736,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 7630
+          }
+        ],
+        "range_luminance_r_squared": 2.6702715688594334e-31,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 35279,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.4388898964703083,
+        "luminance_mean": 0.43888989647030824,
+        "luminance_min": 0.4388898964703083,
+        "luminance_variance": 0.0,
+        "per_material": [
+          {
+            "luminance_mean": 0.4388898964703083,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 20213
+          },
+          {
+            "luminance_mean": 0.43888989647030835,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8716
+          },
+          {
+            "luminance_mean": 0.43888989647030835,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 7912
+          }
+        ],
+        "range_luminance_r_squared": 1.3757129689597036e-31,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36841,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.0
+      }
+    ],
+    "lambertian": [
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.5193274460494518,
+        "luminance_mean": 0.28316696668798896,
+        "luminance_min": 0.1362711096405983,
+        "luminance_variance": 0.015496884688344936,
+        "per_material": [
+          {
+            "luminance_mean": 0.24386911550909285,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 18697
+          },
+          {
+            "luminance_mean": 0.18059521634578707,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9423
+          },
+          {
+            "luminance_mean": 0.49263329603622713,
+            "luminance_variance": 0.009512785662685663,
+            "material": 2,
+            "pixels": 8122
+          }
+        ],
+        "range_luminance_r_squared": 0.4025987384850164,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36242,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.029296332051602293
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.5333629726529121,
+        "luminance_mean": 0.37510259542769103,
+        "luminance_min": 0.09485248150005936,
+        "luminance_variance": 0.03457560710608826,
+        "per_material": [
+          {
+            "luminance_mean": 0.5333629726529122,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 21443
+          },
+          {
+            "luminance_mean": 0.09485248150005936,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9626
+          },
+          {
+            "luminance_mean": 0.28984289533297924,
+            "luminance_variance": 0.0004910833880979334,
+            "material": 2,
+            "pixels": 8162
+          }
+        ],
+        "range_luminance_r_squared": 0.07179979388302273,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39231,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.19670181829873545
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.4218687448918819,
+        "luminance_mean": 0.336737386564852,
+        "luminance_min": 0.10488850413858891,
+        "luminance_variance": 0.011077629587387821,
+        "per_material": [
+          {
+            "luminance_mean": 0.421868744891882,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 20116
+          },
+          {
+            "luminance_mean": 0.17906213357746603,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9592
+          },
+          {
+            "luminance_mean": 0.31175531920918603,
+            "luminance_variance": 0.003565674228771922,
+            "material": 2,
+            "pixels": 8009
+          }
+        ],
+        "range_luminance_r_squared": 0.03926292931203755,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 37717,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.11062163969133974
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.2778456851422787,
+        "luminance_mean": 0.13303585462498468,
+        "luminance_min": 0.07425890735089778,
+        "luminance_variance": 0.007043249238456229,
+        "per_material": [
+          {
+            "luminance_mean": 0.0742589073508978,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 19124
+          },
+          {
+            "luminance_mean": 0.2778456851422787,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8888
+          },
+          {
+            "luminance_mean": 0.11336177376955749,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8286
+          }
+        ],
+        "range_luminance_r_squared": 9.00234782339674e-06,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36298,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.09148151971023954
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.44334744903445245,
+        "luminance_mean": 0.2419448090288989,
+        "luminance_min": 0.12236611904874443,
+        "luminance_variance": 0.010209054514314886,
+        "per_material": [
+          {
+            "luminance_mean": 0.22849475439190864,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 21707
+          },
+          {
+            "luminance_mean": 0.12236611904874443,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9756
+          },
+          {
+            "luminance_mean": 0.42066923439975257,
+            "luminance_variance": 5.059950703927372e-05,
+            "material": 2,
+            "pixels": 8161
+          }
+        ],
+        "range_luminance_r_squared": 0.42614329052643385,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39624,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.04765632835545834
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.39780764249563216,
+        "luminance_mean": 0.2755773599816282,
+        "luminance_min": 0.06443560007363558,
+        "luminance_variance": 0.015116779738265263,
+        "per_material": [
+          {
+            "luminance_mean": 0.3233227641046046,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 19446
+          },
+          {
+            "luminance_mean": 0.06443560007363558,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8757
+          },
+          {
+            "luminance_mean": 0.39325969991245047,
+            "luminance_variance": 0.00019561105886120307,
+            "material": 2,
+            "pixels": 7822
+          }
+        ],
+        "range_luminance_r_squared": 0.09170579075107002,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36025,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.1155669257477028
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3581122576355934,
+        "luminance_mean": 0.31004454936665715,
+        "luminance_min": 0.04686997760757804,
+        "luminance_variance": 0.005744508432423615,
+        "per_material": [
+          {
+            "luminance_mean": 0.35811225763559346,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 18591
+          },
+          {
+            "luminance_mean": 0.32829888395965096,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9058
+          },
+          {
+            "luminance_mean": 0.1712536545866927,
+            "luminance_variance": 0.0012728160960751697,
+            "material": 2,
+            "pixels": 7630
+          }
+        ],
+        "range_luminance_r_squared": 0.5816185135971375,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 35279,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.013671769101731507
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3030918958067894,
+        "luminance_mean": 0.18915835076840232,
+        "luminance_min": 0.09757445112466812,
+        "luminance_variance": 0.0033075436718774036,
+        "per_material": [
+          {
+            "luminance_mean": 0.15580836144089696,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 20213
+          },
+          {
+            "luminance_mean": 0.18229256868362423,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8716
+          },
+          {
+            "luminance_mean": 0.28192193657828474,
+            "luminance_variance": 0.0039026287509304203,
+            "material": 2,
+            "pixels": 7912
+          }
+        ],
+        "range_luminance_r_squared": 0.4013844324179066,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36841,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.011717819055104745
+      }
+    ],
+    "lambertian_uniform_color": [
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.38738553735315795,
+        "luminance_mean": 0.32682517726532234,
+        "luminance_min": 0.10164965418875217,
+        "luminance_variance": 0.0031376742320091064,
+        "per_material": [
+          {
+            "luminance_mean": 0.34602953066825876,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 18697
+          },
+          {
+            "luminance_mean": 0.25368408309817314,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9423
+          },
+          {
+            "luminance_mean": 0.36747338395854406,
+            "luminance_variance": 0.005293122883104477,
+            "material": 2,
+            "pixels": 8122
+          }
+        ],
+        "range_luminance_r_squared": 0.03350865701689642,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36242,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.042704315590253526
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.4300255856096744,
+        "luminance_mean": 0.3384152533382366,
+        "luminance_min": 0.10450932722687721,
+        "luminance_variance": 0.01843900697760467,
+        "per_material": [
+          {
+            "luminance_mean": 0.4300255856096743,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 21443
+          },
+          {
+            "luminance_mean": 0.1045093272268772,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9626
+          },
+          {
+            "luminance_mean": 0.37360002298434114,
+            "luminance_variance": 0.0008159124286007871,
+            "material": 2,
+            "pixels": 8162
+          }
+        ],
+        "range_luminance_r_squared": 0.000110694866283669,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39231,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.14601620987758357
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3890728775084018,
+        "luminance_mean": 0.3272512468249994,
+        "luminance_min": 0.12404338812083004,
+        "luminance_variance": 0.006860656574922327,
+        "per_material": [
+          {
+            "luminance_mean": 0.37293110056519513,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 20116
+          },
+          {
+            "luminance_mean": 0.19685433142483233,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9592
+          },
+          {
+            "luminance_mean": 0.3686885392061488,
+            "luminance_variance": 0.004986929523728934,
+            "material": 2,
+            "pixels": 8009
+          }
+        ],
+        "range_luminance_r_squared": 0.007491969441037923,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 37717,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.08032488416829597
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.2947029493033886,
+        "luminance_mean": 0.13442854830484188,
+        "luminance_min": 0.08245777573734522,
+        "luminance_variance": 0.008329584442687228,
+        "per_material": [
+          {
+            "luminance_mean": 0.08245777573734525,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 19124
+          },
+          {
+            "luminance_mean": 0.2947029493033886,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8888
+          },
+          {
+            "luminance_mean": 0.08245777573734524,
+            "luminance_variance": 0.0,
+            "material": 2,
+            "pixels": 8286
+          }
+        ],
+        "range_luminance_r_squared": 0.020895538689485876,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36298,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.09551394321914158
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.37426401726901526,
+        "luminance_mean": 0.2904988222489486,
+        "luminance_min": 0.09523178917393088,
+        "luminance_variance": 0.013260436001191221,
+        "per_material": [
+          {
+            "luminance_mean": 0.3742640172690153,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 21707
+          },
+          {
+            "luminance_mean": 0.09523178917393088,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9756
+          },
+          {
+            "luminance_mean": 0.3011266970656725,
+            "luminance_variance": 2.5927667089188675e-05,
+            "material": 2,
+            "pixels": 8161
+          }
+        ],
+        "range_luminance_r_squared": 0.002842591971703849,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 39624,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.12480990165164055
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.3525044298648834,
+        "luminance_mean": 0.2798047977889808,
+        "luminance_min": 0.10170684601217508,
+        "luminance_variance": 0.010663181883042218,
+        "per_material": [
+          {
+            "luminance_mean": 0.3525044298648834,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 19446
+          },
+          {
+            "luminance_mean": 0.10170684601217507,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8757
+          },
+          {
+            "luminance_mean": 0.2984556183414595,
+            "luminance_variance": 0.00011266624586511377,
+            "material": 2,
+            "pixels": 7822
+          }
+        ],
+        "range_luminance_r_squared": 0.000879516185226382,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36025,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.11188529855507967
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.35228057045936584,
+        "luminance_mean": 0.2974731043429374,
+        "luminance_min": 0.09097850500345231,
+        "luminance_variance": 0.0014690411706756383,
+        "per_material": [
+          {
+            "luminance_mean": 0.280150297036767,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 18591
+          },
+          {
+            "luminance_mean": 0.3035917334139347,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 9058
+          },
+          {
+            "luminance_mean": 0.3324175038847354,
+            "luminance_variance": 0.004795718908491038,
+            "material": 2,
+            "pixels": 7630
+          }
+        ],
+        "range_luminance_r_squared": 0.09033412687704806,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 35279,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.010729320506811406
+      },
+      {
+        "black_pixel_fraction": 0.0,
+        "luminance_max": 0.2934219410538673,
+        "luminance_mean": 0.2313570826500795,
+        "luminance_min": 0.08777797961682081,
+        "luminance_variance": 0.0023865419003315344,
+        "per_material": [
+          {
+            "luminance_mean": 0.19588101752102374,
+            "luminance_variance": 0.0,
+            "material": 0,
+            "pixels": 20213
+          },
+          {
+            "luminance_mean": 0.2934219410538673,
+            "luminance_variance": 0.0,
+            "material": 1,
+            "pixels": 8716
+          },
+          {
+            "luminance_mean": 0.25361699147290434,
+            "luminance_variance": 0.0031583205510106824,
+            "material": 2,
+            "pixels": 7912
+          }
+        ],
+        "range_luminance_r_squared": 0.04864337424446925,
+        "saturated_pixel_fraction": 0.0,
+        "valid_pixels": 36841,
+        "within_range_bin_count": 20,
+        "within_range_bin_luminance_std_median": 0.043100630489222136
+      }
+    ]
+  },
+  "preregistered_arms": [
+    "flat",
+    "depth_gradient",
+    "lambertian"
+  ],
+  "run_verdict": "FAIL",
+  "runtime": {
+    "cuda": "12.1",
+    "cudnn": 90100,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "deterministic_algorithms": false,
+    "device_capability": "8.6",
+    "device_name": "NVIDIA GeForce RTX 3070",
+    "driver_cuda": "12.1",
+    "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+    "matmul_allow_tf32": false,
+    "numpy": "1.23.0",
+    "opencv": "4.13.0",
+    "opencv_threads": 24,
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+    "python": "3.8.20",
+    "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+    "torch": "2.4.1+cu121",
+    "warp": "1.0.0"
+  },
+  "scenes": 8,
+  "schema": "independent_renderer_r4_run_v1",
+  "seed": 409,
+  "stage": "R4b",
+  "summary": {
+    "depth_gradient": {
+      "luminance_mean_over_scenes": 0.3299244576575721,
+      "r_squared_max": 0.9999999999863286,
+      "r_squared_min": 0.9999999999847258,
+      "within_bin_std_median_over_scenes": 0.000210900016177169
+    },
+    "flat": {
+      "luminance_mean_over_scenes": 0.4762110982969403,
+      "r_squared_max": 9.800012663215466e-31,
+      "r_squared_min": 0.0,
+      "within_bin_std_median_over_scenes": 0.0
+    },
+    "lambertian": {
+      "luminance_mean_over_scenes": 0.2680959840563879,
+      "r_squared_max": 0.5816185135971375,
+      "r_squared_min": 9.00234782339674e-06,
+      "within_bin_std_median_over_scenes": 0.06956892403284895
+    },
+    "lambertian_uniform_color": {
+      "luminance_mean_over_scenes": 0.2782567540955433,
+      "r_squared_max": 0.09033412687704806,
+      "r_squared_min": 0.000110694866283669,
+      "within_bin_std_median_over_scenes": 0.08791941369371878
+    }
+  },
+  "thresholds": {
+    "depth_r_squared_min": 0.99,
+    "flat_variance_max": 1e-12,
+    "lambertian_r_squared_max": 0.5,
+    "range_quantile_bins": 20,
+    "within_bin_ratio_min": 3.0
+  },
+  "tracked_tree_clean": true,
+  "within_bin_ratio_lambertian_over_depth": [
+    128.93653510781988,
+    874.3670718876015,
+    516.918072672166,
+    506.23826372761494,
+    229.33994694882085,
+    526.4790549279145,
+    67.97109766310903,
+    60.835849592969
+  ],
+  "within_bin_ratio_uniform_color_lambertian_over_depth": [
+    187.94661654775305,
+    649.0624590205376,
+    375.3459488373604,
+    528.5527932875398,
+    600.6315889460741,
+    509.70695865185115,
+    53.34230607616933,
+    223.76719263830734
+  ]
+}

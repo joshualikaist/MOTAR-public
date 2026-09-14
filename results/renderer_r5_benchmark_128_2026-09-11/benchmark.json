@@ -1,0 +1,118 @@
+{
+  "device": "cuda:0",
+  "protocol": {
+    "arm_order": "alternated across repeats",
+    "measured_iterations_per_repeat": 10,
+    "repeats": 3,
+    "synchronised": true,
+    "warmup_iterations": 3
+  },
+  "rows": [
+    {
+      "batch": 64,
+      "geometry": {
+        "max_ms": 13.248833012767136,
+        "mean_ms": 12.313493032706901,
+        "min_ms": 11.833499011117965,
+        "n": 30,
+        "p50_ms": 12.354833539575338,
+        "p95_ms": 12.958303035702556
+      },
+      "height": 270,
+      "images_per_second_lambertian": 3669.5583153012713,
+      "iteration_flat_ms": 14.736580802127719,
+      "iteration_lambertian_ms": 17.44079109824573,
+      "iterations_per_second_lambertian": 57.33684867658236,
+      "lambertian_over_flat": 1.1835032381275015,
+      "pixels_per_iteration": 8294400,
+      "shade_flat": {
+        "max_ms": 2.8220390086062253,
+        "mean_ms": 2.4230877694208175,
+        "min_ms": 2.3709500092081726,
+        "n": 30,
+        "p50_ms": 2.3862489906605333,
+        "p95_ms": 2.5592289748601615
+      },
+      "shade_lambertian": {
+        "max_ms": 5.4446199792437255,
+        "mean_ms": 5.127298065538828,
+        "min_ms": 5.049845029134303,
+        "n": 30,
+        "p50_ms": 5.103372997837141,
+        "p95_ms": 5.2423590095713735
+      },
+      "shading_share_of_lambertian_iteration": 0.29398311330353327,
+      "torch_peak_allocated_mib": 802.16650390625,
+      "torch_peak_reserved_mib": 954.0,
+      "triangles": 24,
+      "width": 480
+    },
+    {
+      "batch": 128,
+      "geometry": {
+        "max_ms": 25.040315988007933,
+        "mean_ms": 23.722713758858543,
+        "min_ms": 23.333676042966545,
+        "n": 30,
+        "p50_ms": 23.448985972208902,
+        "p95_ms": 24.537827994208783
+      },
+      "height": 270,
+      "images_per_second_lambertian": 3787.708895090018,
+      "iteration_flat_ms": 28.526877561428897,
+      "iteration_lambertian_ms": 33.79351569650074,
+      "iterations_per_second_lambertian": 29.591475742890765,
+      "lambertian_over_flat": 1.1846202103167733,
+      "pixels_per_iteration": 16588800,
+      "shade_flat": {
+        "max_ms": 5.33917301800102,
+        "mean_ms": 4.804163802570353,
+        "min_ms": 4.636386991478503,
+        "n": 30,
+        "p50_ms": 4.698435514001176,
+        "p95_ms": 5.110775993671268
+      },
+      "shade_lambertian": {
+        "max_ms": 10.867511038668454,
+        "mean_ms": 10.070801937642198,
+        "min_ms": 9.913131012581289,
+        "n": 30,
+        "p50_ms": 9.982523013604805,
+        "p95_ms": 10.553625004831702
+      },
+      "shading_share_of_lambertian_iteration": 0.2980098912491964,
+      "torch_peak_allocated_mib": 1830.5283203125,
+      "torch_peak_reserved_mib": 2106.0,
+      "triangles": 24,
+      "width": 480
+    }
+  ],
+  "runtime": {
+    "cuda": "12.1",
+    "cudnn": 90100,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "deterministic_algorithms": false,
+    "device_capability": "8.6",
+    "device_name": "NVIDIA GeForce RTX 3070",
+    "driver_cuda": "12.1",
+    "executable": "/home/fair/miniconda3/envs/aerialgym/bin/python",
+    "matmul_allow_tf32": false,
+    "numpy": "1.23.0",
+    "opencv": "4.13.0",
+    "opencv_threads": 24,
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.17",
+    "python": "3.8.20",
+    "python_full": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+    "torch": "2.4.1+cu121"
+  },
+  "scope": "standalone renderer on a fixed box fixture; not a simulator, policy or training rate",
+  "seed": 0,
+  "slowdown_lambertian_over_flat": {
+    "max": 1.1846202103167733,
+    "median": 1.1840617242221374,
+    "min": 1.1835032381275015
+  },
+  "stage": "R5",
+  "status": "BENCHMARK_COMPLETE"
+}

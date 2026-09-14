@@ -1,0 +1,139 @@
+{
+  "date": "2026-09-10",
+  "canvas": [
+    1600,
+    900
+  ],
+  "png_pixels": [
+    3840,
+    2160
+  ],
+  "scope": "Documentation-only; existing results, no new experiments.",
+  "slides": [
+    {
+      "number": 1,
+      "title": "연구 전체 구조",
+      "svg": "01-system-overview.svg",
+      "png": "01-system-overview.png",
+      "source": "docs/assets/motar-system-overview.svg",
+      "notes": []
+    },
+    {
+      "number": 2,
+      "title": "환경과 센서 범위",
+      "svg": "02-arena-geometry.svg",
+      "png": "02-arena-geometry.png",
+      "source": "docs/assets/motar-arena-geometry.svg",
+      "notes": [
+        "그림의 축척과 수치는 시뮬 계약입니다.",
+        "센서 범위는 실제 기체의 실측값이 아닙니다.",
+        "공개 ETH 영상의 촬영 조건과 구분합니다."
+      ]
+    },
+    {
+      "number": 3,
+      "title": "플랫폼과 센서",
+      "svg": "03-platform-hardware.svg",
+      "png": "03-platform-hardware.png",
+      "source": "docs/assets/motar-platform-hardware.svg",
+      "notes": [
+        "기체와 센서는 설계 후보입니다.",
+        "BOM·전원·열·관성 실측이 없습니다.",
+        "영상 평가 결과를 실기 성능으로 읽지 않습니다."
+      ]
+    },
+    {
+      "number": 4,
+      "title": "정책과 고정 제어기",
+      "svg": "04-control-stack.svg",
+      "png": "04-control-stack.png",
+      "source": "docs/assets/motar-control-stack.svg",
+      "notes": [
+        "학습 정책과 고정 제어기를 구분한 그림입니다.",
+        "P10은 시뮬레이터 평가 결과입니다.",
+        "실제 비행 및 전이 성능은 미검증입니다."
+      ]
+    },
+    {
+      "number": 5,
+      "title": "안전필터 진단",
+      "svg": "05-safety-filter.svg",
+      "png": "05-safety-filter.png",
+      "source": "docs/assets/motar-safety-filter.svg",
+      "notes": [
+        "필터 구조와 실패를 설명하는 기존 그림입니다.",
+        "학습 시드 반복 뒤 공동적응 주장은 철회됐습니다.",
+        "구조 설명만으로 안전성을 보장하지 않습니다."
+      ]
+    },
+    {
+      "number": 6,
+      "title": "실영상 인지와 평가",
+      "svg": "06-perception-final.svg",
+      "png": "06-perception-final.png",
+      "source": "docs/assets/motar-perception-final.svg",
+      "notes": []
+    },
+    {
+      "number": 7,
+      "title": "색 검출기 기준선",
+      "svg": "07-perception-detection.svg",
+      "png": "07-perception-detection.png",
+      "source": "docs/assets/motar-perception-detection.svg",
+      "notes": [
+        "단일 중심점으로 후보를 합치는 실패가 있습니다.",
+        "현재 실영상 인지의 대표 성능이 아닙니다.",
+        "과거 실패 경로를 보존한 비교 자료입니다."
+      ]
+    },
+    {
+      "number": 8,
+      "title": "SAM 설계 기록",
+      "svg": "08-perception-candidate.svg",
+      "png": "08-perception-candidate.png",
+      "source": "docs/assets/motar-perception-candidate.svg",
+      "notes": [
+        "offline CPU adapter 범위만 구현됐습니다.",
+        "SAM worker 및 제어루프 통합은 없습니다.",
+        "현재 인지 파이프라인과 혼동하지 않습니다."
+      ]
+    },
+    {
+      "number": 9,
+      "title": "E3-S 결과와 E3-P gate",
+      "svg": "09-eth-e3-evidence.svg",
+      "png": "09-eth-e3-evidence.png",
+      "source": "docs/assets/motar-eth-e3-evidence.svg",
+      "notes": []
+    }
+  ],
+  "sha256": {
+    "01-system-overview.svg": "e6c0353080e7b3f8bc5f1d0f0bb86f51ff238a6b6b0a3203d07e24ace42f230d",
+    "01-system-overview.png": "1e4e9addb9d925f4a5100de50601da826b912c014cd255a29de22af9c65a44c0",
+    "02-arena-geometry.svg": "117cdf6d0bd9dffdf253c47cfdabaf36918f01003db494b5cccbd9ab935076e8",
+    "02-arena-geometry.png": "00d3f0f867178cb296b144716230fd6b4298d79b68a5fd98e8e0410a707ff20e",
+    "03-platform-hardware.svg": "7cf082728c006d00ea6ed1f56eb56f1281020461ea79b4403265139a2ceece03",
+    "03-platform-hardware.png": "7ccbc7cd5b5dfa17d84ab36f1387917ac6076b21c75d6991f6b55199752b02bf",
+    "04-control-stack.svg": "a2335feb0b39dc6b7a5390d8a4b560dc5fbf37f4f871e84656d10d90cf7469e5",
+    "04-control-stack.png": "ca6a3f13d72f457d9a3da10d0609d9b246c70a3a4f404eb0527cac06aed934fe",
+    "05-safety-filter.svg": "0f95104bba8d7127ff4241565b9bdaf76811385ced935156d323598cafc3ae46",
+    "05-safety-filter.png": "79a2fae8b5062595ed97ebbbe629dc35f2b22e7c583d5aa08c72c8e8d7622b57",
+    "06-perception-final.svg": "5b776ec58a2861f518178fd64f4a00f5466b88fd5d861e66e9045790290249e1",
+    "06-perception-final.png": "b11f8743940a6b1f816972b71800d965326a2dc6be87157f3e36bbf0e4e63aeb",
+    "07-perception-detection.svg": "9f9470dfa0f5580e0ecc34e040bf05dcdcb3d08de5ba62236387c77866ebcf32",
+    "07-perception-detection.png": "c9280443ad25e1415ff6b3c18a3a419f6781f1621d4a55644400254f63e7371c",
+    "08-perception-candidate.svg": "41d12a8bd0da8320844d50ae69b8cea13200069fff8ab817d02ae66bcffcf7bb",
+    "08-perception-candidate.png": "405d724e585047341d1ea68885d714bf69e8bf29b0b55fbd93cda5adb62b2752",
+    "09-eth-e3-evidence.svg": "09bc777d0d256eb47676e3d8badef524360ba784a7f48b0869a1c6799c00c73c",
+    "09-eth-e3-evidence.png": "fa88bda17470211d55811a81d03f6e861da76624e49ca4068ff582e4958e655e"
+  },
+  "evidence_sha256": {
+    "results/perception_streaming_overlap_s1_2026-09-09/README.md": "a37e7f45dc26675389259ce894b162dcf05332b457c3fd964c4ff85a4425ed17",
+    "results/perception_s4_2026-09-09/README.md": "b9763c1ddfae0090e687d247b411f3af57c8f69cc62a93cca1cf6e79d64cb91b",
+    "results/perception_p8_2026-09-09/README.md": "eadb4ebcdaf5a33cb897de108d88529605105291270f39e83ae2dcb6906d2203",
+    "results/perception_p10_2026-09-09/README.md": "1cebe42b65851a8fe427b0ad5eb975cd1f2fb3f52ddf8c796afda846d872fba7",
+    "results/eth_ds5_e3s_2026-09-10/README.md": "2a939cac9585867d0870494b7acd99f8222b947a76ce24bd2bf82f04a168505c",
+    "docs/plans/eth_ds5_e3_2026-09-10.md": "459842f195bd0ed70cf87d39eb439a6e6d310c6b4f8edda201707e4de6d8b225",
+    "results/navrl_grid_r2_d4_trainseed_rep/README.md": "52b4ff8929ee83b4375ec7a63123540aec0a74650adb11115b45913834e4626b"
+  }
+}

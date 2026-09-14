@@ -1,0 +1,117 @@
+{
+  "bars": 70,
+  "causality_vs_d8b": "NOT_TESTED",
+  "checkpoint": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/runs/ppo_260813_1636_navrl_v2-ref5in-d1-q3-adapt-s197/nn/last_gen_ppo_ep_1900_rew_182.11377.pth",
+  "checkpoint_sha256": "197ea26999d6bb9cf23c4e5a55acbe945f89985e2384687d60ab1dbae66a278e",
+  "digests": {
+    "off_a": "b9cc980d26a35879879b6c64cb1c407a5f9bd7eeda8fd2156375b78901004a99",
+    "off_b": "b9cc980d26a35879879b6c64cb1c407a5f9bd7eeda8fd2156375b78901004a99",
+    "on": "b9cc980d26a35879879b6c64cb1c407a5f9bd7eeda8fd2156375b78901004a99"
+  },
+  "evaluator": "aerial_gym/rl_training/rl_games/eval_navrl_v2_density_sweep.sh",
+  "evaluator_sha256": "33512be57a005654b40f3849e0747f6e3b19871d6a58f184bd8c0c4110bd403a",
+  "experiment": "TD trajectory invariance",
+  "forensics_leaves_trajectory_unchanged": true,
+  "forensics_smoke_scope": "One density and one seed, produced only to show the recorder runs end to end. This is NOT the preregistered TD-T1 result, which needs the full density axis and the existing protocol.",
+  "forensics_smoke_summary": {
+    "acquired": 110,
+    "causality_vs_d8b": "NOT_TESTED",
+    "episodes": 128,
+    "failure_classes": {
+      "CAPTURED": 97,
+      "CONTROL_TRACKING_ERROR": 0,
+      "FILTER_LIMITED": 0,
+      "FLY_BY": 0,
+      "LOST_TRACK": 1,
+      "NEVER_ACQUIRED": 18,
+      "OBSTACLE_CONTACT": 12,
+      "SLOW_APPROACH": 0,
+      "TERMINAL_OVERSHOOT": 0,
+      "TIMEOUT_WITH_TRACK": 0,
+      "UNKNOWN": 0
+    },
+    "lost_at_least_once": 98,
+    "never_acquired": 18,
+    "outcomes": {
+      "capture": 97,
+      "crash": 31,
+      "timeout": 0
+    },
+    "reacquired_at_least_once": 97,
+    "scope": "Evaluation-only instrumentation of existing checkpoints; no policy, reward, detector, controller or termination change",
+    "thresholds": {
+      "command_error_min_mps": 0.5,
+      "fast_radial_speed_mps": 1.5,
+      "governor_share_min": 0.5,
+      "loss_run_short_steps": 10,
+      "near_range_m": 1.0,
+      "slow_closing_speed_mps": 0.3,
+      "terminal_window_steps": 20
+    }
+  },
+  "games_per_arm": 128,
+  "off_runs_reproduce_each_other": true,
+  "question": "Does enabling the evaluation-only episode forensics change the simulated trajectory?",
+  "runs": {
+    "off_a": {
+      "arm": "off_a",
+      "digest": {
+        "fields": [
+          "position",
+          "orientation",
+          "command"
+        ],
+        "label": "",
+        "num_envs": 128,
+        "schema": "navrl_trajectory_digest_v1",
+        "sha256": "b9cc980d26a35879879b6c64cb1c407a5f9bd7eeda8fd2156375b78901004a99",
+        "steps": 256
+      },
+      "forensics_json": null,
+      "log": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/task_diagnostics_invariance_2026-09-14/off_a.log",
+      "returncode": 0,
+      "started_utc": "2026-09-13T18:00:07.819355+00:00"
+    },
+    "off_b": {
+      "arm": "off_b",
+      "digest": {
+        "fields": [
+          "position",
+          "orientation",
+          "command"
+        ],
+        "label": "",
+        "num_envs": 128,
+        "schema": "navrl_trajectory_digest_v1",
+        "sha256": "b9cc980d26a35879879b6c64cb1c407a5f9bd7eeda8fd2156375b78901004a99",
+        "steps": 256
+      },
+      "forensics_json": null,
+      "log": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/task_diagnostics_invariance_2026-09-14/off_b.log",
+      "returncode": 0,
+      "started_utc": "2026-09-13T18:00:51.215176+00:00"
+    },
+    "on": {
+      "arm": "on",
+      "digest": {
+        "fields": [
+          "position",
+          "orientation",
+          "command"
+        ],
+        "label": "",
+        "num_envs": 128,
+        "schema": "navrl_trajectory_digest_v1",
+        "sha256": "b9cc980d26a35879879b6c64cb1c407a5f9bd7eeda8fd2156375b78901004a99",
+        "steps": 256
+      },
+      "forensics_json": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/task_diagnostics_invariance_2026-09-14/on_episode_forensics.json",
+      "log": "/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/results/task_diagnostics_invariance_2026-09-14/on.log",
+      "returncode": 0,
+      "started_utc": "2026-09-13T18:01:32.063309+00:00"
+    }
+  },
+  "scope": "Evaluation-only instrumentation check; no policy, reward, detector, controller or termination change, and no training",
+  "seed": 593,
+  "verdict": "TRAJECTORY_INVARIANT"
+}

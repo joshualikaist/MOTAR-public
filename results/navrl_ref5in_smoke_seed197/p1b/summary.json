@@ -1,0 +1,140 @@
+{
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260813_0441_navrl_v2-ref5in-smoke-b-s197/nn/last_gen_ppo_ep_750_rew_135.66144.pth",
+  "checkpoint_sha256": "5174695ac0d6ab8dcc81a4351afea378db55be2b00b2a4669de5ea1e80a6a2cf",
+  "checks": {
+    "all_axis_raw_oob_zero": {
+      "detail": "{\"x\": {\"count\": 750, \"last\": 0.0, \"max\": 0.0}, \"y\": {\"count\": 750, \"last\": 0.0, \"max\": 0.0}, \"yaw\": {\"count\": 750, \"last\": 0.0, \"max\": 0.0}, \"z\": {\"count\": 750, \"last\": 0.0, \"max\": 0.0}}",
+      "pass": true
+    },
+    "all_tensorboard_scalars_finite": {
+      "detail": "{\"empty_tags\": [], \"nonfinite_tags\": [], \"tag_count\": 60}",
+      "pass": true
+    },
+    "behavior_kl_below_0p04": {
+      "detail": "{\"count\": 750, \"last\": 0.011374881491065025, \"max\": 0.019802767783403397}",
+      "pass": true
+    },
+    "checkpoint_all_finite": {
+      "detail": "[]",
+      "pass": true
+    },
+    "clean_training_source_receipt": {
+      "detail": "manifest='/home/fair/workspaces/aerial_gym_ws/src/aerial_gym_simulator/aerial_gym/rl_training/rl_games/train_source_receipts/ref5in_smoke_b_s197_260813_044124_2153288/source_manifest.json' sha=1b5209686c696ab9242111a3a1af54d60fa91e6cd31707021db7ae53fab628d6 dirty=False files=311 verification={'manifest_sha256': '1b5209686c696ab9242111a3a1af54d60fa91e6cd31707021db7ae53fab628d6', 'git_commit': '227b874cfaa358a4f0040885b6dbe45a06878084', 'git_dirty': False, 'runtime_file_count': 311, 'verified': True} error=''",
+      "pass": true
+    },
+    "closed_smoke_contract": {
+      "detail": "mismatches={} initial_lr=1.5e-05 current_lr=1.5e-05 frame=3072000/3072000",
+      "pass": true
+    },
+    "distance_curriculum_saturated": {
+      "detail": "k=[20.0,27.0]",
+      "pass": false
+    },
+    "last100_learning_viability": {
+      "detail": "capture=0.6955 crash=0.2812 timeout=0.0233 episodes=3780",
+      "pass": true
+    },
+    "no_rollback_or_skipped_minibatches": {
+      "detail": "rollback={'count': 750, 'max': 0.0, 'last': 0.0} skipped={'count': 750, 'max': 0.0, 'last': 0.0}",
+      "pass": true
+    },
+    "normal_terminal_completion": {
+      "detail": "summary=max_epochs last=750 checkpoint=750 marker=True",
+      "pass": true
+    },
+    "ppo_kl_below_0p04": {
+      "detail": "{\"count\": 750, \"last\": 0.007303961552679539, \"max\": 0.013001985847949982}",
+      "pass": true
+    },
+    "ref5in_runtime_identity": {
+      "detail": "robot=navrl_ref5in_quad config=4e6cfa6717a652d4f9513c4a766a0bc47a3d869ec4019f26f9f8ef2ed8e2c83e urdf=5c160b0d19caebf9a4a3c38be861a77637ee0fb2b80febf4ac54d8b143db6a32",
+      "pass": true
+    },
+    "timeout_path_exercised": {
+      "detail": "last100 timeout=88/3780",
+      "pass": true
+    }
+  },
+  "expected_epochs": 750,
+  "expected_learning_rate": 1.5e-05,
+  "generated_at_utc": "2026-08-12T20:28:14.516692+00:00",
+  "last100_training_outcomes": {
+    "all_outcome_blocks": 750,
+    "capture_rate": 0.6955026455026455,
+    "captured": 2629,
+    "crash": 1063,
+    "crash_rate": 0.2812169312169312,
+    "episodes": 3780,
+    "epochs": 100,
+    "timeout": 88,
+    "timeout_rate": 0.02328042328042328
+  },
+  "limitations": [
+    "one training seed",
+    "on-policy training outcomes rather than held-out navigation performance",
+    "whole-platform intervention includes mass, inertia, actuator and tilted collision-envelope changes",
+    "same inherited controller gains confound airframe dynamics with controller tuning",
+    "no CAD, power, thermal, endurance or flight validation"
+  ],
+  "next_step": "stop_and_diagnose_before_any_full_training",
+  "performance_claim_allowed": false,
+  "run": "aerial_gym/rl_training/rl_games/runs/ppo_260813_0441_navrl_v2-ref5in-smoke-b-s197",
+  "schema_version": 1,
+  "scope": "ref5in_learning_viability_engineering_smoke",
+  "session_log": "aerial_gym/rl_training/rl_games/train_session_logs/ref5in_smoke_b_260813_044124.log",
+  "source_verification": {
+    "git_commit": "227b874cfaa358a4f0040885b6dbe45a06878084",
+    "git_dirty": false,
+    "manifest_sha256": "1b5209686c696ab9242111a3a1af54d60fa91e6cd31707021db7ae53fab628d6",
+    "runtime_file_count": 311,
+    "verified": true
+  },
+  "tensorboard": {
+    "all_scalars": {
+      "empty_tags": [],
+      "nonfinite_tags": [],
+      "tag_count": 60
+    },
+    "policy_action/raw_oob_x": {
+      "count": 750,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "policy_action/raw_oob_y": {
+      "count": 750,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "policy_action/raw_oob_yaw": {
+      "count": 750,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "policy_action/raw_oob_z": {
+      "count": 750,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "ppo/behavior_kl_audit_max": {
+      "count": 750,
+      "last": 0.011374881491065025,
+      "max": 0.019802767783403397
+    },
+    "ppo/epoch_rollback_total": {
+      "count": 750,
+      "last": 0.0,
+      "max": 0.0
+    },
+    "ppo/kl": {
+      "count": 750,
+      "last": 0.007303961552679539,
+      "max": 0.013001985847949982
+    },
+    "ppo/kl_skipped_minibatches": {
+      "count": 750,
+      "last": 0.0,
+      "max": 0.0
+    }
+  },
+  "verdict": "FAIL"
+}

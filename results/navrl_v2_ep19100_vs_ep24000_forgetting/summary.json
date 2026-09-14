@@ -1,0 +1,86 @@
+{
+  "cells": [
+    {
+      "bar_contact_rate": 0.3492682926829268,
+      "capture_rate": 0.6409756097560976,
+      "captured": 1314,
+      "condition": "fast1p5",
+      "crash_rate": 0.35609756097560974,
+      "episodes": 2050,
+      "epoch": 19100,
+      "lateral_executed_edge98_rate": 0.0615869625137817,
+      "timeout_rate": 0.002926829268292683
+    },
+    {
+      "bar_contact_rate": 0.31673987310883356,
+      "capture_rate": 0.677891654465593,
+      "captured": 1389,
+      "condition": "uniform",
+      "crash_rate": 0.3186920448999512,
+      "episodes": 2049,
+      "epoch": 19100,
+      "lateral_executed_edge98_rate": 0.04482475828729282,
+      "timeout_rate": 0.003416300634455832
+    },
+    {
+      "bar_contact_rate": 0.2996583699365544,
+      "capture_rate": 0.6734992679355783,
+      "captured": 1380,
+      "condition": "fast1p5",
+      "crash_rate": 0.3074670571010249,
+      "episodes": 2049,
+      "epoch": 24000,
+      "lateral_executed_edge98_rate": 0.04915794787077827,
+      "timeout_rate": 0.01903367496339678
+    },
+    {
+      "bar_contact_rate": 0.24292682926829268,
+      "capture_rate": 0.724390243902439,
+      "captured": 1485,
+      "condition": "uniform",
+      "crash_rate": 0.25073170731707317,
+      "episodes": 2050,
+      "epoch": 24000,
+      "lateral_executed_edge98_rate": 0.03365242678318375,
+      "timeout_rate": 0.024878048780487806
+    }
+  ],
+  "checkpoints": {
+    "19100": "82d1eeac1798b4b465274551ec2363fb377be781c0a58e930577ddb822f55044",
+    "24000": "82f7978b42d9d9e95adcc638a40ae85fb3736fd897ae39cb8aa8333be39cf23f"
+  },
+  "comparisons": {
+    "fast1p5": {
+      "bar_contact_difference": -0.04960992274637238,
+      "capture_difference_ci95": [
+        0.003480708712866966,
+        0.06156660764609458
+      ],
+      "crash_difference": -0.04863050387458484,
+      "ep24000_minus_ep19100_capture": 0.032523658179480774,
+      "rule": "forgetting if delta <= -0.03 and the independent 95% CI upper bound < 0",
+      "verdict": "improvement"
+    },
+    "uniform": {
+      "bar_contact_difference": -0.07381304384054088,
+      "capture_difference_ci95": [
+        0.018507711993190144,
+        0.07448946688050193
+      ],
+      "crash_difference": -0.067960337582878,
+      "ep24000_minus_ep19100_capture": 0.04649858943684604,
+      "rule": "forgetting if delta <= -0.03 and the independent 95% CI upper bound < 0",
+      "verdict": "improvement"
+    }
+  },
+  "condition": {
+    "action_selection": "deterministic",
+    "bars": 205,
+    "reflection_mode": "original",
+    "requested_episodes_per_cell": 2049,
+    "seed": 42
+  },
+  "experiment": "navrl_v2_ep19100_vs_ep24000_forgetting",
+  "material_forgetting_detected": false,
+  "schema_version": 1
+}

@@ -1,0 +1,262 @@
+{
+  "arms": {
+    "candidate_motion_transformer_t16": {
+      "frame_hit_rate": 0.8048780487804879,
+      "frames_with_ground_truth": 2296,
+      "hit_frames_iou_ge_threshold": 1848,
+      "loss_events_after_first_hit": 106,
+      "matched_center_error_px_mean": 1.9417959153651956,
+      "matched_center_error_px_median": 1.0337817507375755,
+      "matched_iou_mean": 0.6571235616983218,
+      "no_lock_frames": 174,
+      "proxy_false_lock_frames": 274,
+      "proxy_false_lock_rate_among_selected": 0.1291234684260132,
+      "reacquired_events": 102,
+      "reacquisition_seconds_max": 19.933222037,
+      "reacquisition_seconds_mean": 0.47032613674509804,
+      "right_censored_loss_events": 4,
+      "selected_frames": 2122,
+      "selection_utility": 0.6855400696864111
+    },
+    "candidate_transformer_t16": {
+      "frame_hit_rate": 0.8175087108013938,
+      "frames_with_ground_truth": 2296,
+      "hit_frames_iou_ge_threshold": 1877,
+      "loss_events_after_first_hit": 118,
+      "matched_center_error_px_mean": 1.952466132049097,
+      "matched_center_error_px_median": 1.0482467873668209,
+      "matched_iou_mean": 0.6580269912534346,
+      "no_lock_frames": 102,
+      "proxy_false_lock_frames": 317,
+      "proxy_false_lock_rate_among_selected": 0.14448495897903374,
+      "reacquired_events": 114,
+      "reacquisition_seconds_max": 5.208681135,
+      "reacquisition_seconds_mean": 0.33828885556140353,
+      "right_censored_loss_events": 4,
+      "selected_frames": 2194,
+      "selection_utility": 0.6794425087108014
+    },
+    "current_transformer_t16": {
+      "frame_hit_rate": 0.8087979094076655,
+      "frames_with_ground_truth": 2296,
+      "hit_frames_iou_ge_threshold": 1857,
+      "loss_events_after_first_hit": 126,
+      "matched_center_error_px_mean": 1.925862418797131,
+      "matched_center_error_px_median": 1.0552284809947232,
+      "matched_iou_mean": 0.6590978017819548,
+      "no_lock_frames": 126,
+      "proxy_false_lock_frames": 313,
+      "proxy_false_lock_rate_among_selected": 0.14423963133640552,
+      "reacquired_events": 122,
+      "reacquisition_seconds_max": 5.208681135,
+      "reacquisition_seconds_mean": 0.3239059908114754,
+      "right_censored_loss_events": 4,
+      "selected_frames": 2170,
+      "selection_utility": 0.6724738675958188
+    }
+  },
+  "completed_utc": "2026-09-08T08:47:18.299987+00:00",
+  "exact_tie_order": [
+    "current_transformer_t16",
+    "candidate_transformer_t16",
+    "candidate_motion_transformer_t16"
+  ],
+  "experiment": "motar.p7b-p7c.validation-selection.v1",
+  "limitations": {
+    "ftlr": "NOT_IDENTIFIABLE_WITHOUT_DESIGNATED_TARGET_ID",
+    "identity_metrics": "NOT_IDENTIFIABLE_SOURCE_TRACK_IDS_DROPPED",
+    "proxy_definition": "selected candidate has IoU below 0.3 against every UAV annotation"
+  },
+  "provenance": {
+    "candidates_sha256": "8069290716b08c06f7a7a0aa47916c50d29b9d550b76c63db4f26a86494799d8",
+    "detector_weights_sha256": "aab12f39bdc79f201657002f12d2096fab916600b546481964f8fcacdb3300ac",
+    "manifest_sha256": "334d020920e47502303c00fb90062447eebf345b6942e0c39ff20236d80781a8",
+    "p7c_validation_motion_sha256": "cc923e19410ebd84fc1c271929c42264ac50e04b9d2300710eb70cfa94bf5ae2",
+    "report_sha256": {
+      "candidate_motion_transformer_t16": "fe02ff931927ec30a6cd8ab5b5f2076a3d30a7c423612e2b541fec6d5f34c08d",
+      "candidate_transformer_t16": "3be35629dbee09a7f6b755b030530384833459b4c75aad1652b89a93d2e1bce2",
+      "current_transformer_t16": "c2952999da296d80871854d37bce9c6e7c12f7b2f3eddef6353b93b56ad2b0fa"
+    }
+  },
+  "schema_version": 1,
+  "selected_arm": "candidate_motion_transformer_t16",
+  "selected_utility": 0.6855400696864111,
+  "selection_rule": "(hit_frames - proxy_false_lock_frames) / frames_with_ground_truth",
+  "split": "validation",
+  "test_status": "NOT_AN_INPUT_TO_P7B_P7C_TRAINING_OR_SELECTION",
+  "artifacts": {
+    "transformer_v1": {
+      "receipt": {
+        "architecture": "transformer",
+        "checkpoint_sha256": "9c3b91b977d8b6325d2064cf09b88bf3e75fe10b3656439896272f48bac83f1d",
+        "config_sha256": "d862ae3e94c781b7860b18b99a6af8953274eeee89bf11504ff6770e69842595",
+        "detector_weights_sha256": "aab12f39bdc79f201657002f12d2096fab916600b546481964f8fcacdb3300ac",
+        "history_sha256": "251d38074bae09fc88e6624ece205509474717bd2876f8a6001644736d636f6f",
+        "report_sha256": "c2952999da296d80871854d37bce9c6e7c12f7b2f3eddef6353b93b56ad2b0fa",
+        "schema_version": 1,
+        "source_git_commit": "5b3ee5e46c2a62284289ec15dddf4a3d415af47c",
+        "source_git_dirty": false,
+        "train_candidates_sha256": "bd28f4e296d622984c416eb05b2b343f3f38501ccaddf80047b3b7eaddb19061",
+        "train_manifest_sha256": "6d6c4b68d1fb2df9d019185e20cc816beab2617b656d7cb6a36b65dbed465170",
+        "validation_candidates_sha256": "8069290716b08c06f7a7a0aa47916c50d29b9d550b76c63db4f26a86494799d8",
+        "validation_manifest_sha256": "334d020920e47502303c00fb90062447eebf345b6942e0c39ff20236d80781a8",
+        "validation_predictions_sha256": "42a00050610bce0a6011d2f0a79d9fe701337bd1e55e0a17ae325ad5d8eebb03"
+      },
+      "report_path": "/home/fair/workspaces/aerial_gym_ws/detector_runs/runs/perception_temporal/transformer_v1/report.json",
+      "best_epoch": 5,
+      "elapsed_seconds": 12.879759683986777
+    },
+    "candidate_transformer_v1": {
+      "receipt": {
+        "architecture": "candidate_transformer",
+        "checkpoint_sha256": "f8783de0e795223142d19ed13d143fb94402eeb8a88ead17d007c2b2dfd2d12c",
+        "config_sha256": "c9f7ca3921dea92e0770696ecf51df0919f1d8fa2e8c1cdc8f8474a518825e10",
+        "detector_weights_sha256": "aab12f39bdc79f201657002f12d2096fab916600b546481964f8fcacdb3300ac",
+        "history_sha256": "74ddf2b7b3331bbe5f7a94eb345ef1ca0c5bdef829a262e82162dca61610affe",
+        "report_sha256": "3be35629dbee09a7f6b755b030530384833459b4c75aad1652b89a93d2e1bce2",
+        "schema_version": 1,
+        "source_git_commit": "0a4cb779659a287c873b538c8f8fa01892e4aa3c",
+        "source_git_dirty": false,
+        "train_candidates_sha256": "bd28f4e296d622984c416eb05b2b343f3f38501ccaddf80047b3b7eaddb19061",
+        "train_manifest_sha256": "6d6c4b68d1fb2df9d019185e20cc816beab2617b656d7cb6a36b65dbed465170",
+        "train_motion_sha256": null,
+        "validation_candidates_sha256": "8069290716b08c06f7a7a0aa47916c50d29b9d550b76c63db4f26a86494799d8",
+        "validation_manifest_sha256": "334d020920e47502303c00fb90062447eebf345b6942e0c39ff20236d80781a8",
+        "validation_motion_sha256": null,
+        "validation_predictions_sha256": "ab11652884962aa3d1a83bd561c97c5a23224517918dceb3d827d3663d321c11"
+      },
+      "report_path": "/home/fair/workspaces/aerial_gym_ws/detector_runs/runs/perception_temporal/candidate_transformer_v1/report.json",
+      "best_epoch": 1,
+      "elapsed_seconds": 21.712798114996986
+    },
+    "candidate_motion_transformer_v2": {
+      "receipt": {
+        "architecture": "candidate_motion_transformer",
+        "checkpoint_sha256": "9b1f52299eea83f89ed95e8bc7bcf26c0b51140d388887a83937486cc6113cca",
+        "config_sha256": "b80506579d08e7842f0c1c10dbf6d4dded221d1a737070619e23703c64a10fe7",
+        "detector_weights_sha256": "aab12f39bdc79f201657002f12d2096fab916600b546481964f8fcacdb3300ac",
+        "history_sha256": "545adcaee72adf6d940d7f363601f73efee5f7c38efbdc221098deb69c7ce0a0",
+        "report_sha256": "fe02ff931927ec30a6cd8ab5b5f2076a3d30a7c423612e2b541fec6d5f34c08d",
+        "schema_version": 1,
+        "source_git_commit": "3ce7d8df71b8e870f3895b3018f156ca58677f22",
+        "source_git_dirty": false,
+        "train_candidates_sha256": "bd28f4e296d622984c416eb05b2b343f3f38501ccaddf80047b3b7eaddb19061",
+        "train_manifest_sha256": "6d6c4b68d1fb2df9d019185e20cc816beab2617b656d7cb6a36b65dbed465170",
+        "train_motion_sha256": "a494b39ac622f41b13c43c3143de10352a812f3e0505a88cad2a5d4a91252555",
+        "validation_candidates_sha256": "8069290716b08c06f7a7a0aa47916c50d29b9d550b76c63db4f26a86494799d8",
+        "validation_manifest_sha256": "334d020920e47502303c00fb90062447eebf345b6942e0c39ff20236d80781a8",
+        "validation_motion_sha256": "cc923e19410ebd84fc1c271929c42264ac50e04b9d2300710eb70cfa94bf5ae2",
+        "validation_predictions_sha256": "56d7b0d9bdfccd2f6d1f025b2c144382968a16f263937083aebc7be0731ee76f"
+      },
+      "report_path": "/home/fair/workspaces/aerial_gym_ws/detector_runs/runs/perception_temporal/candidate_motion_transformer_v2/report.json",
+      "best_epoch": 2,
+      "elapsed_seconds": 24.25289147600415
+    }
+  },
+  "reload_prediction_content_sha256": "769ff55a3ff53497380c5865a3486f4fa7f886324ee3e30124dbc3dcdb51a8cd",
+  "invalidated_run": "candidate_motion_transformer_v1; mixed scaled/original coordinates",
+  "motion_receipts": {
+    "train": {
+      "candidates_sha256": "bd28f4e296d622984c416eb05b2b343f3f38501ccaddf80047b3b7eaddb19061",
+      "completed_utc": "2026-09-08T08:45:04.622971+00:00",
+      "config": {
+        "candidate_match_center_weight": 1,
+        "candidate_match_log_size_weight": 0.05,
+        "farneback": {
+          "flags": 0,
+          "iterations": 3,
+          "levels": 3,
+          "poly_n": 5,
+          "poly_sigma": 1.2,
+          "pyr_scale": 0.5,
+          "winsize": 21
+        },
+        "flow_max_width_px": 640,
+        "gmc_candidate_mask_scale": 1.5,
+        "gmc_grid_step_px_at_flow_scale": 16,
+        "gmc_min_correspondences": 12,
+        "gmc_ransac_threshold_px_at_flow_scale": 1.5
+      },
+      "dataset_receipt_sha256": "8887d35752804a0a873e30e2c3e5acb24f1cda86cbce9c5d4efefcd7024366de",
+      "elapsed_seconds": 463.74134815798607,
+      "feature_dimension": 12,
+      "feature_fields": [
+        "box_gmc_residual_du_norm",
+        "box_gmc_residual_dv_norm",
+        "box_dlog_width",
+        "box_dlog_height",
+        "local_backward_flow_u_norm",
+        "local_backward_flow_v_norm",
+        "gmc_backward_flow_u_norm",
+        "gmc_backward_flow_v_norm",
+        "residual_backward_flow_u_norm",
+        "residual_backward_flow_v_norm",
+        "gmc_inlier_ratio",
+        "gmc_valid"
+      ],
+      "feature_schema": "motar.perception-motion.v1",
+      "gmc_valid_frames": 13475,
+      "gmc_valid_rate_excluding_first_frames": 1,
+      "manifest_sha256": "6d6c4b68d1fb2df9d019185e20cc816beab2617b656d7cb6a36b65dbed465170",
+      "output_sha256": "a494b39ac622f41b13c43c3143de10352a812f3e0505a88cad2a5d4a91252555",
+      "records": 13510,
+      "schema_version": 1,
+      "sequences": 35,
+      "source_git_commit": "3ce7d8df71b8e870f3895b3018f156ca58677f22",
+      "source_git_dirty": false,
+      "split": "train",
+      "test_status": "NOT_READ_OR_PROCESSED"
+    },
+    "val": {
+      "candidates_sha256": "8069290716b08c06f7a7a0aa47916c50d29b9d550b76c63db4f26a86494799d8",
+      "completed_utc": "2026-09-08T08:46:29.763426+00:00",
+      "config": {
+        "candidate_match_center_weight": 1,
+        "candidate_match_log_size_weight": 0.05,
+        "farneback": {
+          "flags": 0,
+          "iterations": 3,
+          "levels": 3,
+          "poly_n": 5,
+          "poly_sigma": 1.2,
+          "pyr_scale": 0.5,
+          "winsize": 21
+        },
+        "flow_max_width_px": 640,
+        "gmc_candidate_mask_scale": 1.5,
+        "gmc_grid_step_px_at_flow_scale": 16,
+        "gmc_min_correspondences": 12,
+        "gmc_ransac_threshold_px_at_flow_scale": 1.5
+      },
+      "dataset_receipt_sha256": "8887d35752804a0a873e30e2c3e5acb24f1cda86cbce9c5d4efefcd7024366de",
+      "elapsed_seconds": 84.0553080039972,
+      "feature_dimension": 12,
+      "feature_fields": [
+        "box_gmc_residual_du_norm",
+        "box_gmc_residual_dv_norm",
+        "box_dlog_width",
+        "box_dlog_height",
+        "local_backward_flow_u_norm",
+        "local_backward_flow_v_norm",
+        "gmc_backward_flow_u_norm",
+        "gmc_backward_flow_v_norm",
+        "residual_backward_flow_u_norm",
+        "residual_backward_flow_v_norm",
+        "gmc_inlier_ratio",
+        "gmc_valid"
+      ],
+      "feature_schema": "motar.perception-motion.v1",
+      "gmc_valid_frames": 2289,
+      "gmc_valid_rate_excluding_first_frames": 1,
+      "manifest_sha256": "334d020920e47502303c00fb90062447eebf345b6942e0c39ff20236d80781a8",
+      "output_sha256": "cc923e19410ebd84fc1c271929c42264ac50e04b9d2300710eb70cfa94bf5ae2",
+      "records": 2296,
+      "schema_version": 1,
+      "sequences": 7,
+      "source_git_commit": "3ce7d8df71b8e870f3895b3018f156ca58677f22",
+      "source_git_dirty": false,
+      "split": "val",
+      "test_status": "NOT_READ_OR_PROCESSED"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Candidate B: 240-degree obstacle-token selection FOV warm-start
+# source policy: ppo_260727_0225_navrl (360-degree token selection)
+# trained policy: ppo_260727_0930_navrl, gen_ppo.pth (peak reward epoch 8571)
+# common representation: 8 obstacle tokens, suppression +/-10 deg, 4x72 LiDAR, 12 m range
+# eval: 128 envs, ~2049 episodes/cell, general spawn, deterministic
+# IMPORTANT: the trained policy must be evaluated with NAVRL_OBSTACLE_FOV_DEG=240.
+# At target=1.0, evaluating the same policy at 360 deg changed capture 0.893 -> 0.878.
+# The training log/checkpoint predated the FOV provenance guard, so 240 deg was reconstructed by
+# paired 240/360 evaluation. Future checkpoints record cfg_token_fov_deg.
+target_speed_ms,capture_fov360_baseline,capture_fov240,bar_contact_fov360_baseline,bar_contact_fov240,below_fov360_baseline,below_fov240
+0.0,0.874,0.894,0.074,0.062,0.030,0.029
+0.5,0.879,0.906,0.079,0.062,0.038,0.027
+0.75,0.870,0.894,0.086,0.068,0.033,0.029
+1.0,0.869,0.893,0.089,0.078,0.033,0.024
+1.25,0.859,0.889,0.101,0.079,0.030,0.026
+1.5,0.824,0.859,0.119,0.100,0.040,0.032
+mean,0.862,0.889,0.091,0.075,0.034,0.028

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-12",
+  "verdict": "CONDITIONAL_PASS_ENGINEERING_ONLY",
+  "performance_claim_allowed": false,
+  "run": "aerial_gym/rl_training/rl_games/runs/ppo_260812_1620_navrl_v2-v5a-semantics-smoke-s197",
+  "seed": 197,
+  "epochs": 1000,
+  "num_envs": 128,
+  "exit_reason": "max_epochs",
+  "checkpoint": "aerial_gym/rl_training/rl_games/runs/ppo_260812_1620_navrl_v2-v5a-semantics-smoke-s197/nn/last_gen_ppo_ep_1000_rew_140.1189.pth",
+  "checkpoint_sha256": "f53489aa91580d9087732ff8a3320d120066018bfdfe5b494a04bff1b0ac13f0",
+  "contract": {
+    "fresh": true,
+    "episode_len_steps": 600,
+    "rlgames_timeout_info_key": "time_outs",
+    "detector": "analytic",
+    "obstacle_selector": "cluster_sector",
+    "obstacle_tokens": 8,
+    "token_fov_deg": 240,
+    "action_policy": "squashed_gaussian",
+    "density_bars_at_endpoint": 70
+  },
+  "pooled_training_outcomes": {
+    "all": {"episodes": 44383, "captured": 32410, "crash": 11443, "timeout": 530},
+    "speed_ramp_1_300": {"episodes": 15533, "captured": 10400, "crash": 4913, "timeout": 220},
+    "post_ramp_301_1000": {"episodes": 28850, "captured": 22010, "crash": 6530, "timeout": 310},
+    "last_250": {"episodes": 9953, "captured": 7818, "crash": 2026, "timeout": 109},
+    "last_100": {"episodes": 4134, "captured": 3253, "crash": 839, "timeout": 42},
+    "last_50": {"episodes": 2088, "captured": 1637, "crash": 430, "timeout": 21}
+  },
+  "ppo": {
+    "scalar_epochs": 1000,
+    "kl_max": 0.0158309,
+    "behavior_kl_audit_max": 0.0229015,
+    "rollback_total": 0,
+    "kl_skipped_minibatches": 0,
+    "all_axis_raw_oob_max": 0.0
+  },
+  "not_tested": [
+    "density_promotion_or_gate",
+    "held_out_navigation_performance",
+    "multi_seed_training_variance",
+    "causal_improvement_over_legacy_timeout_semantics"
+  ],
+  "provenance_limit": "dirty_worktree_and_no_full_runtime_source_manifest"
+}
