@@ -90,11 +90,15 @@ The CPU profile does not certify its installation.
 
 ## Installation
 
-Clone the full history; stored evidence checks refer to historical Git objects.
+This repository is a **clean public release snapshot**. It does not include the original research
+Git history. Historical receipts and provenance are preserved, but tests that verify a specific
+research ancestor commit skip here with a stated reason. Source snapshot, exclusions and
+external-data provenance are in [RELEASE_PROVENANCE.md](RELEASE_PROVENANCE.md). The CPU public
+reproduction path is this README and [reproducibility](docs/REPRODUCIBILITY.md).
 
 ```bash
-git clone https://github.com/joshualikaist/MOTAR.git
-cd MOTAR
+git clone https://github.com/joshualikaist/MOTAR-public.git
+cd MOTAR-public
 ```
 
 Follow [isolated CPU installation](docs/renderer_cpu_quickstart_2026-09-12.md).
