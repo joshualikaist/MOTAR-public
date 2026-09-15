@@ -89,6 +89,17 @@ class ResearchOverviewTest(unittest.TestCase):
             if parsed.fragment and target.suffix == '.html':
                 self.assertIn(unquote(parsed.fragment), Page(target.read_text()).ids, link)
 
+    def test_pages_landing_links_do_not_escape_the_docs_root(self):
+        # GitHub Pages publishes /docs only. ../../ from status/ becomes github.io 404.
+        self.assertNotIn('href="../../', self.text)
+        self.assertIn('https://github.com/joshualikaist/MOTAR-public"', self.text)
+        self.assertIn('MOTAR-public/blob/main/CITATION.cff', self.text)
+        self.assertNotIn('https://github.com/joshualikaist/MOTAR"', self.text)
+        prefix = 'https://github.com/joshualikaist/MOTAR-public/blob/main/'
+        for link in self.page.links:
+            if link.startswith(prefix):
+                self.assertTrue((ROOT / link[len(prefix):]).exists(), link)
+
     def test_viewer_dom_and_script_order_preserved(self):
         archive = Page((SITE / 'archive-2026-09-13.html').read_text())
         for name in archive.ids:
