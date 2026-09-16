@@ -6,9 +6,11 @@ comparison.
 
 > **Information boundary:** Evader may use privileged GT obstacle information. Pursuer may not.
 
-The pursuer remains limited to the camera/perception path, allowed obstacle sensing and its
-declared ego/history inputs. Target-side obstacle geometry is a controlled benchmark generator;
-it is not appended to the actor observation.
+For MOTAR's sensor-only perception claims, the pursuer is limited to the camera/perception path,
+allowed obstacle sensing and its declared ego/history inputs. Target-side obstacle geometry is a
+controlled benchmark generator; it is not appended to the actor observation. The historical
+non-vision LiDAR baseline injects a simulator goal frame containing target GT and must not be
+reported as this sensor-only contract.
 
 ## What the current code actually does
 

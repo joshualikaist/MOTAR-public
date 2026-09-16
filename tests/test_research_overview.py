@@ -175,8 +175,8 @@ class ResearchOverviewTest(unittest.TestCase):
         section = self.text.split('<h3>6.2 Relation to published systems</h3>', 1)[1]
         section = section.split('<h3>6.3 Current evidence boundaries</h3>', 1)[0]
         for work in ('NavRL', 'NavRL++', 'YOPO', 'YOPOv2-Tracker', 'OPEN',
-                     'AgilePE', 'FlowPilot', 'Role-based MADDPG', 'PILOT',
-                     'Temporal Barrier'):
+                     'AgilePE', 'Fast-Tracker', 'Elastic Tracker', 'MAD',
+                     'FlowPilot', 'PILOT', 'Temporal Barrier'):
             self.assertIn(work, section)
         self.assertIn('No selected work is currently Class A', section)
         self.assertNotRegex(section, r'(?:outperform|better than|superior by)\s+\d')

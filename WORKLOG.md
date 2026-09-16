@@ -18543,10 +18543,11 @@ learned detector NI −0.015 pp [−1.752, 1.723], P7 utility +0.00697, P10 +0.7
 [−1.04, 2.50] INCONCLUSIVE, D8b −48.967 pp [−50.113, −47.821] MATERIAL_LOSS.
 새 근거 검사 9개가 사이트 문자열과 각 원 result를 함께 고정한다.
 
-외부 시스템은 17개를 1차 검토하고 NavRL/NavRL++, YOPO/YOPOv2-Tracker, OPEN, AgilePE,
-FlowPilot, role-based MADDPG, PILOT, Temporal Barrier 10개를 사이트에 남겼다. 같은 benchmark와
-metric인 Class A는 0개다. 공개 코드가 있어 향후 port 후보인 NavRL/YOPO/OPEN만 B, 나머지는
-현재 C이며 외부 논문 percentage를 MOTAR 수치에서 빼지 않았다.
+외부 시스템은 18개를 1차 검토하고 NavRL/NavRL++, YOPO/YOPOv2-Tracker, OPEN, AgilePE,
+Fast-Tracker, Elastic Tracker, MAD, PILOT, FlowPilot, Temporal Barrier를 10개 행으로 사이트에
+남겼다. 같은 benchmark와 metric인 Class A는 0개다. 공개 구현이 있는 NavRL/YOPO/OPEN/
+Fast-Tracker/Elastic Tracker만 향후 port 후보 범위를 갖고, unreleased/incompatible 축은 C로
+구분했다. 외부 논문 percentage를 MOTAR 수치에서 빼지 않았다.
 
 `docs/research_status_registry.json`은 lifecycle과 evidence verdict를 분리한다.
 COMPLETED/PLANNED/BLOCKED/NOT_TESTED/ARCHIVED_WITHDRAWN 5종을 badge·선 스타일로 표시하며
