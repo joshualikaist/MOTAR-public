@@ -1,6 +1,6 @@
 # MOTAR
 
-Moving-target rendezvous and close-approach research in dense obstacle environments — simulation-only evidence and independent graphics tooling.
+MOTAR: Moving Object Tracking and Reinforcement-Learning-Based Approach for UAV Navigation in Random Obstacle Fields.
 
 ![Research sources, analysis and recorded outputs](docs/assets/paper/system-overview-block-diagram.svg)
 
