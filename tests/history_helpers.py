@@ -36,17 +36,38 @@ def commit_count(root):
         return 0
 
 
+def is_public_snapshot(root):
+    """Recognize the explicit release marker even after snapshot follow-up commits exist."""
+    marker = Path(root) / "RELEASE_PROVENANCE.md"
+    if not marker.is_file():
+        return False
+    try:
+        text = marker.read_text(encoding="utf-8")
+    except OSError:
+        return False
+    return (
+        "This directory is a **snapshot**, not a clone" in text
+        and "none of its history" in text
+        and "**None.** The research repository's history was not rewritten" in text
+    )
+
+
 def require_research_history(root, *commits):
     """Raise SkipTest when this checkout cannot see the history the check is about.
 
-    A release snapshot is a fresh repository with a single commit and no ancestors, so the general
-    test is the commit count rather than a list of magic SHAs. Named commits are still checked when
-    a caller passes them, which catches a shallow clone that has *some* history but not this one.
+    The initial release had one commit, but ordinary public maintenance adds descendants without
+    importing research ancestors. ``RELEASE_PROVENANCE.md`` is therefore the durable snapshot
+    marker; commit count is retained only for the original one-commit form. Named commits are still
+    checked in research clones, which catches a shallow clone that has some history but not this one.
     """
     if not inside_git_work_tree(root):
         raise unittest.SkipTest(
             "not inside a Git work tree: this check verifies research history, which a release "
             "snapshot does not carry")
+    if is_public_snapshot(root):
+        raise unittest.SkipTest(
+            "this is the clean public content snapshot: research ancestor objects are deliberately "
+            "absent even though public follow-up commits may exist")
     if commit_count(root) < 2:
         raise unittest.SkipTest(
             "this checkout has a single commit and no ancestors: it is a content snapshot, and the "

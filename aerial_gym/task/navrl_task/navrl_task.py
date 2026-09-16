@@ -32,6 +32,7 @@ from aerial_gym.task.navrl_task.target_motion import (
     HEADING_VALID_SPEED_PROVENANCE_KEY,
     HEADING_VALID_SPEED_SOURCE,
     TARGET_MOTION_MODEL,
+    resolve_target_behavior_contract,
     resolve_heading_valid_speed_contract,
     bounded_drone_target_step,
     braking_aware_route_step,
@@ -839,6 +840,12 @@ class NavRLTask(BaseTask):
         self._target_dynamics = str(getattr(self.tm, "dynamics", "legacy")).strip().lower()
         if self._target_dynamics not in ("legacy", "bounded", "physical"):
             raise ValueError("NAVRL_TARGET_DYNAMICS must be legacy|bounded|physical")
+        self._target_behavior = resolve_target_behavior_contract(
+            getattr(self.tm, "behavior_level", "historical"),
+            self._target_dynamics,
+            getattr(self.tm, "pattern", "mixed"),
+        )
+        self._target_behavior_level = self._target_behavior["level"]
         self._physical_target = self._target_dynamics == "physical"
         self._target_route_mode = str(
             getattr(self.tm, "route_mode", TARGET_ROUTE_MODE_OFF)
@@ -3148,6 +3155,7 @@ class NavRLTask(BaseTask):
                 getattr(self.vis_cfg, "camera_fov_scale_err", 0.0)
             ),
             "cfg_target_motion_model": self._target_motion_model,
+            "cfg_target_behavior_level": self._target_behavior_level,
             # The heading-validity threshold is a target-motion contract term, not a tuning
             # knob: record the value actually in force and whether it was attested or assumed.
             HEADING_VALID_SPEED_KEY: float(self._heading_valid_speed_mps),
@@ -3842,6 +3850,17 @@ class NavRLTask(BaseTask):
                     "Older checkpoints saw targets stall at bars; moving-target metrics and "
                     "fine-tuning are a changed environment contract."
                     % (saved_motion_model or "legacy_bar_push", self._target_motion_model)
+                )
+            saved_behavior = str(
+                state.get("cfg_target_behavior_level", "historical")
+            ).strip().lower()
+            if saved_behavior != self._target_behavior_level:
+                density_evidence_changed = True
+                logger.warning(
+                    "NavRL TARGET BEHAVIOR MISMATCH | checkpoint=%s running=%s. "
+                    "This is an explicit evaluation environment axis, not evidence that the "
+                    "checkpoint trained under the running target behavior."
+                    % (saved_behavior or "historical", self._target_behavior_level)
                 )
             # Same contract, one field over: a checkpoint either attests the heading-validity
             # threshold or is refused.  Absent (every pre-key checkpoint) is assumed, never
@@ -7346,9 +7365,11 @@ class NavRLTask(BaseTask):
         else:
             v_min = min(v_max, max(0.0, float(getattr(self.tm, "speed_min", 0.0))))
             speed = v_min + (v_max - v_min) * torch.rand(n, device=self.device)
+        if self._target_behavior_level == "e0_static":
+            speed = torch.zeros_like(speed)
         self._tm_speed[env_ids] = speed
 
-        pat = str(self.tm.pattern)
+        pat = self._target_behavior["effective_pattern"]
         if pat == "mixed":
             code = torch.randint(0, 2, (n,), device=self.device)  # cv | waypoint, 50:50
         elif pat == "cv":

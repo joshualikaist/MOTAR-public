@@ -13,6 +13,14 @@ import render_presentation_figures as export
 
 OUT = Path(__file__).resolve().parents[1] / 'docs/assets/paper'
 
+STATUS_STYLE = {
+    "COMPLETED": ("#277a4b", ""),
+    "PLANNED": ("#3b6ea8", ' stroke-dasharray="8 6"'),
+    "BLOCKED": ("#a3413a", ' stroke-dasharray="14 4"'),
+    "NOT_TESTED": ("#a56a00", ' stroke-dasharray="2 6"'),
+    "ARCHIVED_WITHDRAWN": ("#72777c", ' stroke-dasharray="10 4 2 4"'),
+}
+
 
 class Diagram:
     def __init__(self, title, desc):
@@ -22,18 +30,27 @@ class Diagram:
     def text(self, x, y, t, size=25, bold=False, anchor='start', color='#253341'):
         self.s.append(f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{700 if bold else 400}" text-anchor="{anchor}" fill="{color}">{escape(t)}</text>')
 
-    def block(self, x, y, w, h, title, rows=(), fill='white', planned=False):
-        self.s.append('<g data-block="true">')
-        dash = ' stroke-dasharray="8 6"' if planned else ''
-        self.s.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="3" fill="{fill}" stroke="#253341" stroke-width="2"{dash}/>')
+    def block(self, x, y, w, h, title, rows=(), fill='white', planned=False, status=None):
+        if planned and status is None:
+            status = "PLANNED"
+        stroke, dash = STATUS_STYLE.get(status, ("#253341", ""))
+        status_attr = f' data-status="{status}"' if status else ""
+        self.s.append(f'<g data-block="true"{status_attr}>')
+        self.s.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="3" fill="{fill}" stroke="{stroke}" stroke-width="2"{dash}/>')
         self.text(x+w/2, y+43, title, 27, True, 'middle')
         for i, row in enumerate(rows):
             self.text(x+w/2, y+83+i*33, row, 23, anchor='middle')
+        if status:
+            self.text(x+w-10, y+20, status.replace("_", " / "), 14, True, 'end', stroke)
         self.s.append('</g>')
 
-    def edge(self, points, dashed=False):
+    def edge(self, points, dashed=False, status=None):
+        if dashed and status is None:
+            status = "PLANNED"
+        stroke, dash = STATUS_STYLE.get(status, ("#253341", ""))
         d = 'M' + ' L'.join(f'{x} {y}' for x, y in points)
-        self.s.append(f'<path d="{d}" fill="none" stroke="#253341" stroke-width="2.5" marker-end="url(#arrow)"' + (' stroke-dasharray="8 6"' if dashed else '') + '/>')
+        status_attr = f' data-status="{status}"' if status else ""
+        self.s.append(f'<path d="{d}" fill="none" stroke="{stroke}" stroke-width="2.5" marker-end="url(#arrow)"{dash}{status_attr}/>')
 
     def note(self, lines):
         self.s.append('<path d="M55 784H1545" stroke="#b6c0c8"/>')

@@ -36,6 +36,17 @@ class PublicDocsTest(unittest.TestCase):
         self.assertTrue(docs.local_link_errors("[bad](missing.md)", ROOT / "README.md"))
         self.assertTrue(docs.local_link_errors("[bad](../../outside)", ROOT / "README.md"))
 
+    def test_component_lifecycle_boundaries_cannot_be_promoted(self):
+        registry = json.loads((ROOT / "docs/research_status_registry.json").read_text())
+        for key in ("P10", "D8B", "D8C", "D9", "SAM_IN_SIM", "TM_E3", "TM_E4"):
+            candidate = copy.deepcopy(registry)
+            candidate["components"][key]["lifecycle_status"] = "COMPLETED"
+            candidate["components"][key]["evidence_status"] = "PASS"
+            self.assertTrue(docs.registry_errors(candidate), key)
+        candidate = copy.deepcopy(registry)
+        candidate["components"]["P7"]["evidence"] = "does-not-exist.md"
+        self.assertTrue(docs.registry_errors(candidate))
+
     def test_all_nine_figures_preserved_off_landing_page(self):
         import re
         landing = (ROOT / "README.md").read_text()

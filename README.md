@@ -1,6 +1,6 @@
 # MOTAR
 
-MOTAR: Moving Object Tracking and Reinforcement-Learning-Based Approach for UAV Navigation in Random Obstacle Fields.
+MOTAR: Moving Object Tracking And Reinforcement Learning for UAV Pursuit in Random Obstacle Fields.
 
 ![Research sources, analysis and recorded outputs](docs/assets/paper/system-overview-block-diagram.svg)
 
@@ -65,6 +65,8 @@ Detailed results and figures live in the [results overview](docs/results_overvie
 - Independent static renderer: procedural geometry, G-buffers and material/lighting variations.
 - Evidence utilities: source hashes, runtime fingerprints and immutable result records.
 - Historical research code and measurements: retained with experiment-specific contracts.
+- Target-behavior axis: static, CV and obstacle-aware scripted implementations; reactive/self-play
+  stages remain planned and are not reported as results.
 - Public validation: environment inventory, documentation checks and CPU-only CI.
 
 ## Repository Structure
@@ -138,6 +140,8 @@ Start with [reproducibility](docs/REPRODUCIBILITY.md) for what runs without a GP
 
 - [Documentation index](docs/README.md)
 - [Results by track](docs/results_overview_2026-09-12.md)
+- [Matched-baseline and published-system relation](docs/relation_to_published_systems_2026-09-16.md)
+- [Target behavior ladder and current-motion audit](docs/target_behavior_ladder_2026-09-16.md)
 - [Current verification and limitations](VERIFICATION.md)
 - [Worklog](WORKLOG.md)
 - [Public release checklist](docs/PUBLIC_RELEASE_CHECKLIST.md)

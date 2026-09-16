@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "scope": "Lifecycle and evidence registry for active public diagrams; not execution authority",
+  "status_semantics": {
+    "COMPLETED": {
+      "line_style": "solid",
+      "description": "Implementation and the cited evaluation stage are complete; the evidence verdict may still be negative or inconclusive."
+    },
+    "PLANNED": {
+      "line_style": "dashed",
+      "description": "A future stage with no completed implementation/evaluation claim."
+    },
+    "BLOCKED": {
+      "line_style": "double",
+      "description": "Required ground truth, sensor information, authority, or evidence is unavailable."
+    },
+    "NOT_TESTED": {
+      "line_style": "dotted",
+      "description": "An implementation or interface exists, but the named connection or claim has not been evaluated."
+    },
+    "ARCHIVED_WITHDRAWN": {
+      "line_style": "dash-dot",
+      "description": "A historical design or interpretation retained for provenance, not the active direction."
+    }
+  },
+  "components": {
+    "P6": {
+      "label": "Detector candidate preparation",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "COMPLETE",
+      "evidence": "results/perception_temporal_p6_p7_2026-09-08/README.md"
+    },
+    "P7": {
+      "label": "Temporal candidate selector",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "SELECTED_ON_VALIDATION; S4_GENERALIZATION_WARNING",
+      "evidence": "results/perception_temporal_p6_p7_2026-09-08/README.md"
+    },
+    "P8": {
+      "label": "Measured perception-error model",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "RECORDED",
+      "evidence": "results/perception_p8_2026-09-09/README.md"
+    },
+    "P9": {
+      "label": "Empirical simulation error injector",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "COMPLETE",
+      "evidence": "results/perception_p9_2026-09-09/p9_error_injector.json"
+    },
+    "P10": {
+      "label": "Policy readaptation under measured error",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "INCONCLUSIVE",
+      "evidence": "results/perception_p10_seed_replication_2026-09-10/README.md"
+    },
+    "LIVE_RGB_POLICY": {
+      "label": "Live real-image selector to policy observation",
+      "lifecycle_status": "NOT_TESTED",
+      "evidence_status": "NOT_INTEGRATED",
+      "evidence": "docs/specs/perception_streaming_v1.md"
+    },
+    "BEARING_DEG": {
+      "label": "Camera bearing in degrees",
+      "lifecycle_status": "BLOCKED",
+      "evidence_status": "BLOCKED_BY_INTRINSICS",
+      "evidence": "results/perception_joint_detector_p4_p5_2026-09-08/summary.json"
+    },
+    "TRUE_METRIC_RANGE": {
+      "label": "True metric target range from real imagery",
+      "lifecycle_status": "BLOCKED",
+      "evidence_status": "BLOCKED_BY_RANGE_GROUND_TRUTH",
+      "evidence": "results/eth_ds5_e3p_reliability_2026-09-10/README.md"
+    },
+    "PERSISTENT_ID_SWITCH": {
+      "label": "Persistent physical ID-switch rate",
+      "lifecycle_status": "BLOCKED",
+      "evidence_status": "BLOCKED_BY_PERSISTENT_TRACK_ID",
+      "evidence": "results/perception_temporal_p6_p7_2026-09-08/README.md"
+    },
+    "SAM_IN_SIM": {
+      "label": "SAM-in-simulator perception candidate",
+      "lifecycle_status": "ARCHIVED_WITHDRAWN",
+      "evidence_status": "SUPERSEDED",
+      "evidence": "docs/SAM3_PERCEPTION_VERIFICATION_PLAN_2026-09-03.md"
+    },
+    "D8A": {
+      "label": "Mesh-derived observation technical gate",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "TECHNICAL_GO",
+      "evidence": "results/dynamic_mesh_detector_d8a_attempt2_2026-09-13/README.md"
+    },
+    "D8B": {
+      "label": "Frozen-policy mesh sensitivity",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "MATERIAL_LOSS",
+      "evidence": "results/dynamic_mesh_policy_sensitivity_d8b_2026-09-13/README.md"
+    },
+    "D8C": {
+      "label": "Perception adaptation after mesh observation",
+      "lifecycle_status": "PLANNED",
+      "evidence_status": "NOT_STARTED",
+      "evidence": "docs/track_d_state_2026-09-12.md"
+    },
+    "D9": {
+      "label": "Appearance-shortcut remeasurement",
+      "lifecycle_status": "PLANNED",
+      "evidence_status": "NOT_RUN",
+      "evidence": "docs/track_d_state_2026-09-12.md"
+    },
+    "TM_E0": {
+      "label": "Static target baseline",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "IMPLEMENTED_BASELINE",
+      "evidence": "aerial_gym/config/task_config/navrl_task_config.py"
+    },
+    "TM_E1": {
+      "label": "Constant-velocity target baseline",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "IMPLEMENTED_HISTORICAL_LINEAGE",
+      "evidence": "aerial_gym/task/navrl_task/navrl_task.py"
+    },
+    "TM_E2": {
+      "label": "Obstacle-aware scripted target",
+      "lifecycle_status": "COMPLETED",
+      "evidence_status": "IMPLEMENTED; POLICY_COMPARISON_NOT_TESTED",
+      "evidence": "docs/target_motion_training_environment_audit_2026-08-25.md"
+    },
+    "TM_E3": {
+      "label": "Reactive obstacle-aware evader",
+      "lifecycle_status": "PLANNED",
+      "evidence_status": "NOT_IMPLEMENTED",
+      "evidence": "docs/plans/target_search_and_adversarial_evader.md"
+    },
+    "TM_E4": {
+      "label": "Learned evader / self-play",
+      "lifecycle_status": "PLANNED",
+      "evidence_status": "NOT_IMPLEMENTED",
+      "evidence": "docs/plans/target_search_and_adversarial_evader.md"
+    }
+  }
+}

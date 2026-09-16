@@ -3,6 +3,11 @@
 New explanatory block diagrams; no algorithm changes or new performance results.
 SVG is authoritative. Each same-stem PNG is 3840×2160; PDF is exported from vector SVG.
 
+The 2026-09-16 source regeneration replaces the old generic dashed-future convention with
+registry-backed lifecycle labels: `COMPLETED`, `PLANNED`, `BLOCKED`, `NOT_TESTED`, and
+`ARCHIVED_WITHDRAWN`. Lifecycle is not verdict: P10 remains `INCONCLUSIVE` and D8b remains
+`MATERIAL_LOSS`. Historical hash-pinned packages outside this dated directory are untouched.
+
 The paper-style status page displays six of these diagrams as Figures 1 and 3–7 and
 uses the interactive WebGL arena as Figure 2. The observation/Transformer diagram is
 kept here as a supplementary figure rather than removed from the dated package.

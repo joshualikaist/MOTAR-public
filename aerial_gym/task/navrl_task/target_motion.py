@@ -146,6 +146,61 @@ CV_INITIAL_HEADING_MODES = (
     "away",
 )
 
+TARGET_BEHAVIOR_LEVELS = (
+    "historical",
+    "e0_static",
+    "e1_cv",
+    "e2_obstacle_aware",
+    "e3_reactive",
+    "e4_learned",
+)
+
+
+def resolve_target_behavior_contract(level, dynamics, pattern):
+    """Validate the opt-in target-difficulty axis without changing historical defaults.
+
+    ``e0`` and ``e1`` select existing static/CV baselines. ``e2`` selects the existing
+    bounded waypoint executor, which consumes privileged simulator obstacle geometry only
+    for the target. The pursuer observation is not touched. Reactive and learned evaders are
+    named future levels and fail closed instead of silently behaving like a scripted target.
+    """
+    level = str(level).strip().lower()
+    dynamics = str(dynamics).strip().lower()
+    pattern = str(pattern).strip().lower()
+    if level not in TARGET_BEHAVIOR_LEVELS:
+        raise ValueError(
+            "NAVRL_TARGET_BEHAVIOR_LEVEL must be one of %s"
+            % "|".join(TARGET_BEHAVIOR_LEVELS)
+        )
+    if level in ("e3_reactive", "e4_learned"):
+        raise NotImplementedError(
+            "%s is PLANNED, not implemented; refusing to substitute scripted motion" % level
+        )
+    if level == "e1_cv" and pattern not in ("cv", "mixed"):
+        raise ValueError("e1_cv requires NAVRL_TARGET_PATTERN=cv (mixed is overridden to cv)")
+    if level == "e2_obstacle_aware" and dynamics not in ("bounded", "physical"):
+        raise ValueError("e2_obstacle_aware requires bounded or physical target dynamics")
+    if level == "e2_obstacle_aware" and pattern not in ("waypoint", "mixed"):
+        raise ValueError(
+            "e2_obstacle_aware requires NAVRL_TARGET_PATTERN=waypoint "
+            "(mixed is overridden to waypoint)"
+        )
+    return {
+        "level": level,
+        "effective_pattern": (
+            "cv" if level in ("e0_static", "e1_cv")
+            else "waypoint" if level == "e2_obstacle_aware"
+            else pattern
+        ),
+        "uses_privileged_obstacle_gt": level == "e2_obstacle_aware",
+        "uses_privileged_pursuer_gt": False,
+        "implementation_status": (
+            "HISTORICAL"
+            if level == "historical"
+            else "IMPLEMENTED_NOT_POLICY_COMPARED"
+        ),
+    }
+
 
 def limit_planar_velocity(
     current_velocity,

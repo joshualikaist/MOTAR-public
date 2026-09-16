@@ -156,6 +156,24 @@ New training lineage     NOT JUSTIFIED YET
 The renderer track is closed at [Contract v1](../renderer_track_v1_freeze_2026-09-14.md) and is a
 side methodological branch, not the main line.
 
+## Boundary change, 16 September 2026 — target difficulty axis documented and TM-E2 exposed
+
+The repository owner explicitly authorized a target-behavior difficulty ladder and an opt-in
+TM-E2 obstacle-aware scripted target implementation. This does **not** authorize a new PPO run,
+checkpoint retuning, or an E0/E1/E2 performance claim.
+
+- `historical` remains the default and preserves every existing run.
+- TM-E0/TM-E1 select the existing static/CV baselines.
+- TM-E2 selects the existing bounded waypoint executor, which may use privileged simulator
+  obstacle geometry only for the target.
+- The pursuer observation remains unchanged and receives no privileged target position or
+  obstacle map.
+- TM-E3 reactive evasion and TM-E4 self-play remain `PLANNED`; selecting either fails closed.
+- The prior physical routed-target `FAIL_ROUTE_MECHANISM` is not changed by exposing this axis.
+
+The code, limitations and future preregistration requirement are in
+[target behavior ladder](../target_behavior_ladder_2026-09-16.md).
+
 ## Evidence map
 
 ```text

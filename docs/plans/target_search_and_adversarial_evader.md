@@ -4,6 +4,14 @@ Status: planning input; no implementation or performance claim
 Prepared: 2026-09-03  
 Audience: the next implementation/planning agent (including Claude)
 
+## 2026-09-16 naming/status addendum
+
+The phase labels in this 2026-09-03 planning brief are historical. The active public target
+difficulty axis is `TM-E0` static, `TM-E1` CV, `TM-E2` obstacle-aware scripted, `TM-E3` reactive,
+and `TM-E4` learned/self-play. TM-E2 now exposes the existing bounded obstacle-aware executor;
+its policy comparison is `NOT_TESTED`. This brief's old “Phase E1/E2/E3” names must not be mixed
+with that ladder. See [current ladder and motion audit](../target_behavior_ladder_2026-09-16.md).
+
 ## Executive decision
 
 MOTAR currently solves short target occlusions with sensor fusion and a constant-velocity tracker,

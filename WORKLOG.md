@@ -18467,3 +18467,115 @@ public docs/schema, CFF 검사 PASS. 최종 문서 수정 뒤 docs/schema와 외
 
 다음 선택은 필요할 경우 **별도 clean public-release repository**를 명시적으로 승인받아 만드는
 것이다. 이번에는 history rewrite/force push/새 repo 생성 없이 normal fast-forward push만 한다.
+
+## 2026-09-14 (5) — clean public-release candidate (로컬 완성, 공개 없음)
+
+기존 MOTAR history는 **전혀 변경하지 않았다**(rewrite·filter·force 없음). 대신 현재 commit의 내용만
+담은 별도 스냅샷을 로컬에 만들었다: `../MOTAR-public-release-candidate/`.
+
+**빌더**(`tools/build_public_release_candidate.py`)는 `git archive`로 내보내 `.git`을 상속하지 않고,
+저장소 내부 절대 symlink 272개를 상대 경로로 바꾸고, 문서화된 제외 규칙을 적용한 뒤 **스스로를
+반증하려 시도한다**: 모든 정규 파일과 **모든 아카이브 멤버**를 denylist 해시와 대조한다. ZIP 안에 숨은
+이미지도 재배포이기 때문이다. denylist는 79209d8에서 제거된 ETH ds5 파생물 14개의 내용 해시
+(`docs/public_release_denylist.json`)다.
+
+**결과: `ETH_DENYLIST_MATCHES = 0`** (파일 5,310개·아카이브 멤버 71개 대조). 해시/파일명이 receipt
+안에 **문자열로** 남아 있는 것은 provenance라서 유지한다 — 이건 바이트가 아니다.
+
+정책은 `docs/public_release_file_policy.md`에 적었다. 제외는 (1) ETH 파생물 14개, (2) `.git`,
+(3) 캐시, (4) **source commit에서 이미 깨져 있던** symlink 3개뿐이다.
+
+빌드가 드러낸 **기존 저장소의 세 가지 비자립성**:
+1. 일부 증거 테스트가 연구 history의 특정 commit을 검증한다 — 스냅샷에는 그 commit이 없다.
+2. 일부는 `.gitignore`가 "immutable local receipts with raw traces"로 **의도적으로 제외**한 번들
+   (`..._recovery_v2_gate_lower1p25_seed827` 57 MB 등)을 직접 읽는다. `check_research_authority.py`가
+   그 안의 `summary.json`을 frozen evidence로 요구하므로 **어떤 clone에서도 실패**한다.
+3. 일부는 추적되지 않은 학습 체크포인트/receipt를 요구한다.
+셋 다 내 빌드가 만든 문제가 아니라 측정해서 드러난 기존 속성이다. 해당 검사들은 이제 stack trace 대신
+**사유를 명시하고 skip**한다(`tests/history_helpers.py`). 연구 저장소에서는 가드가 무력해 그대로 실행된다.
+스냅샷 판별은 SHA 목록이 아니라 "commit 1개·조상 없음"이라는 일반 규칙을 쓴다.
+
+manifest 빌더도 고쳤다: 추적되지 않은 결과 디렉터리 3개를 `untracked_results`로 드러내고, git이 없는
+스냅샷에서는 legacy 분류를 "모른다"고 하거나 연구 manifest에서 **상속**하며 그 manifest 해시를 기록한다.
+릴리스 색인은 `results/RELEASE_MANIFEST.json`(198개)로 연구 `MANIFEST.json`(201개)과 **덮어쓰지 않고**
+분리했다.
+
+검증(후보 안에서): 전체 스위트 **1,884개 / 실패 0 / skip 29**(가드된 history·local evidence),
+공개 문서 PASS, CITATION.cff 파싱 OK, 절대 경로는 공개 재현 경로 13개 파일에서 **0건**, 시크릿 0건.
+별도 임시 디렉터리로 **clean clone**해서 다시 돌린 결과도 동일하게 통과했고 진입 문서의 깨진 링크는 0이다.
+
+후보 저장소는 로컬에서만 `git init` + 첫 commit까지 했다(`Initial public release snapshot from MOTAR
+research commit …`). **remote 생성·push·기존 MOTAR visibility 변경은 하지 않았다.**
+
+## 2026-09-15 — Pages 랜딩의 저장소 루트 링크 404
+
+공개 사이트 `https://joshualikaist.github.io/MOTAR/status/`는 `/docs`만 배포한다.
+`docs/status/index.html`의 `../../CITATION.cff` 등은 Pages 루트를 벗어나
+`https://joshualikaist.github.io/CITATION.cff`로 해석되어 404였다. Code 링크
+`github.com/joshualikaist/MOTAR`도 비공개 저장소라 로그아웃 방문자는 404였다.
+
+랜딩 페이지의 저장소 루트·results 링크를 공개 스냅샷
+`https://github.com/joshualikaist/MOTAR-public/blob/main/…`으로 바꿨다.
+해시 고정된 `archive-2026-09-13.html`은 수정하지 않았다. 과학 결과·시뮬레이터 코드는
+변경하지 않았다.
+
+## 2026-09-16 — MOTAR 약자 복원
+
+원래 이름은 `9f67ca3`(2026-07-09)의
+`Moving Object Tracking and Reinforcement-Learning-Based Approach for UAV Navigation in Random Obstacle Fields`
+이다. `22f952e`(2026-07-22) README 축약에서 약자가 한 줄로 줄었고,
+`23d48b5`(2026-09-13) 논문형 사이트 부제가 `Moving-Target Rendezvous in Dense Obstacle Environments
+with Measured Perception Uncertainty`로 바뀌어 앞글자와 맞지 않았다.
+
+사이트 부제·title, README 첫 줄, `CITATION.cff` title을 원문 약자로 되돌렸다.
+본문의 interception/rendezvous 구분 설명은 그대로 둔다. archive 페이지는 해시 고정이라 수정하지 않았다.
+
+## 2026-09-16 — matched baseline, 외부 문헌 관계, 상태 registry, target behavior ladder
+
+현재 main `195ad05`의 README·VERIFICATION·evidence index·plans·results·status site를 다시
+대조했다. 사이트에는 D8b primary contrast 외에 같은 계약 안의 정량 baseline 비교가 거의
+없었고, P8/P9/D8-A/D8b 완료 뒤에도 그림에 generic dashed future 표현이 남아 있었다.
+
+원 result 문서를 다시 읽어 Section 6에 8개 matched row를 추가했다: arc−riskcap
+−1.4903 pp [−1.8981, −1.0826], 205-bar arc width crash −5.60/capture +4.44 pp,
+riskcap adaptation capture +3.75 pp [1.30, 6.19], latency correction +40.21 pp,
+learned detector NI −0.015 pp [−1.752, 1.723], P7 utility +0.00697, P10 +0.73 pp
+[−1.04, 2.50] INCONCLUSIVE, D8b −48.967 pp [−50.113, −47.821] MATERIAL_LOSS.
+새 근거 검사 9개가 사이트 문자열과 각 원 result를 함께 고정한다.
+
+외부 시스템은 17개를 1차 검토하고 NavRL/NavRL++, YOPO/YOPOv2-Tracker, OPEN, AgilePE,
+FlowPilot, role-based MADDPG, PILOT, Temporal Barrier 10개를 사이트에 남겼다. 같은 benchmark와
+metric인 Class A는 0개다. 공개 코드가 있어 향후 port 후보인 NavRL/YOPO/OPEN만 B, 나머지는
+현재 C이며 외부 논문 percentage를 MOTAR 수치에서 빼지 않았다.
+
+`docs/research_status_registry.json`은 lifecycle과 evidence verdict를 분리한다.
+COMPLETED/PLANNED/BLOCKED/NOT_TESTED/ARCHIVED_WITHDRAWN 5종을 badge·선 스타일로 표시하며
+P10 INCONCLUSIVE, D8b MATERIAL_LOSS, D8c NOT_STARTED, D9 NOT_RUN을 보호한다. P6–P9와
+D8-A/D8b 그림은 완료 lifecycle로 재생성했고 live RGB→policy는 dotted NOT_TESTED,
+SAM candidate는 ARCHIVED, degree bearing/metric range/persistent ID switch는 BLOCKED다.
+
+Target motion은 새로 추정하지 않고 기존 구현을 감사했다. legacy는 CV/waypoint와 순간 wall
+reflection/push-out, bounded는 4 m/s²·150 deg/s·1 s lookahead의 obstacle-aware receding horizon,
+physical은 100 Hz PhysX/motor actor와 optional GT-obstacle global route다. 브라우저 기본은
+routed-preview이며 target은 pursuer에 반응하지 않는다. TM-E0 static, TM-E1 CV, TM-E2
+obstacle-aware scripted를 opt-in `NAVRL_TARGET_BEHAVIOR_LEVEL`로 노출했고 historical default는
+그대로다. TM-E2는 target-side obstacle GT만 사용하며 pursuer observation은 바꾸지 않는다.
+TM-E3/TM-E4는 선택 시 fail closed한다. 새 PPO나 E0/E1/E2 policy grid는 실행하지 않았고
+기존 physical `FAIL_ROUTE_MECHANISM`도 유지했다.
+
+제목은 `MOTAR: Moving Object Tracking And Reinforcement Learning for UAV Pursuit in Random
+Obstacle Fields`로 README/site/CFF/Figure 1 caption에 통일했다. 최종 research 전체 unittest
+**1,906개 / 실패·오류 0 / 기존 skip 4**, 59.154초. target-motion 29,
+source-bound comparison 9, overview 16,
+public-doc 7, Node site/manifest/arena와 CFF/schema가 PASS했다. 브라우저 검수에서 800 px
+literature-table overflow를 발견해 내부 scroll로 수정했고 desktop/tablet/mobile 모두
+document overflow 0, component status 19행 로드, 이미지·WebGL·fail-closed PASS다.
+공개 스냅샷의 Node route 검사는 연구 ancestor `a373202`가 없어 처음 실패했다. 연구 저장소에서는
+hash 검사를 유지하고, `RELEASE_PROVENANCE.md`가 있는 공개 스냅샷에서만 그 ancestor hash 한 항목을
+명시적으로 skip하며 현재 route geometry/determinism 검사는 계속 실행하도록 고쳤다.
+공개 스냅샷 full unittest도 후속 public commit이 1개를 넘으면서 기존 `commit_count < 2`
+판별이 무력화되어 1 failure/12 errors를 냈다. snapshot은 영구히 1-commit일 필요가 없으므로
+`RELEASE_PROVENANCE.md`의 세 문구를 durable marker로 검증하게 고쳤다. 파일명만 만든 가짜 marker는
+인정하지 않고, research checkout에서는 모든 ancestor 검사가 그대로 실행된다.
+수정 후 공개 스냅샷 전체 suite는 **1,906개 / 실패·오류 0 / skip 29**, 52.662초로 통과했다.
+29 skip은 snapshot에 의도적으로 없는 research ancestor/local evidence를 사유와 함께 표시한다.

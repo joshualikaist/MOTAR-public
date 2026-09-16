@@ -154,7 +154,33 @@ results are reproducible only in their recorded form, not from raw data.
 
 ---
 
-## 7. Open limitations
+## 7. Target behavior difficulty
+
+**Question.** Does the target progress from a static/moving point to an obstacle-aware or reactive
+evader without leaking privileged information into the pursuer?
+
+**Method.** The independent [TM-E0…TM-E4 ladder](target_behavior_ladder_2026-09-16.md) separates
+static, constant-velocity, obstacle-aware scripted, reactive, and learned/self-play targets.
+Target-side privileged obstacle GT is allowed for difficulty generation; the pursuer remains on
+its declared camera/perception and obstacle-sensor inputs.
+
+**Best established evidence.** Static and CV baselines already exist. The bounded/physical target
+executor uses speed, acceleration, heading-rate, workspace and obstacle-clearance constraints.
+The explicit TM-E2 profile reuses that implemented obstacle-aware waypoint executor.
+
+**Status.** TM-E0/TM-E1 implemented historical baselines; TM-E2
+`IMPLEMENTED; POLICY_COMPARISON_NOT_TESTED`; TM-E3/TM-E4 `PLANNED`. The preserved physical routed
+gate remains `FAIL_ROUTE_MECHANISM`; implementation is not a passing policy result.
+
+**Primary result path.** [Current target-motion audit and ladder](target_behavior_ladder_2026-09-16.md).
+
+**Known limitation.** No E0/E1/E2 matched policy-performance grid is reported, and no target
+currently reacts to the pursuer after reset. Browser `routed-preview` is explanatory, not
+PhysX/PPO evidence.
+
+---
+
+## 8. Open limitations
 
 * **No real-flight validation of anything.** Every number in this repository is simulation or
   recorded-dataset analysis.
@@ -165,5 +191,7 @@ results are reproducible only in their recorded form, not from raw data.
 * **No area-matched control geometry exists**, and the renderer supports face normals only.
 * **Task-level failure structure is instrumented but unmeasured.** TD-T1 and TD-T2 recorders exist
   and are trajectory-invariant; the preregistered density sweep has not been run.
+* **Target behavior comparison is not run.** TM-E2 is implemented, while TM-E3/TM-E4 are planned;
+  no policy superiority is inferred from target-motion unit tests.
 * **Licensing is unresolved for several third-party datasets** and is tracked as
   `NEEDS_CONFIRMATION` rather than assumed; see the release audit.

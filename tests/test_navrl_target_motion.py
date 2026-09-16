@@ -22,6 +22,7 @@ initial_cv_velocity = _MODULE.initial_cv_velocity
 limit_planar_velocity = _MODULE.limit_planar_velocity
 bounded_drone_target_step = _MODULE.bounded_drone_target_step
 support_aware_bounds = _MODULE.support_aware_bounds
+resolve_target_behavior_contract = _MODULE.resolve_target_behavior_contract
 
 
 def _bounds(n):
@@ -318,6 +319,50 @@ def test_cruise_speed_heading_remains_slew_limited():
     assert float(velocity.norm()) <= 0.6 + 1e-6
 
 
+def test_target_behavior_ladder_preserves_historical_default():
+    contract = resolve_target_behavior_contract("historical", "legacy", "mixed")
+    assert contract["effective_pattern"] == "mixed"
+    assert contract["implementation_status"] == "HISTORICAL"
+    assert not contract["uses_privileged_obstacle_gt"]
+    assert not contract["uses_privileged_pursuer_gt"]
+
+
+def test_e0_e1_e2_select_distinct_existing_motion_contracts():
+    e0 = resolve_target_behavior_contract("e0_static", "legacy", "mixed")
+    e1 = resolve_target_behavior_contract("e1_cv", "legacy", "mixed")
+    e2 = resolve_target_behavior_contract("e2_obstacle_aware", "bounded", "mixed")
+    assert e0["effective_pattern"] == "cv"
+    assert e1["effective_pattern"] == "cv"
+    assert e2["effective_pattern"] == "waypoint"
+    assert not e1["uses_privileged_obstacle_gt"]
+    assert e2["uses_privileged_obstacle_gt"]
+    assert not e2["uses_privileged_pursuer_gt"]
+
+
+def test_e2_requires_bounded_execution_and_future_levels_fail_closed():
+    with unittest.TestCase().assertRaises(ValueError):
+        resolve_target_behavior_contract("e2_obstacle_aware", "legacy", "waypoint")
+    for level in ("e3_reactive", "e4_learned"):
+        with unittest.TestCase().assertRaises(NotImplementedError):
+            resolve_target_behavior_contract(level, "bounded", "waypoint")
+
+
+def test_task_wires_behavior_as_an_evaluation_axis_without_observation_change():
+    root = Path(__file__).resolve().parents[1]
+    task = (root / "aerial_gym/task/navrl_task/navrl_task.py").read_text()
+    config = (root / "aerial_gym/config/task_config/navrl_task_config.py").read_text()
+    assert "NAVRL_TARGET_BEHAVIOR_LEVEL" in config
+    assert '"cfg_target_behavior_level": self._target_behavior_level' in task
+    assert 'self._target_behavior["effective_pattern"]' in task
+    assert 'self._target_behavior_level == "e0_static"' in task
+    # E2's privileged geometry reaches only target planning; no behavior-level field is
+    # appended to the pursuer observation or policy tensor.
+    observation_path = task.split("def process_obs_for_task", 1)[1].split(
+        "def _process_obs_vision", 1
+    )[0]
+    assert "_target_behavior" not in observation_path
+
+
 class HeadingValidSpeedContractTestCase(unittest.TestCase):
     """The heading-validity threshold is a checkpoint contract term, not a free knob.
 
@@ -482,6 +527,18 @@ class TargetMotionFunctionTestCase(unittest.TestCase):
 
     def test_cruise_speed_heading_remains_slew_limited(self):
         test_cruise_speed_heading_remains_slew_limited()
+
+    def test_target_behavior_ladder_preserves_historical_default(self):
+        test_target_behavior_ladder_preserves_historical_default()
+
+    def test_e0_e1_e2_select_distinct_existing_motion_contracts(self):
+        test_e0_e1_e2_select_distinct_existing_motion_contracts()
+
+    def test_e2_requires_bounded_execution_and_future_levels_fail_closed(self):
+        test_e2_requires_bounded_execution_and_future_levels_fail_closed()
+
+    def test_task_wires_behavior_as_an_evaluation_axis_without_observation_change(self):
+        test_task_wires_behavior_as_an_evaluation_axis_without_observation_change()
 
 
 if __name__ == "__main__":

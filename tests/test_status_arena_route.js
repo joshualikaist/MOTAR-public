@@ -13,13 +13,28 @@ const Motion = require('../docs/status/arena_motion.js');
 // Python file additionally contains the failed recovery-v2 state machine, which this explanatory
 // viewer must not silently present as implemented or successful.
 const repo = path.resolve(__dirname, '..');
-const pythonPlanner = execFileSync('git', [
-  'show', 'a373202:aerial_gym/task/navrl_task/target_route_planner.py',
-], {cwd: repo});
-assert.strictEqual(
-  crypto.createHash('sha256').update(pythonPlanner).digest('hex'),
-  '7fec3015e5dee667b8cd64d145d29b9244c18eb0c79b4af12020be44b503cb83'
-);
+let pythonPlanner = null;
+try {
+  pythonPlanner = execFileSync('git', [
+    'show', 'a373202:aerial_gym/task/navrl_task/target_route_planner.py',
+  ], {cwd: repo, stdio: ['ignore', 'pipe', 'pipe']});
+} catch (error) {
+  const marker = path.join(repo, 'RELEASE_PROVENANCE.md');
+  if (!fs.existsSync(marker)) throw error;
+  const provenance = fs.readFileSync(marker, 'utf8');
+  if (!provenance.includes('This directory is a **snapshot**, not a clone') ||
+      !provenance.includes('none of its history') ||
+      !provenance.includes("**None.** The research repository's history was not rewritten")) {
+    throw error;
+  }
+  console.log('historical planner hash: SKIP (public snapshot has no research ancestor objects)');
+}
+if (pythonPlanner !== null) {
+  assert.strictEqual(
+    crypto.createHash('sha256').update(pythonPlanner).digest('hex'),
+    '7fec3015e5dee667b8cd64d145d29b9244c18eb0c79b4af12020be44b503cb83'
+  );
+}
 
 const support = Route.conservativeXYSupportFromBox([0.28, 0.28, 0.12]);
 const expectedSupport = 0.5 * Math.hypot(0.28, 0.28, 0.12);

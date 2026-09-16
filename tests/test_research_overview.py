@@ -74,8 +74,8 @@ class ResearchOverviewTest(unittest.TestCase):
         self.assertGreaterEqual(len(words), 120)
         self.assertLessEqual(len(words), 180)
         self.assertIn('<h1>MOTAR</h1>', self.text)
-        self.assertIn('Moving Object Tracking and Reinforcement-Learning-Based Approach', self.text)
-        self.assertIn('for UAV Navigation in Random Obstacle Fields', self.text)
+        self.assertIn('Moving Object Tracking And Reinforcement Learning', self.text)
+        self.assertIn('for UAV Pursuit in Random Obstacle Fields', self.text)
         self.assertNotIn('Observe. Measure.', self.text)
         self.assertNotIn('overview-card', self.text)
 
@@ -123,6 +123,71 @@ class ResearchOverviewTest(unittest.TestCase):
             self.assertEqual(data['track_d'][key]['status'], status)
             self.assertIn(f'data-status-id="{key}"', self.text)
         self.assertNotIn('색만으로 표적을 찾을 수 있었습니다', self.text)
+
+    def test_component_lifecycle_is_separate_from_evidence_verdict(self):
+        registry = json.loads((ROOT / 'docs/research_status_registry.json').read_text())
+        expected = {
+            'P10': ('COMPLETED', 'INCONCLUSIVE'),
+            'D8B': ('COMPLETED', 'MATERIAL_LOSS'),
+            'D8C': ('PLANNED', 'NOT_STARTED'),
+            'D9': ('PLANNED', 'NOT_RUN'),
+            'SAM_IN_SIM': ('ARCHIVED_WITHDRAWN', 'SUPERSEDED'),
+            'LIVE_RGB_POLICY': ('NOT_TESTED', 'NOT_INTEGRATED'),
+            'BEARING_DEG': ('BLOCKED', 'BLOCKED_BY_INTRINSICS'),
+        }
+        for key, pair in expected.items():
+            row = registry['components'][key]
+            self.assertEqual((row['lifecycle_status'], row['evidence_status']), pair)
+            self.assertTrue((ROOT / row['evidence']).is_file(), key)
+            self.assertIn(f'data-component-id="{key}"', self.text)
+        for status in ('COMPLETED', 'PLANNED', 'BLOCKED', 'NOT_TESTED',
+                       'ARCHIVED_WITHDRAWN'):
+            self.assertIn(status, registry['status_semantics'])
+        self.assertIn('lifecycle is separate from evidence verdict',
+                      (SITE / 'status_manifest.js').read_text())
+
+    def test_matched_baseline_table_preserves_registered_numbers_and_limits(self):
+        for phrase in (
+            '−1.4903 pp', '[−1.8981, −1.0826]', '15/15 cells',
+            '−5.60 pp; capture +4.44 pp',
+            '+3.75 pp, 95% CI [+1.30, +6.19]',
+            '37.82% → 78.04% (+40.21 pp)',
+            '−0.015 pp; 95% CI [−1.752, +1.723]',
+            '0.6655', '0.6725', '+0.00697 utility', '0.4701',
+            'Mean +0.73 pp; 95% CI [−1.04, +2.50]',
+            '−48.967 pp', '[−50.113, −47.821]',
+            'They do not establish superiority over published external systems',
+            'pp</abbr> means percentage points',
+        ):
+            self.assertIn(phrase, self.text)
+        for boundary in (
+            'No formal collision-safety guarantee',
+            'crash not confirmed',
+            'Does not establish that real-world latency is solved',
+            'this is not superiority',
+            'Not held-out superiority',
+            'Net adaptation benefit is not established',
+            'causality of any renderer defect is NOT_TESTED',
+        ):
+            self.assertIn(boundary.lower(), self.text.lower())
+
+    def test_external_table_has_no_direct_numeric_ranking(self):
+        section = self.text.split('<h3>6.2 Relation to published systems</h3>', 1)[1]
+        section = section.split('<h3>6.3 Current evidence boundaries</h3>', 1)[0]
+        for work in ('NavRL', 'NavRL++', 'YOPO', 'YOPOv2-Tracker', 'OPEN',
+                     'AgilePE', 'FlowPilot', 'Role-based MADDPG', 'PILOT',
+                     'Temporal Barrier'):
+            self.assertIn(work, section)
+        self.assertIn('No selected work is currently Class A', section)
+        self.assertNotRegex(section, r'(?:outperform|better than|superior by)\s+\d')
+        self.assertIn('relation_to_published_systems_2026-09-16.md', section)
+
+    def test_target_behavior_ladder_is_explicit_and_fail_closed(self):
+        for key in ('TM_E0', 'TM_E1', 'TM_E2', 'TM_E3', 'TM_E4'):
+            self.assertIn(f'data-component-id="{key}"', self.text)
+        self.assertIn('Evader may use privileged GT obstacle information', self.text)
+        self.assertIn('pursuer may not', self.text)
+        self.assertIn('No E0/E1/E2 policy-performance grid is reported', self.text)
 
     def test_d8b_result_is_not_promoted_to_perception_improvement(self):
         result = json.loads((ROOT/'results/dynamic_mesh_policy_sensitivity_d8b_2026-09-13/summary.json').read_text())
@@ -180,6 +245,17 @@ class ResearchOverviewTest(unittest.TestCase):
             self.assertEqual(len(ids),len(set(ids)))
         for name in ('research-overview','perception-tracking','appearance-rendering'):
             self.assertIn('stroke-dasharray', (FIG/(name+'-block-diagram.svg')).read_text())
+        for name in ('research-overview', 'perception-tracking', 'appearance-rendering'):
+            text = (FIG/(name+'-block-diagram.svg')).read_text()
+            self.assertIn('data-status="COMPLETED"', text)
+        self.assertIn(
+            'data-status="NOT_TESTED"',
+            (FIG/'perception-tracking-block-diagram.svg').read_text(),
+        )
+        self.assertIn(
+            'data-status="PLANNED"',
+            (FIG/'appearance-rendering-block-diagram.svg').read_text(),
+        )
 
     def test_old_hash_pinned_packages_and_complete_detail_preserved(self):
         for name, digest in {

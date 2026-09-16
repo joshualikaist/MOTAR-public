@@ -80,7 +80,7 @@ def main():
                         mobile=label=='mobile', dontSetVisibleSize=False))
                     call('Page.navigate',dict(url='http://127.0.0.1:%s/docs/status/index.html'%server.server_port))
                     for _ in range(100):
-                        ready = js("document.readyState==='complete' && ![...document.querySelectorAll('[data-status-id]')].some(x=>x.textContent.includes('Loading')) && !!document.querySelector('#stage canvas')")
+                        ready = js("document.readyState==='complete' && ![...document.querySelectorAll('[data-status-id],[data-component-id]')].some(x=>x.textContent.includes('Loading')) && !!document.querySelector('#stage canvas')")
                         if ready:
                             break
                         time.sleep(.1)
@@ -88,9 +88,10 @@ def main():
                         raise RuntimeError('Page/manifest/WebGL readiness timeout')
                     js("document.querySelector('#btn-play').click(); document.documentElement.style.scrollBehavior='auto'")
                     image_ok = js("Promise.all([...document.images].map(i=>{i.loading='eager'; return i.decode().then(()=>true,()=>false)})).then(v=>v.every(Boolean))")
-                    result = js("({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,statusRows:document.querySelectorAll('[data-status-id]').length,visibleNavLinks:[...document.querySelectorAll('header nav a')].filter(a=>a.getClientRects().length).length,canvas:!!document.querySelector('#stage canvas'),route:document.querySelector('#hud-route-state').textContent})")
+                    result = js("({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,statusRows:document.querySelectorAll('[data-status-id]').length,componentRows:document.querySelectorAll('[data-component-id]').length,visibleNavLinks:[...document.querySelectorAll('header nav a')].filter(a=>a.getClientRects().length).length,canvas:!!document.querySelector('#stage canvas'),route:document.querySelector('#hud-route-state').textContent})")
                     result.update(viewport=label,images_decoded=image_ok)
-                    if not image_ok or result['scrollWidth'] > width or result['statusRows'] != 4 or result['visibleNavLinks'] != 6:
+                    if (not image_ok or result['scrollWidth'] > width or result['statusRows'] != 4
+                            or result['componentRows'] != 19 or result['visibleNavLinks'] != 6):
                         raise RuntimeError('Layout/content check failed: '+str(result))
                     # Hide scripted movement before capturing; no underlying viewer source edits.
                     for section in ('top','arena','perception','evidence'):
@@ -129,7 +130,8 @@ def main():
         server.shutdown(); server.server_close()
     source_paths = [ROOT/'docs/status/index.html',ROOT/'docs/status/overview.css',
                     ROOT/'docs/status/style.css',ROOT/'docs/status/status_manifest.js',
-                    ROOT/'docs/status_manifest.json',Path(__file__).resolve()]
+                    ROOT/'docs/status_manifest.json', ROOT/'docs/research_status_registry.json',
+                    Path(__file__).resolve()]
     source_paths += list((ROOT/'docs/assets/paper/overview-2026-09-13').glob('*.svg'))
     source_paths += [ROOT/'docs/status'/name for name in ('arena.js','arena_motion.js',
                      'arena_route.js','viewer.js','vendor/three.min.js','vendor/OrbitControls.js')]

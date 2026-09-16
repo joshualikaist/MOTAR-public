@@ -4,7 +4,7 @@
 [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md), 날짜별 기록은 [`WORKLOG.md`](WORKLOG.md),
 명령어는 [`OPERATIONS.md`](OPERATIONS.md), 라이브 지표는 [`docs/status/`](docs/status/)를 본다.
 
-> 현재 상태 기준일: 2026-09-14. 아래 날짜별 실행 계약은 역사 기록이며 새 실행 권한이 아니다.
+> 현재 상태 기준일: 2026-09-16. 아래 날짜별 실행 계약은 역사 기록이며 새 실행 권한이 아니다.
 
 독립 renderer RC 첫 계보는 `32ee105`까지 공개됐다. RC-R1 `GEOMETRY_DEFECT`, RC-R2
 `AREA_MATCH_FAILED`, RC-R3 `SHADING_GATE_FAILED`를 보존한다. 현재 새 작업은 정책·검출기와
@@ -28,6 +28,10 @@ R5b→R1b→R2b→R3b 및 renderer 계약·그림 정리다. D8b 인과 기여�
 | D: D7 통합 shadow 비용 | COMPLETE | GO는 +0.41 ms/+1.0% 비용과 출력 비간섭에만 적용 | [D7](results/dynamic_mesh_integrated_cost_2026-09-12/README.md) |
 | D: D8 mesh-derived observation | D8-A COMPLETE | `TECHNICAL_GO`: shaded +0.52 ms/+1.18%; 비용·기술 무결성에 한정 | [D8-A](results/dynamic_mesh_detector_d8a_attempt2_2026-09-13/README.md) |
 | D: D8b frozen-policy sensitivity | COMPLETE | `MATERIAL_LOSS`: primary −48.967 pp, 95% seed-t CI [−50.113, −47.821], margin −3.0 pp | [D8b](results/dynamic_mesh_policy_sensitivity_d8b_2026-09-13/README.md), [8개 gate 감사·한계](results/dynamic_mesh_policy_sensitivity_d8b_2026-09-13/AUDIT.md) |
+| 공개 상태 표현 | COMPLETE | lifecycle(COMPLETED/PLANNED/BLOCKED/NOT_TESTED/ARCHIVED_WITHDRAWN)과 evidence verdict를 분리; P10 INCONCLUSIVE·D8b MATERIAL_LOSS 보존 | [registry](docs/research_status_registry.json) |
+| Target behavior TM-E0/TM-E1 | IMPLEMENTED | static/CV 기존 baseline; 새 비교 결과 아님 | [ladder/audit](docs/target_behavior_ladder_2026-09-16.md) |
+| Target behavior TM-E2 | IMPLEMENTED | bounded obstacle-aware scripted executor; `POLICY_COMPARISON_NOT_TESTED`, physical route gate `FAIL_ROUTE_MECHANISM` 유지 | [ladder/audit](docs/target_behavior_ladder_2026-09-16.md) |
+| Target behavior TM-E3/TM-E4 | PLANNED | reactive evader/self-play 미구현; 선택 시 fail closed | [ladder/audit](docs/target_behavior_ladder_2026-09-16.md) |
 
 과거 CONTRACT_MISMATCH와 설치 당시 실패 receipt는 보존한다. 현재 테스트 충돌 해소는
 별도 후속 검사이며, `PARTIAL_EVIDENCE`나 R4/R4b의 FAIL을 PASS로 바꾸지 않는다.

@@ -257,10 +257,10 @@ window.Arena = (() => {
     if (sampled && episode) sampled.textContent = `${episode.speed.toFixed(2)} m/s sampled`;
     const lineage = document.getElementById('hud-motion-lineage');
     if (lineage) lineage.textContent = {
-      legacy: 'legacy · checkpointed virtual point',
-      bounded: 'bounded · new trajectory lineage',
-      'physical-style': 'physical-style · illustrative, not PhysX',
-      'routed-preview': 'global route + bounded/lagged browser preview · NOT PhysX/PPO',
+      legacy: 'historical legacy · checkpointed virtual point',
+      bounded: 'TM-E2 local obstacle-aware · NOT policy-compared',
+      'physical-style': 'NOT TESTED physical-style · illustrative, not PhysX',
+      'routed-preview': 'TM-E2 global route + bounded/lagged browser preview · NOT PhysX/PPO',
     }[targetMotionMode];
     const routeState = document.getElementById('hud-route-state');
     if (routeState) {

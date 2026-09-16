@@ -4,6 +4,10 @@ The [previous README](archive/readme_9732d12_2026-09-12.md) preserves the full n
 from source `9732d12`. This summary does not recompute or promote any result. The current authority
 is [VERIFICATION](../VERIFICATION.md); dates and failed runs remain in [WORKLOG](../WORKLOG.md).
 
+The active site now separates [within-MOTAR matched-baseline effects](status/#evidence) from the
+[qualitative relation to published systems](relation_to_published_systems_2026-09-16.md). No
+external paper percentage is treated as a MOTAR head-to-head result.
+
 | Track | Question | Verified result | Negative / withdrawn result | Limitation | Source |
 |---|---|---|---|---|---|
 | A | What limits the recorded safety-filter findings? | Existing diagnostics and replication completed | C3 explanation WITHDRAWN | No formal safety guarantee | [replication](../results/navrl_grid_r2_d4_trainseed_rep/README.md) |

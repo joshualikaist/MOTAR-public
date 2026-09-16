@@ -15,6 +15,7 @@ import render_presentation_figures as exporter
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs/assets/paper/overview-2026-09-13'
 TRACK_D = json.loads((ROOT / 'docs/status_manifest.json').read_text())['track_d']
+COMPONENTS = json.loads((ROOT / 'docs/research_status_registry.json').read_text())['components']
 SENSOR = '#edf4f6'
 LEARNED = '#e7edf9'
 FIXED = '#f2f2ed'
@@ -22,10 +23,12 @@ FIXED = '#f2f2ed'
 
 def diagram(stem, title, desc, nodes, edges, notes):
     d = blocks.Diagram(title, desc)
-    for x, y, label, rows, category, future in nodes:
-        d.block(x, y, 425, 140, label, rows, category, planned=future)
-    for points, future in edges:
-        d.edge(points, dashed=future)
+    for x, y, label, rows, category, state in nodes:
+        status = state if isinstance(state, str) else ("PLANNED" if state else None)
+        d.block(x, y, 425, 140, label, rows, category, status=status)
+    for points, state in edges:
+        status = state if isinstance(state, str) else ("PLANNED" if state else None)
+        d.edge(points, status=status)
     d.note(notes)
     d.save(stem + '.svg')
 
@@ -40,8 +43,8 @@ def chain(stem, title, labels, notes):
 
 
 def system_overview():
-    d = blocks.Diagram('MOTAR system and evidence boundaries',
-        'Central simulation research path with separate real-image error and appearance-rendering evidence branches.')
+    d = blocks.Diagram('MOTAR: Moving Object Tracking And Reinforcement Learning',
+        'MOTAR for UAV Pursuit in Random Obstacle Fields: completed simulation research with separate evidence branches.')
     x, w, h = 610, 380, 64
     labels = [('3-D environment', SENSOR), ('Camera + LiDAR', SENSOR),
               ('Perception / tracking', LEARNED), ('Temporal policy · PPO', LEARNED),
@@ -49,46 +52,62 @@ def system_overview():
               ('Simulated UAV', FIXED)]
     ys = [112, 198, 284, 370, 456, 542, 628]
     for y, (label, color) in zip(ys, labels):
-        d.block(x, y, w, h, label, fill=color)
+        d.block(x, y, w, h, label, fill=color, status='COMPLETED')
     for first, second in zip(ys, ys[1:]):
-        d.edge([(x+w/2, first+h), (x+w/2, second)])
-    d.block(65, 174, 350, 105, 'Real UAV video', ['Separate data lineage'], SENSOR)
-    d.block(65, 354, 350, 105, 'Measured errors', ['Detector · association'], SENSOR)
-    d.block(65, 534, 350, 105, 'Simulation injection', ['P8–P10 experiments'], SENSOR)
-    d.edge([(240,279),(240,354)])
-    d.edge([(240,459),(240,534)])
-    d.edge([(415,586),(510,586),(510,316),(610,316)], dashed=True)
-    d.block(1185, 222, 350, 105, 'Appearance research', ['Geometry · shading'], FIXED)
-    d.block(1185, 402, 350, 105, 'Dynamic-mesh probe', ['Shadow-only integration'], SENSOR)
-    d.block(1185, 582, 350, 105, 'Bounded evidence', ['D6 · D7'], SENSOR)
-    d.edge([(1360,327),(1360,402)])
-    d.edge([(1360,507),(1360,582)])
-    d.note(['Solid arrows: documented flows within each lineage. Dashed arrow: measured-error injection, not live RGB integration.',
-            'Simulation only. Appearance shadow output has no downstream consumer; D8 perception integration is not started.'])
+        d.edge([(x+w/2, first+h), (x+w/2, second)], status='COMPLETED')
+    d.block(65, 174, 350, 105, 'Real UAV video', ['Separate data lineage'], SENSOR,
+            status='COMPLETED')
+    d.block(65, 354, 350, 105, 'Measured errors', ['P8 · recorded'], SENSOR,
+            status=COMPONENTS['P8']['lifecycle_status'])
+    d.block(65, 534, 350, 105, 'Simulation injection', ['P9 · complete'], SENSOR,
+            status=COMPONENTS['P9']['lifecycle_status'])
+    d.edge([(240,279),(240,354)], status='COMPLETED')
+    d.edge([(240,459),(240,534)], status='COMPLETED')
+    d.edge([(415,586),(510,586),(510,316),(610,316)], status='COMPLETED')
+    d.block(1185, 222, 350, 105, 'Appearance research', ['Geometry · shading'], FIXED,
+            status='COMPLETED')
+    d.block(1185, 402, 350, 105, 'Mesh observation', ['D8-A · technical gate'], SENSOR,
+            status=COMPONENTS['D8A']['lifecycle_status'])
+    d.block(1185, 582, 350, 105, 'Frozen-policy result', ['D8b · MATERIAL_LOSS'], SENSOR,
+            status=COMPONENTS['D8B']['lifecycle_status'])
+    d.edge([(1360,327),(1360,402)], status='COMPLETED')
+    d.edge([(1360,507),(1360,582)], status='COMPLETED')
+    d.edge([(1360,687),(1360,742)], status=COMPONENTS['D8C']['lifecycle_status'])
+    d.text(1380, 735, 'D8c · PLANNED', 18, color='#3b6ea8')
+    d.note(['Line style is lifecycle, not verdict: solid = completed; dashed = planned; dotted = not tested.',
+            'P8/P9 and D8-A/D8b are completed studies; P10 and D8b retain INCONCLUSIVE/MATERIAL_LOSS verdicts.'])
     d.save('research-overview-block-diagram.svg')
 
 
 def appearance_pipeline():
     d = blocks.Diagram('Appearance and dynamic-mesh research paths',
         'Production analytic sensing is distinct from the independent geometry-to-appearance research path.')
-    d.block(110, 140, 430, 115, 'Analytic proxy', ['Existing detector input'], FIXED)
-    d.block(1060, 140, 430, 115, 'Production detector', ['Observation unchanged'], FIXED)
-    d.edge([(540,198),(1060,198)])
+    d.block(110, 140, 430, 115, 'Analytic proxy', ['Existing detector input'], FIXED,
+            status='COMPLETED')
+    d.block(1060, 140, 430, 115, 'Production detector', ['Historical observation'], FIXED,
+            status='COMPLETED')
+    d.edge([(540,198),(1060,198)], status='COMPLETED')
     labels = [('URDF geometry',['Mesh · local pose'],FIXED),
               ('Ray intersection',['Target-local query'],SENSOR),
               ('Geometry buffers',['Depth · normal · face ID'],SENSOR),
               ('Material + lighting',['Independent RGB output'],FIXED)]
     xs = [55,445,835,1225]
     for x,(label,rows,color) in zip(xs,labels):
-        d.block(x, 390, 320, 125, label, rows, color)
+        d.block(x, 390, 320, 125, label, rows, color, status='COMPLETED')
     for x1,x2 in zip(xs,xs[1:]):
-        d.edge([(x1+320,452),(x2,452)])
-    d.block(585, 620, 430, 105, 'Mesh-derived observation', ['D8 · not started'], FIXED, planned=True)
-    d.edge([(995,515),(995,570),(800,570),(800,620)], dashed=True)
+        d.edge([(x1+320,452),(x2,452)], status='COMPLETED')
+    d.block(315, 620, 430, 105, 'Mesh-derived observation',
+            ['D8-A complete · D8b MATERIAL_LOSS'], FIXED,
+            status=COMPONENTS['D8B']['lifecycle_status'])
+    d.edge([(995,515),(995,570),(530,570),(530,620)], status='COMPLETED')
+    d.block(1050, 620, 430, 105, 'Perception adaptation',
+            ['D8c · not started'], FIXED,
+            status=COMPONENTS['D8C']['lifecycle_status'])
+    d.edge([(745,672),(1050,672)], status=COMPONENTS['D8C']['lifecycle_status'])
     d.text(995, 550, f"D7 shadow: {TRACK_D['D7']['status']} · no downstream consumer", 20,
            anchor='end', color='#52606d')
-    d.note(['D7 times a read-only shadow query beside production; its debug output is not detector input.',
-            f"D6 {TRACK_D['D6']['status']}; D7 {TRACK_D['D7']['status']} is cost/non-interference only; shortcut reduction is unmeasured."])
+    d.note(['D8-A and D8b are completed; D8b is a negative sensitivity result, not a detector improvement.',
+            f"D6 {TRACK_D['D6']['status']}; D7 {TRACK_D['D7']['status']}; D8c PLANNED; D9 {TRACK_D['D9']['status']}."])
     d.save('appearance-rendering-block-diagram.svg')
 
 
@@ -107,17 +126,17 @@ def build():
          'The real-image temporal selector is a separate pipeline, not this simulator detector.'])
     diagram('perception-tracking-block-diagram', 'Real-image perception: separate evidence lineage',
         'Detector and optical flow run in parallel; selection does not imply metric state or policy integration.', [
-        (110,170,'RGB frame',['Sequence · timestamp'],SENSOR,False),
-        (1060,170,'Detector',['Top-K candidates'],LEARNED,False),
-        (110,375,'Optical flow',['Inter-frame motion'],FIXED,False),
-        (1060,375,'Feature history',['Candidates + motion'],FIXED,False),
-        (1060,580,'Temporal association',['Candidate rank / no selection'],LEARNED,False),
-        (110,580,'Policy observation link',['Not integrated here'],FIXED,True)], [
-        ([(535,240),(1060,240)],False), ([(322,310),(322,375)],False),
-        ([(1272,310),(1272,375)],False), ([(535,445),(1060,445)],False),
-        ([(1272,515),(1272,580)],False), ([(1060,650),(535,650)],True)],
+        (110,170,'RGB frame',['Sequence · timestamp'],SENSOR,'COMPLETED'),
+        (1060,170,'Detector',['P6 · candidates complete'],LEARNED,'COMPLETED'),
+        (110,375,'Optical flow',['Inter-frame motion'],FIXED,'COMPLETED'),
+        (1060,375,'Feature history',['Candidates + motion'],FIXED,'COMPLETED'),
+        (1060,580,'Temporal association',['P7 · validation selected'],LEARNED,'COMPLETED'),
+        (110,580,'Live policy link',['NOT TESTED'],FIXED,'NOT_TESTED')], [
+        ([(535,240),(1060,240)],'COMPLETED'), ([(322,310),(322,375)],'COMPLETED'),
+        ([(1272,310),(1272,375)],'COMPLETED'), ([(535,445),(1060,445)],'COMPLETED'),
+        ([(1272,515),(1272,580)],'COMPLETED'), ([(1060,650),(535,650)],'NOT_TESTED')],
         ['Separate measured-error branch: real data → error model → simulation injection (P8–P10).',
-         'No GT identifiers at inference. Dashed link: unimplemented integration, not an established state estimator.'])
+         'Live RGB-to-policy connection is NOT TESTED; bearing/range/persistent ID metrics are BLOCKED.'])
     chain('observation-transformer-block-diagram', 'Observation and temporal policy: historical contract', [
         ('Sensor-derived features',['Scan · object · ego histories'],SENSOR,False),
         ('Structured history',['Canonical field contract'],FIXED,False),
@@ -136,7 +155,7 @@ def build():
         (110,580,'Magnitude constraint',['Direction preserved'],FIXED,False),
         (1060,580,'Filtered command',['To fixed controller'],SENSOR,False)], [
         ([(322,310),(322,375)],False), ([(1060,240),(760,240),(760,415),(535,415)],False),
-        ([(1272,310),(1272,375)],False), ([(1060,445),(535,445)],True),
+        ([(1272,310),(1272,375)],False), ([(1060,445),(535,445)],False),
         ([(322,515),(322,580)],False), ([(535,650),(1060,650)],False)],
         ['Arc clearance is a separately evaluated geometry arm, not an additional sequential filter.',
          'Filtered does not mean certified safe; this figure specifies no new planner or controller.'])

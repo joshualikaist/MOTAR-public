@@ -5,6 +5,11 @@
   --paper-rule: #cdd3d8;
   --paper-soft: #f6f7f8;
   --paper-accent: #496c83;
+  --status-completed: #277a4b;
+  --status-planned: #3b6ea8;
+  --status-blocked: #a3413a;
+  --status-not-tested: #a56a00;
+  --status-archived: #72777c;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 68px; }
@@ -117,6 +122,19 @@ code { font: .88em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; backgr
 .platform-schematic > * { padding: 14px 10px; text-align: center; border-right: 1px solid #e1e4e6; }
 .platform-schematic > *:last-child { border-right: 0; }
 .platform-schematic strong { color: var(--paper-accent); }
+.architecture-map {
+  display: grid;
+  grid-template-columns: 1.35fr .8fr;
+  gap: 20px;
+  margin: 24px 0 12px;
+  font: 13px/1.4 Arial, sans-serif;
+}
+.architecture-map > div { padding: 16px; border: 1px solid var(--paper-rule); }
+.architecture-map strong, .architecture-map span, .architecture-map i { display: block; text-align: center; }
+.architecture-map strong { margin-bottom: 10px; color: var(--paper-accent); }
+.architecture-map span { padding: 5px; background: var(--paper-soft); }
+.architecture-map i { color: var(--paper-muted); font-style: normal; }
+.architecture-map p { margin: 12px 0 0; color: var(--paper-muted); font-size: 12px; }
 .paper-table {
   display: table;
   width: 100%;
@@ -130,7 +148,29 @@ code { font: .88em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; backgr
 .paper-table th, .paper-table td { padding: 9px 10px; vertical-align: top; }
 .paper-table tbody tr { border-bottom: 1px solid #dfe3e5; }
 .paper-table tbody tr:last-child { border-bottom: 1.5px solid #69747c; }
-.paper-table td[data-status-id] { color: #273943; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; font-weight: 700; }
+.paper-table td[data-status-id], .paper-table td[data-component-id],
+.paper-table td[data-evidence-status] {
+  color: #273943;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+.status-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 18px 0 8px;
+  font: 11px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.status-legend span { padding: 5px 8px; border-left: 4px solid var(--paper-rule); background: var(--paper-soft); }
+[data-lifecycle="COMPLETED"] { color: var(--status-completed) !important; border-color: var(--status-completed) !important; }
+[data-lifecycle="PLANNED"] { color: var(--status-planned) !important; border-color: var(--status-planned) !important; }
+[data-lifecycle="BLOCKED"] { color: var(--status-blocked) !important; border-color: var(--status-blocked) !important; }
+[data-lifecycle="NOT_TESTED"] { color: var(--status-not-tested) !important; border-color: var(--status-not-tested) !important; }
+[data-lifecycle="ARCHIVED_WITHDRAWN"] { color: var(--status-archived) !important; border-color: var(--status-archived) !important; }
+.comparison-table td:nth-child(4), .comparison-table td:nth-child(5) { font-weight: 600; }
+.literature-table { width: min(1180px, calc(100vw - 30px)); margin-left: 50%; transform: translateX(-50%); font-size: 12px; }
+.literature-table th, .literature-table td { min-width: 105px; }
 .compact-table { max-width: 850px; }
 .source-note, .manifest-note { color: var(--paper-muted); font-size: 13px; }
 .manifest-note { max-width: 900px !important; margin-top: 10px !important; padding-left: 12px; border-left: 2px solid #a9b7c0; }
@@ -157,6 +197,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .paper-nav { position: relative; padding: 12px 14px; flex-wrap: wrap; gap: 8px 18px; }
   .paper-nav nav { width: 100%; gap: 7px 15px; }
   .paper-nav nav a, .paper-nav nav a:not(:last-child) { display: inline-block; font-size: 12px; }
+  .literature-table { display: block; width: 100%; margin-left: 0; transform: none; overflow-x: auto; }
 }
 @media (max-width: 760px) {
   html { scroll-padding-top: 0; }
@@ -179,6 +220,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .motion-mode-control, .viewer-note, .viewer-buttons, .viewer-toggles { grid-column: 1; }
   .platform-schematic { grid-template-columns: 1fr 1fr; }
   .platform-schematic strong { grid-column: 1 / -1; border-bottom: 1px solid #e1e4e6; }
+  .architecture-map { grid-template-columns: 1fr; }
   .paper-table { display: block; overflow-x: auto; white-space: normal; }
   .paper-table th, .paper-table td { min-width: 118px; }
   .evidence-table { display: table; overflow: visible; }
@@ -191,6 +233,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .evidence-table td:nth-child(2)::before { content: "Question"; }
   .evidence-table td:nth-child(3)::before { content: "Status"; }
   .evidence-table td:nth-child(4)::before { content: "Finding"; }
+  .stacked-table { display: table; overflow: visible; }
+  .stacked-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .stacked-table tbody, .stacked-table tr, .stacked-table td { display: block; min-width: 0; }
+  .stacked-table tr { padding: 10px 0; border-bottom: 1px solid #cbd1d5; }
+  .stacked-table td { display: grid; grid-template-columns: 92px 1fr; gap: 8px; padding: 3px 8px; }
+  .stacked-table td::before { color: var(--paper-muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  .lifecycle-table td:nth-child(1)::before { content: "Component"; }
+  .lifecycle-table td:nth-child(2)::before { content: "Lifecycle"; }
+  .lifecycle-table td:nth-child(3)::before { content: "Verdict"; }
+  .lifecycle-table td:nth-child(4)::before { content: "Boundary"; }
+  .comparison-table td:nth-child(1)::before { content: "Axis"; }
+  .comparison-table td:nth-child(2)::before { content: "Baseline"; }
+  .comparison-table td:nth-child(3)::before { content: "Treatment"; }
+  .comparison-table td:nth-child(4)::before { content: "Difference"; }
+  .comparison-table td:nth-child(5)::before { content: "Verdict"; }
+  .comparison-table td:nth-child(6)::before { content: "Scope"; }
+  .literature-table { width: 100%; margin-left: 0; transform: none; }
   .end-matter dl > div { grid-template-columns: 1fr; gap: 2px; }
   .desktop-only { display: none; }
 }

@@ -13,7 +13,9 @@ PUBLIC = ("README.md", "THIRD_PARTY_LICENSES.md", "docs/results_overview_2026-09
           "docs/plans/moving_target_rendezvous_master_plan_2026-09-12.md",
           "docs/status/overview-sources-2026-09-13.md", "docs/REPRODUCIBILITY.md",
           "docs/external_data/ETH_DS5.md", "docs/eth_ds5_public_release_inventory_2026-09-14.md",
-          "docs/public_release_status_2026-09-14.md")
+          "docs/public_release_status_2026-09-14.md",
+          "docs/relation_to_published_systems_2026-09-16.md",
+          "docs/target_behavior_ladder_2026-09-16.md")
 STATUS_VALUES = {"COMPLETE", "TECHNICAL_PASS", "TECHNICAL_GO", "FAIL", "PARTIAL_EVIDENCE", "PENDING",
                  "BLOCKED_BY_POLICY", "NOT_RUN", "GO", "INCONCLUSIVE", "NOT_STARTED"}
 
@@ -42,6 +44,52 @@ def manifest_errors(data, root=ROOT):
                 "integrated_simulator_cost": "D8A_TECHNICAL_ONLY"}
     if data.get("limits") != expected:
         errors.append("negative/withdrawn evidence limits changed")
+    return errors
+
+
+def registry_errors(data, root=ROOT):
+    errors = []
+    lifecycle = {
+        "COMPLETED", "PLANNED", "BLOCKED", "NOT_TESTED", "ARCHIVED_WITHDRAWN"
+    }
+    if data.get("schema_version") != 1:
+        errors.append("component registry version invalid")
+    if set(data.get("status_semantics", {})) != lifecycle:
+        errors.append("component registry lifecycle semantics invalid")
+    entries = data.get("components", {})
+    required = {
+        "P6", "P7", "P8", "P9", "P10", "LIVE_RGB_POLICY", "BEARING_DEG",
+        "TRUE_METRIC_RANGE", "PERSISTENT_ID_SWITCH", "SAM_IN_SIM",
+        "D8A", "D8B", "D8C", "D9", "TM_E0", "TM_E1", "TM_E2", "TM_E3", "TM_E4",
+    }
+    if set(entries) != required:
+        errors.append("component registry entries missing or extra")
+    for key, row in entries.items():
+        if not isinstance(row, dict) or set(row) != {
+            "label", "lifecycle_status", "evidence_status", "evidence"
+        }:
+            errors.append(key + ": invalid component entry")
+            continue
+        if row["lifecycle_status"] not in lifecycle:
+            errors.append(key + ": invalid lifecycle")
+        path = (root / row["evidence"]).resolve()
+        if root.resolve() not in path.parents or not path.is_file():
+            errors.append(key + ": missing/escaping evidence")
+    protected = {
+        "P10": ("COMPLETED", "INCONCLUSIVE"),
+        "D8B": ("COMPLETED", "MATERIAL_LOSS"),
+        "D8C": ("PLANNED", "NOT_STARTED"),
+        "D9": ("PLANNED", "NOT_RUN"),
+        "SAM_IN_SIM": ("ARCHIVED_WITHDRAWN", "SUPERSEDED"),
+        "TM_E3": ("PLANNED", "NOT_IMPLEMENTED"),
+        "TM_E4": ("PLANNED", "NOT_IMPLEMENTED"),
+    }
+    for key, (lifecycle_status, evidence_status) in protected.items():
+        row = entries.get(key, {})
+        if row.get("lifecycle_status") != lifecycle_status or row.get(
+            "evidence_status"
+        ) != evidence_status:
+            errors.append(key + ": protected lifecycle/evidence boundary changed")
     return errors
 
 
@@ -93,8 +141,16 @@ def check(root=ROOT):
     citation = (root / "CITATION.cff").read_text().lower()
     if "moving-target rendezvous" not in citation or "simulation-only" not in citation:
         errors.append("CFF public terminology/scope mismatch")
+    title = (
+        "motar: moving object tracking and reinforcement learning "
+        "for uav pursuit in random obstacle fields"
+    )
+    if title not in readme.lower() or title not in citation:
+        errors.append("MOTAR full title mismatch")
     data = json.loads((root / "docs/status_manifest.json").read_text())
     errors += manifest_errors(data, root)
+    registry = json.loads((root / "docs/research_status_registry.json").read_text())
+    errors += registry_errors(registry, root)
     verification = (root / "VERIFICATION.md").read_text().split("## 역사 기록:")[0]
     for value in ("ATTITUDE_NOT_RELIABLE", "WITHDRAWN", "INCONCLUSIVE", "FAIL 유지", "PARTIAL_EVIDENCE"):
         if value not in verification:
@@ -114,6 +170,10 @@ def main():
         import jsonschema
         jsonschema.validate(json.loads((ROOT / "docs/status_manifest.json").read_text()),
                             json.loads((ROOT / "docs/status_manifest.schema.json").read_text()))
+        jsonschema.validate(
+            json.loads((ROOT / "docs/research_status_registry.json").read_text()),
+            json.loads((ROOT / "docs/research_status_registry.schema.json").read_text()),
+        )
     print(json.dumps({"status": "FAIL" if errors else "PASS", "errors": errors,
                       "scope": "Declared public surfaces; local path existence, not external URLs or heading anchors"}, indent=2))
     return 1 if errors else 0

@@ -5,10 +5,11 @@
 After the presentation revisions described below, D8-A recorded `TECHNICAL_GO` and
 D8b was finalized as `MATERIAL_LOSS`; [result and provenance](../../results/dynamic_mesh_policy_sensitivity_d8b_2026-09-13/AUDIT.md).
 The live manifest now describes D8-A as a technical result only (`D8A_TECHNICAL_ONLY`);
-Table 3 separately reports D8b. D8c is not started and D9 remains `NOT_RUN`.
-Figures 1 and 6 are labeled historical pre-D8 diagrams rather than silently rewriting
-their pinned SVG/PNG/PDF/ZIP bytes. The sections below retain the state at each earlier
-presentation revision; their old `NOT_STARTED` wording is not the current D8 status.
+Table 5 separately reports D8b. D8c is not started and D9 remains `NOT_RUN`.
+The 2026-09-16 revision regenerated the dated overview package from its source generator so
+Figures 1, 4, and 6 show lifecycle states rather than a generic dashed “future” convention.
+The sections below retain the state at each earlier presentation revision; their old
+`NOT_STARTED` wording is not the current D8 status.
 This change records existing evidence only and does not implement perception adaptation.
 
 ## Paper-page revision on `be89675`
@@ -27,6 +28,25 @@ download; it is not silently discarded. Static diagrams were re-exported in a sh
 paper palette and without dashboard cards, gradients or shadows. D6 remains
 `INCONCLUSIVE`; D7 `GO` remains limited to shadow cost and output non-interference;
 D8 remains `NOT_STARTED`; D9 remains `NOT_RUN`.
+
+## 2026-09-16 evidence/status revision
+
+The active page now separates lifecycle from scientific verdict through
+[`research_status_registry.json`](../research_status_registry.json). `COMPLETED` means the cited
+implementation/evaluation stage ran; it does not turn P10 `INCONCLUSIVE` or D8b `MATERIAL_LOSS`
+into a positive result. `PLANNED`, `BLOCKED`, `NOT_TESTED`, and `ARCHIVED_WITHDRAWN` have distinct
+line/badge styles. P6–P9 and D8-A/D8b are no longer drawn as generic future dashed links.
+
+Section 6 adds two different tables:
+
+1. within-repository matched-baseline effects, copied from the cited result records; and
+2. [relations to published systems](../relation_to_published_systems_2026-09-16.md), classified by
+   benchmark comparability.
+
+No external paper percentage is subtracted from a MOTAR percentage. The target-behavior axis is
+documented separately in the
+[TM-E0…TM-E4 ladder](../target_behavior_ladder_2026-09-16.md); TM-E2 implementation is not a new
+policy-performance result.
 
 The first-pass site remains recoverable from Git history. The pre-redesign detailed
 page is still preserved byte-for-byte as
@@ -111,7 +131,8 @@ the 21 new diagram artifacts; the new ZIP contains those artifacts and its manif
 ## Interpretive corrections
 
 - The real-image API emits frame-local rank/no-selection, not persistent identity
-  or an independently validated metric state. The policy link is dashed.
+  or an independently validated metric state. The active figure marks the live policy link
+  `NOT_TESTED` with a dotted line; older archived figures retain their historical styling.
 - D7 records shadow cost and non-interference only; D6 stays INCONCLUSIVE.
 - E3-S 6.2% is the median of block medians of absolute relative range error using
   a dark-pixel size proxy in one previously explored flight. It is not GT-box

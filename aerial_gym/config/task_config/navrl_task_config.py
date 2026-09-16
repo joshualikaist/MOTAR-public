@@ -599,6 +599,13 @@ class task_config:
         # uses that planner only as a velocity reference for a 6-DoF PhysX actor driven by four
         # bounded first-order motors at the 0.01 s physics rate. Both are new training lineages.
         dynamics = os.environ.get("NAVRL_TARGET_DYNAMICS", "legacy").strip().lower()
+        # Independent target-difficulty axis. "historical" preserves every existing run.
+        # e0/e1/e2 reuse the existing static, CV, and bounded waypoint implementations; e3/e4
+        # are reserved and fail closed until implemented. Evader-side privileged obstacle GT
+        # is permitted only in e2; it is never added to the pursuer observation.
+        behavior_level = os.environ.get(
+            "NAVRL_TARGET_BEHAVIOR_LEVEL", "historical"
+        ).strip().lower()
         # 4 m/s^2 requires atan(a/g)=22.2 deg of horizontal tilt, well inside the ref5in 45-deg
         # controller envelope. At 1.5 m/s it permits 153 deg/s of path curvature, so the matching
         # 150 deg/s travel-heading bound is physically self-consistent rather than extra authority.
