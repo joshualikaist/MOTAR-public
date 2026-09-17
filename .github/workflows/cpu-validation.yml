@@ -39,6 +39,7 @@ jobs:
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_public*.py'
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_repository_claims.py'
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_research_overview.py'
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_target_algorithm_documentation.py'
       - name: Actual CPU smoke and exporter counterfactuals
         run: |
           "$RUNNER_TEMP/renderer-env/bin/python" -B tools/run_renderer_validation.py --device cpu --seed 0 --num-scenes 1 --width 160 --height 120 --frames 2 --output "$RUNNER_TEMP/renderer-smoke"

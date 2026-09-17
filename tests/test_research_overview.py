@@ -57,11 +57,16 @@ class ResearchOverviewTest(unittest.TestCase):
                         'evidence','discussion','reproducibility','availability'):
             self.assertIn(section, self.page.ids)
         self.assertEqual(len(self.page.nav_links), 6)
-        self.assertEqual(len(re.findall(r'<figure\b', self.text)), 8)
-        self.assertEqual(len(self.page.images), 7)  # Figure 2 is the interactive canvas.
-        self.assertEqual(len(re.findall(r'<figcaption>', self.text)), 8)
+        # Eight numbered figures plus Figure T1, a lettered supporting diagram in
+        # 2.2 Target motion. T1 is drawn in CSS and carries no image asset, so the
+        # hash-pinned dated figure package is unaffected and the image count is
+        # still 7 (Figure 2 is the interactive canvas, T1 is markup).
+        self.assertEqual(len(re.findall(r'<figure\b', self.text)), 9)
+        self.assertEqual(len(self.page.images), 7)
+        self.assertEqual(len(re.findall(r'<figcaption>', self.text)), 9)
         for number in range(1, 8):
             self.assertIn(f'Figure {number}.', self.text)
+        self.assertIn('Figure T1.', self.text)
         for image in self.page.images:
             self.assertGreater(len(image.get('alt','')), 15)
         self.assertIn('본문 바로가기', self.text)

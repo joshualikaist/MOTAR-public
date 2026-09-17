@@ -18705,3 +18705,83 @@ TM-E0/E1/E2 IMPLEMENTED, TM-E2 policy comparison NOT_TESTED, TM-E3/E4 PLANNED �
 `docs/prereg_2026-09-17_target_motion_complexity_e0_e1_e2.md`를 **사전등록만** 했다.
 상태는 `PREREGISTERED / NOT_RUN`이고, 이번 작업에서 outcome experiment는 실행하지 않았으며
 새 PPO 학습도 없다. 실행에는 별도 GPU authority 승인이 필요하다.
+
+## 2026-09-17 — Target motion: one canonical explanation, bound to source by test
+
+"타겟은 어떤 알고리즘으로 움직이나요?"에 대해 README·사이트·기술문서·FAQ가 **같은 말을
+하도록** 정리했다. 새 research result는 만들지 않았고, 코드 동작도 바꾸지 않았다.
+
+### 먼저 source를 다시 감사했다 — 그리고 가장 중요한 사실이 나왔다
+
+작업 전 가정은 "MOTAR 타겟은 A*를 쓴다"였는데, 소스를 읽으니 **틀렸다**.
+
+| 계보 | global route | local step | 근거 |
+|---|---|---|---|
+| legacy | 없음 | `steer_target_step` — 10개 heading 후보, full speed, 90° 연속성 선호, least-bad fallback | `target_motion.py` |
+| **TM-E2 (bounded)** | **없음** | `bounded_drone_target_step` — 24 heading × cruise scale (1.0/0.5/0.25) + stop, lookahead rollout, **첫 스텝만** 실행 | `target_motion.py` |
+| physical | **선택적** A* (`NAVRL_TARGET_ROUTE_MODE`, 기본 `off`) | `braking_aware_route_step` → PhysX actor | `navrl_task.py:886` |
+| browser GT free-roam | **있음** — A* 또는 reachable-set flood | `integrateBounded` | `arena_*.js` |
+
+즉 **TM-E2는 A*를 쓰지 않는다.** `target_motion.py` 전체에 `heapq`도 A*도 없다.
+연구 시뮬레이터에서 A*가 등장하는 곳은 physical 계보의 opt-in route mode 하나뿐이고,
+그 mode는 `"physical+waypoint-only lineage"`로 virtual/bounded 타겟에는 **거부**되며
+기본값이 `off`다. 그 계보의 판정은 여전히 `FAIL_ROUTE_MECHANISM`이다.
+
+browser가 mirror하는 것은 physical 계보의 `global_astar_v1` **geometry contract**이지
+TM-E2가 아니다. 둘을 같은 알고리즘으로 설명하면 안 된다.
+
+두 번째로 나온 정밀한 사실: browser AUTO ROAM은 **"랜덤 goal 뽑고 A*"가 아니다.**
+`planToConnectedGoal`은 현재 셀에서 free grid를 uniform-cost flood한 뒤 **실제로 도달된
+셀 중에서** goal을 고르고, route는 그 flood의 parent chain에서 나온다. reachability가
+rejection sampling이 아니라 **구성적으로** 보장된다. A*(`plan`)는 goal이 고정된 경우 —
+click/tap goal과 추적 드론 자신의 경로 — 에만 쓴다.
+
+geometry 대조도 확인했다: research와 browser 양쪽 모두 8-connected, cell 단위 Euclidean
+heuristic, 그리고 **대각선 corner-cutting 거부**(양쪽 직교 이웃이 모두 free일 때만 대각 허용)가
+일치한다. route 단순화는 양쪽 다 **greedy farthest-visible shortcut**이고 spline이 아니다.
+
+### 만든 것
+
+- `docs/target_motion_algorithm_2026-09-17.md` — canonical. 30초/2분 설명, 계보 분류표,
+  browser 정밀 기술, TM-E2 정밀 기술, GT 경계, 제약식, pseudocode 2종(browser와 TM-E2를
+  **따로**), FAQ 15문항, known limitations, source binding.
+- `docs/presentation_target_algorithm_answers_2026-09-17.md` — 15초/45초/technical 답변
+  (한국어·영어), 예상 후속질문 9개 한 줄 답, **말할 때 피해야 할 표현** 표.
+- 사이트 `2.2 Target motion` 섹션 + **Figure T1**(research와 browser가 갈라지는 지점을
+  보여주는 분기 다이어그램). CSS로만 그려서 hash-pinned figure package는 건드리지 않았다.
+- README에 "How does the target move?" 한 줄 진입점.
+- ladder 문서에 canonical 문서 상호참조.
+
+### Source-bound test — 이게 핵심이다
+
+`tests/test_target_algorithm_documentation.py` 24개. 문서가 코드와 어긋나면 FAIL한다.
+
+- `target_motion.py`에 `heapq`/`astar`가 나타나면 FAIL → "TM-E2는 A*를 안 쓴다" 문장이
+  거짓이 되는 순간을 잡는다.
+- research/browser 양쪽 planner가 8-connected가 아니게 되면 FAIL.
+- browser planner가 corner-cut 거부를 잃으면 FAIL.
+- 어느 planner에든 `spline`/`bezier`/`catmull`이 나타나면 FAIL(문서는 shortcut이라고 적혀 있다).
+- route mode 기본값이 `off`가 아니게 되거나 physical-only 제한이 사라지면 FAIL.
+- TM-E3/E4가 fail-closed가 아니게 되면 FAIL.
+- `uses_privileged_pursuer_gt: False`가 사라지면 FAIL.
+- §9 수치표의 값이 소스에 없으면 FAIL, 소스에 있는데 표에 없어도 FAIL.
+- 문서가 "MOTAR target uses A*" 류로 일반화하면 FAIL.
+- 사이트 target-motion 섹션이 browser-only 라벨이나 pursuer 언급을 잃으면 FAIL.
+
+음성 검증도 했다: canonical 문서에 "The MOTAR target uses A* everywhere, including TM-E2"를
+일부러 주입하니 정확히 2개 테스트가 짧은 메시지로 FAIL했고, 되돌리니 24/24 PASS.
+
+### 검증
+
+Node 7종 PASS, Python 문서/사이트 계열 PASS. aerialgym env에서
+`test_navrl_target_motion`·`test_navrl_target_route_planner` PASS(타겟 모션 코드는 손대지
+않았으므로 당연하지만 확인). 사이트 3 viewport 실측에서 horizontal overflow 0, page error 0
+(mobile 390 px 포함).
+
+`test_research_overview`의 figure 수 계약을 8 → 9로 **의도적으로** 갱신했다. Figure T1은
+CSS로만 그린 lettered supporting figure라 image 자산이 없고, 따라서 image 수는 7로 그대로이며
+dated hash-pinned figure package도 그대로다.
+
+### 바꾸지 않은 것
+
+target motion 구현, 관측, reward, checkpoint, 기록된 판정. `aerial_gym/` 아래 변경 0건.

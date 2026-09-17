@@ -126,7 +126,36 @@ NOT PPO · NOT PHYSX · NOT RESEARCH EVIDENCE</strong>
 <figcaption><strong>Figure 2. Interactive simulation environment.</strong> The view illustrates a 40 × 40 × 3 m research arena, configurable bar density, camera field of view, LiDAR rays, and a moving-object display. The interactive GT tracking preview is a browser-only visualization. It has access to exact target and obstacle state for explanatory motion and is not the PPO policy, sensor-only observation contract, PhysX rollout, or a performance measurement. The browser advances a fixed 10 Hz explanatory clock and interpolates the display; each experiment’s actual geometry, motion family, and timing remain defined by its receipt. <span class="figure-files"><a href="archive-2026-09-13.html#arena">Detailed lineage notes</a></span></figcaption>
 </figure>
 
-<h3>2.2 Platform and sensors</h3>
+<section id="target-motion" class="target-motion">
+<h3>2.2 Target motion</h3>
+<p>A question the demo above raises immediately: <strong>what algorithm moves the target?</strong> In the browser preview the target is not a point drifting through obstacles. It selects a destination it can actually reach, plans a route that never crosses an inflated obstacle, and follows that route under speed, acceleration and heading-rate limits. On arrival it selects another. If no safe route exists it stops and replans rather than clipping through a bar.</p>
+<div class="target-motion-flow" role="img" aria-label="Browser preview target motion pipeline: reachable goal, then global route, then shortcut simplification, then bounded follower, then the next goal">
+<span>Reachable goal</span><span>Global route</span><span>Shortcut simplification</span><span>Bounded follower</span><span>Next goal</span>
+</div>
+<figure class="target-motion-split">
+<figcaption><strong>Figure T1. Target motion generators are not one algorithm.</strong> The research simulator and the browser preview branch here and do not share a planner.</figcaption>
+<div class="target-motion-branches" role="img" aria-label="Target motion branches into the research simulator, with levels TM-E0 static, TM-E1 constant velocity and TM-E2 local receding horizon with no global route, and separately into the browser preview, with reachable goal, global route and bounded follower">
+<div>
+<strong>Research simulator</strong>
+<span>TM-E0 static</span>
+<span>TM-E1 constant velocity</span>
+<span>TM-E2 local receding horizon</span>
+<em>no global route</em>
+</div>
+<div>
+<strong>Browser preview</strong>
+<span>Reachable goal</span>
+<span>Global route (A*)</span>
+<span>Bounded follower</span>
+<em>explanatory visualization</em>
+</div>
+</div>
+</figure>
+<p class="motion-mode-note"><strong>Browser visualization only.</strong> The research simulator contains separate historical target-motion lineages, and they do not share this planner. In particular the obstacle-aware research target (TM-E2) is a <em>local receding-horizon</em> executor and does <strong>not</strong> use the browser preview's A* global route. No target lineage reacts to the pursuer's position: obstacle-aware is not the same as adversarial, and the reactive and learned evader levels remain PLANNED. The target's privileged obstacle geometry is never passed to the policy observation. This preview is not PPO, not PhysX, and not a performance measurement.</p>
+<p><a href="https://github.com/joshualikaist/MOTAR-public/blob/main/docs/target_motion_algorithm_2026-09-17.md">How does the target move? — full algorithm, per lineage →</a> · <a href="https://github.com/joshualikaist/MOTAR-public/blob/main/docs/target_behavior_ladder_2026-09-16.md">Target behavior ladder (TM-E0…E4)</a></p>
+</section>
+
+<h3>2.3 Platform and sensors</h3>
 <div class="platform-schematic" role="img" aria-label="Simulated UAV connected to RGB-D camera, LiDAR, ego state, and velocity-yaw actuation">
 <strong>Simulated UAV</strong><span>RGB-D camera</span><span>LiDAR</span><span>Ego state</span><span>velocity / yaw actuation</span>
 </div>

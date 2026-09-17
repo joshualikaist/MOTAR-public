@@ -122,6 +122,56 @@ code { font: .88em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; backgr
 .platform-schematic > * { padding: 14px 10px; text-align: center; border-right: 1px solid #e1e4e6; }
 .platform-schematic > *:last-child { border-right: 0; }
 .platform-schematic strong { color: var(--paper-accent); }
+/* Target-motion pipeline: one row of stages with an arrow between them. It
+   wraps on narrow viewports rather than forcing the page to scroll sideways. */
+.target-motion-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 20px 0;
+  border-top: 1px solid var(--paper-rule);
+  border-bottom: 1px solid var(--paper-rule);
+  font: 13px/1.4 Arial, sans-serif;
+}
+.target-motion-flow > span {
+  flex: 1 1 140px;
+  padding: 14px 10px;
+  text-align: center;
+  position: relative;
+}
+.target-motion-flow > span + span::before {
+  content: "\2192";
+  position: absolute;
+  left: -0.45em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--paper-muted);
+}
+.target-motion-flow > span:first-child { color: var(--paper-accent); font-weight: 700; }
+.target-motion h3 { margin-top: 28px; }
+
+.target-motion-split { margin: 22px 0; }
+.target-motion-split figcaption {
+  font: 12px/1.5 Arial, sans-serif; color: var(--paper-muted); margin: 0 0 10px;
+}
+.target-motion-split figcaption strong { color: var(--paper-ink, inherit); }
+.target-motion-branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  font: 13px/1.6 Arial, sans-serif;
+}
+.target-motion-branches > div {
+  border: 1px solid var(--paper-rule);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.target-motion-branches strong { color: var(--paper-accent); margin-bottom: 4px; }
+.target-motion-branches em { color: var(--paper-muted); font-size: 12px; margin-top: 6px; }
+
 .architecture-map {
   display: grid;
   grid-template-columns: 1.35fr .8fr;

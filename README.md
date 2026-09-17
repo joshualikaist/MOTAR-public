@@ -16,6 +16,12 @@ Those experiments, meanings, paths and checkpoints are preserved, not renamed as
 different capability. “Rendezvous” describes the public research framing, not a validated contact
 system or a change to historical success criteria.
 
+**How does the target move?** There is no single target algorithm: the research simulator and
+the site's browser preview use different planners, and the obstacle-aware research target does
+not use the browser's A* global route. See
+[target motion algorithms](docs/target_motion_algorithm_2026-09-17.md) for the per-lineage
+answer, a 30-second explanation, pseudocode and an FAQ.
+
 ## Research Questions
 
 - How can measured perception uncertainty be documented without overstating generalization?

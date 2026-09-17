@@ -1,5 +1,10 @@
 # Target behavior ladder and current-motion audit — 2026-09-16
 
+> **Algorithm-level explanation:** this document defines the ladder and its status.
+> For *how each target actually moves* — per-lineage algorithms, the browser preview
+> versus TM-E2 distinction, pseudocode, equations and an FAQ — see
+> [`target_motion_algorithm_2026-09-17.md`](target_motion_algorithm_2026-09-17.md).
+
 This document separates the target/evader difficulty generator from the pursuer's information
 contract. It does not reinterpret any historical result and does not report a new policy
 comparison.
