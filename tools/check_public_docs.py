@@ -147,8 +147,18 @@ def check(root=ROOT):
     )
     if title not in readme.lower() or title not in citation:
         errors.append("MOTAR full title mismatch")
-    if "reinforcement learning for uav pursuit in random obstacle fields" not in readme.lower():
-        errors.append("MOTAR method subtitle missing")
+    # The method subtitle is canonical: README, the citation record and the live
+    # page must carry the SAME wording, so drift in any one of them is an error
+    # rather than something only a reader notices.
+    subtitle = (
+        "reinforcement learning for uav tracking and close approach "
+        "in random obstacle fields"
+    )
+    site = (root / "docs/status/index.html").read_text().lower()
+    for name, text in (("README.md", readme.lower()), ("CITATION.cff", citation),
+                       ("docs/status/index.html", site)):
+        if subtitle not in text:
+            errors.append("MOTAR method subtitle missing: " + name)
     data = json.loads((root / "docs/status_manifest.json").read_text())
     errors += manifest_errors(data, root)
     registry = json.loads((root / "docs/research_status_registry.json").read_text())
@@ -157,8 +167,7 @@ def check(root=ROOT):
     for value in ("ATTITUDE_NOT_RELIABLE", "WITHDRAWN", "INCONCLUSIVE", "FAIL 유지", "PARTIAL_EVIDENCE"):
         if value not in verification:
             errors.append("Verification disagrees with status manifest: " + value)
-    html = (root / "docs/status/index.html").read_text()
-    if "status_manifest.js" not in html:
+    if "status_manifest.js" not in site:
         errors.append("site does not load shared status")
     return errors
 

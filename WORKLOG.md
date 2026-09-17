@@ -18603,3 +18603,105 @@ Node: arena motion/route/demo-planner/site/manifest/WebGL PASS. Python overview,
 comparison, public-docs, target-motion, GT-observation-boundary PASS. aerialgym 전체
 discover는 CUDA import 환경 실패 2건만 확인했고 이번 변경과 무관하다.
 
+
+## 2026-09-17 — GT tracking preview: measured, four defects found and fixed, GT_BROWSER_V1 frozen
+
+어제 추가한 browser GT tracking preview를 **처음으로 matrix에서 측정**했다. 단위 테스트는
+전부 PASS였는데 실제로는 추적을 못 하고 있었다. `tools/validate_gt_browser_tracking.js`
+(밀도 70/115/160/205 × target speed 0.3/0.9/1.5 m/s × seed 10 × 60 simulated seconds,
+고정 10 Hz, **120 runs**)로 재면 tracker가 **run의 47–87 %를 정지**해 있었고, 여러 셀에서
+60 s 뒤 상대거리가 spawn보다 **더 멀었다**(160 bars/0.3 m/s: 18.13 → 18.49 m).
+hard invariant도 하나 깨져 있었다.
+
+### 찾은 결함 4개와 원인
+
+| | 증상 | 원인 |
+|---|---|---|
+| **D1** | `acceleration_limit_violation` > 0 | `integrateBounded`가 swept step이 unsafe인 순간 속도를 0으로 만들었다. 2.5 m/s → 0을 0.1 s에 하면 **25 m/s²**로 4.0 m/s² 계약 위반이고, 거부된 command를 다음 tick에 그대로 재발행해 stop/stutter loop에 갇혔다. |
+| **D2** | 유효 route와 full-speed command를 쥔 채 safety envelope에 **끼임** | carrot이 polyline을 따라 1.8 m 간 점인데 follower는 거기까지의 **직선**을 탄다. route가 bar를 끼고 되꺾이면 그 chord가 certified corridor를 벗어나 장애물을 가리킨다. 205 bars에서 command heading 202° vs 다음 waypoint heading −69°로 확인. |
+| **D3** | 205 bars에서 `no_safe_route_fraction` 최대 74 %, replan 5–7.8/s | tracker의 support disc + tracking margin이 target보다 커서, target이 빠져나가는 틈이 tracker에게는 막혀 있다. `nearestSafe`가 snapping 대신 포기했다. |
+| **D4** | 두 기체가 step 0부터 `no_path`로 **영구 정지** | 고밀도에서 `navrl_band`가 닿은 bar를 compound wall로 합치며 pocket을 봉인한다. 거기서 **zero command는 옳았고 spawn이 틀렸다**. |
+
+D4는 분명히 적어 둔다: fail-closed 동작이 정답이었고 시나리오가 틀렸다. 이걸 controller에서
+"고쳤다면" 벽을 뚫고 바쁘게 움직이는 preview가 나왔을 것이다.
+
+### 수정
+
+- **D1** `integrateBounded`가 bounded candidate(scale 1, 0.7, 0.45, 0.25, 0.1, 0) 중 swept
+  segment가 certified된 첫 번째를 고른다. 모든 candidate가 **같은** `limitPlanarVelocity`를
+  통과하므로 어느 것이 채택돼도 가속·선회 계약이 유지된다. scale 0은 최대율 bounded brake다.
+  brake조차 envelope를 쓸고 갈 경우의 emergency hold는 남겼고 **횟수를 센다**.
+- **D2** `carrotPoint`가 현재 pose에서 **certified segment로 닿는 가장 먼** look-ahead를
+  돌려주고, 전부 막히면 `null`을 돌려 replan을 강제한다. `advanceAlongRoute`는 지나쳐 버린
+  waypoint도 통과시켜 follower가 뒤를 겨누지 않게 했다. 새 `approachVelocity`가 남은 선회량으로
+  command 속도를 깎아 코너에서 감속한다.
+- **D3** `nearestSafe`가 `snapToSafe`로 폴백하고, no-route 재시도는 `noRouteRetryS`로 throttle해
+  unroutable pose가 tick당 A* 한 번을 먹지 않게 했다.
+- **D4** `createSession`이 A* cache가 이미 만든 occupancy grid에서 연결성분(`freeComponents`)을
+  구해 봉인된 pocket 밖으로 **결정적으로** 재배치한다. cached occupancy만 읽고 새 geometry는
+  만들지 않는다. 120 runs 중 target 12회·tracker 16회 발동했다 — D4는 드문 사건이 아니었다.
+
+### 같은 matrix 재측정 (120 runs, 60 s/run)
+
+| | 수정 전 | 수정 후 |
+|---|---|---|
+| hard invariant 위반 | `acceleration_limit_violation` ≠ 0 | **11개 항목 전부 0 / 120 runs** |
+| stall fraction | 47–87 % | 0.2–1.3 % |
+| no-safe-route fraction | 최대 74 % | 0.0 % (205/0.9 한 셀만 5.2 %) |
+| median 상대거리 | 8.7–18.5 m | 1.52–2.13 m |
+| final 상대거리 | 6.5–18.5 m | 1.35–2.17 m (spawn 14.8–21.4 m) |
+| replans/s | 최대 7.8 | 0.16–1.36 |
+
+추가 진단(120 runs 집계): `distance_reduction` 평균 **16.14 m**, `minimum_distance` 평균
+0.190 m(최소 0.004 m), terminal tracking error 평균 **1.602 m**, `heading oscillation
+period-2`(>25° 반전) **0회**, valid-route-but-stalled 평균 0.38 s/60 s, emergency hold 평균
+7.7 tick/600 tick(1.3 %).
+
+1.5 m 바닥은 **display-only standoff**(`CONTRACT.standoffM = 1.55 m`)다. 문서상 tracking
+reference는 상대 위치 오차 0이고, standoff는 mesh overlap 방지용 렌더링 오프셋이지
+capture radius가 아니다. historical 0.5 m capture semantics와 연결하지 않는다.
+
+### Determinism / browser validation
+
+`tests/test_status_gt_tracking_determinism.js` 신규: 동일 seed 재현, **30/60/120 FPS render
+cadence가 committed trajectory를 바꾸지 않음**(30 s, state digest 완전 일치), paused renderer는
+0 step, 장애물 없는 합성 케이스의 거리 수렴(quantile 계약), matrix hard invariant, certified
+look-ahead 회귀 가드.
+
+`tools/browser_validation/`로 실제 Chrome 146 headless(swiftshader)에서 desktop 1440×900 /
+tablet 1024×768 / mobile 390×844 각 65 s 실측했다. probe는 published page를 바꾸지 않고
+`?probe=1`일 때만 주입된다.
+
+측정 중 두 가지를 발견해 고쳤다. ① arena는 IntersectionObserver로 화면에 있을 때만 도는데,
+probe가 스크롤하지 않아 **정지한 장면을 재고 있었다**(거리 7.44 m 고정). ② teleport 카운터가
+wall-clock 기반이라 render 부하에서 drift를 불연속으로 오판했다 — committed simulation step
+수로 bound하고, bars/speed 변경이 일으키는 **의도된 scene rebuild**는 `resets` serial로 분리했다.
+runner가 중단될 때 headless Chrome을 orphan으로 남겨 다음 run의 frame time을 깎는 것도
+확인해서 child reaper를 넣었다(orphan이 붙은 desktop run은 37.1 fps, 깨끗한 run은 54.2 fps).
+③ headless Chrome이 창 폭을 ~500 CSS px 아래로 내려주지 않아 `--window-size=390`이 조용히
+500 px viewport를 준다는 것도 찾았다. 즉 좁은 breakpoint가 실제로는 돌지 않고 있었다.
+390 px 미만 viewport는 **정확히 그 폭의 iframe**에 태우고(iframe은 자체 viewport라 media query가
+진짜 폭에서 평가된다), verdict가 `window.innerWidth`가 요청 폭과 일치하는지 **검사**하게 했다.
+
+### Editorial
+
+method subtitle을 `Reinforcement Learning for UAV Tracking and Close Approach in Random
+Obstacle Fields`로 확정하고 README / 라이브 페이지 / `CITATION.cff` / figure generator를 맞췄다.
+`tools/check_public_docs.py`가 이제 **세 표면에서 동일한지**를 검사한다(한 곳만 보던 것을 확장).
+`docs/assets/paper/overview-2026-09-13/`는 hash-pinned이므로 재생성하지 않았다 — 그 SVG의
+embedded `<title>`/`<desc>`는 2026-09-13 상태로 남으며, 이유를
+`docs/status/overview-sources-2026-09-13.md`에 provenance로 적었다.
+
+### Evidence boundary
+
+actor observation tensor, `aerial_gym` task observation builder, reward, checkpoint, 기록된
+research 판정은 **하나도 건드리지 않았다**. `tests/test_browser_gt_state_not_in_policy_observation.py`
+가 이를 강제하며 PASS다. P10 INCONCLUSIVE, D8b MATERIAL_LOSS, D8b causality NOT_TESTED,
+D8c PLANNED, D9 NOT_RUN, live RGB NOT_TESTED, bearing/true-range/persistent-ID BLOCKED,
+TM-E0/E1/E2 IMPLEMENTED, TM-E2 policy comparison NOT_TESTED, TM-E3/E4 PLANNED — 전부 그대로다.
+
+### 다음
+
+`docs/prereg_2026-09-17_target_motion_complexity_e0_e1_e2.md`를 **사전등록만** 했다.
+상태는 `PREREGISTERED / NOT_RUN`이고, 이번 작업에서 outcome experiment는 실행하지 않았으며
+새 PPO 학습도 없다. 실행에는 별도 GPU authority 승인이 필요하다.

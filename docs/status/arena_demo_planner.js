@@ -23,11 +23,15 @@
     predictionHorizonMax: 0.9,
     standoffM: 1.55,
     replanPeriodS: 0.5,
+    noRouteRetryS: 0.2,
     goalMoveReplanM: 1.4,
     deviationReplanM: 1.2,
     lookAheadM: 1.8,
     goalReachM: 0.9,
-    minRoamGoalM: 6.0,
+    // The roam-goal minimum distance is NOT redeclared here: Route.CONTRACT
+    // .minGoalDistanceM owns it, and a second copy silently drifts.
+    minSpawnComponentCells: 400,
+    minTurnSpeedFraction: 0.25,
     clickFeedback: Object.freeze({
       ok: 'ok',
       out_of_bounds: 'out_of_bounds',
@@ -156,9 +160,35 @@
     return {x: x, y: y, horizon: horizon};
   }
 
+  function snapToSafe(point, cache) {
+    if (pointSafe(point, cache)) return copyPoint(point);
+    for (let radius = 0.25; radius <= 3.0; radius += 0.25) {
+      for (let k = 0; k < 16; k++) {
+        const angle = k * Math.PI / 8;
+        const candidate = {
+          x: point.x + radius * Math.cos(angle),
+          y: point.y + radius * Math.sin(angle),
+        };
+        if (pointSafe(candidate, cache)) return candidate;
+      }
+    }
+    return copyPoint(point);
+  }
+
+  /* A follow point that is unsafe for the TRACKER is common in dense fields:
+   * the tracker's support disc plus tracking margin is larger than the target's,
+   * so a gap the target slips through is closed for the tracker. Declaring the
+   * whole approach unroutable there stalls the follow; snapping the reference
+   * onto the nearest certified-safe cell keeps a legal approach goal. */
   function nearestSafe(point, cache, fallback) {
     if (pointSafe(point, cache)) return copyPoint(point);
     if (fallback && pointSafe(fallback, cache)) return copyPoint(fallback);
+    const snapped = snapToSafe(point, cache);
+    if (pointSafe(snapped, cache)) return snapped;
+    if (fallback) {
+      const around = snapToSafe(fallback, cache);
+      if (pointSafe(around, cache)) return around;
+    }
     return null;
   }
 
@@ -175,8 +205,19 @@
     };
   }
 
-  function carrotPoint(pos, route, lookAheadM) {
-    if (!route || !route.valid || !route.waypoints.length) return null;
+  /* Certified look-ahead.
+   *
+   * A pure arc-length carrot is a point lookAheadM along the polyline, but the
+   * follower drives the STRAIGHT line from the current pose to it. On a route
+   * that doubles back around a bar that chord leaves the certified corridor and
+   * points into the obstacle, which is what wedged the tracker against the
+   * safety envelope with a valid route and a full-speed command. Candidates are
+   * therefore collected along the route and the FARTHEST one joined to the pose
+   * by a certified-safe segment is returned; null means every candidate is
+   * blocked and the caller must replan rather than drive blind.
+   */
+  function carrotCandidates(pos, route, lookAheadM) {
+    const out = [];
     let remaining = lookAheadM;
     let cursor = Math.max(0, route.cursor || 0);
     let ax = pos.x, ay = pos.y;
@@ -186,26 +227,48 @@
       const seg = hypot(dx, dy);
       if (seg <= 1e-6) { cursor += 1; continue; }
       if (seg >= remaining) {
-        return {
-          x: ax + dx / seg * remaining,
-          y: ay + dy / seg * remaining,
-          cursor: cursor,
-        };
+        out.push({x: ax + dx / seg * remaining, y: ay + dy / seg * remaining, cursor: cursor});
+        return out;
       }
       remaining -= seg;
       ax = wp.x; ay = wp.y;
+      out.push({x: wp.x, y: wp.y, cursor: cursor});
       cursor += 1;
     }
-    const last = route.waypoints[route.waypoints.length - 1];
-    return {x: last.x, y: last.y, cursor: route.waypoints.length - 1};
+    if (!out.length && route.waypoints.length) {
+      const last = route.waypoints[route.waypoints.length - 1];
+      out.push({x: last.x, y: last.y, cursor: route.waypoints.length - 1});
+    }
+    return out;
   }
 
+  function carrotPoint(pos, route, lookAheadM, cache) {
+    if (!route || !route.valid || !route.waypoints.length) return null;
+    const candidates = carrotCandidates(pos, route, lookAheadM);
+    if (!cache) return candidates.length ? candidates[candidates.length - 1] : null;
+    for (let i = candidates.length - 1; i >= 0; i--) {
+      if (segmentSafe(pos, candidates[i], cache)) return candidates[i];
+    }
+    return null;
+  }
+
+  /* Advance on arrival OR on overshoot. A radius-only test leaves the cursor
+   * pinned to a waypoint the agent blew past at speed, and the follower then
+   * aims backwards along the route. */
   function advanceAlongRoute(pos, route, reachM) {
     if (!route || !route.valid) return;
     while (route.cursor < route.waypoints.length) {
       const wp = route.waypoints[route.cursor];
-      if (hypot(wp.x - pos.x, wp.y - pos.y) > reachM) break;
-      route.cursor += 1;
+      if (hypot(wp.x - pos.x, wp.y - pos.y) <= reachM) { route.cursor += 1; continue; }
+      if (route.cursor + 1 >= route.waypoints.length) break;
+      const from = route.cursor > 0 ? route.waypoints[route.cursor - 1] : null;
+      if (!from) break;
+      const dx = wp.x - from.x, dy = wp.y - from.y;
+      const denom = dx * dx + dy * dy;
+      if (denom <= 1e-12) { route.cursor += 1; continue; }
+      const t = ((pos.x - from.x) * dx + (pos.y - from.y) * dy) / denom;
+      if (t > 1) { route.cursor += 1; continue; }
+      break;
     }
   }
 
@@ -226,23 +289,81 @@
     return hypot(pos.x - (prev.x + t * dx), pos.y - (prev.y + t * dy));
   }
 
-  function integrateBounded(agent, desired, speedLimit, dt, cache) {
-    const previous = {x: agent.vx, y: agent.vy};
-    const limited = Motion.limitPlanarVelocity(
-      previous, desired, speedLimit, dt,
+  /* Bounded fail-closed step selection.
+   *
+   * The historical implementation zeroed the velocity the instant the proposed
+   * swept segment was unsafe. That is fail-closed, but 2.5 m/s -> 0 inside one
+   * 0.1 s tick is a 25 m/s^2 deceleration against a 4.0 m/s^2 contract, and
+   * because the rejected command was re-issued unchanged on the next tick the
+   * agent latched into a stop/stutter loop instead of slowing into the turn.
+   * Every candidate below is passed through the SAME limitPlanarVelocity
+   * bound, so acceleration and turn rate stay inside the contract whichever
+   * candidate is accepted; scaling the request down is what shortens the swept
+   * segment until it is certified safe. CANDIDATE_SCALES ends at 0, which
+   * limitPlanarVelocity turns into the maximum-rate bounded brake along the
+   * current heading.
+   */
+  const CANDIDATE_SCALES = Object.freeze([1, 0.7, 0.45, 0.25, 0.1, 0]);
+
+  function boundedCandidate(previous, desired, scale, speedLimit, dt) {
+    return Motion.limitPlanarVelocity(
+      previous, {x: desired.x * scale, y: desired.y * scale}, speedLimit, dt,
       Motion.CONTRACT.boundedMaxAccel, Motion.CONTRACT.boundedMaxTurnRate
     );
-    const next = {x: agent.x + limited.x * dt, y: agent.y + limited.y * dt};
-    const moved = hypot(next.x - agent.x, next.y - agent.y);
-    if (!pointSafe(next, cache) || !segmentSafe({x: agent.x, y: agent.y}, next, cache)) {
-      agent.vx = 0;
-      agent.vy = 0;
-      agent.accel = {x: -previous.x / Math.max(dt, 1e-6), y: -previous.y / Math.max(dt, 1e-6)};
-      const attitude = visualAttitude({x: 0, y: 0}, agent.accel, agent.heading);
+  }
+
+  /* Command speed shaped by the turn the agent still owes.
+   *
+   * limitPlanarVelocity rotates the command by at most maxTurnRate*dt away
+   * from the CURRENT velocity heading and keeps the requested magnitude, so a
+   * full-speed request across a sharp corner is executed as "keep barrelling
+   * forward, 15 degrees at a time". Slowing into the turn is what lets the
+   * heading catch up before the swept segment leaves the corridor.
+   */
+  function approachVelocity(pos, goal, agent, speedLimit) {
+    const dx = goal.x - pos.x, dy = goal.y - pos.y;
+    const n = hypot(dx, dy);
+    if (n <= 1e-6) return {x: 0, y: 0};
+    const want = Math.atan2(dy, dx);
+    const speed = hypot(agent.vx, agent.vy);
+    const current = speed > 1e-4 ? Math.atan2(agent.vy, agent.vx) : want;
+    const error = Math.abs(Math.atan2(Math.sin(want - current), Math.cos(want - current)));
+    const capped = speedLimit * clamp(Math.cos(error), CONTRACT.minTurnSpeedFraction, 1);
+    return {x: dx / n * capped, y: dy / n * capped};
+  }
+
+  function integrateBounded(agent, desired, speedLimit, dt, cache) {
+    const previous = {x: agent.vx, y: agent.vy};
+    const here = {x: agent.x, y: agent.y};
+    let limited = null;
+    let next = null;
+    for (let i = 0; i < CANDIDATE_SCALES.length; i++) {
+      const candidate = boundedCandidate(previous, desired, CANDIDATE_SCALES[i], speedLimit, dt);
+      const step = {x: agent.x + candidate.x * dt, y: agent.y + candidate.y * dt};
+      if (pointSafe(step, cache) && segmentSafe(here, step, cache)) {
+        limited = candidate;
+        next = step;
+        break;
+      }
+    }
+    if (!limited) {
+      // Even the bounded brake would sweep through the safety envelope. Hold
+      // the certified-safe pose and keep bleeding speed at the contract rate;
+      // this is an emergency hold, not an unbounded stop or a teleport.
+      const brake = boundedCandidate(previous, {x: 0, y: 0}, 0, speedLimit, dt);
+      agent.vx = brake.x;
+      agent.vy = brake.y;
+      agent.accel = {
+        x: (brake.x - previous.x) / Math.max(dt, 1e-6),
+        y: (brake.y - previous.y) / Math.max(dt, 1e-6),
+      };
+      const attitude = visualAttitude(brake, agent.accel, agent.heading);
       agent.roll = attitude.roll;
       agent.pitch = attitude.pitch;
-      return {moved: false, jump: 0, headingDelta: 0};
+      agent.emergencyHolds = (agent.emergencyHolds || 0) + 1;
+      return {moved: false, jump: 0, headingDelta: 0, held: true};
     }
+    const moved = hypot(next.x - agent.x, next.y - agent.y);
     const oldHeading = agent.heading;
     agent.x = next.x;
     agent.y = next.y;
@@ -306,19 +427,126 @@
     }
   }
 
-  function snapToSafe(point, cache) {
-    if (pointSafe(point, cache)) return copyPoint(point);
-    for (let radius = 0.25; radius <= 3.0; radius += 0.25) {
-      for (let k = 0; k < 16; k++) {
-        const angle = k * Math.PI / 8;
-        const candidate = {
-          x: point.x + radius * Math.cos(angle),
-          y: point.y + radius * Math.sin(angle),
-        };
-        if (pointSafe(candidate, cache)) return candidate;
+  /* Free-space connectivity over the occupancy grid the A* cache already built.
+   *
+   * At the upper densities the navrl_band layout merges touching bars into
+   * compound walls, which seals off pockets. A spawn inside one is genuinely
+   * unroutable: the follower correctly fail-closes to a zero command and the
+   * preview then shows two frozen aircraft for the whole session. Connectivity
+   * is a SPAWN precondition, so it is resolved once at session creation rather
+   * than papered over in the controller. This reads the cached occupancy; it
+   * adds no obstacle geometry of its own.
+   */
+  function freeComponents(cache) {
+    if (cache.components) return cache.components;
+    const mesh = cache.mesh, free = cache.free;
+    const nx = mesh.shapeX, ny = mesh.shapeY;
+    const label = new Int32Array(nx * ny).fill(-1);
+    const sizes = [];
+    const queue = new Int32Array(nx * ny);
+    for (let i = 0; i < nx; i++) {
+      for (let j = 0; j < ny; j++) {
+        const root = i * ny + j;
+        if (!free[root] || label[root] !== -1) continue;
+        const id = sizes.length;
+        let head = 0, tail = 0, count = 0;
+        queue[tail++] = root;
+        label[root] = id;
+        while (head < tail) {
+          const node = queue[head++];
+          count += 1;
+          const ci = (node / ny) | 0, cj = node % ny;
+          for (let k = 0; k < 4; k++) {
+            const ni = ci + (k === 0 ? -1 : k === 1 ? 1 : 0);
+            const nj = cj + (k === 2 ? -1 : k === 3 ? 1 : 0);
+            if (ni < 0 || nj < 0 || ni >= nx || nj >= ny) continue;
+            const next = ni * ny + nj;
+            if (!free[next] || label[next] !== -1) continue;
+            label[next] = id;
+            queue[tail++] = next;
+          }
+        }
+        sizes.push(count);
       }
     }
-    return copyPoint(point);
+    cache.components = {label: label, sizes: sizes, nx: nx, ny: ny};
+    return cache.components;
+  }
+
+  function cellIndexOf(cache, point) {
+    const mesh = cache.mesh;
+    const i = clamp(Math.round((point.x - mesh.axisX[0]) / cache.resolutionM), 0, mesh.shapeX - 1);
+    const j = clamp(Math.round((point.y - mesh.axisY[0]) / cache.resolutionM), 0, mesh.shapeY - 1);
+    return {i: i, j: j, index: i * mesh.shapeY + j};
+  }
+
+  function componentAt(cache, point) {
+    const comp = freeComponents(cache);
+    return comp.label[cellIndexOf(cache, point).index];
+  }
+
+  /* Nearest certified-safe cell to `anchor` inside an accepted component. */
+  function nearestCellIn(cache, anchor, accept) {
+    const comp = freeComponents(cache);
+    const mesh = cache.mesh;
+    const origin = cellIndexOf(cache, anchor);
+    let best = null, bestCost = Infinity;
+    for (let i = 0; i < mesh.shapeX; i++) {
+      for (let j = 0; j < mesh.shapeY; j++) {
+        const index = i * mesh.shapeY + j;
+        const id = comp.label[index];
+        if (id < 0 || !accept(id)) continue;
+        const cost = (i - origin.i) * (i - origin.i) + (j - origin.j) * (j - origin.j);
+        if (cost >= bestCost) continue;
+        const point = {x: mesh.axisX[i], y: mesh.axisY[j]};
+        if (!pointSafe(point, cache)) continue;
+        best = point; bestCost = cost;
+      }
+    }
+    return best;
+  }
+
+  function largestComponentId(cache) {
+    const comp = freeComponents(cache);
+    let best = -1, bestSize = 0;
+    for (let id = 0; id < comp.sizes.length; id++) {
+      if (comp.sizes[id] > bestSize) { bestSize = comp.sizes[id]; best = id; }
+    }
+    return best;
+  }
+
+  /* Both agents must start in free space that is large enough to roam and
+   * mutually reachable, otherwise the preview is a pair of frozen aircraft.
+   * The relocation is deterministic (nearest accepted cell), so a given seed
+   * still replays identically. */
+  function resolveConnectedSpawn(caches, targetStart, pursuerStart) {
+    const out = {target: copyPoint(targetStart), pursuer: copyPoint(pursuerStart),
+      targetRelocated: false, pursuerRelocated: false};
+    const tCache = caches.target, pCache = caches.pursuer;
+    if (!tCache || !pCache || !tCache.mesh || !pCache.mesh) return out;
+    const minCells = CONTRACT.minSpawnComponentCells;
+
+    const tComp = freeComponents(tCache);
+    let tId = componentAt(tCache, out.target);
+    if (tId < 0 || tComp.sizes[tId] < minCells) {
+      const moved = nearestCellIn(tCache, out.target,
+        function (id) { return tComp.sizes[id] >= minCells; });
+      if (moved) { out.target = moved; out.targetRelocated = true; }
+      tId = componentAt(tCache, out.target);
+    }
+
+    // The tracker's support disc is larger, so it has its own occupancy grid.
+    // Require it to share a component with the cell nearest the target.
+    const pComp = freeComponents(pCache);
+    const targetSideId = componentAt(pCache, out.target);
+    const wanted = targetSideId >= 0 && pComp.sizes[targetSideId] >= minCells
+      ? targetSideId : largestComponentId(pCache);
+    if (componentAt(pCache, out.pursuer) !== wanted && wanted >= 0) {
+      const moved = nearestCellIn(pCache, out.pursuer,
+        function (id) { return id === wanted; });
+      if (moved) { out.pursuer = moved; out.pursuerRelocated = true; }
+    }
+    return out;
   }
 
   function createSession(options) {
@@ -326,14 +554,18 @@
     const arenaLo = options.arenaLo;
     const arenaHi = options.arenaHi;
     const caches = createCaches(bars, arenaLo, arenaHi);
-    const targetStart = snapToSafe(options.target, caches.target);
-    const pursuerStart = snapToSafe(options.pursuer, caches.pursuer);
+    let targetStart = snapToSafe(options.target, caches.target);
+    let pursuerStart = snapToSafe(options.pursuer, caches.pursuer);
+    const spawn = resolveConnectedSpawn(caches, targetStart, pursuerStart);
+    targetStart = spawn.target;
+    pursuerStart = spawn.pursuer;
     const target = {
       x: targetStart.x, y: targetStart.y,
       vx: 0, vy: 0, heading: options.target.heading || 0,
       speed: options.speed || 1.5,
       roll: 0, pitch: 0, accel: {x: 0, y: 0},
       route: null, goal: null, status: 'IDLE',
+      command: {x: 0, y: 0}, routeSwitches: 0, goalCompletions: 0,
     };
     const pursuer = {
       x: pursuerStart.x, y: pursuerStart.y,
@@ -342,6 +574,7 @@
       route: null, lead: null, carrot: null,
       status: 'IDLE', replanCount: 0, lastPlanAt: -Infinity,
       plannedGoal: null,
+      command: {x: 0, y: 0}, routeSwitches: 0, routeSerial: 0,
     };
     return {
       bars: bars,
@@ -354,6 +587,7 @@
       clickGoal: null,
       target: target,
       pursuer: pursuer,
+      spawn: {targetRelocated: spawn.targetRelocated, pursuerRelocated: spawn.pursuerRelocated},
       stats: {target: emptyStats(), pursuer: emptyStats()},
       labels: {
         target: 'AUTO ROAM',
@@ -396,7 +630,9 @@
         );
       }
     }
+    if (complete && t.route && t.route.valid) t.goalCompletions += 1;
     t.route = makeRouteFollow(result, {x: t.x, y: t.y});
+    if (t.route.valid) t.routeSwitches += 1;
     t.goal = t.route.goal;
     if (!t.route.valid) {
       t.status = 'NO SAFE ROUTE';
@@ -409,20 +645,27 @@
   function stepTargetFreeRoam(session, dt) {
     const t = session.target;
     const cache = session.caches.target;
-    const replanned = maybeReplanTarget(session, !t.route || !t.route.valid);
+    let replanned = maybeReplanTarget(session, !t.route || !t.route.valid);
     let desired = {x: 0, y: 0};
     if (t.route && t.route.valid) {
       advanceAlongRoute({x: t.x, y: t.y}, t.route, CONTRACT.goalReachM * 0.45);
-      const carrot = carrotPoint({x: t.x, y: t.y}, t.route, CONTRACT.lookAheadM);
+      let carrot = carrotPoint({x: t.x, y: t.y}, t.route, CONTRACT.lookAheadM, cache);
+      if (!carrot) {
+        // The certified corridor no longer reaches forward from this pose.
+        // Replan instead of driving the blocked chord.
+        replanned = maybeReplanTarget(session, true) || replanned;
+        carrot = carrotPoint({x: t.x, y: t.y}, t.route, CONTRACT.lookAheadM, cache);
+      }
       if (carrot) {
-        const dx = carrot.x - t.x, dy = carrot.y - t.y;
-        const n = Math.max(hypot(dx, dy), 1e-6);
-        desired = {x: dx / n * t.speed, y: dy / n * t.speed};
+        desired = approachVelocity({x: t.x, y: t.y}, carrot, t, t.speed);
         t.status = 'ROAMING';
+      } else {
+        t.status = 'NO SAFE ROUTE';
       }
     } else {
       t.status = 'NO SAFE ROUTE';
     }
+    t.command = {x: desired.x, y: desired.y};
     const info = integrateBounded(t, desired, t.speed, dt, cache);
     const stalled = hypot(t.vx, t.vy) < 0.05 && t.speed > 0.2;
     if (info.moved && !pointSafe({x: t.x, y: t.y}, cache)) session.stats.target.collisions += 1;
@@ -440,13 +683,16 @@
     const cache = session.caches.pursuer;
     const due = session.time - p.lastPlanAt >= CONTRACT.replanPeriodS;
     const noRoute = !p.route || !p.route.valid;
+    // A genuinely unroutable pose must not cost one A* expansion per tick.
+    const retryDue = session.time - p.lastPlanAt >= CONTRACT.noRouteRetryS;
+    if (noRoute && !retryDue && !force) return false;
     const goalMoved = p.plannedGoal
       ? hypot(predicted.x - p.plannedGoal.x, predicted.y - p.plannedGoal.y) >= CONTRACT.goalMoveReplanM
       : true;
     const invalid = p.route && !routeStillValid({x: p.x, y: p.y}, p.route, cache);
     const offPath = deviationFromRoute({x: p.x, y: p.y}, p.route) > CONTRACT.deviationReplanM;
     const exhausted = p.route && p.route.cursor >= (p.route.waypoints.length || 0);
-    if (!(force || noRoute || ((due) && (goalMoved || invalid || offPath || exhausted)))) {
+    if (!(force || noRoute || (due && (goalMoved || invalid || offPath || exhausted)))) {
       return false;
     }
     p.lastPlanAt = session.time;
@@ -463,6 +709,7 @@
       support: PURSUER_SUPPORT, cache: cache,
     });
     p.route = makeRouteFollow(result, p);
+    if (p.route.valid) { p.routeSwitches += 1; p.routeSerial += 1; }
     p.plannedGoal = copyPoint(safeGoal);
     p.replanCount += 1;
     if (!p.route.valid) p.status = 'NO SAFE ROUTE';
@@ -479,31 +726,37 @@
     let desired = {x: 0, y: 0};
     let replanned = false;
     if (los) {
+      // The look-ahead belongs to the route follower. Leaving the previous
+      // tick's carrot in place while tracking by line of sight publishes a
+      // stale, no-longer-certified point to the diagnostics and HUD.
+      p.carrot = null;
       p.status = 'DIRECT LOS';
-      const dx = predicted.x - p.x, dy = predicted.y - p.y;
-      const dist = hypot(dx, dy);
-      const n = Math.max(dist, 1e-6);
       const range = hypot(t.x - p.x, t.y - p.y);
       let speed = Motion.CONTRACT.pursuerSpeedMax;
       if (range < CONTRACT.standoffM + 0.8) {
         speed = Math.min(speed, hypot(t.vx, t.vy) + 0.35);
         p.status = 'FOLLOWING';
       }
-      desired = {x: dx / n * speed, y: dy / n * speed};
+      desired = approachVelocity({x: p.x, y: p.y}, predicted, p, speed);
     } else {
       replanned = maybeReplanPursuer(session, predicted, !p.route || !p.route.valid);
       if (p.route && p.route.valid) {
         p.status = 'ROUTE FOLLOW';
         advanceAlongRoute({x: p.x, y: p.y}, p.route, 0.45);
-        const carrot = carrotPoint({x: p.x, y: p.y}, p.route, CONTRACT.lookAheadM);
+        let carrot = carrotPoint({x: p.x, y: p.y}, p.route, CONTRACT.lookAheadM, cache);
+        if (!carrot) {
+          // Certified corridor blocked from this pose: replan now rather than
+          // hold a full-speed command against the safety envelope.
+          replanned = maybeReplanPursuer(session, predicted, true) || replanned;
+          carrot = carrotPoint({x: p.x, y: p.y}, p.route, CONTRACT.lookAheadM, cache);
+        }
         p.carrot = carrot;
         if (carrot) {
-          const dx = carrot.x - p.x, dy = carrot.y - p.y;
-          const n = Math.max(hypot(dx, dy), 1e-6);
-          desired = {
-            x: dx / n * Motion.CONTRACT.pursuerSpeedMax,
-            y: dy / n * Motion.CONTRACT.pursuerSpeedMax,
-          };
+          desired = approachVelocity(
+            {x: p.x, y: p.y}, carrot, p, Motion.CONTRACT.pursuerSpeedMax
+          );
+        } else {
+          p.status = 'NO SAFE ROUTE';
         }
       } else {
         p.status = 'NO SAFE ROUTE';
@@ -513,6 +766,7 @@
     if (!los && p.route && p.route.valid && session.time - p.lastPlanAt >= CONTRACT.replanPeriodS) {
       p.status = p.status === 'NO SAFE ROUTE' ? p.status : 'REPLANNING';
     }
+    p.command = {x: desired.x, y: desired.y};
     const info = integrateBounded(p, desired, Motion.CONTRACT.pursuerSpeedMax, dt, cache);
     const stalled = hypot(p.vx, p.vy) < 0.05 && hypot(desired.x, desired.y) > 0.2;
     if (info.moved && !pointSafe({x: p.x, y: p.y}, cache)) session.stats.pursuer.collisions += 1;
@@ -566,6 +820,10 @@
     stepPursuerGt: stepPursuerGt,
     setClickGoal: setClickGoal,
     setAutoRoam: setAutoRoam,
+    approachVelocity: approachVelocity,
+    freeComponents: freeComponents,
+    resolveConnectedSpawn: resolveConnectedSpawn,
+    carrotPoint: carrotPoint,
     pointSafe: pointSafe,
     segmentSafe: segmentSafe,
   };

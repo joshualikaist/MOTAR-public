@@ -1,7 +1,7 @@
 # MOTAR
 
 MOTAR: Moving Object Tracking And Rendezvous.
-Reinforcement Learning for UAV Pursuit in Random Obstacle Fields.
+Reinforcement Learning for UAV Tracking and Close Approach in Random Obstacle Fields.
 
 ![Research sources, analysis and recorded outputs](docs/assets/paper/system-overview-block-diagram.svg)
 

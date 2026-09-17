@@ -75,7 +75,7 @@ class ResearchOverviewTest(unittest.TestCase):
         self.assertLessEqual(len(words), 180)
         self.assertIn('<h1>MOTAR</h1>', self.text)
         self.assertIn('Moving Object Tracking And Rendezvous', self.text)
-        self.assertIn('Reinforcement Learning for UAV Pursuit in Random Obstacle Fields', self.text)
+        self.assertIn('Reinforcement Learning for UAV Tracking and Close Approach in Random Obstacle Fields', self.text)
         self.assertNotIn('Moving Object Tracking And Reinforcement Learning for UAV', self.text)
         self.assertNotIn('Observe. Measure.', self.text)
         self.assertNotIn('overview-card', self.text)

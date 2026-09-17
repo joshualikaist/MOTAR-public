@@ -108,3 +108,77 @@ NOT PPO · NOT PHYSX · NOT RESEARCH EVIDENCE
 
 They are not a reactive-evader research implementation (TM-E3) and must not be
 registered as one.
+
+---
+
+# Post-implementation validation — same day, after the preview shipped
+
+The sections above diagnosed the HISTORICAL browser. This section records what the
+`gt-route-track` / `gt-free-roam` preview actually did once it was measured over a
+density x target-speed x seed matrix, and the four defects that measurement found.
+
+Harness: `tools/validate_gt_browser_tracking.js` (120 runs: densities 70/115/160/205
+x target speeds 0.3/0.9/1.5 m/s x 10 seeds x 60 simulated seconds, fixed 10 Hz).
+Report: `results/browser_gt_tracking_validation_2026-09-17/logic_validation.json`.
+
+This is browser engineering validation. It is not a PPO measurement, not PhysX, and
+not research performance evidence.
+
+## What the first measurement found
+
+The preview passed its own unit tests and still tracked badly. Measured over the
+matrix, the tracker was **stalled 47-87 % of every run**, and at several cells the
+relative distance at 60 s was LARGER than at spawn (160 bars / 0.3 m/s: 18.13 m ->
+18.49 m). One hard invariant was failing outright.
+
+| Defect | Symptom | Root cause |
+|---|---|---|
+| **D1 unbounded fail-closed stop** | `acceleration_limit_violation` > 0 | `integrateBounded` zeroed the velocity the moment a swept step was unsafe. 2.5 m/s -> 0 in one 0.1 s tick is 25 m/s² against a 4.0 m/s² contract, and the rejected command was re-issued unchanged next tick, so the agent latched into a stop/stutter loop. |
+| **D2 uncertified look-ahead chord** | tracker wedged against the safety envelope holding a valid route and a full-speed command | The carrot was a point 1.8 m ALONG the polyline, but the follower drives the STRAIGHT line to it. Where the route doubles back around a bar that chord leaves the certified corridor and points into the obstacle. Measured at 205 bars: command heading 202° against a next-waypoint heading of -69°. |
+| **D3 unroutable follow point** | `no_safe_route_fraction` up to 74 % at 205 bars, 5-7.8 replans/s | The tracker's support disc plus tracking margin is larger than the target's, so a gap the target slips through is closed for the tracker. `nearestSafe` gave up instead of snapping the reference to the nearest certified-safe cell. |
+| **D4 sealed-pocket spawn** | both aircraft frozen from step 0, `no_path` forever | At the upper densities `navrl_band` merges touching bars into compound walls, sealing pockets. The zero command was CORRECT there — the spawn was not. Connectivity is a spawn precondition, not a controller problem. |
+
+D4 is worth stating plainly: the fail-closed behaviour was right and the scenario was
+wrong. Fixing it in the controller would have produced a preview that drives through
+walls to look busy.
+
+## Fixes
+
+- **D1** `integrateBounded` now selects among bounded candidates (scales 1, 0.7, 0.45,
+  0.25, 0.1, 0) and takes the first whose swept segment is certified. Every candidate
+  goes through the same `limitPlanarVelocity` bound, so acceleration and turn rate hold
+  whichever is accepted; scale 0 is the maximum-rate bounded brake. An emergency hold
+  remains for the case where even the brake would sweep the envelope, and it is counted.
+- **D2** `carrotPoint` now returns the FARTHEST look-ahead candidate joined to the pose
+  by a certified segment, and `null` when every candidate is blocked — which forces a
+  replan instead of a blind chord. `advanceAlongRoute` also advances past waypoints the
+  agent overshot, so the follower stops aiming backwards. A new `approachVelocity`
+  shapes commanded speed by the turn still owed, so the agent slows into corners rather
+  than barrelling through them 15° per tick.
+- **D3** `nearestSafe` falls back to `snapToSafe`; the no-route retry is throttled to
+  `noRouteRetryS` so an unroutable pose cannot cost one A* per tick.
+- **D4** `createSession` resolves a connected spawn from the occupancy grid the A* cache
+  already built (`freeComponents`), deterministically relocating an agent out of a
+  sealed pocket. It reads cached occupancy and adds no obstacle geometry of its own.
+
+## Result over the same matrix
+
+| | before | after |
+|---|---|---|
+| hard invariant violations | `acceleration_limit_violation` non-zero | **all 11 categories 0 / 120 runs** |
+| stall fraction | 47-87 % | 0.2-1.3 % |
+| no-safe-route fraction | up to 74 % | 0.0 % (one cell 5.2 %) |
+| median relative distance | 8.7-18.5 m | 1.52-2.13 m |
+| final relative distance | 6.5-18.5 m | 1.35-2.17 m (from 14.8-21.4 m at spawn) |
+| replans/s | up to 7.8 | 0.16-1.36 |
+
+The 1.5 m floor is the **display-only standoff** (`CONTRACT.standoffM = 1.55 m`) that
+keeps the two meshes from overlapping in the preview. The documented tracking reference
+remains a relative position error of zero; the standoff is a rendering offset, not a
+capture radius, and it is not connected to the historical 0.5 m capture semantics.
+
+## What did not change
+
+Actor observation tensors, `aerial_gym` task observation builders, reward, checkpoints
+and every recorded research verdict are untouched. `docs/assets/paper/overview-2026-09-13/`
+remains hash-pinned and was not regenerated.

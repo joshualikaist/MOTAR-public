@@ -52,6 +52,13 @@ jobs:
           "$RUNNER_TEMP/docs-env/bin/python" -B tools/check_public_docs.py --schema
           node tests/test_status_site.js
           node tests/test_public_status_manifest.js
+      - name: Browser GT tracking preview contracts
+        run: |
+          node tests/test_status_arena_route.js
+          node tests/test_status_arena_motion.js
+          node tests/test_status_arena_demo_planner.js
+          node tests/test_status_gt_tracking_determinism.js
+          node tools/validate_gt_browser_tracking.js --seeds 2 --duration 20
       - name: Retain technical evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -30,6 +30,9 @@ window.Arena = (() => {
   let host, lastDrone = { x: 1, y: 0 };
   let lastT = 0, vel = { x: 0, y: 0 }, heading = 0, simPrev, simCurr, simTime = 0;
   let clickFeedbackUntil = 0, clickFeedbackText = '';
+  // Measured-only counters for the browser validation probe. Incrementing
+  // integers; they never feed the simulation.
+  const counters = {simSteps: 0, lidarDraws: 0, renderFrames: 0, plannerCalls: 0, resets: 0};
   let a11yUntil = 0, a11yLast = '';
   const simClock = Motion.createFixedStepClock(0.1, 0.25, 8);
   const motionRng = Motion.seededRng(8675309);
@@ -227,6 +230,10 @@ window.Arena = (() => {
 
   function resetEpisode(regenerateBars = true) {
     if (!drone || !target) return;
+    // A scene rebuild (bar count, target speed, display mode) legitimately
+    // respawns both aircraft. Publishing a serial lets a validation probe tell
+    // that apart from a discontinuity in the motion itself.
+    counters.resets += 1;
     if (regenerateBars) makeBars(currentBars);
     episode = Motion.createEpisode(motionRng, bars, speedCeiling);
     if (targetMotionMode === 'routed-preview') planRoutedEpisode();
@@ -327,6 +334,9 @@ window.Arena = (() => {
     return makeRouteState(result, start);
   }
 
+  // writeLinePoints copies x/y/z straight into the preallocated line buffer, so
+  // these per-tick points stay plain literals: a THREE.Vector3 per waypoint per
+  // simulation step is pure garbage for a value that is never used as a vector.
   function updateRouteLine() {
     const targetRoute = targetMotionMode === 'gt-free-roam'
       ? (gtSession && gtSession.target.route)
@@ -341,11 +351,11 @@ window.Arena = (() => {
       if (showTarget) {
         const origin = targetMotionMode === 'gt-free-roam'
           ? gtSession.target : episode.target;
-        points.push(new THREE.Vector3(origin.x, .10, origin.y));
+        points.push({x: origin.x, y: .10, z: origin.y});
         (targetRoute.waypoints || []).slice(targetRoute.cursor || 0).forEach(function (p) {
           const previous = points[points.length - 1];
           if (!previous || Math.hypot(previous.x - p.x, previous.z - p.y) > 1e-6) {
-            points.push(new THREE.Vector3(p.x, .10, p.y));
+            points.push({x: p.x, y: .10, z: p.y});
           }
         });
       }
@@ -358,11 +368,11 @@ window.Arena = (() => {
       pursuerRouteLine.visible = Boolean(showPursuer);
       const points = [];
       if (showPursuer) {
-        points.push(new THREE.Vector3(gtSession.pursuer.x, .12, gtSession.pursuer.y));
+        points.push({x: gtSession.pursuer.x, y: .12, z: gtSession.pursuer.y});
         pursuerRoute.waypoints.slice(pursuerRoute.cursor || 0).forEach(function (p) {
           const previous = points[points.length - 1];
           if (!previous || Math.hypot(previous.x - p.x, previous.z - p.y) > 1e-6) {
-            points.push(new THREE.Vector3(p.x, .12, p.y));
+            points.push({x: p.x, y: .12, z: p.y});
           }
         });
       }
@@ -373,8 +383,8 @@ window.Arena = (() => {
       const showLead = pursuerDisplayMode === 'gt-route-track' && lead;
       leadLine.visible = Boolean(showLead);
       writeLinePoints(leadLine, showLead ? [
-        new THREE.Vector3(episode.target.x, .16, episode.target.y),
-        new THREE.Vector3(lead.x, .16, lead.y),
+        {x: episode.target.x, y: .16, z: episode.target.y},
+        {x: lead.x, y: .16, z: lead.y},
       ] : []);
     }
     if (followMark) {
@@ -849,6 +859,7 @@ window.Arena = (() => {
   }
 
   function simulationStep(dt) {
+    counters.simSteps += 1;
     if (!episode) resetEpisode(false);
     simPrev = simCurr || snapshotSimulation();
     if (gtSession) gtSession.time += dt;
@@ -974,7 +985,9 @@ window.Arena = (() => {
         mats.forEach(m => setHex(m && m.color, vis.visible ? 0x0d8f82 : 0xe04545));
       });
     }
+    counters.renderFrames += 1;
     if (lidarNeedsDraw) {
+      counters.lidarDraws += 1;
       drawLidar(current.droneX, current.droneY);
       lidarNeedsDraw = false;
     }
@@ -1070,6 +1083,11 @@ window.Arena = (() => {
     cycleView,
     recolor: applyTheme,
     debugState() {
+      if (gtSession) {
+        counters.plannerCalls = gtSession.pursuer.replanCount
+          + (gtSession.target.routeSwitches || 0);
+      }
+      const info = renderer && renderer.info ? renderer.info : null;
       return {
         targetMotionMode: targetMotionMode,
         pursuerDisplayMode: pursuerDisplayMode,
@@ -1077,6 +1095,29 @@ window.Arena = (() => {
         gtPreview: gtPreviewActive(),
         follow: gtSession ? gtSession.pursuer.status : null,
         badge: gtPreviewActive(),
+        bars: bars.length,
+        simTime: simTime,
+        counters: {
+          simSteps: counters.simSteps,
+          resets: counters.resets,
+          lidarDraws: counters.lidarDraws,
+          renderFrames: counters.renderFrames,
+          plannerCalls: counters.plannerCalls,
+          routeSwitches: gtSession ? gtSession.pursuer.routeSwitches : null,
+          emergencyHolds: gtSession ? (gtSession.pursuer.emergencyHolds || 0) : null,
+          spawnRelocated: gtSession ? gtSession.spawn : null,
+        },
+        renderer: info ? {
+          geometries: info.memory.geometries,
+          textures: info.memory.textures,
+          drawCalls: info.render.calls,
+          triangles: info.render.triangles,
+        } : 'NOT_MEASURED',
+        distance: gtSession ? Math.hypot(
+          gtSession.pursuer.x - gtSession.target.x,
+          gtSession.pursuer.y - gtSession.target.y) : null,
+        tracker: gtSession ? {x: gtSession.pursuer.x, y: gtSession.pursuer.y} : null,
+        target: gtSession ? {x: gtSession.target.x, y: gtSession.target.y} : null,
       };
     },
   };

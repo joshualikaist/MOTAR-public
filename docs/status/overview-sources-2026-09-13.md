@@ -10,7 +10,15 @@ The 2026-09-16 revision regenerated the dated overview package from its source g
 Figures 1, 4, and 6 show lifecycle states rather than a generic dashed “future” convention.
 The live page caption for Figure 1 now uses `MOTAR: Moving Object Tracking And Rendezvous`.
 The dated SVG/PNG/PDF package remains hash-pinned and is not regenerated in the 2026-09-17
-browser-preview revision.
+browser-preview revision. The 2026-09-17 revision also settles the method subtitle on
+`Reinforcement Learning for UAV Tracking and Close Approach in Random Obstacle Fields`
+across README, the live page, `CITATION.cff` and the figure generator
+(`tools/render_research_overview.py`). The dated package is NOT re-exported for that
+wording: its embedded SVG `<title>`/`<desc>` still read
+`MOTAR: Moving Object Tracking And Reinforcement Learning` and `MOTAR for UAV Pursuit
+in Random Obstacle Fields`, which is the pinned 2026-09-13 state and is left in place
+as provenance rather than edited under its recorded hash. The live Figure 1 caption
+carries the current wording.
 The sections below retain the state at each earlier presentation revision; their old
 `NOT_STARTED` wording is not the current D8 status.
 This change records existing evidence only and does not implement perception adaptation.

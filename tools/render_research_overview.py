@@ -44,7 +44,7 @@ def chain(stem, title, labels, notes):
 
 def system_overview():
     d = blocks.Diagram('MOTAR: Moving Object Tracking And Rendezvous',
-        'MOTAR for UAV Pursuit in Random Obstacle Fields: completed simulation research with separate evidence branches.')
+        'MOTAR for UAV tracking and close approach in random obstacle fields: completed simulation research with separate evidence branches.')
     x, w, h = 610, 380, 64
     labels = [('3-D environment', SENSOR), ('Camera + LiDAR', SENSOR),
               ('Perception / tracking', LEARNED), ('Temporal policy · PPO', LEARNED),
