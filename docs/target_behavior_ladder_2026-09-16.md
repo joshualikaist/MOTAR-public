@@ -36,6 +36,9 @@ and routed implementations already exist. The important defects are lineage-spec
 5. None of the implemented target laws reacts to the pursuer after reset. The optional initial
    CV heading can be chosen relative to the pursuer only in a declared evaluation intervention.
 6. Browser motion is visually obstacle-aware but is not a recorded simulator rollout.
+   The later browser-only `gt-free-roam` / `gt-route-track` preview may use exact target and
+   obstacle state for explanatory chasing. That preview is not TM-E3, not a reactive-evader
+   research implementation, and not a policy or PhysX result.
 
 Primary sources: `aerial_gym/task/navrl_task/navrl_task.py`,
 `aerial_gym/task/navrl_task/target_motion.py`,

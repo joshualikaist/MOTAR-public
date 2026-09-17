@@ -8,6 +8,9 @@ The live manifest now describes D8-A as a technical result only (`D8A_TECHNICAL_
 Table 5 separately reports D8b. D8c is not started and D9 remains `NOT_RUN`.
 The 2026-09-16 revision regenerated the dated overview package from its source generator so
 Figures 1, 4, and 6 show lifecycle states rather than a generic dashed “future” convention.
+The live page caption for Figure 1 now uses `MOTAR: Moving Object Tracking And Rendezvous`.
+The dated SVG/PNG/PDF package remains hash-pinned and is not regenerated in the 2026-09-17
+browser-preview revision.
 The sections below retain the state at each earlier presentation revision; their old
 `NOT_STARTED` wording is not the current D8 status.
 This change records existing evidence only and does not implement perception adaptation.
@@ -32,9 +35,10 @@ D8 remains `NOT_STARTED`; D9 remains `NOT_RUN`.
 ## 2026-09-16 evidence/status revision
 
 The active page now separates lifecycle from scientific verdict through
-[`research_status_registry.json`](../research_status_registry.json). `COMPLETED` means the cited
-implementation/evaluation stage ran; it does not turn P10 `INCONCLUSIVE` or D8b `MATERIAL_LOSS`
-into a positive result. `PLANNED`, `BLOCKED`, `NOT_TESTED`, and `ARCHIVED_WITHDRAWN` have distinct
+[`research_status_registry.json`](../research_status_registry.json). `COMPLETED` means the
+explicitly named stage is complete; that stage may be implementation, evaluation, or both, as
+specified by `evidence_status`. It does not imply a positive verdict or completion of downstream
+comparisons, so P10 remains `INCONCLUSIVE` and D8b remains `MATERIAL_LOSS`. `PLANNED`, `BLOCKED`, `NOT_TESTED`, and `ARCHIVED_WITHDRAWN` have distinct
 line/badge styles. P6–P9 and D8-A/D8b are no longer drawn as generic future dashed links.
 
 Section 6 adds two different tables:

@@ -29,6 +29,8 @@
       const bars = byId('sl-bars');
       const speed = byId('sl-speed');
       const targetMotion = byId('sel-target-motion');
+      const pursuerDisplay = byId('sel-pursuer-display');
+      const targetGoal = byId('sel-target-goal');
       const setBars = function () {
         const value = Number(bars.value);
         byId('lbl-bars').textContent = String(value);
@@ -49,14 +51,29 @@
         bounded: '<strong>Bounded:</strong> 4.0 m/s², 150°/s, 1.0 s lookahead, 0.77 m centre-clearance. 새 trajectory lineage입니다.',
         'physical-style': '<strong>Physical-style illustration:</strong> bounded command에 rigid-body-like low-pass와 attitude limit을 그립니다. 실제 PhysX나 정책 평가는 아닙니다.',
         'routed-preview': '<strong>Routed preview:</strong> 0.25 m deterministic global route, exact bar AABB, 0.45 m tracking reserve, target 3-D box half-diagonal support(0.2069 m), boundary 1.25 m + support를 적용합니다. 0.5 m waypoint 전환은 exact clearance certificate로 제한하고 실패 후 직전 goal 1.0 m 이내를 제외합니다. 대안 경로가 없으면 zero command입니다. Global route + bounded/lagged browser preview · NOT PhysX/PPO.',
+        'gt-free-roam': '<strong>Browser GT free roam:</strong> reachable random (or click/tap) goals with global A*, bounded acceleration/turn, and STOP+REPLAN on failure. Teleport and bar push-out are not used. This is not TM-E3 and not a research result.',
+        'gt-route-track': '<strong>Browser GT route tracking:</strong> exact browser target position/velocity/heading and obstacle AABBs drive a predicted follow point, LOS shortcut, and global route. Continuous follow; not the PPO policy.',
+        'local-heuristic': '<strong>Historical local heuristic:</strong> heading candidates over a short swept path. Kept for comparison; not deleted.',
       };
       const setTargetMotion = function () {
         const mode = targetMotion.value;
         window.Arena.setTargetMotionMode(mode);
         const note = byId('motion-mode-note');
-        if (note) note.innerHTML = motionNotes[mode];
+        if (note) note.innerHTML = motionNotes[mode] || motionNotes['gt-free-roam'];
+      };
+      const setPursuerDisplay = function () {
+        if (!pursuerDisplay || !window.Arena.setPursuerDisplayMode) return;
+        window.Arena.setPursuerDisplayMode(pursuerDisplay.value);
+        const note = byId('motion-mode-note');
+        if (note) note.innerHTML = motionNotes[pursuerDisplay.value] + ' ' + (motionNotes[targetMotion.value] || '');
+      };
+      const setTargetGoal = function () {
+        if (!targetGoal || !window.Arena.setTargetGoalMode) return;
+        window.Arena.setTargetGoalMode(targetGoal.value);
       };
       targetMotion.addEventListener('change', setTargetMotion);
+      if (pursuerDisplay) pursuerDisplay.addEventListener('change', setPursuerDisplay);
+      if (targetGoal) targetGoal.addEventListener('change', setTargetGoal);
 
       let playing = true;
       byId('btn-play').addEventListener('click', function () {
@@ -77,6 +94,8 @@
       setBars();
       setSpeed();
       setTargetMotion();
+      setPursuerDisplay();
+      setTargetGoal();
     } catch (error) {
       stage.innerHTML = '<p class="viewer-error">3D viewer could not start: '
         + String(error && error.message ? error.message : error) + '</p>';

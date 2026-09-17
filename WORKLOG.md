@@ -18580,3 +18580,26 @@ hash 검사를 유지하고, `RELEASE_PROVENANCE.md`가 있는 공개 스냅샷�
 인정하지 않고, research checkout에서는 모든 ancestor 검사가 그대로 실행된다.
 수정 후 공개 스냅샷 전체 suite는 **1,906개 / 실패·오류 0 / skip 29**, 52.662초로 통과했다.
 29 skip은 snapshot에 의도적으로 없는 research ancestor/local evidence를 사유와 함께 표시한다.
+
+## 2026-09-17 — Browser GT tracking preview and public evidence wording
+
+사이트 3D arena를 코드 기준으로 감사한 뒤, browser-only GT tracking preview를 추가했다.
+기존 local heuristic pursuer는 exact target 좌표를 이미 받고 있었으나 global route/prediction/
+continuous follow가 없어 dense bar에서 제자리 선회처럼 보였다. 새 `gt-route-track` /
+`gt-free-roam`은 exact browser target state와 obstacle AABB만 사용하며 PPO observation,
+PhysX, TM-E3, research evaluation이 아니다. HUD badge
+`BROWSER GT PREVIEW / NOT PPO · NOT PHYSX · NOT RESEARCH EVIDENCE`는 GT mode에서 숨길 수 없다.
+카메라 DETECTED/OCCLUDED/OUT OF FOV는 GT planner와 독립이다. Historical
+legacy/bounded/physical-style/routed-preview와 local heuristic은 보존했다.
+
+Editorial: MOTAR 전개는 `Moving Object Tracking And Rendezvous`로 맞추고, COMPLETED는
+named stage 완료이며 긍정 판정/후속 비교 완료를 의미하지 않는다고 고쳤다. 외부 문헌은
+18 UAV systems screened / 10 retained / 8 omitted이며 fictitious self-play는 방법론
+기초로 18에 넣지 않는다. public README의 Git-history 문구는 research history와
+MOTAR-public snapshot을 분리한다. 기존 P10 INCONCLUSIVE, D8b MATERIAL_LOSS, live RGB
+NOT_TESTED, bearing/range/ID BLOCKED는 그대로다.
+
+Node: arena motion/route/demo-planner/site/manifest/WebGL PASS. Python overview,
+comparison, public-docs, target-motion, GT-observation-boundary PASS. aerialgym 전체
+discover는 CUDA import 환경 실패 2건만 확인했고 이번 변경과 무관하다.
+

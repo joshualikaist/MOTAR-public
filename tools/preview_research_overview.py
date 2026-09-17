@@ -134,7 +134,8 @@ def main():
                     Path(__file__).resolve()]
     source_paths += list((ROOT/'docs/assets/paper/overview-2026-09-13').glob('*.svg'))
     source_paths += [ROOT/'docs/status'/name for name in ('arena.js','arena_motion.js',
-                     'arena_route.js','viewer.js','vendor/three.min.js','vendor/OrbitControls.js')]
+                     'arena_route.js','arena_demo_planner.js','viewer.js',
+                     'vendor/three.min.js','vendor/OrbitControls.js')]
     receipt = dict(status='PASS',checks=checks,missing_manifest_fails_closed=fallback,
                    source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths},
                    scope='Local presentation checks; no simulation/perception experiment',

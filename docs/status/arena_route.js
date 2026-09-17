@@ -338,9 +338,60 @@
     return {geometry, admissibleLo, admissibleHi};
   }
 
+  function samePoint(a, b) {
+    return Boolean(a && b && a.x === b.x && a.y === b.y);
+  }
+
+  function mapCacheMatches(cache, bars, arenaLo, arenaHi, support, config) {
+    return Boolean(cache)
+      && cache.bars === bars
+      && samePoint(cache.arenaLo, arenaLo)
+      && samePoint(cache.arenaHi, arenaHi)
+      && samePoint(cache.support, support)
+      && cache.trackingMarginM === config.trackingMarginM
+      && cache.resolutionM === config.resolutionM
+      && cache.boundaryMarginM === config.boundaryMarginM
+      && cache.mesh && cache.free && cache.geometry;
+  }
+
+  function createMapCache(bars, arenaLo, arenaHi, support, overrides) {
+    const config = normalizedConfig(overrides);
+    const dummy = {
+      x: 0.5 * (arenaLo.x + arenaHi.x),
+      y: 0.5 * (arenaLo.y + arenaHi.y),
+    };
+    const prepared = prepare(dummy, bars, arenaLo, arenaHi, support, config);
+    if (!prepared) return null;
+    const mesh = grid(arenaLo, arenaHi, config.resolutionM);
+    const free = occupancy(
+      mesh, prepared.admissibleLo, prepared.admissibleHi, prepared.geometry, 0
+    );
+    return {
+      bars: bars,
+      arenaLo: {x: arenaLo.x, y: arenaLo.y},
+      arenaHi: {x: arenaHi.x, y: arenaHi.y},
+      support: {x: support.x, y: support.y},
+      trackingMarginM: config.trackingMarginM,
+      resolutionM: config.resolutionM,
+      boundaryMarginM: config.boundaryMarginM,
+      geometry: prepared.geometry,
+      admissibleLo: prepared.admissibleLo,
+      admissibleHi: prepared.admissibleHi,
+      mesh: mesh,
+      free: free,
+    };
+  }
+
   function plan(start, goal, bars, arenaLo, arenaHi, support, overrides) {
     const config = normalizedConfig(overrides);
-    const prepared = prepare(start, bars, arenaLo, arenaHi, support, config);
+    const cache = overrides && overrides.mapCache;
+    const prepared = mapCacheMatches(cache, bars, arenaLo, arenaHi, support, config)
+      ? {
+        geometry: cache.geometry,
+        admissibleLo: cache.admissibleLo,
+        admissibleHi: cache.admissibleHi,
+      }
+      : prepare(start, bars, arenaLo, arenaHi, support, config);
     if (!prepared || !finitePoint(goal)) return emptyPlan('invalid_input');
     const {geometry, admissibleLo, admissibleHi} = prepared;
     if (!segmentIsSafe(start, start, admissibleLo, admissibleHi,
@@ -352,8 +403,14 @@
       [start, goal], 0, 2, config, prepared
     );
 
-    const mesh = grid(arenaLo, arenaHi, config.resolutionM);
-    const free = occupancy(mesh, admissibleLo, admissibleHi, geometry, 0);
+    let mesh, free;
+    if (mapCacheMatches(cache, bars, arenaLo, arenaHi, support, config)) {
+      mesh = cache.mesh;
+      free = cache.free;
+    } else {
+      mesh = grid(arenaLo, arenaHi, config.resolutionM);
+      free = occupancy(mesh, admissibleLo, admissibleHi, geometry, 0);
+    }
     const startCell = anchorCell(start, mesh, free, admissibleLo, admissibleHi, geometry);
     const goalCell = anchorCell(goal, mesh, free, admissibleLo, admissibleHi, geometry);
     if (!startCell) return emptyPlan('unsafe_start_cell');
@@ -411,6 +468,7 @@
 
   function planToConnectedGoal(start, bars, arenaLo, arenaHi, support, selector, overrides) {
     const config = normalizedConfig(overrides);
+    const cache = overrides && overrides.mapCache;
     const excludedGoal = config.excludedGoal == null ? null : config.excludedGoal;
     const exclusionRadius = Number(config.goalExclusionRadiusM);
     if (!Number.isFinite(selector) || !(config.minGoalDistanceM > 0)
@@ -418,13 +476,25 @@
           || !Number.isFinite(exclusionRadius) || exclusionRadius <= 0))) {
       return emptyPlan('invalid_input');
     }
-    const prepared = prepare(start, bars, arenaLo, arenaHi, support, config);
+    const prepared = mapCacheMatches(cache, bars, arenaLo, arenaHi, support, config)
+      ? {
+        geometry: cache.geometry,
+        admissibleLo: cache.admissibleLo,
+        admissibleHi: cache.admissibleHi,
+      }
+      : prepare(start, bars, arenaLo, arenaHi, support, config);
     if (!prepared) return emptyPlan('invalid_input');
     const {geometry, admissibleLo, admissibleHi} = prepared;
     if (!segmentIsSafe(start, start, admissibleLo, admissibleHi,
       geometry.centers, geometry.half)) return emptyPlan('unsafe_start');
-    const mesh = grid(arenaLo, arenaHi, config.resolutionM);
-    const free = occupancy(mesh, admissibleLo, admissibleHi, geometry, 0);
+    let mesh, free;
+    if (mapCacheMatches(cache, bars, arenaLo, arenaHi, support, config)) {
+      mesh = cache.mesh;
+      free = cache.free;
+    } else {
+      mesh = grid(arenaLo, arenaHi, config.resolutionM);
+      free = occupancy(mesh, admissibleLo, admissibleHi, geometry, 0);
+    }
     const startCell = anchorCell(start, mesh, free, admissibleLo, admissibleHi, geometry);
     if (!startCell) return emptyPlan('unsafe_start_cell');
     const startIndex = indexOf(startCell[0], startCell[1], mesh.shapeY);
@@ -499,6 +569,8 @@
     segmentIntersectsClosedAABB,
     segmentIsSafe,
     routeHandoffClearanceCertificates,
+    createMapCache,
+    mapCacheMatches,
     plan,
     planToConnectedGoal,
   };

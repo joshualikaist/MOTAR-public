@@ -74,8 +74,9 @@ class ResearchOverviewTest(unittest.TestCase):
         self.assertGreaterEqual(len(words), 120)
         self.assertLessEqual(len(words), 180)
         self.assertIn('<h1>MOTAR</h1>', self.text)
-        self.assertIn('Moving Object Tracking And Reinforcement Learning', self.text)
-        self.assertIn('for UAV Pursuit in Random Obstacle Fields', self.text)
+        self.assertIn('Moving Object Tracking And Rendezvous', self.text)
+        self.assertIn('Reinforcement Learning for UAV Pursuit in Random Obstacle Fields', self.text)
+        self.assertNotIn('Moving Object Tracking And Reinforcement Learning for UAV', self.text)
         self.assertNotIn('Observe. Measure.', self.text)
         self.assertNotIn('overview-card', self.text)
 
@@ -107,10 +108,20 @@ class ResearchOverviewTest(unittest.TestCase):
             if name == 'stage' or name.startswith(('hud-','sl-','lbl-','btn-','cb-','sel-')):
                 self.assertIn(name, self.page.ids)
         self.assertIn('id="motion-mode-note"', self.text)
-        viewer = [s for s in archive.scripts if 'status_manifest' not in s]
-        self.assertEqual([s for s in self.page.scripts if 'status_manifest' not in s], viewer)
-        self.assertIn('value="routed-preview" selected', self.text)
+        def strip_ver(src):
+            return src.split('?')[0]
+        current = [s for s in self.page.scripts if 'status_manifest' not in s]
+        archive_scripts = [strip_ver(s) for s in archive.scripts if 'status_manifest' not in s]
+        self.assertTrue(any('arena_demo_planner.js' in s for s in current))
+        shared = [strip_ver(s) for s in current if 'arena_demo_planner' not in s]
+        self.assertEqual(shared, archive_scripts)
+        self.assertIn('value="gt-free-roam" selected', self.text)
+        self.assertIn('value="gt-route-track" selected', self.text)
+        self.assertIn('value="routed-preview"', self.text)
+        self.assertIn('BROWSER GT PREVIEW', self.text)
+        self.assertIn('NOT PPO · NOT PHYSX · NOT RESEARCH EVIDENCE', self.text)
         self.assertIn('NOT PhysX/PPO', self.text)
+        self.assertIn('browser-only visualization', self.text.lower())
 
     def test_current_claim_boundaries(self):
         for phrase in ('simulation-only', 'interception', 'no-selection', 'persistent physical identity',

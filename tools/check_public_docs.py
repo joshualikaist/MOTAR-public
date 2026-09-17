@@ -15,7 +15,8 @@ PUBLIC = ("README.md", "THIRD_PARTY_LICENSES.md", "docs/results_overview_2026-09
           "docs/external_data/ETH_DS5.md", "docs/eth_ds5_public_release_inventory_2026-09-14.md",
           "docs/public_release_status_2026-09-14.md",
           "docs/relation_to_published_systems_2026-09-16.md",
-          "docs/target_behavior_ladder_2026-09-16.md")
+          "docs/target_behavior_ladder_2026-09-16.md",
+          "docs/status/arena_motion_audit_2026-09-17.md")
 STATUS_VALUES = {"COMPLETE", "TECHNICAL_PASS", "TECHNICAL_GO", "FAIL", "PARTIAL_EVIDENCE", "PENDING",
                  "BLOCKED_BY_POLICY", "NOT_RUN", "GO", "INCONCLUSIVE", "NOT_STARTED"}
 
@@ -142,11 +143,12 @@ def check(root=ROOT):
     if "moving-target rendezvous" not in citation or "simulation-only" not in citation:
         errors.append("CFF public terminology/scope mismatch")
     title = (
-        "motar: moving object tracking and reinforcement learning "
-        "for uav pursuit in random obstacle fields"
+        "motar: moving object tracking and rendezvous"
     )
     if title not in readme.lower() or title not in citation:
         errors.append("MOTAR full title mismatch")
+    if "reinforcement learning for uav pursuit in random obstacle fields" not in readme.lower():
+        errors.append("MOTAR method subtitle missing")
     data = json.loads((root / "docs/status_manifest.json").read_text())
     errors += manifest_errors(data, root)
     registry = json.loads((root / "docs/research_status_registry.json").read_text())

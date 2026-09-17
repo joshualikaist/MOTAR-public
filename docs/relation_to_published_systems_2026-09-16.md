@@ -43,9 +43,9 @@ task, sensor and metric contract and run a Class B implementation inside it.
 
 ## Screening boundary
 
-Eighteen systems/papers were screened. The ten above were retained. The following eight were
-read but omitted from the compact site table because a selected row already covered the same axis
-more directly or because they were farther from single-pursuer perception-plus-clutter:
+Eighteen UAV systems/papers were screened. The ten above were retained. The following eight UAV
+systems were read but omitted from the compact site table because a selected row already covered
+the same axis more directly or because they were farther from single-pursuer perception-plus-clutter:
 
 - [BPMP-Tracker](https://arxiv.org/abs/2408.04266);
 - [Role-based MADDPG pursuit](https://arxiv.org/abs/2303.01799);
@@ -54,9 +54,11 @@ more directly or because they were farther from single-pursuer perception-plus-c
 - [Fast-Tracker 2.0](https://arxiv.org/abs/2103.06522);
 - [Eva-Tracker](https://arxiv.org/abs/2602.12549);
 - [AMS-DRL](https://arxiv.org/abs/2304.03443);
-- [MatrixWorld](https://arxiv.org/abs/2307.14854); and
-- [fictitious self-play](https://proceedings.mlr.press/v37/heinrich15.html), used only as a
-  methodological foundation.
+- [MatrixWorld](https://arxiv.org/abs/2307.14854).
+
+[Fictitious self-play](https://proceedings.mlr.press/v37/heinrich15.html) is a methodological
+foundation for later TM-E4 design. It is not a UAV system and is not counted among the 18
+screened systems.
 
 Reported percentages from any screened paper are not copied into the public table because none is
 measured on the MOTAR benchmark.

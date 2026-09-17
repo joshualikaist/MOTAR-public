@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="MOTAR — a simulation-only research paper page on measured perception uncertainty, dense-obstacle navigation, safety-filter diagnosis, and renderer evidence.">
 <meta name="theme-color" content="#ffffff">
-<title>MOTAR · Moving Object Tracking And Reinforcement Learning for UAV Pursuit in Random Obstacle Fields</title>
-<link rel="stylesheet" href="style.css?v=20260827r6">
-<link rel="stylesheet" href="overview.css?v=20260916r3">
+<title>MOTAR · Moving Object Tracking And Rendezvous</title>
+<link rel="stylesheet" href="style.css?v=20260917r1">
+<link rel="stylesheet" href="overview.css?v=20260917r1">
 </head>
 <body>
 <a class="skip-link" href="#abstract">본문 바로가기</a>
@@ -27,9 +27,9 @@
 <header class="paper-title">
 <p class="paper-kicker">Research software · simulation study</p>
 <h1>MOTAR</h1>
-<p class="paper-subtitle">Moving Object Tracking And Reinforcement Learning<br>for UAV Pursuit in Random Obstacle Fields</p>
+<p class="paper-subtitle">Moving Object Tracking And Rendezvous<br>Reinforcement Learning for UAV Pursuit in Random Obstacle Fields</p>
 <p class="paper-deck">Simulation-only UAV research on perception, tracking,<br class="desktop-only"> obstacle-aware navigation, and close approach.</p>
-<p class="paper-meta"><span>joshualikaist</span><span>Updated 16 September 2026</span><span>Software record; no published MOTAR paper</span></p>
+<p class="paper-meta"><span>joshualikaist</span><span>Updated 17 September 2026</span><span>Software record; no published MOTAR paper</span></p>
 <p class="paper-links"><a href="https://github.com/joshualikaist/MOTAR-public">Code</a><a href="../results_overview_2026-09-12.md">Documentation</a><a href="https://github.com/joshualikaist/MOTAR-public/blob/main/CITATION.cff">Citation</a></p>
 </header>
 
@@ -38,7 +38,7 @@
 <p lang="en">MOTAR is a simulation-only research repository for studying perception-aware motion toward moving objects in dense obstacle fields. It combines a documented UAV dynamics and control stack with camera and LiDAR observation models, structured temporal policy inputs, and diagnostic safety-filter variants. A separate real-image lineage measures detector and temporal-association errors and supports empirical error injection into simulation; it has not been validated as a live, end-to-end flight perception stack. The appearance track separates asset geometry, independent shading experiments, dynamic-mesh feasibility, and a read-only shadow-cost probe. Across these tracks, preregistrations, source and environment receipts, negative outcomes, and withdrawn claims are preserved alongside positive evidence. The current repository therefore provides bounded evidence about simulation behavior, measured perception uncertainty, filter geometry, and renderer engineering. It does not establish real-flight performance, sim-to-real transfer, reliable persistent instance identity, appearance-shortcut reduction, or deployment readiness.</p>
 </section>
 
-<figure class="paper-figure wide"><a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.svg" aria-label="Figure 1 원본 SVG 열기"><img src="../assets/paper/overview-2026-09-13/research-overview-block-diagram.svg" alt="MOTAR system overview." loading="eager" width="1600" height="900"></a><figcaption><strong>Figure 1. MOTAR: Moving Object Tracking And Reinforcement Learning for UAV Pursuit in Random Obstacle Fields.</strong> The central column describes the documented simulation research path. Real-image error measurement and appearance/renderer experiments remain separate evidence lineages. Line style denotes lifecycle rather than scientific verdict; the exact component states are loaded from the registry below. D8-A and D8b are distinguished in Table 5. <span class="figure-files"><a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.svg">SVG</a> · <a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.png">PNG</a> · <a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.pdf">PDF</a></span></figcaption></figure>
+<figure class="paper-figure wide"><a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.svg" aria-label="Figure 1 원본 SVG 열기"><img src="../assets/paper/overview-2026-09-13/research-overview-block-diagram.svg" alt="MOTAR system overview." loading="eager" width="1600" height="900"></a><figcaption><strong>Figure 1. MOTAR: Moving Object Tracking And Rendezvous.</strong> Reinforcement Learning for UAV Pursuit in Random Obstacle Fields. The central column describes the documented simulation research path. Real-image error measurement and appearance/renderer experiments remain separate evidence lineages. Line style denotes lifecycle rather than scientific verdict; the exact component states are loaded from the registry below. D8-A and D8b are distinguished in Table 5. <span class="figure-files"><a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.svg">SVG</a> · <a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.png">PNG</a> · <a href="../assets/paper/overview-2026-09-13/research-overview-block-diagram.pdf">PDF</a></span></figcaption></figure>
 
 <section class="paper-section" id="introduction">
 <h2><span>1</span> Introduction</h2>
@@ -69,15 +69,21 @@
           <div id="stage" role="img" aria-label="막대 장애물, 이동 표적, 추적 드론과 LiDAR 광선을 보여주는 3D arena">
             <p class="viewer-error">Loading 3D arena…</p>
           </div>
-          <div class="viewer-hud" aria-live="polite">
+          <div class="viewer-hud">
+            <strong class="gt-badge" id="hud-gt-badge">BROWSER GT PREVIEW
+NOT PPO · NOT PHYSX · NOT RESEARCH EVIDENCE</strong>
             <strong><span id="hud-bars">205</span> bars</strong>
             <span><span id="hud-density">12.8</span> / 100 m²</span>
             <span id="hud-camera" class="seen">DETECTED</span>
             <span id="hud-range">— m</span>
-            <span id="hud-motion-lineage">global route + bounded/lagged browser preview · NOT PhysX/PPO</span>
+            <span id="hud-follow-state">FOLLOWING</span>
+            <span id="hud-pursuer-state">GT TRACK</span>
+            <span id="hud-motion-lineage">BROWSER GT FREE ROAM · NOT PhysX/PPO · NOT TM-E3</span>
             <span id="hud-route-state">ROUTE PLANNING</span>
+            <span id="hud-click-feedback"></span>
             <span id="hud-pattern" hidden></span>
             <span id="hud-target-speed" hidden></span>
+            <span id="hud-a11y" class="sr-only" aria-live="polite"></span>
           </div>
         </div>
         <div class="viewer-controls">
@@ -88,14 +94,23 @@
               <option value="legacy">Historical legacy point · ARCHIVED semantics</option>
               <option value="bounded">TM-E2 bounded local steering · NOT policy-compared</option>
               <option value="physical-style">Physical-style display · NOT TESTED / NOT PhysX</option>
-              <option value="routed-preview" selected>TM-E2 obstacle-aware routed preview · NOT PhysX/PPO</option>
+              <option value="routed-preview">TM-E2 obstacle-aware routed preview · NOT PhysX/PPO</option>
+              <option value="gt-free-roam" selected>Browser GT free roam · NOT PhysX/PPO · NOT TM-E3</option>
             </select>
           </label>
-          <details class="viewer-note"><summary>TM-E2 routed-preview details</summary><p class="motion-mode-note" id="motion-mode-note"><strong>TM-E2 obstacle-aware scripted preview:</strong> 0.25 m
-            deterministic global route, exact bar AABB, 0.45 m tracking reserve, target 3-D box
-            half-diagonal support(0.2069 m), boundary 1.25 m + support, certified corner handoff,
-            실패 후 직전 goal 1.0 m exclusion을 적용합니다. 대안 경로가 없으면 zero command입니다.
-            Global route + bounded/lagged browser preview · NOT PhysX/PPO.</p></details>
+          <label class="motion-mode-control">Pursuer display
+            <select id="sel-pursuer-display" aria-describedby="motion-mode-note">
+              <option value="local-heuristic">Local heuristic (historical browser)</option>
+              <option value="gt-route-track" selected>GT route tracking · browser preview only</option>
+            </select>
+          </label>
+          <label class="motion-mode-control">Target goal
+            <select id="sel-target-goal">
+              <option value="auto" selected>AUTO ROAM</option>
+              <option value="click">CLICK / TAP GOAL</option>
+            </select>
+          </label>
+          <details class="viewer-note"><summary>Browser GT preview details</summary><p class="motion-mode-note" id="motion-mode-note"><strong>Browser GT Tracking Preview:</strong> exact browser target state and obstacle AABBs are used only to draw an explanatory chase. This is not the PPO policy, not PhysX, not TM-E3, and not a performance measurement. Historical local-heuristic and TM-E2 routed-preview modes remain available. Click/tap the ground in CLICK GOAL to send the target; invalid clicks are rejected.</p></details>
           <div class="viewer-buttons">
             <button id="btn-play" type="button" aria-pressed="true">Pause</button>
             <button id="btn-view" type="button">시점 · overview</button>
@@ -108,7 +123,7 @@
           </div>
         </div>
 
-<figcaption><strong>Figure 2. Interactive simulation environment.</strong> The view illustrates a 40 × 40 × 3 m research arena, configurable bar density, camera field of view, LiDAR rays, and a moving-object display. The browser advances a fixed 10 Hz explanatory clock and interpolates the display; each experiment’s actual geometry, motion family, and timing remain defined by its receipt. <span class="figure-files"><a href="archive-2026-09-13.html#arena">Detailed lineage notes</a></span></figcaption>
+<figcaption><strong>Figure 2. Interactive simulation environment.</strong> The view illustrates a 40 × 40 × 3 m research arena, configurable bar density, camera field of view, LiDAR rays, and a moving-object display. The interactive GT tracking preview is a browser-only visualization. It has access to exact target and obstacle state for explanatory motion and is not the PPO policy, sensor-only observation contract, PhysX rollout, or a performance measurement. The browser advances a fixed 10 Hz explanatory clock and interpolates the display; each experiment’s actual geometry, motion family, and timing remain defined by its receipt. <span class="figure-files"><a href="archive-2026-09-13.html#arena">Detailed lineage notes</a></span></figcaption>
 </figure>
 
 <h3>2.2 Platform and sensors</h3>
@@ -343,12 +358,13 @@ TM-E0–TM-E4 ladder avoids collision with the existing E3 range-study names.</p
 </main>
 
 <footer class="paper-footer"><p>MOTAR · simulation research · no real-flight validation claim</p></footer>
-<script src="status_manifest.js?v=20260916r3" defer></script>
+<script src="status_manifest.js?v=20260917r1" defer></script>
 <script src="vendor/three.min.js?v=20260827r6"></script>
 <script src="vendor/OrbitControls.js?v=20260827r6"></script>
-<script src="arena_route.js?v=20260827r6"></script>
-<script src="arena_motion.js?v=20260827r6"></script>
-<script src="arena.js?v=20260827r6"></script>
-<script src="viewer.js?v=20260827r6"></script>
+<script src="arena_route.js?v=20260917r1"></script>
+<script src="arena_motion.js?v=20260917r1"></script>
+<script src="arena_demo_planner.js?v=20260917r1"></script>
+<script src="arena.js?v=20260917r1"></script>
+<script src="viewer.js?v=20260917r1"></script>
 </body>
 </html>

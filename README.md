@@ -1,6 +1,7 @@
 # MOTAR
 
-MOTAR: Moving Object Tracking And Reinforcement Learning for UAV Pursuit in Random Obstacle Fields.
+MOTAR: Moving Object Tracking And Rendezvous.
+Reinforcement Learning for UAV Pursuit in Random Obstacle Fields.
 
 ![Research sources, analysis and recorded outputs](docs/assets/paper/system-overview-block-diagram.svg)
 
@@ -163,8 +164,10 @@ to retained upstream notices. This does **not** apply to every data file or depe
 ETH ds5 source and derived review images/ZIPs are **not redistributed in the current tree**.
 Obtain ETH ds5 separately from its original distributor under **CC BY-NC-SA 4.0**, not BSD:
 [external acquisition and reproduction](docs/external_data/ETH_DS5.md).
-Analysis code, numerical evidence and historical provenance remain available. Older Git history
-still contains review assets; see [release status](docs/public_release_status_2026-09-14.md).
+Analysis code, numerical evidence and historical provenance remain available. The original
+research repository's historical Git history contains earlier review assets. The public
+MOTAR-public history does not include those objects; see
+[release status](docs/public_release_status_2026-09-14.md).
 
 ## Acknowledgements
 

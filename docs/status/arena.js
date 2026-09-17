@@ -15,22 +15,112 @@ window.Arena = (() => {
   if (!Motion) throw new Error('NavRLArenaMotion missing (arena_motion.js)');
   const Route = window.NavRLArenaRoute;
   if (!Route) throw new Error('NavRLArenaRoute missing (arena_route.js)');
+  const Planner = window.NavRLArenaDemoPlanner;
+  if (!Planner) throw new Error('NavRLArenaDemoPlanner missing (arena_demo_planner.js)');
 
   let scene, cam, renderer, controls, root, barMesh, drone, target, cameraFov, lidarLines;
-  let pursuerTrail, targetTrail, routeLine, targetHalo, resizeObserver;
-  let groundMat, gridHelper, rimLight;
+  let pursuerTrail, targetTrail, routeLine, pursuerRouteLine, leadLine, followMark, targetHalo, resizeObserver;
+  let groundMat, gridHelper, rimLight, groundMesh, sunLight;
   let bars = [], playing = true, speedCeiling = 1.5, viewMode = 0;
-  let targetMotionMode = 'routed-preview';
-  let currentBars = 25, layoutSeed = 20260728, episode;
-  let showTrails = true, frame = 0, visible = true;
-  let host, lastDrone = { x: 1, y: 0 }, trailA = [], trailB = [];
-  let lastT = 0, vel = { x: 0, y: 0 }, heading = 0, simPrev, simCurr;
+  let targetMotionMode = 'gt-free-roam';
+  let pursuerDisplayMode = 'gt-route-track';
+  let targetGoalMode = 'auto';
+  let currentBars = 25, layoutSeed = 20260728, episode, gtSession;
+  let showTrails = true, frame = 0, visible = true, lidarNeedsDraw = true;
+  let host, lastDrone = { x: 1, y: 0 };
+  let lastT = 0, vel = { x: 0, y: 0 }, heading = 0, simPrev, simCurr, simTime = 0;
+  let clickFeedbackUntil = 0, clickFeedbackText = '';
+  let a11yUntil = 0, a11yLast = '';
   const simClock = Motion.createFixedStepClock(0.1, 0.25, 8);
   const motionRng = Motion.seededRng(8675309);
   const routeSupport = Route.conservativeXYSupportFromBox(Route.CONTRACT.physicalBoxXYZ);
+  const TRAIL_MAX = 420;
+  const hud = {};
+  const tmpV3a = new THREE.Vector3();
+  const tmpV3b = new THREE.Vector3();
+  const tmpQuat = new THREE.Quaternion();
+  const tmpRay = new THREE.Raycaster();
+  const tmpPtr = new THREE.Vector2();
+  const pointerDown = {x: 0, y: 0, active: false};
 
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = matchMedia('(pointer: coarse)').matches;
+
+  function cacheHud() {
+    [
+      'hud-pattern', 'hud-target-speed', 'hud-motion-lineage', 'hud-route-state',
+      'hud-camera', 'hud-range', 'hud-gt-badge', 'hud-follow-state',
+      'hud-pursuer-state', 'hud-click-feedback', 'hud-a11y', 'btn-view',
+    ].forEach(function (id) { hud[id] = document.getElementById(id); });
+  }
+
+  function gtPreviewActive() {
+    return pursuerDisplayMode === 'gt-route-track' || targetMotionMode === 'gt-free-roam';
+  }
+
+  function makeDynamicLine(color, opacity, maxPoints) {
+    const positions = new Float32Array(maxPoints * 3);
+    const geom = new THREE.BufferGeometry();
+    const attr = new THREE.BufferAttribute(positions, 3);
+    if (attr.setUsage && THREE.DynamicDrawUsage) attr.setUsage(THREE.DynamicDrawUsage);
+    geom.setAttribute('position', attr);
+    geom.setDrawRange(0, 0);
+    const mesh = new THREE.Line(geom, new THREE.LineBasicMaterial({
+      color: color, transparent: opacity < 1, opacity: opacity,
+    }));
+    return {mesh: mesh, positions: positions, count: 0, max: maxPoints, last: null};
+  }
+
+  function resetTrail(trail) {
+    trail.count = 0;
+    trail.last = null;
+    trail.mesh.geometry.setDrawRange(0, 0);
+    trail.mesh.geometry.attributes.position.needsUpdate = true;
+  }
+
+  function pushTrail(trail, x, y, z) {
+    if (!showTrails) { trail.mesh.visible = false; return; }
+    trail.mesh.visible = true;
+    const last = trail.last;
+    if (last && (x - last.x) * (x - last.x) + (y - last.y) * (y - last.y)
+        + (z - last.z) * (z - last.z) < 0.0144) return;
+    if (trail.count >= trail.max) {
+      trail.positions.copyWithin(0, 3);
+      trail.count = trail.max - 1;
+    }
+    const i = trail.count * 3;
+    trail.positions[i] = x;
+    trail.positions[i + 1] = y;
+    trail.positions[i + 2] = z;
+    trail.count += 1;
+    trail.last = {x: x, y: y, z: z};
+    trail.mesh.geometry.setDrawRange(0, trail.count);
+    trail.mesh.geometry.attributes.position.needsUpdate = true;
+  }
+
+  function writeLinePoints(lineObj, points) {
+    const geom = lineObj.geometry;
+    let attr = geom.getAttribute('position');
+    const need = Math.max(2, points.length);
+    if (!attr || attr.count < need) {
+      geom.dispose();
+      const positions = new Float32Array(Math.max(need, 16) * 3);
+      attr = new THREE.BufferAttribute(positions, 3);
+      if (attr.setUsage && THREE.DynamicDrawUsage) attr.setUsage(THREE.DynamicDrawUsage);
+      geom.setAttribute('position', attr);
+    }
+    const arr = attr.array;
+    for (let i = 0; i < points.length; i++) {
+      arr[i * 3] = points[i].x;
+      arr[i * 3 + 1] = points[i].y;
+      arr[i * 3 + 2] = points[i].z;
+    }
+    geom.setDrawRange(0, points.length);
+    attr.needsUpdate = true;
+    if (lineObj.material && lineObj.material.isLineDashedMaterial && geom.computeLineDistances) {
+      geom.computeLineDistances();
+    }
+  }
 
   function arenaSpan() {
     return Math.max(X1 - X0, Y1 - Y0);
@@ -140,18 +230,41 @@ window.Arena = (() => {
     if (regenerateBars) makeBars(currentBars);
     episode = Motion.createEpisode(motionRng, bars, speedCeiling);
     if (targetMotionMode === 'routed-preview') planRoutedEpisode();
+    if (gtPreviewActive()) rebuildGtSession(false);
     drone.position.set(episode.drone.x, 1, episode.drone.y);
     target.position.set(episode.target.x, 1, episode.target.y);
     heading = motionRng() * Math.PI * 2 - Math.PI;
     vel = { x: 0, y: 0 };
     lastDrone = { x: episode.drone.x, y: episode.drone.y };
     simPrev = simCurr = snapshotSimulation();
-    trailA.length = 0;
-    trailB.length = 0;
-    if (pursuerTrail) pursuerTrail.geometry.setFromPoints([]);
-    if (targetTrail) targetTrail.geometry.setFromPoints([]);
+    if (pursuerTrail) resetTrail(pursuerTrail);
+    if (targetTrail) resetTrail(targetTrail);
     updateMotionHud();
     updateRouteLine();
+    lidarNeedsDraw = true;
+  }
+
+  function rebuildGtSession(keepPose) {
+    const startTarget = keepPose && gtSession
+      ? {x: gtSession.target.x, y: gtSession.target.y, heading: gtSession.target.heading}
+      : {x: episode.target.x, y: episode.target.y, heading: episode.heading};
+    const startPursuer = keepPose && gtSession
+      ? {x: gtSession.pursuer.x, y: gtSession.pursuer.y, heading: gtSession.pursuer.heading}
+      : {x: episode.drone.x, y: episode.drone.y, heading: heading};
+    gtSession = Planner.createSession({
+      bars: bars,
+      arenaLo: {x: X0, y: Y0},
+      arenaHi: {x: X1, y: Y1},
+      rng: motionRng,
+      speed: speedCeiling,
+      target: startTarget,
+      pursuer: startPursuer,
+      goalMode: targetGoalMode,
+    });
+    if (keepPose && episode) {
+      episode.target.x = gtSession.target.x;
+      episode.target.y = gtSession.target.y;
+    }
   }
 
   function planRoutedEpisode() {
@@ -215,65 +328,158 @@ window.Arena = (() => {
   }
 
   function updateRouteLine() {
-    if (!routeLine) return;
-    const route = episode && episode.route;
-    const visible = targetMotionMode === 'routed-preview' && route && route.valid;
-    routeLine.visible = Boolean(visible);
-    const points = visible ? [new THREE.Vector3(episode.target.x, .10, episode.target.y)] : [];
-    if (visible) {
-      route.waypoints.slice(route.cursor).forEach(p => {
-        const previous = points[points.length - 1];
-        if (!previous || Math.hypot(previous.x - p.x, previous.z - p.y) > 1e-6) {
-          points.push(new THREE.Vector3(p.x, .10, p.y));
-        }
-      });
+    const targetRoute = targetMotionMode === 'gt-free-roam'
+      ? (gtSession && gtSession.target.route)
+      : (episode && episode.route);
+    const showTarget = Boolean(
+      (targetMotionMode === 'routed-preview' || targetMotionMode === 'gt-free-roam')
+      && targetRoute && targetRoute.valid
+    );
+    if (routeLine) {
+      routeLine.visible = showTarget;
+      const points = [];
+      if (showTarget) {
+        const origin = targetMotionMode === 'gt-free-roam'
+          ? gtSession.target : episode.target;
+        points.push(new THREE.Vector3(origin.x, .10, origin.y));
+        (targetRoute.waypoints || []).slice(targetRoute.cursor || 0).forEach(function (p) {
+          const previous = points[points.length - 1];
+          if (!previous || Math.hypot(previous.x - p.x, previous.z - p.y) > 1e-6) {
+            points.push(new THREE.Vector3(p.x, .10, p.y));
+          }
+        });
+      }
+      writeLinePoints(routeLine, points);
     }
-    routeLine.geometry.setFromPoints(points);
+    const pursuerRoute = gtSession && gtSession.pursuer.route;
+    const showPursuer = pursuerDisplayMode === 'gt-route-track'
+      && pursuerRoute && pursuerRoute.valid;
+    if (pursuerRouteLine) {
+      pursuerRouteLine.visible = Boolean(showPursuer);
+      const points = [];
+      if (showPursuer) {
+        points.push(new THREE.Vector3(gtSession.pursuer.x, .12, gtSession.pursuer.y));
+        pursuerRoute.waypoints.slice(pursuerRoute.cursor || 0).forEach(function (p) {
+          const previous = points[points.length - 1];
+          if (!previous || Math.hypot(previous.x - p.x, previous.z - p.y) > 1e-6) {
+            points.push(new THREE.Vector3(p.x, .12, p.y));
+          }
+        });
+      }
+      writeLinePoints(pursuerRouteLine, points);
+    }
+    const lead = gtSession && gtSession.pursuer.lead;
+    if (leadLine) {
+      const showLead = pursuerDisplayMode === 'gt-route-track' && lead;
+      leadLine.visible = Boolean(showLead);
+      writeLinePoints(leadLine, showLead ? [
+        new THREE.Vector3(episode.target.x, .16, episode.target.y),
+        new THREE.Vector3(lead.x, .16, lead.y),
+      ] : []);
+    }
+    if (followMark) {
+      const show = pursuerDisplayMode === 'gt-route-track' && lead;
+      followMark.visible = Boolean(show);
+      if (show) followMark.position.set(lead.x, .02, lead.y);
+    }
   }
 
   function snapshotSimulation() {
-    const targetHeading = episode && Math.hypot(
-      episode.realizedVelocity.x, episode.realizedVelocity.y
-    ) > .02 ? Math.atan2(episode.realizedVelocity.y, episode.realizedVelocity.x)
-      : (episode ? episode.heading : 0);
+    const fromGtTarget = targetMotionMode === 'gt-free-roam' && gtSession;
+    const fromGtPursuer = pursuerDisplayMode === 'gt-route-track' && gtSession;
+    const targetHeading = fromGtTarget
+      ? gtSession.target.heading
+      : (episode && Math.hypot(
+        episode.realizedVelocity.x, episode.realizedVelocity.y
+      ) > .02 ? Math.atan2(episode.realizedVelocity.y, episode.realizedVelocity.x)
+        : (episode ? episode.heading : 0));
+    const attitudeMode = ['physical-style', 'routed-preview', 'gt-free-roam'].includes(targetMotionMode);
+    const pursuerAttitude = fromGtPursuer
+      ? Planner.visualAttitude(
+        {x: gtSession.pursuer.vx, y: gtSession.pursuer.vy},
+        gtSession.pursuer.accel, gtSession.pursuer.heading
+      )
+      : {heading: heading, roll: 0, pitch: 0};
     return {
-      droneX: drone ? drone.position.x : lastDrone.x,
-      droneY: drone ? drone.position.z : lastDrone.y,
-      droneHeading: heading,
-      targetX: episode ? episode.target.x : 0,
-      targetY: episode ? episode.target.y : 0,
+      droneX: fromGtPursuer ? gtSession.pursuer.x : (drone ? drone.position.x : lastDrone.x),
+      droneY: fromGtPursuer ? gtSession.pursuer.y : (drone ? drone.position.z : lastDrone.y),
+      droneHeading: fromGtPursuer ? gtSession.pursuer.heading : heading,
+      droneRoll: fromGtPursuer ? Math.atan(pursuerAttitude.roll) : 0,
+      dronePitch: fromGtPursuer ? Math.atan(pursuerAttitude.pitch) : 0,
+      targetX: fromGtTarget ? gtSession.target.x : (episode ? episode.target.x : 0),
+      targetY: fromGtTarget ? gtSession.target.y : (episode ? episode.target.y : 0),
       targetHeading: targetHeading,
-      targetRoll: episode && ['physical-style', 'routed-preview'].includes(targetMotionMode)
-        ? Math.atan(episode.physicalStyle.roll) : 0,
-      targetPitch: episode && ['physical-style', 'routed-preview'].includes(targetMotionMode)
-        ? Math.atan(episode.physicalStyle.pitch) : 0,
+      targetRoll: fromGtTarget ? Math.atan(gtSession.target.roll)
+        : (episode && attitudeMode ? Math.atan(episode.physicalStyle.roll) : 0),
+      targetPitch: fromGtTarget ? Math.atan(gtSession.target.pitch)
+        : (episode && attitudeMode ? Math.atan(episode.physicalStyle.pitch) : 0),
     };
   }
 
   function updateMotionHud() {
-    const mode = document.getElementById('hud-pattern');
-    const sampled = document.getElementById('hud-target-speed');
+    const mode = hud['hud-pattern'];
+    const sampled = hud['hud-target-speed'];
     if (mode && episode) mode.textContent = `mixed → ${episode.mode}`;
     if (sampled && episode) sampled.textContent = `${episode.speed.toFixed(2)} m/s sampled`;
-    const lineage = document.getElementById('hud-motion-lineage');
+    const lineage = hud['hud-motion-lineage'];
     if (lineage) lineage.textContent = {
       legacy: 'historical legacy · checkpointed virtual point',
       bounded: 'TM-E2 local obstacle-aware · NOT policy-compared',
       'physical-style': 'NOT TESTED physical-style · illustrative, not PhysX',
       'routed-preview': 'TM-E2 global route + bounded/lagged browser preview · NOT PhysX/PPO',
+      'gt-free-roam': 'BROWSER GT FREE ROAM · NOT PhysX/PPO · NOT TM-E3',
     }[targetMotionMode];
-    const routeState = document.getElementById('hud-route-state');
+    const routeState = hud['hud-route-state'];
     if (routeState) {
-      const route = episode && episode.route;
-      if (targetMotionMode !== 'routed-preview') {
-        routeState.textContent = ''; routeState.classList.remove('route-warning');
-      } else if (route && route.valid) {
-        routeState.textContent = `ROUTE OK · ${route.waypoints.length} points · ${route.pathLengthM.toFixed(1)} m · goals ${episode.routeGoalReplacements || 0} · same-goal blocks ${episode.sameGoalReselectionCount || 0}`;
-        routeState.classList.remove('route-warning');
+      if (targetMotionMode === 'gt-free-roam' && gtSession) {
+        const route = gtSession.target.route;
+        const label = gtSession.labels.target;
+        if (route && route.valid) {
+          routeState.textContent = `${label} · ${route.waypoints.length} pts · ${(route.pathLengthM || 0).toFixed(1)} m · ${gtSession.target.status}`;
+          routeState.classList.remove('route-warning');
+        } else {
+          routeState.textContent = `${label} · NO SAFE ROUTE · STOP + REPLAN`;
+          routeState.classList.add('route-warning');
+        }
       } else {
-        routeState.textContent = `NO ROUTE · ZERO COMMAND · ${(route && route.status) || 'unplanned'} · same-goal blocks ${episode && episode.sameGoalReselectionCount || 0}`;
-        routeState.classList.add('route-warning');
+        const route = episode && episode.route;
+        if (targetMotionMode !== 'routed-preview') {
+          routeState.textContent = ''; routeState.classList.remove('route-warning');
+        } else if (route && route.valid) {
+          routeState.textContent = `ROUTE OK · ${route.waypoints.length} points · ${route.pathLengthM.toFixed(1)} m · goals ${episode.routeGoalReplacements || 0} · same-goal blocks ${episode.sameGoalReselectionCount || 0}`;
+          routeState.classList.remove('route-warning');
+        } else {
+          routeState.textContent = `NO ROUTE · ZERO COMMAND · ${(route && route.status) || 'unplanned'} · same-goal blocks ${episode && episode.sameGoalReselectionCount || 0}`;
+          routeState.classList.add('route-warning');
+        }
       }
+    }
+    const badge = hud['hud-gt-badge'];
+    if (badge) {
+      badge.hidden = !gtPreviewActive();
+      badge.textContent = 'BROWSER GT PREVIEW\nNOT PPO · NOT PHYSX · NOT RESEARCH EVIDENCE';
+    }
+    const follow = hud['hud-follow-state'];
+    if (follow) {
+      follow.textContent = pursuerDisplayMode === 'gt-route-track' && gtSession
+        ? gtSession.pursuer.status : 'LOCAL HEURISTIC';
+      follow.classList.toggle('route-warning', gtSession && gtSession.pursuer.status === 'NO SAFE ROUTE');
+    }
+    const pursuerHud = hud['hud-pursuer-state'];
+    if (pursuerHud && gtSession && pursuerDisplayMode === 'gt-route-track') {
+      const range = Math.hypot(gtSession.pursuer.x - gtSession.target.x, gtSession.pursuer.y - gtSession.target.y);
+      const speed = Math.hypot(gtSession.pursuer.vx, gtSession.pursuer.vy);
+      const path = gtSession.pursuer.route && gtSession.pursuer.route.valid
+        ? gtSession.pursuer.route.pathLengthM.toFixed(1) : '—';
+      pursuerHud.textContent = `GT TRACK · ${speed.toFixed(2)} m/s · ${range.toFixed(1)} m · route ${path} m · replans ${gtSession.pursuer.replanCount}`;
+    } else if (pursuerHud) {
+      pursuerHud.textContent = pursuerDisplayMode === 'local-heuristic'
+        ? 'LOCAL HEURISTIC · historical browser' : '';
+    }
+    const clickEl = hud['hud-click-feedback'];
+    if (clickEl) {
+      if (performance.now() < clickFeedbackUntil) clickEl.textContent = clickFeedbackText;
+      else clickEl.textContent = '';
     }
   }
 
@@ -366,8 +572,20 @@ window.Arena = (() => {
     }
   }
 
+  function applyQuality() {
+    if (!renderer || !host || !sunLight) return;
+    const reduced = coarsePointer || host.clientWidth < 700;
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, reduced ? 1.25 : 2));
+    renderer.shadowMap.enabled = !reduced;
+    sunLight.castShadow = !reduced;
+    const map = reduced ? 1024 : 2048;
+    sunLight.shadow.mapSize.set(map, map);
+    if (barMesh) barMesh.castShadow = !reduced;
+  }
+
   function init(el) {
     host = el;
+    cacheHud();
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xd5e7f2);
     scene.fog = new THREE.FogExp2(0xd5e7f2, 0.012 * 24 / arenaSpan());
@@ -378,9 +596,9 @@ window.Arena = (() => {
     setOverviewCamera();
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, coarsePointer ? 1.25 : 2));
     renderer.setSize(w, h, false);
-    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.enabled = !coarsePointer; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.domElement.style.display = 'block';
@@ -402,6 +620,7 @@ window.Arena = (() => {
 
     scene.add(new THREE.HemisphereLight(0xf2f8fc, 0xb7c6d0, 0.95));
     const dl = new THREE.DirectionalLight(0xffffff, 1.55);
+    sunLight = dl;
     const span = arenaSpan();
     dl.position.set(-span * .42, Math.max(28, span * .7), span * .5); dl.castShadow = true;
     dl.shadow.mapSize.set(2048, 2048);
@@ -419,6 +638,7 @@ window.Arena = (() => {
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(X1 - X0, Y1 - Y0), groundMat);
     ground.rotation.x = -Math.PI / 2; ground.position.set(centerX, -.02, centerY);
     ground.receiveShadow = true; root.add(ground);
+    groundMesh = ground;
 
     gridHelper = new THREE.GridHelper(span, Math.max(2, Math.round(span)), 0x9bb4c4, 0xc5d5e0);
     gridHelper.position.set(centerX, 0.01, centerY); root.add(gridHelper);
@@ -442,21 +662,33 @@ window.Arena = (() => {
     lidarLines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({
       color: 0x0a7f88, transparent: true, opacity: .55 }));
     root.add(lidarLines);
-    pursuerTrail = line([], 0x178a52, .85); targetTrail = line([], 0xe04545, .7);
+    pursuerTrail = makeDynamicLine(0x178a52, .85, TRAIL_MAX);
+    targetTrail = makeDynamicLine(0xe04545, .7, TRAIL_MAX);
     routeLine = line([], 0xf3a536, .95);
+    pursuerRouteLine = line([], 0x1aa86a, .9);
+    leadLine = line([], 0x5b6b75, .85);
+    followMark = new THREE.Mesh(new THREE.RingGeometry(.22, .32, 24), new THREE.MeshBasicMaterial({
+      color: 0x1aa86a, transparent: true, opacity: .9, side: THREE.DoubleSide, depthTest: false,
+    }));
+    followMark.rotation.x = -Math.PI / 2;
+    followMark.visible = false;
     routeLine.material.depthTest = false; routeLine.renderOrder = 4;
-    root.add(pursuerTrail, targetTrail, routeLine);
+    pursuerRouteLine.material.depthTest = false; pursuerRouteLine.renderOrder = 4;
+    leadLine.material.depthTest = false; leadLine.renderOrder = 5;
+    root.add(pursuerTrail.mesh, targetTrail.mesh, routeLine, pursuerRouteLine, leadLine, followMark);
 
     makeBars(currentBars);
     resetEpisode(false);
     applyTheme();
+    applyQuality();
 
-    resizeObserver = new ResizeObserver(() => onResize());
+    resizeObserver = new ResizeObserver(() => { onResize(); applyQuality(); });
     resizeObserver.observe(el);
     // layout can settle a frame later — force a second resize
     requestAnimationFrame(() => { onResize(); requestAnimationFrame(onResize); });
 
     addEventListener('keydown', e => { if (e.key.toLowerCase() === 'v') cycleView(); });
+    bindGoalPointer(renderer.domElement);
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       // Drop off-screen elapsed time immediately. Depending on the browser, RAF may be suspended
@@ -481,6 +713,64 @@ window.Arena = (() => {
     cam.aspect = w / h;
     cam.updateProjectionMatrix();
     renderer.setSize(w, h, false);
+  }
+
+  function bindGoalPointer(canvas) {
+    canvas.addEventListener('pointerdown', function (event) {
+      pointerDown.active = true;
+      pointerDown.x = event.clientX;
+      pointerDown.y = event.clientY;
+    });
+    canvas.addEventListener('pointerup', function (event) {
+      if (!pointerDown.active) return;
+      pointerDown.active = false;
+      if (Math.hypot(event.clientX - pointerDown.x, event.clientY - pointerDown.y) > 8) return;
+      if (viewMode !== 0 || targetGoalMode !== 'click' || targetMotionMode !== 'gt-free-roam') return;
+      setGoalFromPointer(event);
+    });
+  }
+
+  function setGoalFromPointer(event) {
+    if (!groundMesh || !cam || !gtSession) return;
+    const rect = renderer.domElement.getBoundingClientRect();
+    tmpPtr.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    tmpPtr.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    tmpRay.setFromCamera(tmpPtr, cam);
+    const hits = tmpRay.intersectObject(groundMesh);
+    if (!hits.length) {
+      showClickFeedback('Click the ground to set a target goal.');
+      return;
+    }
+    const local = root.worldToLocal(hits[0].point.clone());
+    const result = Planner.setClickGoal(gtSession, {x: local.x, y: local.z});
+    if (!result.ok) {
+      showClickFeedback({
+        out_of_bounds: 'Goal rejected: outside arena bounds',
+        inside_bar: 'Goal rejected: inside a bar',
+        unsafe: 'Goal rejected: inflated unsafe region',
+      }[result.reason] || 'Goal rejected');
+      return;
+    }
+    targetGoalMode = 'click';
+    showClickFeedback('Target goal set');
+    updateRouteLine();
+    updateMotionHud();
+  }
+
+  function showClickFeedback(text) {
+    clickFeedbackText = text;
+    clickFeedbackUntil = performance.now() + 1800;
+    updateMotionHud();
+  }
+
+  function announceFollow(now) {
+    const node = hud['hud-a11y'];
+    if (!node) return;
+    const text = (gtSession && gtSession.pursuer.status) || '';
+    if (!text || text === a11yLast || now < a11yUntil) return;
+    a11yLast = text;
+    a11yUntil = now + 2500;
+    node.textContent = 'Pursuer ' + text;
   }
 
   function rayHit(x, y, z, yaw, elevation, maxRange) {
@@ -514,12 +804,13 @@ window.Arena = (() => {
   function drawLidar(x, y) {
     if (!lidarLines.visible) return;
     const a = lidarLines.geometry.attributes.position.array; let k = 0;
+    const hStep = coarsePointer ? 2 : 1;
     for (let layer = 0; layer < LIDAR_VBEAMS; layer++) for (let i = 0; i < LIDAR_HBEAMS; i++) {
       const ang = i / LIDAR_HBEAMS * Math.PI * 2;
       const elev = LIDAR_ELEVATION_MIN
         + layer / Math.max(1, LIDAR_VBEAMS - 1) * (LIDAR_ELEVATION_MAX - LIDAR_ELEVATION_MIN);
       const h = 1;
-      const hit = rayHit(x, y, h, ang, elev, LIDAR_RANGE);
+      const hit = (i % hStep === 0) ? rayHit(x, y, h, ang, elev, LIDAR_RANGE) : LIDAR_RANGE;
       const planar = Math.cos(elev) * hit;
       a[k++] = x; a[k++] = h; a[k++] = y;
       a[k++] = x + Math.cos(ang) * planar;
@@ -537,27 +828,19 @@ window.Arena = (() => {
     return { range, visible: inFov && hit >= range - .28, occluded: inFov && hit < range - .28, inFov };
   }
 
-  function updateTrail(obj, arr, lineObj) {
-    const p = obj.position;
-    const last = arr.length ? arr[arr.length - 1] : null;
-    if (last && last.distanceToSquared(p) < 0.0144) return;
-    arr.push(p.clone()); if (arr.length > 420) arr.shift();
-    lineObj.geometry.dispose();
-    lineObj.geometry = new THREE.BufferGeometry().setFromPoints(arr);
-    lineObj.visible = showTrails;
-  }
-
   function updateCamera() {
     if (viewMode === 0) { controls.enabled = true; return; }
     controls.enabled = false;
-    const wp = new THREE.Vector3(); drone.getWorldPosition(wp);
-    const dir = new THREE.Vector3(1, 0, 0).applyQuaternion(drone.getWorldQuaternion(new THREE.Quaternion()));
+    drone.getWorldPosition(tmpV3a);
+    tmpV3b.set(1, 0, 0).applyQuaternion(drone.getWorldQuaternion(tmpQuat));
     if (viewMode === 1) {
-      cam.position.copy(wp).addScaledVector(dir, -3.4).add(new THREE.Vector3(0, 2.1, 0));
-      cam.lookAt(wp.clone().addScaledVector(dir, 4));
+      cam.position.copy(tmpV3a).addScaledVector(tmpV3b, -3.4);
+      cam.position.y += 2.1;
+      cam.lookAt(tmpV3a.x + tmpV3b.x * 4, tmpV3a.y, tmpV3a.z + tmpV3b.z * 4);
     } else {
-      cam.position.copy(wp).add(new THREE.Vector3(0, .12, 0)).addScaledVector(dir, .24);
-      cam.lookAt(wp.clone().addScaledVector(dir, 8));
+      cam.position.copy(tmpV3a).addScaledVector(tmpV3b, .24);
+      cam.position.y += .12;
+      cam.lookAt(tmpV3a.x + tmpV3b.x * 8, tmpV3a.y, tmpV3a.z + tmpV3b.z * 8);
     }
   }
 
@@ -568,10 +851,44 @@ window.Arena = (() => {
   function simulationStep(dt) {
     if (!episode) resetEpisode(false);
     simPrev = simCurr || snapshotSimulation();
-    Motion.advanceTarget(episode, dt, bars, motionRng, targetMotionMode);
-    if (targetMotionMode === 'routed-preview') {
+    if (gtSession) gtSession.time += dt;
+    if (targetMotionMode === 'gt-free-roam') {
+      if (!gtSession) rebuildGtSession(false);
+      Planner.stepTargetFreeRoam(gtSession, dt);
+      episode.target.x = gtSession.target.x;
+      episode.target.y = gtSession.target.y;
+      episode.realizedVelocity.x = gtSession.target.vx;
+      episode.realizedVelocity.y = gtSession.target.vy;
+      episode.heading = gtSession.target.heading;
+      episode.physicalStyle.velocity = {x: gtSession.target.vx, y: gtSession.target.vy};
+      episode.physicalStyle.roll = gtSession.target.roll;
+      episode.physicalStyle.pitch = gtSession.target.pitch;
+      episode.age += dt;
+    } else {
+      Motion.advanceTarget(episode, dt, bars, motionRng, targetMotionMode);
+      if (gtSession) {
+        gtSession.target.x = episode.target.x;
+        gtSession.target.y = episode.target.y;
+        gtSession.target.vx = episode.realizedVelocity.x;
+        gtSession.target.vy = episode.realizedVelocity.y;
+        gtSession.target.heading = episode.heading;
+      }
+    }
+    if (targetMotionMode === 'routed-preview' || gtPreviewActive()) {
       updateRouteLine();
       updateMotionHud();
+    }
+    if (pursuerDisplayMode === 'gt-route-track') {
+      if (!gtSession) rebuildGtSession(false);
+      Planner.stepPursuerGt(gtSession, dt);
+      lastDrone = { x: gtSession.pursuer.x, y: gtSession.pursuer.y };
+      vel = { x: gtSession.pursuer.vx, y: gtSession.pursuer.vy };
+      heading = gtSession.pursuer.heading;
+      drone.position.x = lastDrone.x;
+      drone.position.z = lastDrone.y;
+      simCurr = snapshotSimulation();
+      lidarNeedsDraw = true;
+      return;
     }
     const proposed = Motion.steerPursuerStep(
       simPrev.droneX, simPrev.droneY, episode.target.x, episode.target.y,
@@ -586,11 +903,10 @@ window.Arena = (() => {
     if (proposed.heading != null && Math.hypot(proposed.vx, proposed.vy) > .05) {
       heading = proposed.heading;
     }
-    // Keep the Three objects' authoritative simulation positions at the latest 10 Hz state.
-    // Rendering below interpolates without feeding interpolated values back into simulation.
     drone.position.x = proposed.x;
     drone.position.z = proposed.y;
     simCurr = snapshotSimulation();
+    lidarNeedsDraw = true;
     const captured = Motion.sweptCapture(
       { x: simPrev.droneX - simPrev.targetX, y: simPrev.droneY - simPrev.targetY },
       { x: proposed.x - episode.target.x, y: proposed.y - episode.target.y },
@@ -608,41 +924,49 @@ window.Arena = (() => {
     const renderDt = Math.min((now - (lastT || now)) / 1000, 0.05); lastT = now;
     if (!episode) resetEpisode(false);
     const tick = simClock.advance(now / 1000, playing, simulationStep);
+    simTime = tick.simulationTime;
     const previous = simPrev || snapshotSimulation();
     const current = simCurr || previous;
     const alpha = tick.alpha;
     const dx = previous.droneX + (current.droneX - previous.droneX) * alpha;
     const dy = previous.droneY + (current.droneY - previous.droneY) * alpha;
     const renderHeading = lerpAngle(previous.droneHeading, current.droneHeading, alpha);
-    drone.position.set(dx, 1 + .03 * Math.sin(frame * .12), dy);
+    const hover = reduceMotion ? 0 : 0.008 * Math.sin(simTime * 2.1);
+    drone.position.set(dx, 1 + hover, dy);
     drone.rotation.y = -renderHeading;
-    const bank = THREE.MathUtils.clamp(-vel.y * 0.12, -.28, .28);
+    const droneRoll = previous.droneRoll + (current.droneRoll - previous.droneRoll) * alpha;
+    const dronePitch = previous.dronePitch + (current.dronePitch - previous.dronePitch) * alpha;
+    const bank = pursuerDisplayMode === 'gt-route-track'
+      ? droneRoll
+      : THREE.MathUtils.clamp(-vel.y * 0.12, -.28, .28);
     // Model forward is +X in this y-up scene: roll/bank is rotation.x, pitch is rotation.z.
     drone.rotation.x += (bank - drone.rotation.x) * (1 - Math.exp(-renderDt * 8));
-    // Spin rotors for visible motion even when path is slow.
+    if (pursuerDisplayMode === 'gt-route-track') {
+      drone.rotation.z += (dronePitch - drone.rotation.z) * (1 - Math.exp(-renderDt * 8));
+    }
     drone.children.forEach(ch => {
       if (ch.geometry && ch.geometry.type === 'RingGeometry') ch.rotation.z += renderDt * 18;
     });
 
     const tx = previous.targetX + (current.targetX - previous.targetX) * alpha;
     const ty = previous.targetY + (current.targetY - previous.targetY) * alpha;
-    target.position.set(tx, 1 + .04 * Math.sin(frame * .1), ty);
+    target.position.set(tx, 1 + (reduceMotion ? 0 : 0.01 * Math.sin(simTime * 1.7)), ty);
     target.rotation.y = -lerpAngle(previous.targetHeading, current.targetHeading, alpha);
     target.rotation.x = previous.targetRoll + (current.targetRoll - previous.targetRoll) * alpha;
     target.rotation.z = previous.targetPitch + (current.targetPitch - previous.targetPitch) * alpha;
 
     const vis = visibility(dx, dy, tx, ty, renderHeading);
-    const state = document.getElementById('hud-camera');
+    const state = hud['hud-camera'];
     if (state) {
       state.textContent = vis.visible ? 'DETECTED' : vis.occluded ? 'OCCLUDED' : 'OUT OF FOV';
       state.className = vis.visible ? 'seen' : 'lost';
     }
-    const rangeEl = document.getElementById('hud-range');
+    const rangeEl = hud['hud-range'];
     if (rangeEl) rangeEl.textContent = vis.range.toFixed(1) + ' m';
     if (targetHalo && targetHalo.material) {
       setHex(targetHalo.material.color, vis.visible ? 0x1aa86a : 0xe04545);
       targetHalo.material.opacity = vis.visible ? .95 : .55;
-      targetHalo.scale.setScalar(1 + .14 * Math.sin(frame * .1));
+      targetHalo.scale.setScalar(1 + (reduceMotion ? 0 : .06 * Math.sin(simTime * 1.8)));
     }
     if (cameraFov) {
       cameraFov.children.forEach(o => {
@@ -650,9 +974,13 @@ window.Arena = (() => {
         mats.forEach(m => setHex(m && m.color, vis.visible ? 0x0d8f82 : 0xe04545));
       });
     }
-    drawLidar(dx, dy);
-    updateTrail(drone, trailA, pursuerTrail);
-    updateTrail(target, trailB, targetTrail);
+    if (lidarNeedsDraw) {
+      drawLidar(current.droneX, current.droneY);
+      lidarNeedsDraw = false;
+    }
+    pushTrail(pursuerTrail, dx, 1, dy);
+    pushTrail(targetTrail, tx, 1, ty);
+    announceFollow(now);
     updateCamera(); frame++;
     renderer.render(scene, cam);
   }
@@ -663,7 +991,7 @@ window.Arena = (() => {
       setOverviewCamera();
       controls.enabled = true;
     }
-    const btn = document.getElementById('btn-view');
+    const btn = hud['btn-view'] || document.getElementById('btn-view');
     if (btn) btn.textContent = ['시점 · overview', '시점 · chase', '시점 · sensor'][viewMode];
     return viewMode;
   }
@@ -707,7 +1035,7 @@ window.Arena = (() => {
       simClock.reset();
     },
     setTargetMotionMode(mode) {
-      if (!['legacy', 'bounded', 'physical-style', 'routed-preview'].includes(mode)) {
+      if (!['legacy', 'bounded', 'physical-style', 'routed-preview', 'gt-free-roam'].includes(mode)) {
         throw new Error('unknown target display mode: ' + mode);
       }
       targetMotionMode = mode;
@@ -715,10 +1043,41 @@ window.Arena = (() => {
       simClock.reset();
       return targetMotionMode;
     },
+    setPursuerDisplayMode(mode) {
+      if (!['local-heuristic', 'gt-route-track'].includes(mode)) {
+        throw new Error('unknown pursuer display mode: ' + mode);
+      }
+      pursuerDisplayMode = mode;
+      resetEpisode(false);
+      simClock.reset();
+      return pursuerDisplayMode;
+    },
+    setTargetGoalMode(mode) {
+      targetGoalMode = mode === 'click' ? 'click' : 'auto';
+      if (gtSession) {
+        if (targetGoalMode === 'auto') Planner.setAutoRoam(gtSession);
+      }
+      updateMotionHud();
+      return targetGoalMode;
+    },
     setLidar(v) { lidarLines.visible = v; },
     setCamera(v) { cameraFov.visible = v; },
-    setTrails(v) { showTrails = v; pursuerTrail.visible = v; targetTrail.visible = v; },
+    setTrails(v) {
+      showTrails = v;
+      if (pursuerTrail) pursuerTrail.mesh.visible = v;
+      if (targetTrail) targetTrail.mesh.visible = v;
+    },
     cycleView,
     recolor: applyTheme,
+    debugState() {
+      return {
+        targetMotionMode: targetMotionMode,
+        pursuerDisplayMode: pursuerDisplayMode,
+        targetGoalMode: targetGoalMode,
+        gtPreview: gtPreviewActive(),
+        follow: gtSession ? gtSession.pursuer.status : null,
+        badge: gtPreviewActive(),
+      };
+    },
   };
 })();

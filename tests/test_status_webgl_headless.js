@@ -56,8 +56,11 @@ server.listen(0, '127.0.0.1', function () {
     assert(output.includes('<canvas'), 'Three.js did not create a WebGL canvas\n'
       + errors.slice(-2000) + '\nDOM:\n' + output.slice(-2000));
     assert(!output.includes('3D viewer could not start:'), 'viewer entered its fail screen');
-    assert(output.includes('ROUTE OK') || output.includes('NO ROUTE · ZERO COMMAND'),
-      'routed-preview HUD never reached a terminal planning state');
-    console.log('MOTAR headless WebGL routed-preview: PASS');
+    assert(output.includes('ROUTE OK') || output.includes('NO ROUTE · ZERO COMMAND')
+      || output.includes('FOLLOWING') || output.includes('DIRECT LOS')
+      || output.includes('ROUTE FOLLOW') || output.includes('NO SAFE ROUTE')
+      || output.includes('ROAMING'),
+      'GT/routed HUD never reached a terminal planning state');
+    console.log('MOTAR headless WebGL GT tracking preview: PASS');
   });
 });
