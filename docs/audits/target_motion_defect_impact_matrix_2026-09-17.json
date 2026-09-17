@@ -1,0 +1,311 @@
+{
+ "defects": [
+  {
+   "action": "preserve",
+   "arms": {
+    "E0": false,
+    "E1": false,
+    "E2": false,
+    "H": true
+   },
+   "description": "legacy push-out is pure position displacement, then target_vel_w is recomputed as delta-position/dt, so realized instantaneous speed can exceed the nominal episode speed; reflection counters increment only under _bulk_eval_mode; the bounce jitter draws from the GLOBAL torch RNG conditionally on bar contacts",
+   "evaluation": true,
+   "evidence": "_advance_target's bounded|physical branch ends in an unconditional return, so the entire push-out / reflection / velocity-rewrite block is structurally unreachable for E0/E1/E2 (all bounded). Verified by AST at build time.",
+   "historical": [
+    "every legacy/mixed target family: density curves, density x speed map, capture/crash/timeout triples trained or evaluated under legacy dynamics"
+   ],
+   "id": "D1",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:_advance_target legacy block",
+   "new_eval": [
+    "H_historical only"
+   ],
+   "note": "H exists to reproduce the frozen policy's actual training lineage. Repairing D1 inside H would stop H from being that reproduction. Historical defect != evaluation implementation bug.",
+   "observation": true,
+   "physics": true,
+   "receipt_only": false,
+   "rerun": "no",
+   "severity": "MAJOR",
+   "training": true,
+   "type": "TYPE-A"
+  },
+  {
+   "action": "erratum",
+   "arms": {
+    "E0": false,
+    "E1": false,
+    "E2": false,
+    "H": false
+   },
+   "description": "bulk-eval receipt defaults target_pattern to 'static'; the simulator default is 'mixed'",
+   "evaluation": false,
+   "evidence": "the 48-cell manifest sets NAVRL_TARGET_PATTERN explicitly in every cell, so the faulty default is never reached; env_state records str(self.tm.pattern) and is correct regardless",
+   "historical": [
+    "any archived eval launched WITHOUT NAVRL_TARGET_PATTERN set"
+   ],
+   "id": "D2",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:9289",
+   "new_eval": [],
+   "note": "inert under this preflight contract because every cell sets the variable",
+   "observation": false,
+   "physics": false,
+   "receipt_only": true,
+   "rerun": "no",
+   "severity": "MINOR",
+   "training": false,
+   "type": "TYPE-C"
+  },
+  {
+   "action": "gate",
+   "arms": {
+    "E0": true,
+    "E1": true,
+    "E2": true,
+    "H": true
+   },
+   "description": "general-eval receipt records target_speed_mps from NAVRL_TARGET_SPEED with default 0, but that variable maps to speed_fixed=-1 (disabled) and the real speed comes from the speed_min..speed_final curriculum",
+   "evaluation": false,
+   "evidence": "the 48-cell manifest deliberately does NOT set NAVRL_TARGET_SPEED, because setting it would enable speed_fixed and CHANGE the physics. The receipt field will therefore read 0 for every arm including the moving ones.",
+   "historical": [
+    "any archived curriculum-speed eval"
+   ],
+   "id": "D3",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:2224",
+   "new_eval": [
+    "all arms, receipt field only"
+   ],
+   "note": "do NOT set NAVRL_TARGET_SPEED to fix the label: it would change physics. Treat the receipt field as meaningless and read cfg_target_speed_min/final from env_state.",
+   "observation": false,
+   "physics": false,
+   "receipt_only": true,
+   "rerun": "no",
+   "severity": "MINOR",
+   "training": false,
+   "type": "TYPE-C"
+  },
+  {
+   "action": "erratum",
+   "arms": {
+    "E0": false,
+    "E1": false,
+    "E2": false,
+    "H": false
+   },
+   "description": "surface clearance attested as 0.0 while navrl_bars_env builds with 0.45; the drift guard recomputes the same wrong value so it can never fire",
+   "evaluation": false,
+   "evidence": "the only functional consumer of placement_surface_clearance is asset_manager._footprint_clearance_xy_spacing, i.e. the footprint_clearance placement mode. Every cell uses navrl_band, which spaces by touch/gap instead.",
+   "historical": [
+    "any footprint_clearance-placement family"
+   ],
+   "id": "D4",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:3440",
+   "new_eval": [],
+   "note": "inert for navrl_band; would be MAJOR for a footprint_clearance lineage",
+   "observation": false,
+   "physics": false,
+   "receipt_only": true,
+   "rerun": "no",
+   "severity": "MINOR",
+   "training": false,
+   "type": "TYPE-C"
+  },
+  {
+   "action": "fix-new-lineage",
+   "arms": {
+    "E0": false,
+    "E1": false,
+    "E2": false,
+    "H": false
+   },
+   "description": "int(round(latency_s/step_dt)) turns a 0.05 s latency into 0 steps (round(0.5)==0) while env_state records 0.05 s",
+   "evaluation": false,
+   "evidence": "NAVRL_DETECTION_LATENCY_S defaults to 0.0 and no cell sets it",
+   "historical": [
+    "any arm configured with a latency in (0, 0.05] s"
+   ],
+   "id": "D5",
+   "location": "aerial_gym/task/navrl_task/navrl_perception.py:960",
+   "new_eval": [],
+   "note": "inert at the default; a genuine bug for any future latency arm",
+   "observation": false,
+   "physics": false,
+   "receipt_only": false,
+   "rerun": "unknown",
+   "severity": "MINOR",
+   "training": false,
+   "type": "TYPE-D"
+  },
+  {
+   "action": "fix-new-lineage",
+   "arms": {
+    "E0": true,
+    "E1": true,
+    "E2": true,
+    "H": true
+   },
+   "description": "a non-finite LiDAR pixel maps to 1.0 = full range = 'nothing there', the most favourable value, feeding both the static-safety reward and the speed governor; the -max_range sentinel maps to the opposite meaning",
+   "evaluation": true,
+   "evidence": "the LiDAR pipeline is shared by every arm; nothing about it is target-dependent",
+   "historical": [
+    "every family that used this LiDAR pipeline"
+   ],
+   "id": "D6",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:5918",
+   "new_eval": [
+    "all arms, identically"
+   ],
+   "note": "arm-symmetric: it shifts absolute values but cannot bias the H-vs-E2 contrast, because every arm shares one perception stack. Do not repair mid-comparison.",
+   "observation": true,
+   "physics": false,
+   "receipt_only": false,
+   "rerun": "unknown",
+   "severity": "MAJOR",
+   "training": true,
+   "type": "TYPE-D"
+  },
+  {
+   "action": "fix-new-lineage",
+   "arms": {
+    "E0": false,
+    "E1": false,
+    "E2": false,
+    "H": false
+   },
+   "description": "free_speed_cap_mps hard-codes sqrt(2)*2.5 while max_velocity defaults to 2.0, so at HEAD defaults the free cap exceeds the attainable norm and the governor never binds in open space",
+   "evaluation": false,
+   "evidence": "every cell pins NAVRL_MAX_VELOCITY=2.5, which is the value the hard-coded cap assumes, so the cap is correct under this contract",
+   "historical": [
+    "any family run at HEAD defaults rather than the v2 launcher block"
+   ],
+   "id": "D7",
+   "location": "aerial_gym/task/navrl_task/speed_governor.py:44",
+   "new_eval": [],
+   "note": "the strict gate is what keeps this inert; without it a default launch silently disables the governor",
+   "observation": false,
+   "physics": false,
+   "receipt_only": false,
+   "rerun": "no",
+   "severity": "MINOR",
+   "training": false,
+   "type": "TYPE-D"
+  },
+  {
+   "action": "fix-new-lineage",
+   "arms": {
+    "E0": false,
+    "E1": false,
+    "E2": false,
+    "H": false
+   },
+   "description": "_detector_noise_range_ar AR(1) state is never reset per episode",
+   "evaluation": false,
+   "evidence": "NAVRL_DETNOISE_RANGE_STD_M and _RHO both default to 0.0 and no cell sets them",
+   "historical": [
+    "detector-noise arms only"
+   ],
+   "id": "D8",
+   "location": "aerial_gym/task/navrl_task/navrl_perception.py:1319-1324",
+   "new_eval": [],
+   "note": "cross-episode leak, but structurally unreachable at the default",
+   "observation": false,
+   "physics": false,
+   "receipt_only": false,
+   "rerun": "no",
+   "severity": "MINOR",
+   "training": false,
+   "type": "TYPE-D"
+  },
+  {
+   "action": "fix-new-lineage",
+   "arms": {
+    "E0": true,
+    "E1": true,
+    "E2": true,
+    "H": true
+   },
+   "description": "the LiDAR->target range correction adds the CAMERA sphere radius 0.15 to a surface range produced by a LiDAR that injects 0.20",
+   "evaluation": true,
+   "evidence": "shared perception path; not target-dependent",
+   "historical": [
+    "every family using LiDAR-fallback target correction"
+   ],
+   "id": "D9",
+   "location": "aerial_gym/task/navrl_task/navrl_perception.py:1960",
+   "new_eval": [
+    "all arms, identically"
+   ],
+   "note": "arm-symmetric 0.05 m bias; shifts absolute range but not the contrast",
+   "observation": true,
+   "physics": false,
+   "receipt_only": false,
+   "rerun": "unknown",
+   "severity": "MAJOR",
+   "training": true,
+   "type": "TYPE-D"
+  }
+ ],
+ "git_commit": "19d9be3e78c9d950cc73f252de8b16fb8759fe19",
+ "git_tree_clean": false,
+ "kind": "target_motion_defect_impact_matrix",
+ "schema_version": 1,
+ "structural_facts": {
+  "bounded_branch": {
+   "branch_line": 7788,
+   "branch_test": "self._target_dynamics in (\"bounded\", \"physical\")",
+   "has_else": false,
+   "last_statement_line": 8082,
+   "last_statement_type": "Return",
+   "unconditional_return": true
+  },
+  "bounded_executor_consumes_no_rng": true,
+  "detection_latency_default_zero": true,
+  "detector_noise_range_defaults_zero": true,
+  "legacy_block_after_branch_return": true,
+  "legacy_only_block": {
+   "bounce_jitter_global_rng": 8232,
+   "push_out": 8205,
+   "velocity_rewrite": 8249
+  },
+  "obstacle_poses_resampled_per_episode_from_global_rng": true,
+  "surface_clearance_consumer_is_footprint_mode_only": true
+ },
+ "summary": {
+  "affecting_new_eval_physics_or_observation": [
+   "D1",
+   "D6",
+   "D9"
+  ],
+  "arm_impact": {
+   "E0": [
+    "D3",
+    "D6",
+    "D9"
+   ],
+   "E1": [
+    "D3",
+    "D6",
+    "D9"
+   ],
+   "E2": [
+    "D3",
+    "D6",
+    "D9"
+   ],
+   "H": [
+    "D1",
+    "D3",
+    "D6",
+    "D9"
+   ]
+  },
+  "blockers": [],
+  "e2_unaffected_by_d1": true,
+  "total": 9,
+  "type_b_evaluation_invalidating": []
+ },
+ "type_legend": {
+  "TYPE-A": "historical behaviour that must be PRESERVED to reproduce arm H",
+  "TYPE-B": "current evaluation bug that INVALIDATES new measurements",
+  "TYPE-C": "receipt / provenance mislabelling only; physics unchanged",
+  "TYPE-D": "future-design debt; does not invalidate the frozen evaluation"
+ }
+}

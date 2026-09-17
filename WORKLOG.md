@@ -18938,3 +18938,145 @@ BLOCKED, persistent ID BLOCKED, P10 INCONCLUSIVE), target behavior contract(D1�
 legacy 계보 안에 있음), robot dynamics contract(asset hash가 checkpoint에 없음).
 따라서 지금 재학습을 승인할 근거는 없다. §9 때문에 **case C(target generator부터 고쳐라)가
 실재 가능성**이고, 설계가 그걸 검출할 수 있도록 validity gate를 outcome보다 먼저 읽는다.
+
+## 2026-09-17 — Defect impact matrix: D1은 H 전용임을 구조로 증명, TYPE-B 0건
+
+9개 defect 중 **무엇이 historical training distribution의 일부이고 무엇이 앞으로의
+frozen-policy comparison을 무효화하는가**를 가렸다. GPU outcome evaluation은 실행하지 않았다.
+
+### 핵심 결과 — D1은 arm H에만 해당한다 (구조적 증명)
+
+`_advance_target`의 제어 흐름을 AST로 확인했다:
+
+```text
+if self._target_dynamics in ("bounded", "physical"):
+    ...
+    return          <-- :8082, 무조건, else 없음
+
+# 아래는 dynamics == "legacy"일 때만 도달:
+#   :8205  bar push-out (순수 위치 변위, 최대 6라운드)
+#   :8232  bounce reflection, GLOBAL torch RNG jitter
+#   :8249  target_vel_w = (new_pos - old_pos) / dt
+```
+
+E0/E1/E2는 전부 `bounded`이므로 push-out / reflection / velocity-rewrite 블록에
+**구조적으로 도달할 수 없다.** 들여쓰기 눈대중이 아니라 AST로 확인했고, matrix 생성기가
+빌드 시 이 사실을 재도출해서 깨지면 matrix 발행을 거부한다.
+
+```text
+E2_UNAFFECTED_BY_D1 = TRUE (증명됨)
+```
+
+D1은 **TYPE-A / preserve**다. H는 frozen policy의 실제 학습 계보를 재현하는 것이 목적이므로
+H 안에서 D1을 "버그니까" 고치면 H가 재현이 아니게 된다.
+**historical defect ≠ evaluation implementation bug.**
+
+### 분류 결과
+
+```text
+TYPE-A (preserve)        D1
+TYPE-B (invalidating)    없음
+TYPE-C (receipt only)    D2, D3, D4
+TYPE-D (future debt)     D5, D6, D7, D8, D9
+```
+
+arm별 영향: `H: D1,D3,D6,D9` / `E0,E1,E2: D3,D6,D9`.
+D3은 receipt 전용, D6·D9는 공유 perception stack이라 **arm-symmetric** — 절대값은 흔들지만
+H-vs-E2 대비를 편향시키지 못한다. arm 비대칭인 것은 D1뿐이고 그건 H에 갇혀 있다.
+
+48-cell 계약에 대해 좁혀진 것들:
+- **D2 무해** — 48셀 전부 `NAVRL_TARGET_PATTERN`을 명시 설정하므로 잘못된 기본값에 도달 안 함.
+- **D3 활성** — manifest는 `NAVRL_TARGET_SPEED`를 **일부러 설정하지 않는다**(설정하면
+  `speed_fixed`가 켜져 physics가 바뀐다). 따라서 receipt의 `target_speed_mps`는 모든 arm에서
+  0으로 적힌다. 라벨을 고치려 env를 건드리지 말고 `cfg_target_speed_min/final`을 읽을 것.
+- **D4 무해** — `placement_surface_clearance`의 유일한 실소비자는
+  `asset_manager._footprint_clearance_xy_spacing`이고 48셀은 전부 `navrl_band`다.
+- **D5/D7/D8 무해** — 각각 latency 0.0, `NAVRL_MAX_VELOCITY=2.5` 고정, detnoise 0.0 기본.
+
+### 감사 중 발견 — heading-validity threshold가 turn-rate bound를 **게이트한다**
+
+defect 목록에 없던 것이고, defect가 아니라 **provenance가 없는 계약**이다.
+
+```python
+limited_heading = torch.where(
+    current_speed > HEADING_VALID_SPEED_MPS, limited_heading, desired_heading)
+```
+
+docstring도 명시한다: *"Below HEADING_VALID_SPEED_MPS there is no heading of travel."*
+즉 **0.10 m/s 미만에서는 slew limit이 적용되지 않는다.** `speed_min=0.3`에
+cruise scale `0.25` → **0.075 m/s**이므로 정상 E1/E2 운용 중에도 free pivot이 가능하다.
+
+그리고 이 키는 frozen checkpoint가 **attest하지 않는다**(`ASSUMED_PRE_KEY_DEFAULT`, pre-key
+계보는 inline `1e-05`). `1e-05`면 slew limit이 사실상 항상 걸리고 `0.10`이면 안 걸린다.
+→ 이 threshold는 metric semantics만이 아니라 **target kinematics 자체를 바꾼다.**
+`limit_planar_velocity`는 bounded executor가 쓰므로 E0/E1/E2에 해당하고, H(`steer_target_step`)에는
+해당하지 않는다. 전 arm 동일하게 유지하고 결과에 `ASSUMED`로 표기한다.
+
+### 내 감사 하네스가 세 번 틀렸다 — 실행기가 아니라
+
+E2 validity를 처음 돌렸을 때 pen/turn/teleport가 났는데 전부 하네스 문제였다.
+이걸 E2 결함으로 보고했으면 심각한 오보였다.
+
+1. **spawn 64개 중 3개가 애초에 bar 안에서 시작** — 실행기 탓이 아니다. rejection sampling 추가.
+2. **"teleport"가 bound 초과 1.8e-06** — float32 반올림. 상대 허용오차로 교체.
+3. **turn 위반**이 정지→재출발 구간. 그리고 결정적으로 임계값을 `1e-4`로 썼는데
+   계약 임계값은 `HEADING_VALID_SPEED_MPS = 0.10`이다. 실제 이벤트를 뽑아보니
+   prev |v| = 0.0199 < 0.10 → 계약상 free heading. **계약 준수 동작을 위반으로 세고 있었다.**
+
+### E2 validity 최종 — PASS, 그러나 하네스를 네 번 고친 뒤에
+
+production 계약을 정확히 재현하고 나서야 통과했다. 12 cases, **115,200 env-steps**,
+penetration/wall/clearance/speed/accel/turn/teleport/NaN/RNG **전부 0**.
+
+네 번의 오류가 **전부 하네스 쪽**이었고 하나도 실행기 결함이 아니었다:
+
+1. spawn 64개 중 3개가 bar 안에서 시작 → rejection sampling 추가.
+2. "teleport"가 bound 초과 **1.8e-06** → float32 노이즈. 상대 허용오차로 교체.
+3. turn 체크를 `1e-4`에서 했는데 계약 임계값은 `HEADING_VALID_SPEED_MPS = 0.10`.
+   문제의 이벤트는 `|v| = 0.0199 < 0.10` → 계약상 free heading. **준수 동작을 위반으로 셈.**
+4. **계보를 잘못 잡았다.** `bars_half_extents`를 넘기고 surface clearance 1.0 m를 썼는데
+   그건 **physical** 계약이다. bounded 계보(=E0/E1/E2)는 `bars_half_extents = None`,
+   `clearance = tm.obstacle_clearance = 0.77` m **centre-to-centre**다
+   (`navrl_task.py:7873`, `_target_planner_clearance`). 이게 결정적이다: 0.77 m는
+   navrl_band 복도 반폭 0.8 m 안에 **일부러** 들어가게 잡힌 값이라 실제 계약은 합법 복도를
+   통과하고 physical 계약은 못 통과한다. 잘못된 계약으로 감사하니 합법 복도가 막히면서
+   남은 penetration을 전부 만들어냈다.
+
+교훈: **감사는 production call contract를 그대로 재현해야 한다.** 아니면 자기 설정을 잰다.
+네 개 중 셋은 그럴듯한 실패처럼 보였고, 덜 의심했으면 target generator 결함으로 발표했을 것이다.
+
+### RNG / reset
+
+- `target_motion.py`에 **난수 호출 0건**(빌드 시 정규식 검증). bounded executor는 RNG를 안 쓴다.
+- legacy bounce jitter(H)는 bar contact 조건부로 **global** stream을 소비한다.
+- obstacle pose는 `asset_manager.reset_idx`에서 **매 episode** global stream으로 재샘플.
+- 따라서 **같은 seed라도 arm이 다르면 bar layout이 다르다.** 이건 **편향이 아니라 pairing 손실**이다:
+  분포는 동일하고 2048 ep × 3 seed로 비교한다. 설계를 **distributional matching**으로 기술하고
+  paired-layout matching이라고 쓰지 않는다. prereg의 seed-paired BCa는 seed 평균 수준에서
+  짝을 짓지 episode layout으로 짓지 않으므로 영향 없다. dedicated generator 도입은
+  H가 재현해야 할 historical RNG 거동을 바꾸므로 **하지 않는다**.
+- reset: target/pursuer/tracker/history/prev-action/route validity 모두 reset. route manager의
+  4개 버퍼는 `valid` gate 뒤에 있고 route mode는 48셀 전부 `off`. speed governor는 per-env
+  상태 자체가 없다. → **cross-arm leakage 없음.**
+
+### 48-cell dry preflight
+
+```text
+48 cells (4 arms × 4 densities × 3 seeds), 2048 ep/cell, 98,304 episodes
+checkpoint present + SHA 검증 통과
+strict gate 48/48 MATCHED, confounded 0
+arm별로 다른 env 키는 전부 NAVRL_TARGET_* 뿐 (테스트로 강제)
+outcome 산출 없음 (dry)
+```
+
+### 산출물
+
+```text
+docs/audits/target_motion_defect_impact_matrix_2026-09-17.{md,json}
+results/target_motion_e0_e2_preflight_2026-09-17/{cell_manifest,contract_comparison,go_no_go,e2_target_validity}.json
+tools/audits/{build_defect_impact_matrix,build_e0_e2_cell_manifest,build_go_no_go,audit_e2_target_validity}.py
+tests/test_target_motion_defect_impact.py   16개
+```
+
+**physics 코드 수정 0건.** push-out / reflection / action semantics / termination / reward /
+controller 전부 그대로다. `aerial_gym/` 아래 diff 0.

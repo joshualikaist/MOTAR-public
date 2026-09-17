@@ -1,0 +1,61 @@
+{
+ "analysis_order_when_authorised": [
+  "record integrity",
+  "target validity gates",
+  "contract equivalence",
+  "target mechanism statistics",
+  "observation distribution shift",
+  "command-vs-actual control diagnostics",
+  "close-approach outcomes",
+  "retraining verdict"
+ ],
+ "cells": 48,
+ "criteria": {
+  "all_48_cell_contracts_match_prereg": true,
+  "bounded_branch_returns_before_legacy_block": true,
+  "bounded_executor_consumes_no_rng": true,
+  "checkpoint_present_and_sha_verified": true,
+  "e2_target_mechanism_valid": true,
+  "e2_unaffected_by_d1": true,
+  "git_tree_clean": true,
+  "no_type_b_defect_affects_any_arm": true
+ },
+ "defect_arm_impact": {
+  "E0": [
+   "D3",
+   "D6",
+   "D9"
+  ],
+  "E1": [
+   "D3",
+   "D6",
+   "D9"
+  ],
+  "E2": [
+   "D3",
+   "D6",
+   "D9"
+  ],
+  "H": [
+   "D1",
+   "D3",
+   "D6",
+   "D9"
+  ]
+ },
+ "e2_validity_verdict": "PASS",
+ "episodes_total": 98304,
+ "execution_note": "GO is a statement about the preflight, not an authorisation. No GPU work runs until the operator approves it; the research-authority gate is separate and also applies.",
+ "execution_status": "AUTHORIZATION_REQUIRED",
+ "failed_criteria": [],
+ "git_commit": "0034e10b35b5afa8fd45ec19306b20832cfd4423",
+ "interpretation_contract": {
+  "E0_E1_E2": "frozen-policy generalization arms, all OUTSIDE training distribution",
+  "E0_E1_E2_mutual": "matched bounded-dynamics contrast, interpretable among themselves, but all outside the historical training distribution",
+  "H": "in-distribution historical reproduction / reference",
+  "H_vs_E2": "target-distribution shift PLUS target-dynamics shift; must NOT be read as 'E2 is harder'",
+  "matching_kind": "distributional, not paired-layout (see the RNG audit)"
+ },
+ "kind": "e0_e2_gpu_evaluation_go_no_go",
+ "verdict": "GPU_EVALUATION_GO"
+}
