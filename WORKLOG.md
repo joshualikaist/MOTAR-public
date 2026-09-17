@@ -18785,3 +18785,156 @@ dated hash-pinned figure package도 그대로다.
 ### 바꾸지 않은 것
 
 target motion 구현, 관측, reward, checkpoint, 기록된 판정. `aerial_gym/` 아래 변경 0건.
+
+## 2026-09-17 — Retraining readiness audit: 세 가지 설계 결함을 측정 전에 잡았다
+
+"현재 frozen policy가 지금 contract에서 여전히 타당한가"를 판정하려 했고, **판정에
+도달하지 못했다.** 이유가 결과다: 평가를 돌리기 전에 **그 평가 설계 자체의 결함 3개**와
+코드 결함 9개를 찾았다. 먼저 돌렸으면 해석 불가능한 숫자가 나왔을 것이다.
+
+**새 PPO 학습 없음. GPU 작업 자체를 하지 않았다.** `tools/check_research_authority.py`가
+"offline bottleneck analysis and a new preregistration are required before any GPU work"를
+요구하며, 이 감사가 그 offline analysis다.
+
+### 결함 1 — 사전등록에 in-distribution arm이 없었다 (가장 중요)
+
+checkpoint `f702213936…`의 `env_state`를 읽으니
+`cfg_target_motion_model = symmetric_local_steer_v2_heading_continuity90`,
+`cfg_target_pattern = mixed`다. launcher `train_navrl_v2_search.sh:154`의
+`NAVRL_TARGET_DYNAMICS:-legacy`도 같은 말을 한다. 즉 **이 정책은 legacy 계보 / mixed
+pattern에서 학습됐다.** accel bound도 turn-rate bound도 없고, wall reflection과 bar
+push-out이 있는 그 계보다.
+
+그런데 내가 전 세션에 쓴 사전등록은 세 arm 모두 `bounded`를 고정했다. TM-E2는
+`bounded|physical`+`waypoint`, E1은 `cv`, E0는 speed 0을 강제한다. **E0/E1/E2 중 어느
+것도 학습 분포가 아니다.** 그대로 돌렸으면 E2 저하를 "E2가 어렵다"와 "세 arm이 전부
+off-distribution이다"로부터 분리할 수 없었다.
+
+→ **arm H(historical) 추가.** 4 arms × 4 densities × 3 seeds = 48 cells.
+
+### 결함 2 — `time_within_approach_band_frac`는 이 task에서 정의되지 않는다
+
+`navrl_task.py:4999` 주석이 명시적이다: **"Interception semantics (always on): capture
+ends the episode."** `success_radius = 0.5 m` swept 판정으로 **episode가 끝난다**(:6025).
+
+따라서 "approach band 안에 머문 시간"은 구조적으로 편향된다 — **잘 추적할수록 더 일찍
+끝나서 표본을 적게 남긴다.** band 숫자를 못 정한 게 아니라 metric이 termination과
+양립하지 않는다. → **제거.** 임의의 숫자를 고르지 않았다. 대신 capture termination
+아래에서 정의되는 `min_relative_distance_m`(모든 episode에서 정의)와 `capture_rate`를
+primary로 올렸다. §6 판정은 **A. CLOSE_APPROACH_TASK**(termination 유지, continuous
+tracking 주장 축소). termination은 이번에 건드리지 않았다.
+
+### 결함 3 — 학습 계약이 HEAD 기본값으로 재현되지 않는다
+
+`tools/audits/extract_runtime_contract.py`(정적 추출, CUDA context 없음)로 대조했다.
+checkpoint `cfg_` 112개 중 **14개가 다르다.** 전부 env-var opt-in이고, **10개는 아무도
+검사하지 않으며 4개는 warning만 낸다.**
+
+| key | 학습 | HEAD 기본 | guard |
+|---|---|---|---|
+| `cfg_lidar_hbeams` | 72 | 36 | warn | **관측 차원** |
+| `cfg_lidar_max_range` | 12.0 | 4.0 | warn |
+| `cfg_max_velocity` | 2.5 | 2.0 | warn | **action scale + 관측 정규화 분모** |
+| `cfg_yaw_rate_max` | 3.0 | 2.5 | warn |
+| `cfg_episode_len_steps` | 600 | 300 | **없음** |
+| `cfg_oob_margin` | 1.0 | 0.5 | **없음** |
+| (+8개 더) | | | 없음 |
+
+시뮬레이터 guard는 *"warn, never override: an eval may deliberately change these"*라고
+명시돼 있다. 시뮬레이터로선 옳은 기본값이고 matched comparison으로선 틀린 기본값이다.
+→ 시뮬레이터를 바꾸지 않고 **strict gate를 추가**했다:
+`tools/audits/check_eval_condition_contract.py`, `CONFOUNDED`면 exit 2.
+HEAD 기본값 시뮬레이션에 대해 CRITICAL confound 6개를 잡고 거부하는 것을 확인했다.
+
+### 관측 호환성 — 비대칭 실패가 핵심
+
+normalization은 **사용된다**(`normalize_input: True`). 저장 위치는 `env_state`가 아니라
+checkpoint의 `model` state dict(`running_mean_std`, actor `(898,)` / critic `(906,)`).
+`env_state`에 `norm` 키가 없는 것은 미사용 근거가 아니다.
+
+```text
+폭이 틀리면        -> RuntimeError (strict load_state_dict)
+폭은 같고 의미가 틀리면 -> logger.warning만, 실행 계속
+```
+
+그리고 **restored checkpoint의 관측 차원을 runtime과 비교하는 검사는 어디에도 없다.**
+raise하는 preflight(`navrl_checkpoint_preflight.py`)가 있지만 **frozen checkpoint가 실제로
+지나가는 eval 경로에서 호출되지 않는다.** 위 14개 drift가 만들 수 있는 게 정확히
+"같은 폭, 다른 의미"다. strict gate의 근거가 이것이다.
+
+### 코드 결함 9건 — 전부 소스에서 직접 인용 확인, **수정하지 않음**
+
+서브에이전트 보고를 그대로 옮기지 않고 고영향 항목은 내가 다시 읽었다.
+
+- **D1** `navrl_task.py:8184-8252` — legacy push-out이 순수 변위이고
+  `target_vel_w = Δpos/dt`로 재계산되므로 **realized 속도가 라벨된 episode 속도를 넘을 수
+  있다.** reflection counter는 `if self._bulk_eval_mode:` 안에만 있어 **학습 중에는 전혀
+  계측되지 않았다.** bounce jitter는 bar contact 조건부로 **global torch RNG**를 뽑아
+  이후 draw를 desync시킨다. **frozen policy가 학습한 바로 그 계보다.**
+- **D2** `:9289` results receipt의 `target_pattern` 기본값이 `"static"`(실제 기본은 `mixed`).
+  `env_state`는 맞다 — receipt만 거짓말한다.
+- **D3** `:2224` `target_speed_mps`를 `NAVRL_TARGET_SPEED` 기본 0으로 기록(실제는 curriculum).
+- **D4** `:3440` surface clearance를 `0.0`으로 attest하는데 arena는 `0.45`로 짓는다
+  (`navrl_bars_env.py:96`). drift guard가 **같은 잘못된 값을 재계산**하므로 영원히 발화 못 함.
+- **D5** `navrl_perception.py:960` `int(round(0.05/0.1)) = round(0.5) = 0` — banker's
+  rounding으로 0.05 s latency arm이 물리적으로 0 latency.
+- **D6** `:5918` 비유한 LiDAR 픽셀을 `1.0`(= 전 범위, "아무것도 없음")으로 매핑. 가장
+  유리한 값이고 safety reward와 governor 양쪽에 들어간다.
+- **D7** `speed_governor.py:44` `free_speed_cap = √2·2.5` 하드코딩인데 `max_velocity`
+  기본은 2.0(도달 norm 2.83) → HEAD 기본값에서 governor가 개활지에서 절대 안 걸린다.
+  이 checkpoint(2.5 학습)에서는 맞다.
+- **D8** `:1319-1324` `_detector_noise_range_ar` AR(1) 상태가 episode reset 안 됨.
+  두 knob 기본값이 0.0이라 기본 경로는 무해.
+- **D9** `:1960` LiDAR→target range에 **카메라** 구 반경 0.15를 더하는데 LiDAR는 0.20으로
+  주입 → 모든 LiDAR fallback 보정이 0.05 m 편향.
+
+기록에 남는 결과를 바꿀 수 있는 것이 8건이다. **하나도 고치지 않았다.** D1은 frozen
+checkpoint의 학습 분포 자체를 건드리므로 수정은 기존 결과 수정이 아니라 새 계보를 만든다.
+D2/D3는 물리는 그대로고 라벨만 틀리므로 재실행이 아니라 erratum이 필요하다. 나머지는
+result별 impact analysis가 먼저다. **historical result는 하나도 덮어쓰지 않았다.**
+
+### 그 밖에 확인한 것
+
+- heading-validity threshold: checkpoint에 키 **없음** → `ASSUMED_PRE_KEY_DEFAULT`.
+  소스 주석이 pre-key 계보의 inline **1e-05 m/s**를 명시하고 현행은 **0.10 m/s** — 1e4배.
+  arm 간 동일하게 유지하고 결과에 provenance를 명시한다. **0.10을 소급 기록하지 않는다.**
+- TM-E2 dynamics: `v·ω = 1.5 × 150°/s = 3.9270 m/s²` vs envelope `4.0` → 일치하지만
+  **여유 1.83%**. 최대 속도·최대 선회의 coordinated turn이 가속 한계에 거의 붙어 있어
+  동시 속도 변화 여유가 사실상 없다. 2-D bounded kinematic이지 rigid-body가 아니다.
+- action: xy는 **축당** ±2.5 → 도달 norm 2.5√2 = 3.5355. z는 altitude PI가 덮어쓰지만
+  prev-action 관측에는 그대로 실린다 → **미래 training lineage의 design debt로 기록**,
+  이번에 바꾸지 않음(checkpoint 호환성이 이 평가의 전제).
+- reset 감사: target/pursuer/tracker/history/prev-action은 reset됨. route manager의
+  4개 버퍼는 `valid` gate 덕에 command 경로에 못 닿음(진단 노출만).
+
+### 산출물
+
+```text
+docs/audits/frozen_policy_training_contract_2026-09-17.md      provenance 태그별 계약표
+docs/audits/current_runtime_contract_2026-09-17.json           정적 스냅샷
+docs/audits/training_contract_vs_current_runtime_2026-09-17.json  14개 diff
+docs/audits/retraining_readiness_audit_2026-09-17.md           본 감사
+docs/audits/retraining_readiness_status_2026-09-17.json        기계 판독 상태
+tools/audits/extract_runtime_contract.py                       정적 추출/대조
+tools/audits/check_eval_condition_contract.py                  strict gate (exit 2)
+tools/audits/build_retraining_readiness_status.py              status 생성기
+tests/test_retraining_readiness_audit.py                       19개, drift 시 FAIL
+```
+
+사전등록은 **측정 전에** Amendment 1로 갱신했다: arm H 추가, 결함 metric 제거,
+seed 4101-4103 / cell당 정확히 2048 episode(128-env × 16 batch; 과거 2,049 tail 제거) /
+Wilson CI / seed-paired BCa bootstrap / Holm-Bonferroni 고정.
+
+### 판정
+
+```text
+RETRAIN_DECISION = BLOCKED_PENDING_EVALUATION
+EVALUATION       = READY_NOT_RUN
+```
+
+재학습 전 freeze해야 할 6개 계약 중 **3개가 아직 안 잠겼다**: observation contract
+(§9의 미기록 perception knob들), perception contract(live RGB NOT_TESTED, true range
+BLOCKED, persistent ID BLOCKED, P10 INCONCLUSIVE), target behavior contract(D1이
+legacy 계보 안에 있음), robot dynamics contract(asset hash가 checkpoint에 없음).
+따라서 지금 재학습을 승인할 근거는 없다. §9 때문에 **case C(target generator부터 고쳐라)가
+실재 가능성**이고, 설계가 그걸 검출할 수 있도록 validity gate를 outcome보다 먼저 읽는다.

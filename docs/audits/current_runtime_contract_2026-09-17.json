@@ -1,0 +1,2494 @@
+{
+ "config_drift_guard": {
+  "behaviour": "logger.warning; execution continues",
+  "fails_closed": false,
+  "found": true,
+  "keys": [
+   "cfg_corridor_horizon_m",
+   "cfg_corridor_min_width_m",
+   "cfg_corridor_tokens",
+   "cfg_detector_min_pixels",
+   "cfg_fov_curriculum_epochs",
+   "cfg_geofence_actor",
+   "cfg_geofence_dropout",
+   "cfg_geofence_noise_std_m",
+   "cfg_lidar_hbeams",
+   "cfg_lidar_max_range",
+   "cfg_lidar_vbeams",
+   "cfg_max_obstacles",
+   "cfg_max_tilt_deg",
+   "cfg_max_velocity",
+   "cfg_obstacle_cluster_gap_m",
+   "cfg_obstacle_sectors",
+   "cfg_obstacle_suppress_deg",
+   "cfg_obstacle_ttc_idle_s",
+   "cfg_obstacle_ttc_min_speed",
+   "cfg_token_fov_deg",
+   "cfg_yaw_rate_max"
+  ],
+  "line": 4221
+ },
+ "declared_key_to_env": {
+  "cfg_alt_hold_vmax": {
+   "env_var": "NAVRL_ALT_HOLD_VMAX",
+   "expression": "float(\n                        getattr(\n                            self.task_config,\n                            \"alt_hold_vmax\",\n         ",
+   "line": 4193
+  },
+  "cfg_appearance_albedo_jitter": {
+   "env_var": "NAVRL_APP_ALBEDO_JITTER",
+   "expression": "float(getattr(self.vis_cfg, \"appearance_albedo_jitter\", 0.0))",
+   "line": 4380
+  },
+  "cfg_appearance_hue_deg": {
+   "env_var": "NAVRL_APP_HUE_DEG",
+   "expression": "float(getattr(self.vis_cfg, \"appearance_hue_deg\", 0.0))",
+   "line": 4370
+  },
+  "cfg_appearance_light_gain": {
+   "env_var": "NAVRL_APP_LIGHT_GAIN",
+   "expression": "float(getattr(self.vis_cfg, \"appearance_light_gain\", 0.0))",
+   "line": 4375
+  },
+  "cfg_appearance_motion_blur": {
+   "env_var": "NAVRL_APP_MOTION_BLUR",
+   "expression": "float(getattr(self.vis_cfg, \"appearance_motion_blur\", 0.0))",
+   "line": 4390
+  },
+  "cfg_appearance_texture_std": {
+   "env_var": "NAVRL_APP_TEXTURE_STD",
+   "expression": "float(getattr(self.vis_cfg, \"appearance_texture_std\", 0.0))",
+   "line": 4385
+  },
+  "cfg_arena_xy": {
+   "env_var": "NAVRL_ARENA_XY",
+   "expression": "arena[\"cfg_arena_xy\"]",
+   "line": 4413
+  },
+  "cfg_arena_z": {
+   "env_var": "NAVRL_ARENA_Z",
+   "expression": "arena[\"cfg_arena_z\"]",
+   "line": 4414
+  },
+  "cfg_bar_pool": {
+   "env_var": "NAVRL_BAR_POOL",
+   "expression": "arena[\"cfg_bar_pool\"]",
+   "line": 3763
+  },
+  "cfg_bar_x_max": {
+   "env_var": "NAVRL_BAR_X_MAX",
+   "expression": "arena[\"cfg_bar_x_max\"]",
+   "line": 4432
+  },
+  "cfg_bar_x_min": {
+   "env_var": "NAVRL_BAR_X_MIN",
+   "expression": "arena[\"cfg_bar_x_min\"]",
+   "line": 4431
+  },
+  "cfg_camera_fov_scale_err": {
+   "env_var": "NAVRL_CAM_FOV_SCALE_ERR",
+   "expression": "float(getattr(self.vis_cfg, \"camera_fov_scale_err\", 0.0))",
+   "line": 4405
+  },
+  "cfg_camera_mount_rot_deg": {
+   "env_var": "NAVRL_CAM_MOUNT_ROT_DEG",
+   "expression": "float(getattr(self.vis_cfg, \"camera_mount_rot_deg\", 0.0))",
+   "line": 4395
+  },
+  "cfg_camera_mount_trans_m": {
+   "env_var": "NAVRL_CAM_MOUNT_TRANS_M",
+   "expression": "float(getattr(self.vis_cfg, \"camera_mount_trans_m\", 0.0))",
+   "line": 4400
+  },
+  "cfg_corridor_horizon_m": {
+   "env_var": "NAVRL_CORRIDOR_HORIZON_M",
+   "expression": "float(representation[\"corridor_horizon_m\"])",
+   "line": 4282
+  },
+  "cfg_corridor_min_width_m": {
+   "env_var": "NAVRL_CORRIDOR_MIN_WIDTH_M",
+   "expression": "float(representation[\"corridor_min_width_m\"])",
+   "line": 4287
+  },
+  "cfg_corridor_tokens": {
+   "env_var": "NAVRL_CORRIDOR_TOKENS",
+   "expression": "float(representation[\"corridor_tokens\"])",
+   "line": 4277
+  },
+  "cfg_density_check_eps": {
+   "env_var": "NAVRL_DENSITY_CHECK_EPS",
+   "expression": "float(getattr(self.density, \"check_after_episodes\", 0))",
+   "line": 4517
+  },
+  "cfg_density_final": {
+   "env_var": "NAVRL_DENSITY_FINAL",
+   "expression": "float(getattr(self.density, \"n_final\", self.n_bars_active))",
+   "line": 4492
+  },
+  "cfg_density_min_epochs": {
+   "env_var": "NAVRL_DENSITY_MIN_EPOCHS",
+   "expression": "float(getattr(self.density, \"min_epochs_per_density\", 0))",
+   "line": 4522
+  },
+  "cfg_density_step": {
+   "env_var": "NAVRL_DENSITY_STEP",
+   "expression": "float(getattr(self.density, \"promote_step\", 0))",
+   "line": 4497
+  },
+  "cfg_density_threshold": {
+   "env_var": "NAVRL_DENSITY_THRESHOLD",
+   "expression": "float(getattr(self.density, \"success_threshold\", 0.0))",
+   "line": 4502
+  },
+  "cfg_density_threshold_end": {
+   "env_var": "NAVRL_DENSITY_THRESHOLD_END",
+   "expression": "float(getattr(self.density, \"success_threshold_end\", 0.0))",
+   "line": 4512
+  },
+  "cfg_density_threshold_start": {
+   "env_var": "NAVRL_DENSITY_THRESHOLD_START",
+   "expression": "float(getattr(self.density, \"success_threshold_start\", 0.0))",
+   "line": 4507
+  },
+  "cfg_depth_noise_std": {
+   "env_var": "NAVRL_DEPTH_NOISE_STD",
+   "expression": "float(getattr(self.perception_cfg, \"depth_noise_std\", 0.0))",
+   "line": 4357
+  },
+  "cfg_detect_height": {
+   "env_var": "NAVRL_DETECT_HEIGHT",
+   "expression": "float(getattr(self.vis_cfg, \"detect_height\", 0))",
+   "line": 4327
+  },
+  "cfg_detect_width": {
+   "env_var": "NAVRL_DETECT_WIDTH",
+   "expression": "float(getattr(self.vis_cfg, \"detect_width\", 0))",
+   "line": 4322
+  },
+  "cfg_detection_dropout": {
+   "env_var": "NAVRL_DETECTION_DROPOUT",
+   "expression": "float(getattr(self.perception_cfg, \"detection_dropout_prob\", 0.0))",
+   "line": 4337
+  },
+  "cfg_detection_latency_s": {
+   "env_var": "NAVRL_DETECTION_LATENCY_S",
+   "expression": "float(getattr(self.perception_cfg, \"detection_latency_s\", 0.0))",
+   "line": 4342
+  },
+  "cfg_detector_max_range": {
+   "env_var": "NAVRL_DETECTOR_MAX_RANGE",
+   "expression": "float(getattr(self.vis_cfg, \"detector_max_range\", 0.0))",
+   "line": 4317
+  },
+  "cfg_detector_min_pixels": {
+   "env_var": "NAVRL_DETECTOR_MIN_PIXELS",
+   "expression": "float(getattr(self.perception_cfg, \"min_target_pixels\", 0))",
+   "line": 4312
+  },
+  "cfg_detector_threshold": {
+   "env_var": "NAVRL_DETECTOR_THRESHOLD",
+   "expression": "float(getattr(self.perception_cfg, \"pixel_threshold\", 0.0))",
+   "line": 4332
+  },
+  "cfg_episode_len_steps": {
+   "env_var": "NAVRL_EPISODE_LEN_STEPS",
+   "expression": "arena[\"cfg_episode_len_steps\"]",
+   "line": 4426
+  },
+  "cfg_fov_curriculum_epochs": {
+   "env_var": "NAVRL_FOV_CURRICULUM_EPOCHS",
+   "expression": "float(getattr(self.vis_cfg, \"fov_curriculum_epochs\", 0))",
+   "line": 4307
+  },
+  "cfg_general_goal_dist_max": {
+   "env_var": "NAVRL_GENERAL_GOAL_DIST_MAX",
+   "expression": "float(self.general_goal_dist_max)",
+   "line": 4476
+  },
+  "cfg_general_goal_dist_min": {
+   "env_var": "NAVRL_GENERAL_GOAL_DIST_MIN",
+   "expression": "float(self.general_goal_dist_min)",
+   "line": 4471
+  },
+  "cfg_general_train": {
+   "env_var": "NAVRL_GENERAL_TRAIN",
+   "expression": "bool(self.general_train_mode)",
+   "line": 4175
+  },
+  "cfg_geofence_actor": {
+   "env_var": "NAVRL_GEOFENCE_ACTOR",
+   "expression": "float(representation[\"geofence_actor\"])",
+   "line": 4292
+  },
+  "cfg_geofence_dropout": {
+   "env_var": "NAVRL_GEOFENCE_DROPOUT",
+   "expression": "float(representation[\"geofence_dropout\"])",
+   "line": 4302
+  },
+  "cfg_geofence_noise_std_m": {
+   "env_var": "NAVRL_GEOFENCE_NOISE_STD_M",
+   "expression": "float(representation[\"geofence_noise_std_m\"])",
+   "line": 4297
+  },
+  "cfg_lidar_hbeams": {
+   "env_var": "NAVRL_LIDAR_HBEAMS",
+   "expression": "float(representation[\"hbeams\"])",
+   "line": 4267
+  },
+  "cfg_lidar_max_range": {
+   "env_var": "NAVRL_LIDAR_RANGE",
+   "expression": "float(self.task_config.lidar_max_range)",
+   "line": 4224
+  },
+  "cfg_lidar_vbeams": {
+   "env_var": "NAVRL_LIDAR_VBEAMS",
+   "expression": "float(representation[\"vbeams\"])",
+   "line": 4272
+  },
+  "cfg_max_tilt_deg": {
+   "env_var": "NAVRL_MAX_TILT_DEG",
+   "expression": "float(os.environ.get(\"NAVRL_MAX_TILT_DEG\", \"\").strip() or 45.0)",
+   "line": 4227
+  },
+  "cfg_max_velocity": {
+   "env_var": "NAVRL_MAX_VELOCITY",
+   "expression": "float(self.task_config.max_velocity)",
+   "line": 4225
+  },
+  "cfg_obstacle_cluster_gap_m": {
+   "env_var": "NAVRL_OBSTACLE_CLUSTER_GAP_M",
+   "expression": "float(representation[\"cluster_gap_m\"])",
+   "line": 4247
+  },
+  "cfg_obstacle_sectors": {
+   "env_var": "NAVRL_OBSTACLE_SECTORS",
+   "expression": "float(representation[\"sectors\"])",
+   "line": 4252
+  },
+  "cfg_obstacle_suppress_deg": {
+   "env_var": "NAVRL_OBSTACLE_SUPPRESS_DEG",
+   "expression": "float(representation[\"suppress_deg\"])",
+   "line": 4242
+  },
+  "cfg_obstacle_ttc_idle_s": {
+   "env_var": "NAVRL_OBSTACLE_TTC_IDLE_S",
+   "expression": "float(representation[\"ttc_idle_s\"])",
+   "line": 4257
+  },
+  "cfg_obstacle_ttc_min_speed": {
+   "env_var": "NAVRL_OBSTACLE_TTC_MIN_SPEED",
+   "expression": "float(representation[\"ttc_min_speed\"])",
+   "line": 4262
+  },
+  "cfg_oob_margin": {
+   "env_var": "NAVRL_OOB_MARGIN",
+   "expression": "float(self.vis_cfg.oob_margin)",
+   "line": 4192
+  },
+  "cfg_p9_empirical_error_enabled": {
+   "env_var": "NAVRL_P9_ERROR_MODEL",
+   "expression": "bool(getattr(getattr(self, \"perception\", None), \"empirical_error\", None) is not None)",
+   "line": 4181
+  },
+  "cfg_p9_empirical_error_seed": {
+   "env_var": "NAVRL_P9_SEED",
+   "expression": "float(getattr(self.perception_cfg, \"empirical_error_seed\", 1701))",
+   "line": 4365
+  },
+  "cfg_perception_perturb": {
+   "env_var": "NAVRL_PERCEPTION_PERTURB",
+   "expression": "bool(getattr(self.perception_cfg, \"enable_perturbations\", False))",
+   "line": 4176
+  },
+  "cfg_placement_gap_m": {
+   "env_var": "NAVRL_PLACEMENT_GAP_M",
+   "expression": "arena[\"cfg_placement_gap_m\"]",
+   "line": 4415
+  },
+  "cfg_placement_mode": {
+   "env_var": "NAVRL_PLACEMENT_MODE",
+   "expression": "arena[\"cfg_placement_mode\"]",
+   "line": 3764
+  },
+  "cfg_placement_surface_clearance_m": {
+   "env_var": "NAVRL_PLACEMENT_SURFACE_CLEARANCE_M",
+   "expression": "arena[\"cfg_placement_surface_clearance_m\"]",
+   "line": 4421
+  },
+  "cfg_placement_touch_m": {
+   "env_var": "NAVRL_PLACEMENT_TOUCH_M",
+   "expression": "arena[\"cfg_placement_touch_m\"]",
+   "line": 4416
+  },
+  "cfg_range_error_m": {
+   "env_var": "NAVRL_RANGE_ERROR_M",
+   "expression": "float(getattr(self.perception_cfg, \"range_error_m\", 0.0))",
+   "line": 4347
+  },
+  "cfg_rgb_noise_std": {
+   "env_var": "NAVRL_RGB_NOISE_STD",
+   "expression": "float(getattr(self.perception_cfg, \"rgb_noise_std\", 0.0))",
+   "line": 4352
+  },
+  "cfg_search_state": {
+   "env_var": "NAVRL_SEARCH_STATE",
+   "expression": "str(representation[\"search_state\"])",
+   "line": 4449
+  },
+  "cfg_search_state_force_invalid": {
+   "env_var": "NAVRL_SEARCH_STATE_FORCE_INVALID",
+   "expression": "bool(representation[\"search_state_force_invalid\"])",
+   "line": 4454
+  },
+  "cfg_target_lookahead_s": {
+   "env_var": "NAVRL_TARGET_LOOKAHEAD_S",
+   "expression": "float(self.tm.avoidance_lookahead_s)",
+   "line": 4059
+  },
+  "cfg_target_max_accel_mps2": {
+   "env_var": "NAVRL_TARGET_MAX_ACCEL",
+   "expression": "float(self.tm.max_accel)",
+   "line": 4049
+  },
+  "cfg_target_max_turn_rate_degps": {
+   "env_var": "NAVRL_TARGET_MAX_TURN_RATE_DEG",
+   "expression": "float(self.tm.max_turn_rate_deg)",
+   "line": 4054
+  },
+  "cfg_target_obstacle_clearance_m": {
+   "env_var": "NAVRL_TARGET_OBSTACLE_CLEARANCE",
+   "expression": "float(self.tm.obstacle_clearance)",
+   "line": 4064
+  },
+  "cfg_target_pattern": {
+   "env_var": "NAVRL_TARGET_PATTERN",
+   "expression": "str(self.tm.pattern)",
+   "line": 4069
+  },
+  "cfg_target_physical_boundary_margin_m": {
+   "env_var": "NAVRL_TARGET_BOUNDARY_MARGIN_M",
+   "expression": "float(self.tm.physical_boundary_margin)",
+   "line": 4125
+  },
+  "cfg_target_physical_mass_kg": {
+   "env_var": "NAVRL_TARGET_MASS_KG",
+   "expression": "float(self.tm.physical_mass)",
+   "line": 4090
+  },
+  "cfg_target_physical_max_motor_thrust_n": {
+   "env_var": "NAVRL_TARGET_MAX_MOTOR_THRUST_N",
+   "expression": "float(self.tm.physical_max_motor_thrust)",
+   "line": 4095
+  },
+  "cfg_target_physical_max_tilt_deg": {
+   "env_var": "NAVRL_TARGET_MAX_TILT_DEG",
+   "expression": "float(self.tm.physical_max_tilt_deg)",
+   "line": 4115
+  },
+  "cfg_target_physical_motor_arm_xy_m": {
+   "env_var": "NAVRL_TARGET_MOTOR_ARM_XY_M",
+   "expression": "float(self.tm.physical_motor_arm_xy)",
+   "line": 4105
+  },
+  "cfg_target_physical_motor_tau_s": {
+   "env_var": "NAVRL_TARGET_MOTOR_TAU_S",
+   "expression": "float(self.tm.physical_motor_tau)",
+   "line": 4100
+  },
+  "cfg_target_physical_tracking_margin_m": {
+   "env_var": "NAVRL_TARGET_TRACKING_MARGIN_M",
+   "expression": "float(self.tm.physical_tracking_margin)",
+   "line": 4120
+  },
+  "cfg_target_physical_yaw_torque_ratio_m": {
+   "env_var": "NAVRL_TARGET_YAW_TORQUE_RATIO_M",
+   "expression": "float(self.tm.physical_yaw_torque_ratio)",
+   "line": 4110
+  },
+  "cfg_target_recovery_braking_contract_variant": {
+   "env_var": "NAVRL_TARGET_BRAKING_CONTRACT_VARIANT",
+   "expression": "str(getattr(self.tm, \"recovery_braking_contract_variant\", \"canonical_1p5\"))",
+   "line": 4130
+  },
+  "cfg_target_route_goal_exclusion_radius_m": {
+   "env_var": "NAVRL_TARGET_ROUTE_GOAL_EXCLUSION_M",
+   "expression": "float(self.tm.route_goal_exclusion_radius_m)",
+   "line": 4170
+  },
+  "cfg_target_route_goal_tolerance_m": {
+   "env_var": "NAVRL_TARGET_ROUTE_GOAL_TOLERANCE_M",
+   "expression": "float(self.tm.route_goal_tolerance_m)",
+   "line": 4160
+  },
+  "cfg_target_route_max_expansions": {
+   "env_var": "NAVRL_TARGET_ROUTE_MAX_EXPANSIONS",
+   "expression": "float(self.tm.route_max_expansions)",
+   "line": 4145
+  },
+  "cfg_target_route_max_waypoints": {
+   "env_var": "NAVRL_TARGET_ROUTE_MAX_WAYPOINTS",
+   "expression": "float(self.tm.route_max_waypoints)",
+   "line": 4150
+  },
+  "cfg_target_route_min_goal_distance_m": {
+   "env_var": "NAVRL_TARGET_ROUTE_MIN_GOAL_DISTANCE_M",
+   "expression": "float(self.tm.route_min_goal_distance_m)",
+   "line": 4165
+  },
+  "cfg_target_route_mode": {
+   "env_var": "NAVRL_TARGET_ROUTE_MODE",
+   "expression": "self._target_route_mode",
+   "line": 4135
+  },
+  "cfg_target_route_replan_cooldown_steps": {
+   "env_var": "NAVRL_TARGET_ROUTE_REPLAN_COOLDOWN_STEPS",
+   "expression": "float(self.tm.route_replan_cooldown_steps)",
+   "line": 4155
+  },
+  "cfg_target_route_resolution_m": {
+   "env_var": "NAVRL_TARGET_ROUTE_RESOLUTION_M",
+   "expression": "float(self.tm.route_resolution_m)",
+   "line": 4140
+  },
+  "cfg_target_speed_final": {
+   "env_var": "NAVRL_TARGET_SPEED_FINAL",
+   "expression": "float(self.tm.speed_final)",
+   "line": 4075
+  },
+  "cfg_target_speed_fixed": {
+   "env_var": "NAVRL_TARGET_SPEED",
+   "expression": "float(self.tm.speed_fixed)",
+   "line": 4080
+  },
+  "cfg_target_speed_min": {
+   "env_var": "NAVRL_TARGET_SPEED_MIN",
+   "expression": "float(getattr(self.tm, \"speed_min\", 0.0))",
+   "line": 4070
+  },
+  "cfg_target_speed_ramp_epochs": {
+   "env_var": "NAVRL_TARGET_SPEED_RAMP_EPOCHS",
+   "expression": "float(self.tm.speed_ramp_epochs)",
+   "line": 4085
+  },
+  "cfg_tilt_comp": {
+   "env_var": "NAVRL_TILT_COMP",
+   "expression": "os.environ.get(\"NAVRL_TILT_COMP\", \"1\").strip().lower()\n                    not in (\"0\", \"false\", \"no\", \"off\")",
+   "line": 4186
+  },
+  "cfg_token_fov_deg": {
+   "env_var": "NAVRL_OBSTACLE_FOV_DEG",
+   "expression": "float(representation[\"token_fov_deg\"])",
+   "line": 4237
+  },
+  "cfg_yaw_rate_max": {
+   "env_var": "NAVRL_YAW_RATE_MAX",
+   "expression": "float(self.task_config.yaw_rate_max)",
+   "line": 4226
+  }
+ },
+ "env_state_emitted_keys": [
+  "cfg_action_command_semantics",
+  "cfg_action_entropy_coef",
+  "cfg_action_learning_rate",
+  "cfg_action_mu_scale",
+  "cfg_action_policy",
+  "cfg_action_std",
+  "cfg_alt_hold_vmax",
+  "cfg_appearance_albedo_jitter",
+  "cfg_appearance_hue_deg",
+  "cfg_appearance_light_gain",
+  "cfg_appearance_motion_blur",
+  "cfg_appearance_texture_std",
+  "cfg_arena_xy",
+  "cfg_arena_z",
+  "cfg_bar_pool",
+  "cfg_bar_x_max",
+  "cfg_bar_x_min",
+  "cfg_camera_fov_scale_err",
+  "cfg_camera_mount_rot_deg",
+  "cfg_camera_mount_trans_m",
+  "cfg_corridor_horizon_m",
+  "cfg_corridor_min_width_m",
+  "cfg_corridor_tokens",
+  "cfg_density_check_eps",
+  "cfg_density_final",
+  "cfg_density_guard_drop",
+  "cfg_density_guard_min_epochs",
+  "cfg_density_guard_min_peak",
+  "cfg_density_guard_patience",
+  "cfg_density_guard_window_epochs",
+  "cfg_density_min_epochs",
+  "cfg_density_step",
+  "cfg_density_stratified_floor",
+  "cfg_density_stratified_gate",
+  "cfg_density_threshold",
+  "cfg_density_threshold_end",
+  "cfg_density_threshold_schedule",
+  "cfg_density_threshold_start",
+  "cfg_depth_noise_std",
+  "cfg_detect_height",
+  "cfg_detect_width",
+  "cfg_detection_dropout",
+  "cfg_detection_latency_s",
+  "cfg_detector_checkpoint_name",
+  "cfg_detector_checkpoint_sha256",
+  "cfg_detector_max_range",
+  "cfg_detector_min_pixels",
+  "cfg_detector_threshold",
+  "cfg_episode_len_steps",
+  "cfg_episode_limit_comparator",
+  "cfg_fov_curriculum_epochs",
+  "cfg_general_goal_dist_max",
+  "cfg_general_goal_dist_min",
+  "cfg_general_train",
+  "cfg_geofence_actor",
+  "cfg_geofence_dropout",
+  "cfg_geofence_noise_std_m",
+  "cfg_latent_margin",
+  "cfg_lateral_bias_coef",
+  "cfg_lateral_latent_margin_coef",
+  "cfg_lateral_latent_margin_y",
+  "cfg_lidar_hbeams",
+  "cfg_lidar_max_range",
+  "cfg_lidar_vbeams",
+  "cfg_max_obstacles",
+  "cfg_max_tilt_deg",
+  "cfg_max_velocity",
+  "cfg_obstacle_cluster_gap_m",
+  "cfg_obstacle_sectors",
+  "cfg_obstacle_selector",
+  "cfg_obstacle_suppress_active",
+  "cfg_obstacle_suppress_deg",
+  "cfg_obstacle_ttc_idle_s",
+  "cfg_obstacle_ttc_min_speed",
+  "cfg_oob_margin",
+  "cfg_p9_empirical_error_enabled",
+  "cfg_p9_empirical_error_seed",
+  "cfg_p9_empirical_error_sha256",
+  "cfg_perception_perturb",
+  "cfg_physics_dt_s",
+  "cfg_physics_steps_per_rl_step",
+  "cfg_physics_substeps",
+  "cfg_placement_gap_m",
+  "cfg_placement_mode",
+  "cfg_placement_surface_clearance_m",
+  "cfg_placement_touch_m",
+  "cfg_ppo_epoch_rollback",
+  "cfg_ppo_horizon",
+  "cfg_ppo_kl_stop",
+  "cfg_ppo_log_ratio_clamp",
+  "cfg_ppo_rollback_lr_factor",
+  "cfg_ppo_rollback_min_lr",
+  "cfg_ppo_rollback_patience",
+  "cfg_range_error_m",
+  "cfg_recovery_eval_attestation_b64",
+  "cfg_recovery_eval_attestation_sha256",
+  "cfg_recovery_smoke_bars",
+  "cfg_recovery_smoke_required_epochs",
+  "cfg_recovery_source_epoch",
+  "cfg_recovery_source_sha256",
+  "cfg_recovery_stage",
+  "cfg_reflection_coef",
+  "cfg_reward_contract_version",
+  "cfg_reward_parameters",
+  "cfg_reward_progress_gamma",
+  "cfg_reward_progress_kind",
+  "cfg_rgb_noise_std",
+  "cfg_rl_step_dt_s",
+  "cfg_rlgames_timeout_info_key",
+  "cfg_robot_asset_file",
+  "cfg_robot_asset_path",
+  "cfg_robot_asset_sha256",
+  "cfg_robot_config_class",
+  "cfg_robot_config_file",
+  "cfg_robot_config_module",
+  "cfg_robot_config_path",
+  "cfg_robot_config_sha256",
+  "cfg_robot_contract_version",
+  "cfg_robot_name",
+  "cfg_runtime_sim_config_class",
+  "cfg_search_state",
+  "cfg_search_state_force_invalid",
+  "cfg_speed_governor_brake_mps2",
+  "cfg_speed_governor_fixed_mps",
+  "cfg_speed_governor_free_mps",
+  "cfg_speed_governor_half_width_m",
+  "cfg_speed_governor_lateral_floor_mps",
+  "cfg_speed_governor_lateral_margin_m",
+  "cfg_speed_governor_lateral_span_m",
+  "cfg_speed_governor_margin_m",
+  "cfg_speed_governor_mode",
+  "cfg_speed_governor_reaction_s",
+  "cfg_speed_governor_release_m",
+  "cfg_speed_governor_slow_m",
+  "cfg_speed_governor_target_exclusion",
+  "cfg_speed_governor_ttc_s",
+  "cfg_speed_governor_width_max_m",
+  "cfg_speed_governor_width_open_ref_m",
+  "cfg_speed_governor_width_per_mps",
+  "cfg_speed_governor_width_per_open_m",
+  "cfg_speed_governor_yaw_cap_margin_m",
+  "cfg_speed_governor_yaw_cap_radps",
+  "cfg_target_behavior_level",
+  "cfg_target_dynamics",
+  "cfg_target_lookahead_s",
+  "cfg_target_max_accel_mps2",
+  "cfg_target_max_turn_rate_degps",
+  "cfg_target_motion_model",
+  "cfg_target_obstacle_clearance_m",
+  "cfg_target_pattern",
+  "cfg_target_physical_boundary_margin_m",
+  "cfg_target_physical_box_xyz_m",
+  "cfg_target_physical_mass_kg",
+  "cfg_target_physical_max_motor_thrust_n",
+  "cfg_target_physical_max_tilt_deg",
+  "cfg_target_physical_motor_arm_xy_m",
+  "cfg_target_physical_motor_tau_s",
+  "cfg_target_physical_tracking_margin_m",
+  "cfg_target_physical_yaw_torque_ratio_m",
+  "cfg_target_recovery_brake_decel_p05_mps2",
+  "cfg_target_recovery_brake_lateral_tube_p95_m",
+  "cfg_target_recovery_brake_speed_samples_mps",
+  "cfg_target_recovery_brake_stop_distance_samples_m",
+  "cfg_target_recovery_braking_contract_variant",
+  "cfg_target_recovery_probe_receipt_sha256",
+  "cfg_target_recovery_stop_time_p95_s",
+  "cfg_target_recovery_timeout_steps",
+  "cfg_target_route_braking_v3_model",
+  "cfg_target_route_braking_v3_schema",
+  "cfg_target_route_braking_v3_soft_envelope",
+  "cfg_target_route_goal_exclusion_radius_m",
+  "cfg_target_route_goal_tolerance_m",
+  "cfg_target_route_max_expansions",
+  "cfg_target_route_max_waypoints",
+  "cfg_target_route_min_goal_distance_m",
+  "cfg_target_route_mode",
+  "cfg_target_route_recovery_anchor_radius_cells",
+  "cfg_target_route_recovery_hard_envelope",
+  "cfg_target_route_recovery_hard_epsilon_m",
+  "cfg_target_route_recovery_hysteresis_m",
+  "cfg_target_route_recovery_model",
+  "cfg_target_route_recovery_progress_tolerance_m",
+  "cfg_target_route_recovery_reachable_tube_margin_m",
+  "cfg_target_route_recovery_schema",
+  "cfg_target_route_recovery_soft_envelope",
+  "cfg_target_route_recovery_stop_speed_mps",
+  "cfg_target_route_replan_cooldown_steps",
+  "cfg_target_route_resolution_m",
+  "cfg_target_route_support_xy_m",
+  "cfg_target_route_wall_margin_m",
+  "cfg_target_speed_final",
+  "cfg_target_speed_fixed",
+  "cfg_target_speed_min",
+  "cfg_target_speed_ramp_epochs",
+  "cfg_target_speed_ramp_start_epochs",
+  "cfg_tilt_comp",
+  "cfg_time_limit_bootstrap_signal",
+  "cfg_token_effective_fov_deg",
+  "cfg_token_fov_deg",
+  "cfg_training_file",
+  "cfg_training_num_envs",
+  "cfg_training_profile",
+  "cfg_training_seed",
+  "cfg_training_sim",
+  "cfg_training_source_git_commit",
+  "cfg_training_source_git_dirty",
+  "cfg_training_source_manifest",
+  "cfg_training_source_manifest_sha256",
+  "cfg_training_source_runtime_file_count",
+  "cfg_training_task",
+  "cfg_truncated_dmin",
+  "cfg_yaw_rate_max"
+ ],
+ "env_var_defaults": {
+  "AERIAL_GYM_SIM_NAME": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "base_sim"
+  },
+  "AERIAL_RUN_NAME": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "FILE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_3D_HUD": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1"
+  },
+  "NAVRL_ACTION_DIAG": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_ACTION_MU_SCALE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1"
+  },
+  "NAVRL_ACTION_POLICY": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "legacy"
+  },
+  "NAVRL_ACTION_STD": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_ALT_HOLD_VMAX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2.5
+  },
+  "NAVRL_APP_ALBEDO_JITTER": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_APP_HUE_DEG": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_APP_LIGHT_GAIN": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_APP_MOTION_BLUR": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_APP_TEXTURE_STD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_ARENA_XY": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_ARENA_Z": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_BAR_POOL": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_BAR_PROBE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_BAR_X_MAX": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_BAR_X_MIN": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_BULK_EVAL": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_BULK_EVAL_JSON": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_CAMERA_HEIGHT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 90
+  },
+  "NAVRL_CAMERA_WIDTH": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 160
+  },
+  "NAVRL_CAM_FOV_SCALE_ERR": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_CAM_MOUNT_ROT_DEG": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_CAM_MOUNT_TRANS_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_CG_FRAME_SAMPLE_EVERY": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "100"
+  },
+  "NAVRL_CONTACT_GEOMETRY": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_CRASH_DIAG": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_DENSITY_CHECK_EPS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2048
+  },
+  "NAVRL_DENSITY_CURRICULUM": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_DENSITY_EASY_GOAL_MAX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 10.0
+  },
+  "NAVRL_DENSITY_EASY_GOAL_MIN": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 5.0
+  },
+  "NAVRL_DENSITY_EASY_GOAL_MIX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DENSITY_FINAL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 150
+  },
+  "NAVRL_DENSITY_GUARD_DROP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0.25"
+  },
+  "NAVRL_DENSITY_GUARD_MIN_EPOCHS": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "100"
+  },
+  "NAVRL_DENSITY_GUARD_MIN_PEAK": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0.5"
+  },
+  "NAVRL_DENSITY_GUARD_PATIENCE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "25"
+  },
+  "NAVRL_DENSITY_GUARD_WINDOW_EPOCHS": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "50"
+  },
+  "NAVRL_DENSITY_MIN_EPOCHS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0
+  },
+  "NAVRL_DENSITY_RESUME_WARMUP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "250"
+  },
+  "NAVRL_DENSITY_START": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 25
+  },
+  "NAVRL_DENSITY_STEP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 15
+  },
+  "NAVRL_DENSITY_STRATIFIED_FLOOR": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.55
+  },
+  "NAVRL_DENSITY_STRATIFIED_GATE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_DENSITY_STRATIFIED_MIN_EPS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 512
+  },
+  "NAVRL_DENSITY_THRESHOLD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.8
+  },
+  "NAVRL_DENSITY_THRESHOLD_SCHEDULE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_DENSITY_WARMUP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2500
+  },
+  "NAVRL_DEPTH_NOISE_MODEL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "linear"
+  },
+  "NAVRL_DEPTH_NOISE_STD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.02
+  },
+  "NAVRL_DEPTH_STEREO_BASELINE_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.095
+  },
+  "NAVRL_DEPTH_STEREO_FX_PX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 447.0
+  },
+  "NAVRL_DEPTH_STEREO_SUBPIXEL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.08
+  },
+  "NAVRL_DETECTION_DROPOUT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.3
+  },
+  "NAVRL_DETECTION_LATENCY_S": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DETECTOR_CHECKPOINT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_DETECTOR_MAX_RANGE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 20.0
+  },
+  "NAVRL_DETECTOR_MIN_PIXELS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2
+  },
+  "NAVRL_DETECTOR_THRESHOLD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.55
+  },
+  "NAVRL_DETNOISE_BEARING_STD_RAD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DETNOISE_DROPOUT_P01": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DETNOISE_DROPOUT_P10": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 1.0
+  },
+  "NAVRL_DETNOISE_RANGE_BIAS_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DETNOISE_RANGE_BIAS_PROFILE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_DETNOISE_RANGE_RHO": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DETNOISE_RANGE_SIGMA_PROFILE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_DETNOISE_RANGE_STD_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_DETNOISE_SCALE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 1.0
+  },
+  "NAVRL_DETNOISE_SEED": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 9409
+  },
+  "NAVRL_DETPROFILE_CHECKPOINT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_DYNAMIC_MESH_TREATMENT": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "off"
+  },
+  "NAVRL_ENTROPY_COEF": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_EPISODE_DUMP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_EPISODE_FORENSICS": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_EPISODE_FORENSICS_JSON": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_EPISODE_LEN_STEPS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 300
+  },
+  "NAVRL_EVAL_ACTION_MODE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "configured"
+  },
+  "NAVRL_EVAL_CHECKPOINT": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_EVAL_CV_INITIAL_HEADING": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "random"
+  },
+  "NAVRL_EVAL_FULL_DISTRIBUTION": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_EVAL_REFLECTION_MODE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "original"
+  },
+  "NAVRL_EVAL_RUN_NONCE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_EVAL_TARGET_SPEED_FINAL": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_FOV_CURRICULUM_EPOCHS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 3000
+  },
+  "NAVRL_GENERAL_DENSITY_MAX": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "110"
+  },
+  "NAVRL_GENERAL_DENSITY_MIN": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "25"
+  },
+  "NAVRL_GENERAL_EVAL": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_GENERAL_GOAL_DIST_MAX": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "18"
+  },
+  "NAVRL_GENERAL_GOAL_DIST_MIN": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "4"
+  },
+  "NAVRL_GENERAL_NUM_TRIALS": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "10"
+  },
+  "NAVRL_GENERAL_RESULTS_JSON": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_GENERAL_TRAIN": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_INTERACTIVE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_JOINT_SPEED_TELEMETRY": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_K_CHECK": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2048
+  },
+  "NAVRL_K_COMPETENCE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_K_FINAL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 24.0
+  },
+  "NAVRL_K_MIN_FINAL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 20.0
+  },
+  "NAVRL_K_MIN_RAMP_EPOCHS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 3000
+  },
+  "NAVRL_K_MIN_RAMP_START": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2000
+  },
+  "NAVRL_K_STEP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2.0
+  },
+  "NAVRL_K_THRESHOLD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.6
+  },
+  "NAVRL_K_WARMUP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 3000
+  },
+  "NAVRL_LATENCY_COMPENSATE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_LATENCY_EGO_MOTION_FIX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": true
+  },
+  "NAVRL_LATENCY_LIDAR_BACKUP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_LATENCY_OBSTACLE_FIX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "off"
+  },
+  "NAVRL_LATENT_MARGIN": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_LATENT_MARGIN_COEF": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_LATENT_MARGIN_Y": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_LATERAL_BIAS_COEF": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_LEARNING_RATE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_LEGACY_VISION": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_LIDAR_ASSOC_GATE_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_LIDAR_HBEAMS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 36
+  },
+  "NAVRL_LIDAR_RANGE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 4.0
+  },
+  "NAVRL_LIDAR_RANGE_ONLY_UPDATE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_LIDAR_SILENT_CORRECT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_LIDAR_TARGET_ASSOC": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": true
+  },
+  "NAVRL_LIDAR_VBEAMS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 4
+  },
+  "NAVRL_MAX_TILT_DEG": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_MAX_VELOCITY": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2.0
+  },
+  "NAVRL_NUM_BARS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 48
+  },
+  "NAVRL_OBS_DUMP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_OBS_DUMP_MAX": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "16384"
+  },
+  "NAVRL_OBS_DUMP_MAX_EPISODES": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1048576"
+  },
+  "NAVRL_OBS_DUMP_STRIDE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1"
+  },
+  "NAVRL_OOB_MARGIN": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.5
+  },
+  "NAVRL_OOB_PROBE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_P9_ERROR_MODEL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_P9_EXPECTED_SHA256": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_P9_SEED": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 1701
+  },
+  "NAVRL_PERCEPTION": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_PERCEPTION_PERTURB": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_PHYSICAL_GEOMETRY_VERSION": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "v1"
+  },
+  "NAVRL_PLACEMENT_GAP_M": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_PLACEMENT_MODE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_PLACEMENT_SURFACE_CLEARANCE_M": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_PLACEMENT_TOUCH_M": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_POSE_CLOCK_OFFSET_S": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_POSE_NOISE_POS_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_POSE_NOISE_SEED": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 9163
+  },
+  "NAVRL_POSE_NOISE_YAW_DEG": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_PPO_EPOCH_ROLLBACK": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_PPO_KL_STOP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_PPO_LOG_RATIO_CLAMP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_PPO_ROLLBACK_LR_FACTOR": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0.5"
+  },
+  "NAVRL_PPO_ROLLBACK_MIN_LR": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1e-6"
+  },
+  "NAVRL_PPO_ROLLBACK_PATIENCE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "5"
+  },
+  "NAVRL_RANGE_ERROR_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_RECOVERY_EVAL_ATTESTATION_B64": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_RECOVERY_EVAL_ATTESTATION_SHA256": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_RECOVERY_SMOKE_BARS": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "-1"
+  },
+  "NAVRL_RECOVERY_SMOKE_REQUIRED_EPOCHS": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "-1"
+  },
+  "NAVRL_RECOVERY_SOURCE_EPOCH": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "-1"
+  },
+  "NAVRL_RECOVERY_SOURCE_SHA256": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_RECOVERY_STAGE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_REFLECTION_COEF": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_RESET_DENSITY_WINDOW": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_RGB_NOISE_STD": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.015
+  },
+  "NAVRL_ROBOT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_S1_SEARCH_TELEMETRY": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_S1_SHADOW": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_SEED": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 42
+  },
+  "NAVRL_SPEED_GOVERNOR_DIAG": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_STAR_CONVEX_SHADOW": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_TARGET_ALT_KP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 4.0
+  },
+  "NAVRL_TARGET_BEHAVIOR_LEVEL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "historical"
+  },
+  "NAVRL_TARGET_BOUNDARY_MARGIN_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.75
+  },
+  "NAVRL_TARGET_BOX_XY_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.28
+  },
+  "NAVRL_TARGET_BRAKING_CONTRACT_VARIANT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "canonical_1p5"
+  },
+  "NAVRL_TARGET_DYNAMICS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "legacy"
+  },
+  "NAVRL_TARGET_LOOKAHEAD_S": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 1.0
+  },
+  "NAVRL_TARGET_MASK_BACKFILL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_TARGET_MASS_KG": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 1.2
+  },
+  "NAVRL_TARGET_MAX_ACCEL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 4.0
+  },
+  "NAVRL_TARGET_MAX_MOTOR_THRUST_N": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 9.6
+  },
+  "NAVRL_TARGET_MAX_TILT_DEG": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 45.0
+  },
+  "NAVRL_TARGET_MAX_TURN_RATE_DEG": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 150.0
+  },
+  "NAVRL_TARGET_MOTOR_ARM_XY_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0777817
+  },
+  "NAVRL_TARGET_MOTOR_TAU_S": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.04
+  },
+  "NAVRL_TARGET_OBSTACLE_CLEARANCE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.77
+  },
+  "NAVRL_TARGET_PATTERN": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "mixed"
+  },
+  "NAVRL_TARGET_RECOVERY_BRAKE_LATERAL_TUBE_P95_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": -1.0
+  },
+  "NAVRL_TARGET_RECOVERY_BRAKE_P05": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_TARGET_RECOVERY_BRAKE_PROBE_RECEIPT": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_TARGET_RECOVERY_BRAKE_PROBE_RECEIPT_SHA256": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": ""
+  },
+  "NAVRL_TARGET_RECOVERY_PROBE_VALIDATED": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "0"
+  },
+  "NAVRL_TARGET_RECOVERY_STOP_TIME_P95_S": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_TARGET_ROUTE_GOAL_EXCLUSION_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 1.0
+  },
+  "NAVRL_TARGET_ROUTE_GOAL_TOLERANCE_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.05
+  },
+  "NAVRL_TARGET_ROUTE_MAX_EXPANSIONS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 50000
+  },
+  "NAVRL_TARGET_ROUTE_MAX_WAYPOINTS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 128
+  },
+  "NAVRL_TARGET_ROUTE_MIN_GOAL_DISTANCE_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 6.0
+  },
+  "NAVRL_TARGET_ROUTE_MODE": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": "off"
+  },
+  "NAVRL_TARGET_ROUTE_REPLAN_COOLDOWN_STEPS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 10
+  },
+  "NAVRL_TARGET_ROUTE_RESOLUTION_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.25
+  },
+  "NAVRL_TARGET_SPEED": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": -1.0
+  },
+  "NAVRL_TARGET_SPEED_FINAL": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_TARGET_SPEED_MIN": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.0
+  },
+  "NAVRL_TARGET_SPEED_RAMP_EPOCHS": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 3000
+  },
+  "NAVRL_TARGET_TRACKING_MARGIN_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.45
+  },
+  "NAVRL_TARGET_VEL_KP": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2.5
+  },
+  "NAVRL_TARGET_YAW_TORQUE_RATIO_M": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 0.01
+  },
+  "NAVRL_TILT_COMP": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1"
+  },
+  "NAVRL_TRAINING_SOURCE_MANIFEST": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_TRAINING_SOURCE_MANIFEST_SHA256": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_TRAJECTORY_DIGEST": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0"
+  },
+  "NAVRL_TRAJECTORY_DIGEST_JSON": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_TRAJECTORY_DIGEST_LABEL": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  },
+  "NAVRL_TRUNCATED_DMIN": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "0.01"
+  },
+  "NAVRL_V2_PROFILE": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "main"
+  },
+  "NAVRL_VISION": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": false
+  },
+  "NAVRL_YAW_RATE_MAX": {
+   "source": "aerial_gym/config/task_config/navrl_task_config.py",
+   "value": 2.5
+  },
+  "PLAY_GAMES_NUM": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": "1000"
+  },
+  "TASK": {
+   "source": "aerial_gym/task/navrl_task/navrl_task.py",
+   "value": ""
+  }
+ },
+ "git_commit": "f4079605ca5a0b47835ed4c5e1174746d7a17104",
+ "git_tree_clean": false,
+ "kind": "navrl_current_runtime_contract_snapshot",
+ "method": "static source extraction (no task instantiation, no CUDA context)",
+ "route_planner_constants": {
+  "TARGET_ROUTE_MODES": {
+   "expression": "(TARGET_ROUTE_MODE_OFF, TARGET_ROUTE_MODE_GLOBAL_ASTAR)",
+   "line": 48,
+   "value": null
+  },
+  "TARGET_ROUTE_MODE_GLOBAL_ASTAR": {
+   "line": 43,
+   "value": "global_astar_v1"
+  },
+  "TARGET_ROUTE_MODE_OFF": {
+   "line": 42,
+   "value": "off"
+  }
+ },
+ "sources": {
+  "aerial_gym/config/task_config/navrl_task_config.py": {
+   "lines": 781,
+   "sha256": "84b52f3371236b4dbef4a4eafb4cc5f236340ab15d6fb6eae438e8205a39f87d"
+  },
+  "aerial_gym/task/navrl_task/navrl_task.py": {
+   "lines": 9948,
+   "sha256": "255b8ea539d9d1ff84c26eb119dc8eb444682382e3a3bf6f8945644f6c0be5c1"
+  },
+  "aerial_gym/task/navrl_task/target_motion.py": {
+   "lines": 760,
+   "sha256": "a7179fb9fd6b9e19ae9d44f7eba3c7b5e3f758ff0568c8e16220c6d5c8dc9c5e"
+  },
+  "aerial_gym/task/navrl_task/target_route_planner.py": {
+   "lines": 1600,
+   "sha256": "57dc09da319ffc065c5bd5ac140b468df6c7c1f2df951cfa5761da112cf07fff"
+  }
+ },
+ "target_motion_constants": {
+  "BOUNDED_TURN_ANGLES_DEG": {
+   "line": 59,
+   "value": [
+    0.0,
+    15.0,
+    -15.0,
+    30.0,
+    -30.0,
+    45.0,
+    -45.0,
+    60.0,
+    -60.0,
+    75.0,
+    -75.0,
+    90.0,
+    -90.0,
+    105.0,
+    -105.0,
+    120.0,
+    -120.0,
+    135.0,
+    -135.0,
+    150.0,
+    -150.0,
+    165.0,
+    -165.0,
+    180.0
+   ]
+  },
+  "HEADING_CONTINUITY_RAD": {
+   "expression": "math.radians(90.0)",
+   "line": 64,
+   "value": null
+  },
+  "HEADING_VALID_SPEED_ASSUMED": {
+   "line": 82,
+   "value": "assumed_pre_key_default"
+  },
+  "HEADING_VALID_SPEED_ATTESTED": {
+   "line": 79,
+   "value": "checkpoint_attested"
+  },
+  "HEADING_VALID_SPEED_KEY": {
+   "line": 74,
+   "value": "cfg_target_motion_heading_valid_speed_mps"
+  },
+  "HEADING_VALID_SPEED_MPS": {
+   "line": 68,
+   "value": 0.1
+  },
+  "TARGET_BEHAVIOR_LEVELS": {
+   "line": 149,
+   "value": [
+    "historical",
+    "e0_static",
+    "e1_cv",
+    "e2_obstacle_aware",
+    "e3_reactive",
+    "e4_learned"
+   ]
+  },
+  "TURN_ANGLES_DEG": {
+   "line": 58,
+   "value": [
+    0.0,
+    30.0,
+    -30.0,
+    60.0,
+    -60.0,
+    90.0,
+    -90.0,
+    120.0,
+    -120.0,
+    180.0
+   ]
+  }
+ },
+ "task_config_defaults": {
+  "task_config.action_space_dim": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "4",
+   "line": 463,
+   "value": 4
+  },
+  "task_config.curriculum.wall_margin": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "0.5",
+   "line": 519,
+   "value": 0.5
+  },
+  "task_config.density.check_after_episodes": {
+   "env_default": "2048",
+   "env_var": "NAVRL_DENSITY_CHECK_EPS",
+   "expression": "_env_int(\"NAVRL_DENSITY_CHECK_EPS\", 2048)",
+   "line": 569,
+   "value": null
+  },
+  "task_config.density.easy_goal_max": {
+   "env_default": "10.0",
+   "env_var": "NAVRL_DENSITY_EASY_GOAL_MAX",
+   "expression": "_env_float(\"NAVRL_DENSITY_EASY_GOAL_MAX\", 10.0)",
+   "line": 588,
+   "value": null
+  },
+  "task_config.density.easy_goal_min": {
+   "env_default": "5.0",
+   "env_var": "NAVRL_DENSITY_EASY_GOAL_MIN",
+   "expression": "_env_float(\"NAVRL_DENSITY_EASY_GOAL_MIN\", 5.0)",
+   "line": 587,
+   "value": null
+  },
+  "task_config.density.easy_goal_mix_prob": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_DENSITY_EASY_GOAL_MIX",
+   "expression": "_env_float(\"NAVRL_DENSITY_EASY_GOAL_MIX\", 0.0)",
+   "line": 586,
+   "value": null
+  },
+  "task_config.density.num_bars_active": {
+   "env_default": "48",
+   "env_var": "NAVRL_NUM_BARS",
+   "expression": "_env_int(\"NAVRL_NUM_BARS\", 48)",
+   "line": 545,
+   "value": null
+  },
+  "task_config.density.stratified_min_episodes": {
+   "env_default": "512",
+   "env_var": "NAVRL_DENSITY_STRATIFIED_MIN_EPS",
+   "expression": "_env_int(\"NAVRL_DENSITY_STRATIFIED_MIN_EPS\", 512)",
+   "line": 582,
+   "value": null
+  },
+  "task_config.density.success_threshold": {
+   "env_default": "0.8",
+   "env_var": "NAVRL_DENSITY_THRESHOLD",
+   "expression": "_env_float(\"NAVRL_DENSITY_THRESHOLD\", 0.8)",
+   "line": 548,
+   "value": null
+  },
+  "task_config.density.success_threshold_end": {
+   "env_default": "success_threshold",
+   "env_var": "NAVRL_DENSITY_THRESHOLD_END",
+   "expression": "_env_float(\"NAVRL_DENSITY_THRESHOLD_END\", success_threshold)",
+   "line": 557,
+   "value": null
+  },
+  "task_config.density.success_threshold_schedule": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_DENSITY_THRESHOLD_SCHEDULE\", \"\"\n        ).strip()",
+   "line": 564,
+   "value": null
+  },
+  "task_config.density.success_threshold_start": {
+   "env_default": "success_threshold",
+   "env_var": "NAVRL_DENSITY_THRESHOLD_START",
+   "expression": "_env_float(\"NAVRL_DENSITY_THRESHOLD_START\", success_threshold)",
+   "line": 556,
+   "value": null
+  },
+  "task_config.episode_len_steps": {
+   "env_default": "300",
+   "env_var": "NAVRL_EPISODE_LEN_STEPS",
+   "expression": "_env_int(\"NAVRL_EPISODE_LEN_STEPS\", 300)",
+   "line": 465,
+   "value": null
+  },
+  "task_config.goal_min_bar_clearance": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "1.0",
+   "line": 723,
+   "value": 1.0
+  },
+  "task_config.lidar_hbeams": {
+   "env_default": "36",
+   "env_var": "NAVRL_LIDAR_HBEAMS",
+   "expression": "_env_int(\"NAVRL_LIDAR_HBEAMS\", 36)",
+   "line": 135,
+   "value": null
+  },
+  "task_config.lidar_max_range": {
+   "env_default": "4.0",
+   "env_var": "NAVRL_LIDAR_RANGE",
+   "expression": "_env_float(\"NAVRL_LIDAR_RANGE\", 4.0)",
+   "line": 137,
+   "value": null
+  },
+  "task_config.lidar_vbeams": {
+   "env_default": "4",
+   "env_var": "NAVRL_LIDAR_VBEAMS",
+   "expression": "_env_int(\"NAVRL_LIDAR_VBEAMS\", 4)",
+   "line": 136,
+   "value": null
+  },
+  "task_config.max_velocity": {
+   "env_default": "2.0",
+   "env_var": "NAVRL_MAX_VELOCITY",
+   "expression": "_env_float(\"NAVRL_MAX_VELOCITY\", 2.0)",
+   "line": 472,
+   "value": null
+  },
+  "task_config.perception.depth_noise_model": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_DEPTH_NOISE_MODEL\", \"linear\").strip().lower()",
+   "line": 300,
+   "value": null
+  },
+  "task_config.perception.depth_noise_std": {
+   "env_default": "0.02",
+   "env_var": "NAVRL_DEPTH_NOISE_STD",
+   "expression": "_env_float(\"NAVRL_DEPTH_NOISE_STD\", 0.02)",
+   "line": 428,
+   "value": null
+  },
+  "task_config.perception.detection_dropout_prob": {
+   "env_default": "0.3",
+   "env_var": "NAVRL_DETECTION_DROPOUT",
+   "expression": "_env_float(\"NAVRL_DETECTION_DROPOUT\", 0.3)",
+   "line": 278,
+   "value": null
+  },
+  "task_config.perception.detector_checkpoint": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_DETECTOR_CHECKPOINT\", \"\")",
+   "line": 275,
+   "value": null
+  },
+  "task_config.perception.detector_noise_bearing_std_rad": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_DETNOISE_BEARING_STD_RAD",
+   "expression": "_env_float(\"NAVRL_DETNOISE_BEARING_STD_RAD\", 0.0)",
+   "line": 354,
+   "value": null
+  },
+  "task_config.perception.detector_noise_dropout_p01": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_DETNOISE_DROPOUT_P01",
+   "expression": "_env_float(\"NAVRL_DETNOISE_DROPOUT_P01\", 0.0)",
+   "line": 376,
+   "value": null
+  },
+  "task_config.perception.detector_noise_dropout_p10": {
+   "env_default": "1.0",
+   "env_var": "NAVRL_DETNOISE_DROPOUT_P10",
+   "expression": "_env_float(\"NAVRL_DETNOISE_DROPOUT_P10\", 1.0)",
+   "line": 377,
+   "value": null
+  },
+  "task_config.perception.detector_noise_range_bias_m": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_DETNOISE_RANGE_BIAS_M",
+   "expression": "_env_float(\"NAVRL_DETNOISE_RANGE_BIAS_M\", 0.0)",
+   "line": 363,
+   "value": null
+  },
+  "task_config.perception.detector_noise_range_bias_profile": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_DETNOISE_RANGE_BIAS_PROFILE\", \"\"\n        ).strip()",
+   "line": 368,
+   "value": null
+  },
+  "task_config.perception.detector_noise_range_rho": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_DETNOISE_RANGE_RHO",
+   "expression": "_env_float(\"NAVRL_DETNOISE_RANGE_RHO\", 0.0)",
+   "line": 362,
+   "value": null
+  },
+  "task_config.perception.detector_noise_range_sigma_profile": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_DETNOISE_RANGE_SIGMA_PROFILE\", \"\"\n        ).strip()",
+   "line": 373,
+   "value": null
+  },
+  "task_config.perception.detector_noise_range_std_m": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_DETNOISE_RANGE_STD_M",
+   "expression": "_env_float(\"NAVRL_DETNOISE_RANGE_STD_M\", 0.0)",
+   "line": 355,
+   "value": null
+  },
+  "task_config.perception.detector_noise_scale": {
+   "env_default": "1.0",
+   "env_var": "NAVRL_DETNOISE_SCALE",
+   "expression": "_env_float(\"NAVRL_DETNOISE_SCALE\", 1.0)",
+   "line": 380,
+   "value": null
+  },
+  "task_config.perception.detector_noise_seed": {
+   "env_default": "9409",
+   "env_var": "NAVRL_DETNOISE_SEED",
+   "expression": "_env_int(\"NAVRL_DETNOISE_SEED\", 9409)",
+   "line": 383,
+   "value": null
+  },
+  "task_config.perception.detector_profile_checkpoint": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_DETPROFILE_CHECKPOINT\", \"\")",
+   "line": 394,
+   "value": null
+  },
+  "task_config.perception.latency_lidar_backup": {
+   "env_default": "False",
+   "env_var": "NAVRL_LATENCY_LIDAR_BACKUP",
+   "expression": "_env_bool(\"NAVRL_LATENCY_LIDAR_BACKUP\", False)",
+   "line": 310,
+   "value": null
+  },
+  "task_config.perception.latency_obstacle_fix": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_LATENCY_OBSTACLE_FIX\", \"off\").strip().lower()",
+   "line": 318,
+   "value": null
+  },
+  "task_config.perception.lidar_assoc_gate_m": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_LIDAR_ASSOC_GATE_M",
+   "expression": "_env_float(\"NAVRL_LIDAR_ASSOC_GATE_M\", 0.0)",
+   "line": 420,
+   "value": null
+  },
+  "task_config.perception.lidar_max_range": {
+   "env_default": "4.0",
+   "env_var": "NAVRL_LIDAR_RANGE",
+   "expression": "_env_float(\"NAVRL_LIDAR_RANGE\", 4.0)",
+   "line": 272,
+   "value": null
+  },
+  "task_config.perception.lidar_range_only_update": {
+   "env_default": "False",
+   "env_var": "NAVRL_LIDAR_RANGE_ONLY_UPDATE",
+   "expression": "_env_bool(\"NAVRL_LIDAR_RANGE_ONLY_UPDATE\", False)",
+   "line": 415,
+   "value": null
+  },
+  "task_config.perception.lidar_silent_correct": {
+   "env_default": "False",
+   "env_var": "NAVRL_LIDAR_SILENT_CORRECT",
+   "expression": "_env_bool(\"NAVRL_LIDAR_SILENT_CORRECT\", False)",
+   "line": 426,
+   "value": null
+  },
+  "task_config.perception.lidar_target_assoc": {
+   "env_default": "True",
+   "env_var": "NAVRL_LIDAR_TARGET_ASSOC",
+   "expression": "_env_bool(\"NAVRL_LIDAR_TARGET_ASSOC\", True)",
+   "line": 408,
+   "value": null
+  },
+  "task_config.perception.min_target_pixels": {
+   "env_default": "2",
+   "env_var": "NAVRL_DETECTOR_MIN_PIXELS",
+   "expression": "_env_int(\"NAVRL_DETECTOR_MIN_PIXELS\", 2)",
+   "line": 273,
+   "value": null
+  },
+  "task_config.perception.pose_noise_pos_m": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_POSE_NOISE_POS_M",
+   "expression": "_env_float(\"NAVRL_POSE_NOISE_POS_M\", 0.0)",
+   "line": 338,
+   "value": null
+  },
+  "task_config.perception.pose_noise_seed": {
+   "env_default": "9163",
+   "env_var": "NAVRL_POSE_NOISE_SEED",
+   "expression": "_env_int(\"NAVRL_POSE_NOISE_SEED\", 9163)",
+   "line": 342,
+   "value": null
+  },
+  "task_config.perception.pose_noise_yaw_deg": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_POSE_NOISE_YAW_DEG",
+   "expression": "_env_float(\"NAVRL_POSE_NOISE_YAW_DEG\", 0.0)",
+   "line": 339,
+   "value": null
+  },
+  "task_config.perception.rgb_noise_std": {
+   "env_default": "0.015",
+   "env_var": "NAVRL_RGB_NOISE_STD",
+   "expression": "_env_float(\"NAVRL_RGB_NOISE_STD\", 0.015)",
+   "line": 427,
+   "value": null
+  },
+  "task_config.perception.target_mask_backfill": {
+   "env_default": "False",
+   "env_var": "NAVRL_TARGET_MASK_BACKFILL",
+   "expression": "_env_bool(\"NAVRL_TARGET_MASK_BACKFILL\", False)",
+   "line": 402,
+   "value": null
+  },
+  "task_config.reward_parameters": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "{\n        # Phase 3: applied to the RELATIVE velocity toward the target (range-rate,\n        # (v_drone - v_target) . dir). With a static target this is EXACTLY",
+   "line": 752,
+   "value": {
+    "alive_weight": -0.05,
+    "capture_bonus": 30.0,
+    "collision_penalty": -20.0,
+    "height_margin": 0.2,
+    "height_weight": 8.0,
+    "progress_weight": 1.0,
+    "safety_static_weight": 1.5,
+    "smooth_weight": 0.1,
+    "vel_weight": 1.0,
+    "yaw_align_weight": 0.3,
+    "yaw_rate_smooth_weight": 0.02
+   }
+  },
+  "task_config.success_radius": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "0.5",
+   "line": 720,
+   "value": 0.5
+  },
+  "task_config.target_motion.avoidance_lookahead_s": {
+   "env_default": "1.0",
+   "env_var": "NAVRL_TARGET_LOOKAHEAD_S",
+   "expression": "_env_float(\"NAVRL_TARGET_LOOKAHEAD_S\", 1.0)",
+   "line": 614,
+   "value": null
+  },
+  "task_config.target_motion.behavior_level": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_TARGET_BEHAVIOR_LEVEL\", \"historical\"\n        ).strip().lower()",
+   "line": 606,
+   "value": null
+  },
+  "task_config.target_motion.circle_radius": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "2.5",
+   "line": 711,
+   "value": 2.5
+  },
+  "task_config.target_motion.dynamics": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_TARGET_DYNAMICS\", \"legacy\").strip().lower()",
+   "line": 601,
+   "value": null
+  },
+  "task_config.target_motion.max_accel": {
+   "env_default": "4.0",
+   "env_var": "NAVRL_TARGET_MAX_ACCEL",
+   "expression": "_env_float(\"NAVRL_TARGET_MAX_ACCEL\", 4.0)",
+   "line": 612,
+   "value": null
+  },
+  "task_config.target_motion.max_turn_rate_deg": {
+   "env_default": "150.0",
+   "env_var": "NAVRL_TARGET_MAX_TURN_RATE_DEG",
+   "expression": "_env_float(\"NAVRL_TARGET_MAX_TURN_RATE_DEG\", 150.0)",
+   "line": 613,
+   "value": null
+  },
+  "task_config.target_motion.obstacle_clearance": {
+   "env_default": "0.77",
+   "env_var": "NAVRL_TARGET_OBSTACLE_CLEARANCE",
+   "expression": "_env_float(\"NAVRL_TARGET_OBSTACLE_CLEARANCE\", 0.77)",
+   "line": 619,
+   "value": null
+  },
+  "task_config.target_motion.pattern": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_TARGET_PATTERN\", \"mixed\").strip().lower()",
+   "line": 709,
+   "value": null
+  },
+  "task_config.target_motion.physical_altitude_kp": {
+   "env_default": "4.0",
+   "env_var": "NAVRL_TARGET_ALT_KP",
+   "expression": "_env_float(\"NAVRL_TARGET_ALT_KP\", 4.0)",
+   "line": 629,
+   "value": null
+  },
+  "task_config.target_motion.physical_attitude_kp": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "[0.08, 0.08, 0.04]",
+   "line": 633,
+   "value": [
+    0.08,
+    0.08,
+    0.04
+   ]
+  },
+  "task_config.target_motion.physical_boundary_margin": {
+   "env_default": "0.75",
+   "env_var": "NAVRL_TARGET_BOUNDARY_MARGIN_M",
+   "expression": "_env_float(\"NAVRL_TARGET_BOUNDARY_MARGIN_M\", 0.75)",
+   "line": 640,
+   "value": null
+  },
+  "task_config.target_motion.physical_box_xy": {
+   "env_default": "0.28",
+   "env_var": "NAVRL_TARGET_BOX_XY_M",
+   "expression": "_env_float(\"NAVRL_TARGET_BOX_XY_M\", 0.28)",
+   "line": 635,
+   "value": null
+  },
+  "task_config.target_motion.physical_box_xyz": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "[physical_box_xy, physical_box_xy, 0.12]",
+   "line": 636,
+   "value": null
+  },
+  "task_config.target_motion.physical_mass": {
+   "env_default": "1.20",
+   "env_var": "NAVRL_TARGET_MASS_KG",
+   "expression": "_env_float(\"NAVRL_TARGET_MASS_KG\", 1.20)",
+   "line": 622,
+   "value": null
+  },
+  "task_config.target_motion.physical_max_motor_thrust": {
+   "env_default": "9.60",
+   "env_var": "NAVRL_TARGET_MAX_MOTOR_THRUST_N",
+   "expression": "_env_float(\"NAVRL_TARGET_MAX_MOTOR_THRUST_N\", 9.60)",
+   "line": 624,
+   "value": null
+  },
+  "task_config.target_motion.physical_max_tilt_deg": {
+   "env_default": "45.0",
+   "env_var": "NAVRL_TARGET_MAX_TILT_DEG",
+   "expression": "_env_float(\"NAVRL_TARGET_MAX_TILT_DEG\", 45.0)",
+   "line": 627,
+   "value": null
+  },
+  "task_config.target_motion.physical_motor_arm_xy": {
+   "env_default": "0.0777817",
+   "env_var": "NAVRL_TARGET_MOTOR_ARM_XY_M",
+   "expression": "_env_float(\"NAVRL_TARGET_MOTOR_ARM_XY_M\", 0.0777817)",
+   "line": 623,
+   "value": null
+  },
+  "task_config.target_motion.physical_motor_tau": {
+   "env_default": "0.04",
+   "env_var": "NAVRL_TARGET_MOTOR_TAU_S",
+   "expression": "_env_float(\"NAVRL_TARGET_MOTOR_TAU_S\", 0.04)",
+   "line": 625,
+   "value": null
+  },
+  "task_config.target_motion.physical_rate_kp": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "[0.04, 0.04, 0.03]",
+   "line": 634,
+   "value": [
+    0.04,
+    0.04,
+    0.03
+   ]
+  },
+  "task_config.target_motion.physical_tracking_margin": {
+   "env_default": "0.45",
+   "env_var": "NAVRL_TARGET_TRACKING_MARGIN_M",
+   "expression": "_env_float(\"NAVRL_TARGET_TRACKING_MARGIN_M\", 0.45)",
+   "line": 639,
+   "value": null
+  },
+  "task_config.target_motion.physical_velocity_kp": {
+   "env_default": "2.5",
+   "env_var": "NAVRL_TARGET_VEL_KP",
+   "expression": "_env_float(\"NAVRL_TARGET_VEL_KP\", 2.5)",
+   "line": 628,
+   "value": null
+  },
+  "task_config.target_motion.physical_yaw_torque_ratio": {
+   "env_default": "0.01",
+   "env_var": "NAVRL_TARGET_YAW_TORQUE_RATIO_M",
+   "expression": "_env_float(\"NAVRL_TARGET_YAW_TORQUE_RATIO_M\", 0.01)",
+   "line": 626,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_decel_p05": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_TARGET_RECOVERY_BRAKE_P05",
+   "expression": "_env_float(\"NAVRL_TARGET_RECOVERY_BRAKE_P05\", 0.0)",
+   "line": 644,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_lateral_tube_p95_m": {
+   "env_default": "-1.0",
+   "env_var": "NAVRL_TARGET_RECOVERY_BRAKE_LATERAL_TUBE_P95_M",
+   "expression": "_env_float(\n            \"NAVRL_TARGET_RECOVERY_BRAKE_LATERAL_TUBE_P95_M\", -1.0\n        )",
+   "line": 670,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_probe_receipt": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_TARGET_RECOVERY_BRAKE_PROBE_RECEIPT\", \"\"\n        ).strip()",
+   "line": 648,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_probe_receipt_sha256": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_TARGET_RECOVERY_BRAKE_PROBE_RECEIPT_SHA256\", \"\"\n        ).strip().lower()",
+   "line": 651,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_probe_validated": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_TARGET_RECOVERY_PROBE_VALIDATED\", \"0\"\n        ).strip().lower() in (\"1\", \"true\", \"yes\", \"on\")",
+   "line": 659,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_speed_samples_mps": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "_env_float_list(\n            \"NAVRL_TARGET_RECOVERY_BRAKE_SPEEDS_MPS\"\n        )",
+   "line": 664,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_stop_distance_samples_m": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "_env_float_list(\n            \"NAVRL_TARGET_RECOVERY_BRAKE_STOP_DISTANCES_M\"\n        )",
+   "line": 667,
+   "value": null
+  },
+  "task_config.target_motion.recovery_brake_stop_time_p95": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_TARGET_RECOVERY_STOP_TIME_P95_S",
+   "expression": "_env_float(\n            \"NAVRL_TARGET_RECOVERY_STOP_TIME_P95_S\", 0.0\n        )",
+   "line": 645,
+   "value": null
+  },
+  "task_config.target_motion.recovery_braking_contract_variant": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\n            \"NAVRL_TARGET_BRAKING_CONTRACT_VARIANT\", \"canonical_1p5\"\n        ).strip().lower()",
+   "line": 654,
+   "value": null
+  },
+  "task_config.target_motion.route_goal_exclusion_radius_m": {
+   "env_default": "1.0",
+   "env_var": "NAVRL_TARGET_ROUTE_GOAL_EXCLUSION_M",
+   "expression": "_env_float(\n            \"NAVRL_TARGET_ROUTE_GOAL_EXCLUSION_M\", 1.0\n        )",
+   "line": 685,
+   "value": null
+  },
+  "task_config.target_motion.route_goal_tolerance_m": {
+   "env_default": "0.05",
+   "env_var": "NAVRL_TARGET_ROUTE_GOAL_TOLERANCE_M",
+   "expression": "_env_float(\"NAVRL_TARGET_ROUTE_GOAL_TOLERANCE_M\", 0.05)",
+   "line": 683,
+   "value": null
+  },
+  "task_config.target_motion.route_max_expansions": {
+   "env_default": "50000",
+   "env_var": "NAVRL_TARGET_ROUTE_MAX_EXPANSIONS",
+   "expression": "_env_int(\"NAVRL_TARGET_ROUTE_MAX_EXPANSIONS\", 50000)",
+   "line": 678,
+   "value": null
+  },
+  "task_config.target_motion.route_max_waypoints": {
+   "env_default": "128",
+   "env_var": "NAVRL_TARGET_ROUTE_MAX_WAYPOINTS",
+   "expression": "_env_int(\"NAVRL_TARGET_ROUTE_MAX_WAYPOINTS\", 128)",
+   "line": 679,
+   "value": null
+  },
+  "task_config.target_motion.route_min_goal_distance_m": {
+   "env_default": "6.0",
+   "env_var": "NAVRL_TARGET_ROUTE_MIN_GOAL_DISTANCE_M",
+   "expression": "_env_float(\"NAVRL_TARGET_ROUTE_MIN_GOAL_DISTANCE_M\", 6.0)",
+   "line": 684,
+   "value": null
+  },
+  "task_config.target_motion.route_mode": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "os.environ.get(\"NAVRL_TARGET_ROUTE_MODE\", \"off\").strip().lower()",
+   "line": 676,
+   "value": null
+  },
+  "task_config.target_motion.route_replan_cooldown_steps": {
+   "env_default": "10",
+   "env_var": "NAVRL_TARGET_ROUTE_REPLAN_COOLDOWN_STEPS",
+   "expression": "_env_int(\n            \"NAVRL_TARGET_ROUTE_REPLAN_COOLDOWN_STEPS\", 10\n        )",
+   "line": 680,
+   "value": null
+  },
+  "task_config.target_motion.route_resolution_m": {
+   "env_default": "0.25",
+   "env_var": "NAVRL_TARGET_ROUTE_RESOLUTION_M",
+   "expression": "_env_float(\"NAVRL_TARGET_ROUTE_RESOLUTION_M\", 0.25)",
+   "line": 677,
+   "value": null
+  },
+  "task_config.target_motion.speed_final": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_TARGET_SPEED_FINAL",
+   "expression": "_env_float(\"NAVRL_TARGET_SPEED_FINAL\", 0.0)",
+   "line": 692,
+   "value": null
+  },
+  "task_config.target_motion.speed_fixed": {
+   "env_default": "-1.0",
+   "env_var": "NAVRL_TARGET_SPEED",
+   "expression": "_env_float(\"NAVRL_TARGET_SPEED\", -1.0)",
+   "line": 705,
+   "value": null
+  },
+  "task_config.target_motion.speed_min": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_TARGET_SPEED_MIN",
+   "expression": "_env_float(\"NAVRL_TARGET_SPEED_MIN\", 0.0)",
+   "line": 695,
+   "value": null
+  },
+  "task_config.target_motion.speed_ramp_epochs": {
+   "env_default": "3000",
+   "env_var": "NAVRL_TARGET_SPEED_RAMP_EPOCHS",
+   "expression": "_env_int(\"NAVRL_TARGET_SPEED_RAMP_EPOCHS\", 3000)",
+   "line": 703,
+   "value": null
+  },
+  "task_config.target_motion.speed_ramp_start_epochs": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "0",
+   "line": 696,
+   "value": 0
+  },
+  "task_config.target_motion.waypoint_reach_m": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "0.5",
+   "line": 710,
+   "value": 0.5
+  },
+  "task_config.vision.camera_fov_scale_err": {
+   "env_default": "0.0",
+   "env_var": "NAVRL_CAM_FOV_SCALE_ERR",
+   "expression": "_env_float(\"NAVRL_CAM_FOV_SCALE_ERR\", 0.0)",
+   "line": 226,
+   "value": null
+  },
+  "task_config.vision.camera_min_target_pixels": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "1",
+   "line": 207,
+   "value": 1
+  },
+  "task_config.vision.camera_obstacle_dim": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "camera_obstacle_width * camera_obstacle_height",
+   "line": 232,
+   "value": null
+  },
+  "task_config.vision.camera_obstacle_height": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "24",
+   "line": 230,
+   "value": 24
+  },
+  "task_config.vision.camera_obstacle_max_range": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "10.0",
+   "line": 231,
+   "value": 10.0
+  },
+  "task_config.vision.camera_obstacle_width": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "40",
+   "line": 229,
+   "value": 40
+  },
+  "task_config.vision.camera_target_radius": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "0.15",
+   "line": 206,
+   "value": 0.15
+  },
+  "task_config.vision.camera_width": {
+   "env_default": "160",
+   "env_var": "NAVRL_CAMERA_WIDTH",
+   "expression": "_env_int(\"NAVRL_CAMERA_WIDTH\", 160)",
+   "line": 183,
+   "value": null
+  },
+  "task_config.vision.detect_width": {
+   "env_default": "camera_width",
+   "env_var": "NAVRL_DETECT_WIDTH",
+   "expression": "_env_int(\"NAVRL_DETECT_WIDTH\", camera_width)",
+   "line": 199,
+   "value": null
+  },
+  "task_config.vision.detector_dim": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "8",
+   "line": 255,
+   "value": 8
+  },
+  "task_config.vision.detector_hfov_deg": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "87.0",
+   "line": 171,
+   "value": 87.0
+  },
+  "task_config.vision.detector_max_range": {
+   "env_default": "20.0",
+   "env_var": "NAVRL_DETECTOR_MAX_RANGE",
+   "expression": "_env_float(\"NAVRL_DETECTOR_MAX_RANGE\", 20.0)",
+   "line": 170,
+   "value": null
+  },
+  "task_config.vision.detector_vfov_deg": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "58.0",
+   "line": 172,
+   "value": 58.0
+  },
+  "task_config.vision.fov_curriculum_epochs": {
+   "env_default": "3000",
+   "env_var": "NAVRL_FOV_CURRICULUM_EPOCHS",
+   "expression": "_env_int(\"NAVRL_FOV_CURRICULUM_EPOCHS\", 3000)",
+   "line": 250,
+   "value": null
+  },
+  "task_config.vision.oob_margin": {
+   "env_default": "0.5",
+   "env_var": "NAVRL_OOB_MARGIN",
+   "expression": "_env_float(\"NAVRL_OOB_MARGIN\", 0.5)",
+   "line": 239,
+   "value": null
+  },
+  "task_config.vision.spawn_yaw_max_deg": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "30.0",
+   "line": 251,
+   "value": 30.0
+  },
+  "task_config.yaw_align_speed_ref": {
+   "env_default": null,
+   "env_var": null,
+   "expression": "1.0",
+   "line": 487,
+   "value": 1.0
+  },
+  "task_config.yaw_rate_max": {
+   "env_default": "2.5",
+   "env_var": "NAVRL_YAW_RATE_MAX",
+   "expression": "_env_float(\"NAVRL_YAW_RATE_MAX\", 2.5)",
+   "line": 483,
+   "value": null
+  }
+ }
+}

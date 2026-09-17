@@ -1,0 +1,746 @@
+{
+ "checkpoint_cfg_keys": 112,
+ "counts": {
+  "CHANGED_BUT_OPT_IN": 14,
+  "DEFAULT_PRESERVED": 15,
+  "NOT_ATTESTABLE": 83
+ },
+ "git_commit": "f4079605ca5a0b47835ed4c5e1174746d7a17104",
+ "guard_fails_closed": false,
+ "guarded_keys": [
+  "cfg_corridor_horizon_m",
+  "cfg_corridor_min_width_m",
+  "cfg_corridor_tokens",
+  "cfg_detector_min_pixels",
+  "cfg_fov_curriculum_epochs",
+  "cfg_geofence_actor",
+  "cfg_geofence_dropout",
+  "cfg_geofence_noise_std_m",
+  "cfg_lidar_hbeams",
+  "cfg_lidar_max_range",
+  "cfg_lidar_vbeams",
+  "cfg_max_obstacles",
+  "cfg_max_tilt_deg",
+  "cfg_max_velocity",
+  "cfg_obstacle_cluster_gap_m",
+  "cfg_obstacle_sectors",
+  "cfg_obstacle_suppress_deg",
+  "cfg_obstacle_ttc_idle_s",
+  "cfg_obstacle_ttc_min_speed",
+  "cfg_token_fov_deg",
+  "cfg_yaw_rate_max"
+ ],
+ "kind": "navrl_training_contract_vs_current_runtime",
+ "rows": {
+  "cfg_action_entropy_coef": {
+   "checkpoint": 0.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_action_learning_rate": {
+   "checkpoint": 5e-06,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_action_mu_scale": {
+   "checkpoint": "1.0,0.4,1.0,1.0",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_action_policy": {
+   "checkpoint": "squashed_gaussian",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_action_std": {
+   "checkpoint": "0.35,0.35,0.05,0.08",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_alt_hold_vmax": {
+   "checkpoint": 2.5,
+   "current_default": 2.5,
+   "env_var": "NAVRL_ALT_HOLD_VMAX",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4193)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_arena_xy": {
+   "checkpoint": 40.0,
+   "env_var": "NAVRL_ARENA_XY",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4413)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_arena_z": {
+   "checkpoint": 3.0,
+   "env_var": "NAVRL_ARENA_Z",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4414)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_bar_pool": {
+   "checkpoint": "bars_h3",
+   "env_var": "NAVRL_BAR_POOL",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:3763)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_bar_x_max": {
+   "checkpoint": 1.0,
+   "env_var": "NAVRL_BAR_X_MAX",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4432)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_bar_x_min": {
+   "checkpoint": 0.0,
+   "env_var": "NAVRL_BAR_X_MIN",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4431)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_corridor_horizon_m": {
+   "checkpoint": 6.0,
+   "declared_env_var": "NAVRL_CORRIDOR_HORIZON_M",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_corridor_min_width_m": {
+   "checkpoint": 0.55,
+   "declared_env_var": "NAVRL_CORRIDOR_MIN_WIDTH_M",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_corridor_tokens": {
+   "checkpoint": 0,
+   "declared_env_var": "NAVRL_CORRIDOR_TOKENS",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_check_eps": {
+   "checkpoint": 16384,
+   "current_default": 2048,
+   "env_var": "NAVRL_DENSITY_CHECK_EPS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4517)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_density_final": {
+   "checkpoint": 205,
+   "current_default": 150,
+   "env_var": "NAVRL_DENSITY_FINAL",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4492)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_density_guard_drop": {
+   "checkpoint": 0.25,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_guard_min_epochs": {
+   "checkpoint": 100,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_guard_min_peak": {
+   "checkpoint": 0.5,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_guard_patience": {
+   "checkpoint": 25,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_guard_window_epochs": {
+   "checkpoint": 50,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_min_epochs": {
+   "checkpoint": 0,
+   "current_default": 0,
+   "env_var": "NAVRL_DENSITY_MIN_EPOCHS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4522)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_density_step": {
+   "checkpoint": 15,
+   "current_default": 15,
+   "env_var": "NAVRL_DENSITY_STEP",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4497)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_density_stratified_floor": {
+   "checkpoint": 0.55,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_stratified_gate": {
+   "checkpoint": false,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_threshold": {
+   "checkpoint": 0.8,
+   "current_default": 0.8,
+   "env_var": "NAVRL_DENSITY_THRESHOLD",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4502)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_density_threshold_end": {
+   "checkpoint": 0.7,
+   "declared_env_var": "NAVRL_DENSITY_THRESHOLD_END",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_threshold_schedule": {
+   "checkpoint": "70:0.82,85:0.77,100:0.72,115:0.70",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_density_threshold_start": {
+   "checkpoint": 0.8,
+   "declared_env_var": "NAVRL_DENSITY_THRESHOLD_START",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_depth_noise_std": {
+   "checkpoint": 0.02,
+   "current_default": 0.02,
+   "env_var": "NAVRL_DEPTH_NOISE_STD",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4357)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_detection_dropout": {
+   "checkpoint": 0.3,
+   "current_default": 0.3,
+   "env_var": "NAVRL_DETECTION_DROPOUT",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4337)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_detector_checkpoint_name": {
+   "checkpoint": "",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_detector_checkpoint_sha256": {
+   "checkpoint": "",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_detector_min_pixels": {
+   "checkpoint": 2,
+   "current_default": 2,
+   "env_var": "NAVRL_DETECTOR_MIN_PIXELS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4312)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_detector_threshold": {
+   "checkpoint": 0.55,
+   "current_default": 0.55,
+   "env_var": "NAVRL_DETECTOR_THRESHOLD",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4332)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_episode_len_steps": {
+   "checkpoint": 600.0,
+   "current_default": 300,
+   "env_var": "NAVRL_EPISODE_LEN_STEPS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4426)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_fov_curriculum_epochs": {
+   "checkpoint": 3000,
+   "current_default": 3000,
+   "env_var": "NAVRL_FOV_CURRICULUM_EPOCHS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4307)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_general_goal_dist_max": {
+   "checkpoint": 28.0,
+   "current_default": "18",
+   "env_var": "NAVRL_GENERAL_GOAL_DIST_MAX",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4476)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_general_goal_dist_min": {
+   "checkpoint": 6.0,
+   "current_default": "4",
+   "env_var": "NAVRL_GENERAL_GOAL_DIST_MIN",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4471)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_general_train": {
+   "checkpoint": true,
+   "current_default": "0",
+   "env_var": "NAVRL_GENERAL_TRAIN",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4175)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_latent_margin": {
+   "checkpoint": "2.0,1.25,2.0,2.0",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_lateral_bias_coef": {
+   "checkpoint": 0.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_lateral_latent_margin_coef": {
+   "checkpoint": 0.01,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_lateral_latent_margin_y": {
+   "checkpoint": 1.25,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_lidar_hbeams": {
+   "checkpoint": 72,
+   "current_default": 36,
+   "env_var": "NAVRL_LIDAR_HBEAMS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4267)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_lidar_max_range": {
+   "checkpoint": 12.0,
+   "current_default": 4.0,
+   "env_var": "NAVRL_LIDAR_RANGE",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4224)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_lidar_vbeams": {
+   "checkpoint": 4,
+   "current_default": 4,
+   "env_var": "NAVRL_LIDAR_VBEAMS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4272)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_max_obstacles": {
+   "checkpoint": 8,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_max_tilt_deg": {
+   "checkpoint": 45.0,
+   "env_var": "NAVRL_MAX_TILT_DEG",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4227)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_max_velocity": {
+   "checkpoint": 2.5,
+   "current_default": 2.0,
+   "env_var": "NAVRL_MAX_VELOCITY",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4225)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_obstacle_cluster_gap_m": {
+   "checkpoint": 0.45,
+   "declared_env_var": "NAVRL_OBSTACLE_CLUSTER_GAP_M",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_obstacle_sectors": {
+   "checkpoint": 8,
+   "declared_env_var": "NAVRL_OBSTACLE_SECTORS",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_obstacle_selector": {
+   "checkpoint": "cluster_sector",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_obstacle_suppress_active": {
+   "checkpoint": false,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_obstacle_suppress_deg": {
+   "checkpoint": 10.0,
+   "declared_env_var": "NAVRL_OBSTACLE_SUPPRESS_DEG",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_obstacle_ttc_idle_s": {
+   "checkpoint": 30.0,
+   "declared_env_var": "NAVRL_OBSTACLE_TTC_IDLE_S",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_obstacle_ttc_min_speed": {
+   "checkpoint": 0.15,
+   "declared_env_var": "NAVRL_OBSTACLE_TTC_MIN_SPEED",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_oob_margin": {
+   "checkpoint": 1.0,
+   "current_default": 0.5,
+   "env_var": "NAVRL_OOB_MARGIN",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4192)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_perception_perturb": {
+   "checkpoint": false,
+   "current_default": false,
+   "env_var": "NAVRL_PERCEPTION_PERTURB",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4176)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_physics_dt_s": {
+   "checkpoint": 0.01,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_physics_steps_per_rl_step": {
+   "checkpoint": 10,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_physics_substeps": {
+   "checkpoint": 1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_placement_gap_m": {
+   "checkpoint": 1.6,
+   "env_var": "NAVRL_PLACEMENT_GAP_M",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4415)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_placement_mode": {
+   "checkpoint": "navrl_band",
+   "env_var": "NAVRL_PLACEMENT_MODE",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:3764)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_placement_touch_m": {
+   "checkpoint": 0.4,
+   "env_var": "NAVRL_PLACEMENT_TOUCH_M",
+   "reason": "env-var default is an empty sentinel; effective value is computed elsewhere",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4416)",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_epoch_rollback": {
+   "checkpoint": true,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_horizon": {
+   "checkpoint": 32,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_kl_stop": {
+   "checkpoint": 0.04,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_log_ratio_clamp": {
+   "checkpoint": 10.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_rollback_lr_factor": {
+   "checkpoint": 0.5,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_rollback_min_lr": {
+   "checkpoint": 1e-06,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_ppo_rollback_patience": {
+   "checkpoint": 5,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_eval_attestation_b64": {
+   "checkpoint": "",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_eval_attestation_sha256": {
+   "checkpoint": "",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_smoke_bars": {
+   "checkpoint": -1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_smoke_required_epochs": {
+   "checkpoint": -1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_source_epoch": {
+   "checkpoint": -1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_source_sha256": {
+   "checkpoint": "",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_recovery_stage": {
+   "checkpoint": "",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_reflection_coef": {
+   "checkpoint": 0.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_rgb_noise_std": {
+   "checkpoint": 0.015,
+   "current_default": 0.015,
+   "env_var": "NAVRL_RGB_NOISE_STD",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4352)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_rl_step_dt_s": {
+   "checkpoint": 0.1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_runtime_sim_config_class": {
+   "checkpoint": "BaseSimConfig",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_brake_mps2": {
+   "checkpoint": 2.9608856678,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_fixed_mps": {
+   "checkpoint": 2.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_free_mps": {
+   "checkpoint": 3.53553390593,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_half_width_m": {
+   "checkpoint": 0.45,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_margin_m": {
+   "checkpoint": 0.45,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_mode": {
+   "checkpoint": "riskcap",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_reaction_s": {
+   "checkpoint": 0.1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_release_m": {
+   "checkpoint": 5.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_slow_m": {
+   "checkpoint": 3.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_target_exclusion": {
+   "checkpoint": "camera_lidar_association",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_speed_governor_ttc_s": {
+   "checkpoint": 1.2,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_target_motion_model": {
+   "checkpoint": "symmetric_local_steer_v2_heading_continuity90",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_target_pattern": {
+   "checkpoint": "mixed",
+   "current_default": "mixed",
+   "env_var": "NAVRL_TARGET_PATTERN",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4069)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_target_speed_final": {
+   "checkpoint": 1.5,
+   "current_default": 0.0,
+   "env_var": "NAVRL_TARGET_SPEED_FINAL",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4075)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_target_speed_fixed": {
+   "checkpoint": -1.0,
+   "current_default": -1.0,
+   "env_var": "NAVRL_TARGET_SPEED",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4080)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_target_speed_min": {
+   "checkpoint": 0.3,
+   "current_default": 0.0,
+   "env_var": "NAVRL_TARGET_SPEED_MIN",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4070)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_target_speed_ramp_epochs": {
+   "checkpoint": 300,
+   "current_default": 3000,
+   "env_var": "NAVRL_TARGET_SPEED_RAMP_EPOCHS",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4085)",
+   "status": "CHANGED_BUT_OPT_IN"
+  },
+  "cfg_target_speed_ramp_start_epochs": {
+   "checkpoint": 0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_tilt_comp": {
+   "checkpoint": true,
+   "current_default": "1",
+   "env_var": "NAVRL_TILT_COMP",
+   "source": "aerial_gym/task/navrl_task/navrl_task.py (declared at navrl_task.py:4186)",
+   "status": "DEFAULT_PRESERVED"
+  },
+  "cfg_token_effective_fov_deg": {
+   "checkpoint": 240.0,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_token_fov_deg": {
+   "checkpoint": 240.0,
+   "declared_env_var": "NAVRL_OBSTACLE_FOV_DEG",
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_training_file": {
+   "checkpoint": "ppo_navrl_perception_transformer.yaml",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_training_num_envs": {
+   "checkpoint": 128,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_training_profile": {
+   "checkpoint": "main",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_training_seed": {
+   "checkpoint": 1,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_training_sim": {
+   "checkpoint": "base_sim",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_training_task": {
+   "checkpoint": "navrl_task",
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_truncated_dmin": {
+   "checkpoint": 0.01,
+   "declared_env_var": null,
+   "reason": "no declared env-var triple and no single source-level default maps to this key; its runtime value is computed or nested",
+   "status": "NOT_ATTESTABLE"
+  },
+  "cfg_yaw_rate_max": {
+   "checkpoint": 3.0,
+   "current_default": 2.5,
+   "env_var": "NAVRL_YAW_RATE_MAX",
+   "source": "aerial_gym/config/task_config/navrl_task_config.py (declared at navrl_task.py:4226)",
+   "status": "CHANGED_BUT_OPT_IN"
+  }
+ }
+}

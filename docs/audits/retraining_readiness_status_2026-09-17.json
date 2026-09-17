@@ -1,0 +1,274 @@
+{
+ "action_semantics": {
+  "xy_attainable_norm_mps": 3.5355339059,
+  "xy_limit_kind": "independent per axis",
+  "xy_per_axis_mps": 2.5,
+  "yaw_action": "yaw rate",
+  "z_output_overwritten_by_altitude_pi": true,
+  "z_persisted_in_prev_action_observation": true,
+  "z_status": "design debt for a future training lineage; not changed here"
+ },
+ "artifacts": {
+  "contract_diff": "docs/audits/training_contract_vs_current_runtime_2026-09-17.json",
+  "current_runtime_contract": "docs/audits/current_runtime_contract_2026-09-17.json",
+  "readiness_audit": "docs/audits/retraining_readiness_audit_2026-09-17.md",
+  "sources_hashed": {
+   "aerial_gym/config/task_config/navrl_task_config.py": {
+    "lines": 781,
+    "sha256": "84b52f3371236b4dbef4a4eafb4cc5f236340ab15d6fb6eae438e8205a39f87d"
+   },
+   "aerial_gym/task/navrl_task/navrl_task.py": {
+    "lines": 9948,
+    "sha256": "255b8ea539d9d1ff84c26eb119dc8eb444682382e3a3bf6f8945644f6c0be5c1"
+   },
+   "aerial_gym/task/navrl_task/target_motion.py": {
+    "lines": 760,
+    "sha256": "a7179fb9fd6b9e19ae9d44f7eba3c7b5e3f758ff0568c8e16220c6d5c8dc9c5e"
+   },
+   "aerial_gym/task/navrl_task/target_route_planner.py": {
+    "lines": 1600,
+    "sha256": "57dc09da319ffc065c5bd5ac140b468df6c7c1f2df951cfa5761da112cf07fff"
+   }
+  },
+  "training_contract": "docs/audits/frozen_policy_training_contract_2026-09-17.md"
+ },
+ "code_defects": [
+  {
+   "can_change_recorded_result": true,
+   "class": "SCIENTIFIC_CONFOUND",
+   "fixed": false,
+   "id": "D1",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:8184-8252",
+   "note": "this is the lineage the frozen checkpoint trained on",
+   "summary": "legacy target push-out is pure displacement and target_vel_w is recomputed as delta-pos/dt, so realized target speed can exceed the labelled episode speed; reflection counters increment only in bulk-eval mode; bounce jitter draws from the global torch RNG conditionally on bar contacts"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "BUG",
+   "fixed": false,
+   "id": "D2",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:9289",
+   "summary": "results receipt defaults target_pattern to 'static'; real default is 'mixed'"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "BUG",
+   "fixed": false,
+   "id": "D3",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:2224",
+   "summary": "results receipt defaults target_speed_mps to 0 while speed comes from the curriculum"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "BUG",
+   "fixed": false,
+   "id": "D4",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:3440",
+   "summary": "surface clearance attested as 0.0 while the arena is built with 0.45; the drift guard recomputes the same wrong value so it can never fire"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "BUG",
+   "fixed": false,
+   "id": "D5",
+   "location": "aerial_gym/task/navrl_task/navrl_perception.py:960",
+   "summary": "int(round(latency/dt)) turns a 0.05 s latency into 0 steps while env_state records 0.05"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "SCIENTIFIC_CONFOUND",
+   "fixed": false,
+   "id": "D6",
+   "location": "aerial_gym/task/navrl_task/navrl_task.py:5918",
+   "summary": "non-finite LiDAR pixel maps to full range ('nothing there'), the most favourable value"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "SCIENTIFIC_CONFOUND",
+   "fixed": false,
+   "id": "D7",
+   "location": "aerial_gym/task/navrl_task/speed_governor.py:44",
+   "note": "correct for this checkpoint, which trained at 2.5",
+   "summary": "free_speed_cap_mps hard-codes sqrt(2)*2.5 while max_velocity defaults to 2.0, so at HEAD defaults the governor never binds in open space"
+  },
+  {
+   "can_change_recorded_result": false,
+   "class": "BUG",
+   "fixed": false,
+   "id": "D8",
+   "location": "aerial_gym/task/navrl_task/navrl_perception.py:1319-1324",
+   "note": "both gating knobs default to 0.0; affects detector-noise arms only",
+   "summary": "_detector_noise_range_ar AR(1) state is never reset per episode"
+  },
+  {
+   "can_change_recorded_result": true,
+   "class": "SCIENTIFIC_CONFOUND",
+   "fixed": false,
+   "id": "D9",
+   "location": "aerial_gym/task/navrl_task/navrl_perception.py:1960",
+   "summary": "LiDAR->target range adds the camera sphere radius 0.15 to a LiDAR surface range built with 0.20"
+  }
+ ],
+ "contract_diff": {
+  "changed_and_guarded": [
+   "cfg_lidar_hbeams",
+   "cfg_lidar_max_range",
+   "cfg_max_velocity",
+   "cfg_yaw_rate_max"
+  ],
+  "changed_and_unguarded": [
+   "cfg_density_check_eps",
+   "cfg_density_final",
+   "cfg_episode_len_steps",
+   "cfg_general_goal_dist_max",
+   "cfg_general_goal_dist_min",
+   "cfg_general_train",
+   "cfg_oob_margin",
+   "cfg_target_speed_final",
+   "cfg_target_speed_min",
+   "cfg_target_speed_ramp_epochs"
+  ],
+  "changed_keys": [
+   "cfg_density_check_eps",
+   "cfg_density_final",
+   "cfg_episode_len_steps",
+   "cfg_general_goal_dist_max",
+   "cfg_general_goal_dist_min",
+   "cfg_general_train",
+   "cfg_lidar_hbeams",
+   "cfg_lidar_max_range",
+   "cfg_max_velocity",
+   "cfg_oob_margin",
+   "cfg_target_speed_final",
+   "cfg_target_speed_min",
+   "cfg_target_speed_ramp_epochs",
+   "cfg_yaw_rate_max"
+  ],
+  "checkpoint_cfg_keys": 112,
+  "counts": {
+   "CHANGED_BUT_OPT_IN": 14,
+   "DEFAULT_PRESERVED": 15,
+   "NOT_ATTESTABLE": 83
+  },
+  "guard_fails_closed": false,
+  "training_contract_reproducible_from_head_defaults": false,
+  "training_contract_reproducible_from_launcher": "aerial_gym/rl_training/rl_games/train_navrl_v2_search.sh"
+ },
+ "date": "2026-09-17",
+ "evaluation": {
+  "authority_tool": "tools/check_research_authority.py",
+  "blocked_by": [
+   "research authority: offline bottleneck analysis and a new preregistration are required before any GPU work"
+  ],
+  "state": "READY_NOT_RUN"
+ },
+ "frozen_policy": {
+  "checkpoint_sha256": "f702213936601860995cf61dcc570247e72543b1976e3716055cd8ec5593ad40",
+  "env_state_keys": 127,
+  "epoch": 25000,
+  "frame": 102400000,
+  "path": "aerial_gym/rl_training/rl_games/runs/ppo_260805_0413_navrl_v2-speedgov-ep24000-205bars-main-riskcap-s1/nn/last_gen_ppo_ep_25000_rew_39.742134.pth",
+  "trained_target_lineage": "legacy",
+  "trained_target_lineage_provenance": "ATTESTED_BY_CHECKPOINT",
+  "trained_target_motion_model": "symmetric_local_steer_v2_heading_continuity90",
+  "trained_target_pattern": "mixed"
+ },
+ "git_commit": "f4079605ca5a0b47835ed4c5e1174746d7a17104",
+ "git_tree_clean": false,
+ "gpu_work_performed": false,
+ "heading_valid_speed_contract": {
+  "checkpoint_key_present": false,
+  "note": "The checkpoint predates the key. 0.10 is the value the running code holds, not a value the checkpoint recorded.",
+  "possible_pre_key_inline_epsilon_mps": 1e-05,
+  "provenance": "ASSUMED_PRE_KEY_DEFAULT",
+  "ratio": 10000.0,
+  "running_value_mps": 0.1
+ },
+ "historical_results_overwritten": false,
+ "kind": "navrl_retraining_readiness_status",
+ "new_ppo_training_run": false,
+ "observation_compatibility": {
+  "actor_obs_dim": 898,
+  "checkpoint_vs_runtime_obs_dim_validation_on_eval_path": false,
+  "critic_state_dim": 906,
+  "normalization_location": "checkpoint model state dict (running_mean_std)",
+  "normalization_used": true,
+  "preflight_tool_exists_but_not_invoked_by_eval": "aerial_gym/rl_training/rl_games/navrl_checkpoint_preflight.py",
+  "same_width_wrong_semantics_fails_loudly": false,
+  "wrong_width_fails_loudly": true
+ },
+ "preregistration": {
+  "amended_before_any_measurement": true,
+  "amendment": 1,
+  "arms": [
+   "H_historical",
+   "E0_static",
+   "E1_cv",
+   "E2_obstacle_aware"
+  ],
+  "cells": 48,
+  "condition_gate": "tools/audits/check_eval_condition_contract.py",
+  "condition_gate_fails_closed": true,
+  "densities": [
+   70,
+   115,
+   160,
+   205
+  ],
+  "episodes_per_cell": 2048,
+  "evaluation_seeds": [
+   4101,
+   4102,
+   4103
+  ],
+  "path": "docs/prereg_2026-09-17_target_motion_complexity_e0_e1_e2.md",
+  "primary_outcomes": [
+   "min_relative_distance_m",
+   "capture_rate"
+  ],
+  "removed_outcomes": [
+   "time_within_approach_band_frac"
+  ],
+  "removed_reason": "not defined under capture termination",
+  "state": "PREREGISTERED_AMENDED_BEFORE_MEASUREMENT"
+ },
+ "retraining_decision": {
+  "case": null,
+  "decision": "PENDING_EVALUATION",
+  "preconditions_before_any_new_training": {
+   "blocking_states": {
+    "live_rgb_to_policy": "NOT_TESTED",
+    "p10_adaptation": "INCONCLUSIVE",
+    "persistent_id": "BLOCKED",
+    "true_metric_range": "BLOCKED"
+   },
+   "final_controller_frozen": true,
+   "final_observation_contract_frozen": false,
+   "final_perception_contract_frozen": false,
+   "final_robot_dynamics_contract_frozen": false,
+   "final_safety_filter_frozen": true,
+   "final_target_behavior_contract_frozen": false
+  }
+ },
+ "schema_version": 1,
+ "silent_fixes_applied": false,
+ "termination_audit": {
+  "capture_ends_episode": true,
+  "consequence": "Continuous-tracking metrics are not measurable under capture termination: better tracking terminates earlier and contributes fewer samples.",
+  "evidence": "aerial_gym/task/navrl_task/navrl_task.py:4999 comment; :6025 capture test",
+  "success_radius_m": 0.5,
+  "termination_modified_by_this_work": false,
+  "verdict": "A_CLOSE_APPROACH_TASK"
+ },
+ "tm_e2_dynamics_consistency": {
+  "accel_envelope_mps2": 4.0,
+  "consistent": true,
+  "headroom_fraction": 0.0183,
+  "note": "A coordinated turn at max speed and max turn rate sits on the acceleration bound with 1.8% to spare, leaving essentially no budget for simultaneous speed change. 2-D bounded kinematic, not rigid-body UAV dynamics.",
+  "required_lateral_accel_mps2": 3.927,
+  "target_speed_max_mps": 1.5,
+  "target_turn_rate_deg_s": 150.0
+ },
+ "verdict": "RETRAIN_DECISION_BLOCKED_PENDING_EVALUATION",
+ "verdict_reason": "The retrain/no-retrain gate requires the frozen-policy E0/E1/E2 evaluation, which has not been run. The audit that precedes it is complete and changed the experiment's design."
+}
