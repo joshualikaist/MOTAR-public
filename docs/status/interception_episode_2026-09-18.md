@@ -128,6 +128,17 @@ tracker obstacle penetration, wall violation, teleport, speed / acceleration /
 turn-rate limit, unsafe route segment, command without safe route, blind motion
 after route invalidation.
 
+## J'. Terminology and provenance follow-up (same day)
+
+Termination values were subsequently moved out of the page literal into a static,
+source-generated contract (`research_task_contract.json`), and the HUD was aligned
+to the project's public framing (TRACKING / CLOSE APPROACH / FINAL APPROACH /
+APPROACH COMPLETE) **without renaming any internal state or historical record**.
+Both are frozen by
+[`gt_browser_episode_v1_freeze_2026-09-18.md`](gt_browser_episode_v1_freeze_2026-09-18.md).
+The metrics in this document are **browser engineering validation**, not PPO or
+PhysX results, and are not placed in the site's research result tables.
+
 ## J. Scope
 
 Browser visualization only. **Zero changes** under `aerial_gym/`, `resources/`,

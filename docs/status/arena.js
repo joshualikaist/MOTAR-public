@@ -32,12 +32,14 @@ window.Arena = (() => {
   let episodeMode = 'interception';
   let terminalState = null;
   let episodeClosestM = Infinity;
-  // Termination contract. These are OVERWRITTEN by Arena.configure() from the
-  // page's geometry literal, which carries the research task's success_radius
-  // and episode budget with their provenance; the literals here are only the
-  // fail-safe if configure() is never called.
-  let CAPTURE_RADIUS_M = 0.5;
-  let TIMEOUT_S = 60;
+  /* Termination contract. Arena.configure() sets these from the static research
+   * task contract (docs/status/research_task_contract.json), which viewer.js
+   * loads fail-closed. The values below are an EXPLICITLY LABELLED development
+   * fallback for a direct Arena.init() with no configure() -- never the
+   * production path, where configureFromContract is always true. */
+  let CAPTURE_RADIUS_M = 0.5;   // dev fallback; see research_task_contract.json
+  let TIMEOUT_S = 60;           // dev fallback; see research_task_contract.json
+  let terminationFromContract = false;
   const TERMINAL_HOLD_S = 1.5;
   let currentBars = 25, layoutSeed = 20260728, episode, gtSession;
   let showTrails = true, frame = 0, visible = true, lidarNeedsDraw = true;
@@ -447,6 +449,22 @@ window.Arena = (() => {
     };
   }
 
+  /* USER-FACING labels only. Internal phase/outcome names (CHASE, CLOSE,
+   * INTERCEPT, CAPTURED, ...) are unchanged everywhere else -- planner state,
+   * debugState(), diagnostics, tests and every historical research record keep
+   * them. This map exists so the HUD reads in the project's current public
+   * framing (Tracking / Close Approach) without renaming anything internal. */
+  const PHASE_LABEL = {
+    CHASE: 'TRACKING',
+    CLOSE: 'CLOSE APPROACH',
+    INTERCEPT: 'FINAL APPROACH',
+    CAPTURED: 'APPROACH COMPLETE',
+    TIMEOUT: 'TIMEOUT',
+    ABORT: 'RESET / ABORT',
+    TRACK: 'TRACKING',
+  };
+  function phaseLabel(name) { return PHASE_LABEL[name] || name; }
+
   function updateMotionHud() {
     const mode = hud['hud-pattern'];
     const sampled = hud['hud-target-speed'];
@@ -508,7 +526,8 @@ window.Arena = (() => {
         ? 'LOCAL HEURISTIC · historical browser' : '';
     }
     const modeEl = hud['hud-episode-mode'];
-    if (modeEl) modeEl.textContent = episodeMode === 'interception' ? 'INTERCEPTION MODE' : 'CONTINUOUS TRACKING MODE';
+    if (modeEl) modeEl.textContent = episodeMode === 'interception'
+      ? 'CLOSE-APPROACH EPISODE' : 'CONTINUOUS TRACKING MODE';
     const phaseEl = hud['hud-phase'];
     if (phaseEl) {
       let phase;
@@ -516,7 +535,7 @@ window.Arena = (() => {
       else if (episodeMode !== 'interception') phase = 'TRACK';
       else if (pursuerDisplayMode === 'gt-route-track' && gtSession && gtSession.episode) phase = gtSession.episode.phase;
       else phase = 'CHASE';
-      phaseEl.textContent = `${phase} · ${episode ? episode.age.toFixed(1) : '0.0'} s`;
+      phaseEl.textContent = `${phaseLabel(phase)} · ${episode ? episode.age.toFixed(1) : '0.0'} s`;
     }
     const outcomeEl = hud['hud-outcome'];
     if (outcomeEl) {
@@ -524,10 +543,10 @@ window.Arena = (() => {
       outcomeEl.classList.toggle('timeout', Boolean(terminalState) && terminalState.outcome !== 'CAPTURED');
       if (terminalState) {
         outcomeEl.textContent = terminalState.outcome === 'CAPTURED'
-          ? `CAPTURED\nTime: ${terminalState.timeS.toFixed(1)} s\nClosest distance: ${terminalState.closestM.toFixed(2)} m`
+          ? `${phaseLabel('CAPTURED')}\nTime: ${terminalState.timeS.toFixed(1)} s\nClosest distance: ${terminalState.closestM.toFixed(2)} m`
           : terminalState.outcome === 'TIMEOUT'
-            ? `TIMEOUT\nTarget not intercepted\nClosest distance: ${terminalState.closestM.toFixed(2)} m`
-            : 'ABORT\nHistorical pursuer contact · reset';
+            ? `${phaseLabel('TIMEOUT')}\nApproach not completed\nClosest distance: ${terminalState.closestM.toFixed(2)} m`
+            : `${phaseLabel('ABORT')}\nHistorical pursuer contact · reset`;
       }
     }
     const clickEl = hud['hud-click-feedback'];
@@ -985,8 +1004,8 @@ window.Arena = (() => {
     counters.outcomes[outcome] = (counters.outcomes[outcome] || 0) + 1;
     const a11y = hud['hud-a11y'];
     if (a11y) a11y.textContent = outcome === 'CAPTURED'
-      ? `Target captured after ${episode.age.toFixed(1)} seconds`
-      : outcome === 'TIMEOUT' ? 'Timeout, target not intercepted' : 'Episode aborted';
+      ? `Approach complete after ${episode.age.toFixed(1)} seconds`
+      : outcome === 'TIMEOUT' ? 'Timeout, approach not completed' : 'Episode aborted';
     updateMotionHud();
   }
 
@@ -1123,10 +1142,11 @@ window.Arena = (() => {
       }
       // Research termination contract, mirrored: success_radius and the
       // episode budget (steps x RL dt). Provenance lives with the literal.
-      if (Number(cfg.success_radius_m) > 0) CAPTURE_RADIUS_M = Number(cfg.success_radius_m);
-      if (Number(cfg.episode_len_steps) > 0) {
-        const rlDt = Number(cfg.rl_step_dt_s) > 0 ? Number(cfg.rl_step_dt_s) : 0.1;
-        TIMEOUT_S = Number(cfg.episode_len_steps) * rlDt;
+      if (Number(cfg.success_radius_m) > 0 && Number(cfg.episode_len_steps) > 0
+          && Number(cfg.rl_step_dt_s) > 0) {
+        CAPTURE_RADIUS_M = Number(cfg.success_radius_m);
+        TIMEOUT_S = Number(cfg.episode_len_steps) * Number(cfg.rl_step_dt_s);
+        terminationFromContract = true;
       }
     },
     setEpisodeMode(mode) {
@@ -1208,6 +1228,7 @@ window.Arena = (() => {
         closestM: episodeClosestM,
         captureRadiusM: CAPTURE_RADIUS_M,
         timeoutS: TIMEOUT_S,
+        terminationFromContract: terminationFromContract,
         episodesCompleted: counters.episodesCompleted,
         outcomes: Object.assign({}, counters.outcomes),
         gtPreview: gtPreviewActive(),

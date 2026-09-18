@@ -32,12 +32,34 @@ const STATUS_PATH = fs.existsSync(path.join(PLANNER_DIR, 'status.json'))
   : path.join(__dirname, '..', 'docs', 'status', 'status.json');
 const STATUS = JSON.parse(fs.readFileSync(STATUS_PATH, 'utf8'));
 const GEO = STATUS.arena_geometry;
-// Termination contract with provenance: status.json carries success_radius_m
-// once the snapshot is regenerated; until then the research value 0.5 m
-// (navrl_task_config.success_radius) is the documented fallback.
-const CAPTURE_RADIUS_M = Number(argValue('--capture-radius', GEO.success_radius_m || 0.5));
+
+/* Termination semantics come from the STATIC research task contract, not from
+ * status.json (a dynamic run snapshot) and not from a literal in this file.
+ * Fail closed: a harness that silently measured a different capture radius than
+ * the page would certify the wrong thing. */
+const CONTRACT_PATH = path.join(__dirname, '..', 'docs', 'status', 'research_task_contract.json');
+function loadTaskContract() {
+  let raw;
+  try {
+    raw = JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));
+  } catch (error) {
+    throw new Error('research task contract unreadable at ' + CONTRACT_PATH
+      + ' (' + error.message + '); run tools/build_research_task_contract.py');
+  }
+  if (raw.schema_version !== 1 || raw.task !== 'navrl') {
+    throw new Error('research task contract: unsupported schema');
+  }
+  for (const key of ['success_radius_m', 'episode_len_steps', 'rl_step_dt_s']) {
+    if (!(Number(raw[key]) > 0)) {
+      throw new Error('research task contract: missing or non-positive ' + key);
+    }
+  }
+  return raw;
+}
+const TASK_CONTRACT = loadTaskContract();
+const CAPTURE_RADIUS_M = Number(argValue('--capture-radius', TASK_CONTRACT.success_radius_m));
 const TIMEOUT_S = Number(argValue('--timeout',
-  Number(GEO.episode_len_steps || 600) * Number(GEO.rl_step_dt_s || 0.1)));
+  Number(TASK_CONTRACT.episode_len_steps) * Number(TASK_CONTRACT.rl_step_dt_s)));
 const SUPPORTS_EPISODES = typeof Planner.applyEpisodeOutcome === 'function';
 
 // Same contract the page applies through Arena.configure/Motion.configure.
@@ -548,9 +570,14 @@ function main() {
     kind: 'browser_gt_tracking_logic_validation',
     episode_mode: episodeMode,
     planner_dir: PLANNER_DIR,
-    termination_contract: {capture_radius_m: CAPTURE_RADIUS_M, timeout_s: TIMEOUT_S,
-      capture_radius_provenance: GEO.success_radius_m != null ? 'status.json arena_geometry.success_radius_m'
-        : 'fallback: navrl_task_config.success_radius = 0.5 m (status.json predates the field)'},
+    termination_contract: {
+      capture_radius_m: CAPTURE_RADIUS_M,
+      timeout_s: TIMEOUT_S,
+      source: 'docs/status/research_task_contract.json',
+      contract_git_commit: TASK_CONTRACT.provenance && TASK_CONTRACT.provenance.git_commit,
+      bindings: TASK_CONTRACT.provenance && TASK_CONTRACT.provenance.bindings,
+      fallbacks_used: 0,
+    },
     boundary: [
       'BROWSER GT TRACKING PREVIEW',
       'SIMULATION ONLY',

@@ -19136,3 +19136,85 @@ goal handoff pause가 이미 0.035 s라 prefetch rewrite는 fail-closed를 위�
 
 "Browser interception preview mirrors the task termination semantics, but is not PPO or
 PhysX performance evidence." 48-cell 사전등록 평가·정책·checkpoint·reward 미변경.
+
+## 2026-09-18 — Browser termination provenance 정리 + GT_BROWSER_EPISODE_V1 FROZEN
+
+browser 작업을 마무리하고 H/E0/E1/E2 preflight로 복귀했다. GPU/PPO 실행 없음.
+
+### 문제: provenance source가 분산돼 있었다
+
+termination 값(0.5 / 600 / 0.1)이 **세 곳에 literal**로 있었다 — `viewer.js`, `arena.js`,
+`validate_gt_browser_tracking.js`. 값은 맞았지만 단일 출처가 없었다. `status.json`은
+`generated_at=2026-09-08`의 old snapshot이라 termination field가 없었고, harness는 fallback을
+쓰고 있었다.
+
+`status.json`을 그냥 regenerate하면 `latest_run`·`active_run`·run summary 같은 **무관한
+live field가 함께 바뀐다**. 그래서 하지 않았다.
+
+### 해결: static contract를 dynamic snapshot과 분리
+
+```text
+docs/status/status.json                  DYNAMIC dashboard snapshot (active/latest run, 요약)
+docs/status/research_task_contract.json  STATIC task contract (termination + stable geometry)
+```
+
+`tools/build_research_task_contract.py`가 **research source에서 읽어** 생성한다:
+
+| 값 | 바인딩 |
+|---|---|
+| `success_radius_m` 0.5 | `navrl_task_config.py: success_radius` |
+| `episode_len_steps` 600 | `train_navrl_v2_search.sh: NAVRL_EPISODE_LEN_STEPS` |
+| `rl_step_dt_s` 0.1 | `base_sim_config.dt(0.01)` × `navrl_bars_env.num_physics_steps_per_env_step_mean(10)` — **유도**, 단언 아님 |
+| arena/placement | 같은 launcher의 `NAVRL_ARENA_*` / `NAVRL_PLACEMENT_*` |
+
+output에 source path·git commit·source SHA-256 포함. `--check` 모드가 committed contract와
+source의 drift를 검사(provenance 필드는 제외, 계약 본문만).
+
+**fail closed**: 바인딩 regex가 안 맞으면 `ContractError`로 생성 거부. silent default 없음.
+
+### 소비자 통합
+
+page(fetch, malformed면 부팅 거부) / arena(configure로 주입, `terminationFromContract` 노출) /
+harness(contract 못 읽으면 실행 거부) / tests 전부 이 한 파일에 bind. `arena.js`의 literal은
+**explicitly labelled dev fallback**으로만 남겼고 production 경로에서는 사용 0회.
+`update_status_snapshot.py`에 넣었던 termination field는 **되돌렸다**(dynamic-only 유지).
+
+### Public terminology — UI label만
+
+```text
+CHASE→TRACKING  CLOSE→CLOSE APPROACH  INTERCEPT→FINAL APPROACH
+CAPTURED→APPROACH COMPLETE  TIMEOUT→TIMEOUT  ABORT→RESET / ABORT
+```
+
+**internal state name·`success_radius`·`capture`·historical record는 rename하지 않았다.**
+테스트가 양쪽을 강제한다(label map 존재 + planner/motion의 internal name 보존).
+
+### 검증
+
+- `tests/test_browser_capture_provenance.py` 23개(기존 11 → 확장): contract가 source와 일치,
+  `rl_step_dt`가 유도값과 일치, 생성기 `--check` 통과, 소비자 fail-closed, dev fallback 라벨링,
+  status.json에 termination field 누출 없음, UI label 매핑, internal name 보존.
+- Node 7종 + headless WebGL PASS(새 fetch 부팅 경로 실브라우저 확인).
+- browser 120런 재측정(contract-bound): interception **676 episode / 676 capture / 0 timeout**,
+  continuous 포함 **hard invariant 16종 전부 0**.
+
+### GT_BROWSER_EPISODE_V1 = FROZEN
+
+`docs/status/gt_browser_episode_v1_freeze_2026-09-18.md`. continuous 계약 / close-approach
+episode 계약 / termination provenance / public terminology 동결. planner parameter
+(standoff, close·final-approach threshold, prediction horizon, A* resolution)는 이제
+prereg나 amendment 없이 조정하지 않는다. browser engineering metric은 research result
+table에 넣지 않는다.
+
+### 연구 preflight 복귀 (GPU 미실행)
+
+- defect matrix 재확인: **TYPE-B 0건**, `E2_UNAFFECTED_BY_D1 = TRUE`(AST 재도출).
+  arm 영향 `H: D1,D3,D6,D9` / `E0,E1,E2: D3,D6,D9`.
+- 48-cell dry preflight: **48/48 MATCHED**, confounded 0, checkpoint SHA 검증 통과.
+- E2 validity: **PASS**(navrl_band, production bounded 계약 0.77 m centre-to-centre).
+- Go/No-Go: 8개 기준 중 `git_tree_clean` 외 전부 PASS → 커밋 후 재생성.
+
+```text
+GPU_EVALUATION = READY_FOR_USER_AUTHORIZATION (자동 실행 안 함)
+RETRAINING     = BLOCKED_PENDING_EVALUATION
+```

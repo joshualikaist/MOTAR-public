@@ -5,7 +5,16 @@
  "termination_contract": {
   "capture_radius_m": 0.5,
   "timeout_s": 60,
-  "capture_radius_provenance": "fallback: navrl_task_config.success_radius = 0.5 m (status.json predates the field)"
+  "source": "docs/status/research_task_contract.json",
+  "contract_git_commit": "baa74f38e59c97429344c61e6e5b4c52b1d6ec4b",
+  "bindings": {
+   "arena/placement": "aerial_gym/rl_training/rl_games/train_navrl_v2_search.sh: NAVRL_ARENA_* / NAVRL_PLACEMENT_*",
+   "capture_ends_episode": "aerial_gym/task/navrl_task/navrl_task.py: interception semantics comment",
+   "episode_len_steps": "aerial_gym/rl_training/rl_games/train_navrl_v2_search.sh: NAVRL_EPISODE_LEN_STEPS",
+   "rl_step_dt_s": "aerial_gym/config/sim_config/base_sim_config.py: dt x aerial_gym/config/env_config/navrl_bars_env.py: num_physics_steps_per_env_step_mean",
+   "success_radius_m": "aerial_gym/config/task_config/navrl_task_config.py: success_radius"
+  },
+  "fallbacks_used": 0
  },
  "boundary": [
   "BROWSER GT TRACKING PREVIEW",
@@ -14,8 +23,8 @@
   "NOT PHYSX",
   "NOT RESEARCH PERFORMANCE EVIDENCE"
  ],
- "generated_utc": "2026-09-18T05:41:56.054Z",
- "wall_clock_s": 39.965,
+ "generated_utc": "2026-09-18T08:10:03.667Z",
+ "wall_clock_s": 40.011,
  "contract": {
   "simulation_hz": 10,
   "duration_s": 60,
