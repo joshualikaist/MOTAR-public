@@ -19080,3 +19080,59 @@ tests/test_target_motion_defect_impact.py   16개
 
 **physics 코드 수정 0건.** push-out / reflection / action semantics / termination / reward /
 controller 전부 그대로다. `aerial_gym/` 아래 diff 0.
+
+## 2026-09-18 — Browser arena: interception episode(기본) + capture/timeout termination
+
+브라우저 GT preview가 "무한 following"만 보여줘 MOTAR의 핵심(detection→tracking→pursuit→
+close approach→**capture**)을 잘못 표현하던 conceptual bug를 고쳤다. browser visualization
+전용 작업. `aerial_gym/`·`resources/`·`configs/` 변경 0.
+
+### 정확한 원인 (재검증 완료)
+
+`arena.js:simulationStep`의 `gt-route-track` 브랜치가 `return;`(구 :902)으로 끝나서 그 아래
+`sweptCapture(...,0.5)`와 `episode.age>=30` watchdog에 **도달하지 못했다**. 즉 기본 GT
+preview는 outcome 검사를 아예 안 했다. 게다가 `predictedFollowPoint`가 `standoffM=1.55 m`를
+target **뒤**에 영구히 두어 조준점이 target에 닿지 않으니 0.5 m capture가 구조적으로 불가능했다.
+
+### 수정
+
+- `simulationStep`을 `stepTarget → stepPursuer → 공통 evaluateEpisodeOutcome → terminal 전환`
+  으로 재구성. historical/GT 두 경로가 **하나의** outcome layer를 지난다. capture literal을
+  브랜치에 복붙하지 않았다.
+- 공통 함수 `Motion.episodeOutcome`을 arena.js와 planner(headless)가 **같은 입력**으로 호출 →
+  capture/timeout semantics drift 불가. capture는 swept(스텝 사이 crossing 포착), timeout은
+  task episode budget.
+- interception 모드: standoff를 **거리의 연속함수**로 감쇠(CLOSE 4.0 m에서 1.55 m → INTERCEPT
+  1.2 m에서 0). INTERCEPT phase는 target 자신을 short-horizon 예측해 조준. continuous 모드는
+  1.55 m 고정 유지.
+- terminal freeze + ~1.5 s hold + **정확히 1회** reset. TIMEOUT/ABORT도 terminal 처리.
+- capture radius(0.5 m)·timeout(600×0.1=60 s)은 **연구 task 값**을 viewer.js가 provenance
+  주석과 함께 싣고 `tests/test_browser_capture_provenance.py`가 소스에 바인딩.
+
+### hesitation — 느낌 아니라 수치로, 네 원인 분리 (continuous 120런)
+
+| 후보 | 측정 | 판정 |
+|---|---|---|
+| 10 Hz 클럭 | 30/60/120 FPS 동일 궤적 | **원인 아님** |
+| replan | 0.64/s(최대 5.75/s) | 이동 중 발생, 정지 아님 |
+| goal handoff | pause **0.035 s** 평균 | 무시 가능 |
+| emergency hold | 7.7 tick/600 = **1.28%** | 지배적, 안전장치 → 유지 |
+
+goal handoff pause가 이미 0.035 s라 prefetch rewrite는 fail-closed를 위험에 빠뜨리면서
+얻는 게 없어 **구현하지 않았다**(brief의 "확인되면" 조건부). 10 Hz는 hesitation 원인이 아니다.
+
+### 검증
+
+- **continuous before/after 완전 동일** — 모든 metric(goal transition/handoff/dwell/stall/
+  emergency hold/replan/route switch) 일치. 추적 데모 byte-for-byte 보존.
+- interception 120런: episode 676 종료 / **capture 676 / timeout 0**, time-to-capture 8.8 s,
+  closest 0.39 m(<0.5 m). terminal-correctness 5종(무근거 capture/누락 capture/terminal 중
+  이동/reset 횟수/stale state) 전부 0.
+- hard invariant 11종 **세 매트릭스 모두 ALL ZERO**.
+- Node 7종 + headless WebGL + provenance/doc python 테스트 PASS.
+- raw: `results/browser_interception_v1_2026-09-18/`, 문서: `docs/status/interception_episode_2026-09-18.md`.
+
+### evidence boundary
+
+"Browser interception preview mirrors the task termination semantics, but is not PPO or
+PhysX performance evidence." 48-cell 사전등록 평가·정책·checkpoint·reward 미변경.

@@ -40,6 +40,7 @@ jobs:
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_repository_claims.py'
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_research_overview.py'
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_target_algorithm_documentation.py'
+          "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_browser_capture_provenance.py'
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_retraining_readiness_audit.py'
           "$RUNNER_TEMP/renderer-env/bin/python" -B -m unittest discover -s tests -p 'test_target_motion_defect_impact.py'
       - name: Actual CPU smoke and exporter counterfactuals
@@ -61,7 +62,9 @@ jobs:
           node tests/test_status_arena_motion.js
           node tests/test_status_arena_demo_planner.js
           node tests/test_status_gt_tracking_determinism.js
+          node tests/test_status_interception_episode.js
           node tools/validate_gt_browser_tracking.js --seeds 2 --duration 20
+          node tools/validate_gt_browser_tracking.js --episode-mode interception --seeds 2 --duration 20
       - name: Retain technical evidence
         if: always()
         uses: actions/upload-artifact@v4

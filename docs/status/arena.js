@@ -25,6 +25,20 @@ window.Arena = (() => {
   let targetMotionMode = 'gt-free-roam';
   let pursuerDisplayMode = 'gt-route-track';
   let targetGoalMode = 'auto';
+  // Episode semantics. 'interception' mirrors the research task: capture or
+  // timeout ends the episode. 'continuous' is the GT_BROWSER_V1 tracking demo:
+  // no capture, no timeout, the display standoff is held. The site defaults to
+  // interception because a permanent follower misrepresents the research goal.
+  let episodeMode = 'interception';
+  let terminalState = null;
+  let episodeClosestM = Infinity;
+  // Termination contract. These are OVERWRITTEN by Arena.configure() from the
+  // page's geometry literal, which carries the research task's success_radius
+  // and episode budget with their provenance; the literals here are only the
+  // fail-safe if configure() is never called.
+  let CAPTURE_RADIUS_M = 0.5;
+  let TIMEOUT_S = 60;
+  const TERMINAL_HOLD_S = 1.5;
   let currentBars = 25, layoutSeed = 20260728, episode, gtSession;
   let showTrails = true, frame = 0, visible = true, lidarNeedsDraw = true;
   let host, lastDrone = { x: 1, y: 0 };
@@ -32,7 +46,8 @@ window.Arena = (() => {
   let clickFeedbackUntil = 0, clickFeedbackText = '';
   // Measured-only counters for the browser validation probe. Incrementing
   // integers; they never feed the simulation.
-  const counters = {simSteps: 0, lidarDraws: 0, renderFrames: 0, plannerCalls: 0, resets: 0};
+  const counters = {simSteps: 0, lidarDraws: 0, renderFrames: 0, plannerCalls: 0, resets: 0,
+    episodesCompleted: 0, outcomes: {CAPTURED: 0, TIMEOUT: 0, ABORT: 0}};
   let a11yUntil = 0, a11yLast = '';
   const simClock = Motion.createFixedStepClock(0.1, 0.25, 8);
   const motionRng = Motion.seededRng(8675309);
@@ -54,6 +69,7 @@ window.Arena = (() => {
       'hud-pattern', 'hud-target-speed', 'hud-motion-lineage', 'hud-route-state',
       'hud-camera', 'hud-range', 'hud-gt-badge', 'hud-follow-state',
       'hud-pursuer-state', 'hud-click-feedback', 'hud-a11y', 'btn-view',
+      'hud-episode-mode', 'hud-phase', 'hud-outcome',
     ].forEach(function (id) { hud[id] = document.getElementById(id); });
   }
 
@@ -234,6 +250,8 @@ window.Arena = (() => {
     // respawns both aircraft. Publishing a serial lets a validation probe tell
     // that apart from a discontinuity in the motion itself.
     counters.resets += 1;
+    terminalState = null;
+    episodeClosestM = Infinity;
     if (regenerateBars) makeBars(currentBars);
     episode = Motion.createEpisode(motionRng, bars, speedCeiling);
     if (targetMotionMode === 'routed-preview') planRoutedEpisode();
@@ -267,6 +285,9 @@ window.Arena = (() => {
       target: startTarget,
       pursuer: startPursuer,
       goalMode: targetGoalMode,
+      episodeMode: episodeMode,
+      captureRadiusM: CAPTURE_RADIUS_M,
+      timeoutS: TIMEOUT_S,
     });
     if (keepPose && episode) {
       episode.target.x = gtSession.target.x;
@@ -485,6 +506,29 @@ window.Arena = (() => {
     } else if (pursuerHud) {
       pursuerHud.textContent = pursuerDisplayMode === 'local-heuristic'
         ? 'LOCAL HEURISTIC · historical browser' : '';
+    }
+    const modeEl = hud['hud-episode-mode'];
+    if (modeEl) modeEl.textContent = episodeMode === 'interception' ? 'INTERCEPTION MODE' : 'CONTINUOUS TRACKING MODE';
+    const phaseEl = hud['hud-phase'];
+    if (phaseEl) {
+      let phase;
+      if (terminalState) phase = terminalState.outcome;
+      else if (episodeMode !== 'interception') phase = 'TRACK';
+      else if (pursuerDisplayMode === 'gt-route-track' && gtSession && gtSession.episode) phase = gtSession.episode.phase;
+      else phase = 'CHASE';
+      phaseEl.textContent = `${phase} · ${episode ? episode.age.toFixed(1) : '0.0'} s`;
+    }
+    const outcomeEl = hud['hud-outcome'];
+    if (outcomeEl) {
+      outcomeEl.hidden = !terminalState;
+      outcomeEl.classList.toggle('timeout', Boolean(terminalState) && terminalState.outcome !== 'CAPTURED');
+      if (terminalState) {
+        outcomeEl.textContent = terminalState.outcome === 'CAPTURED'
+          ? `CAPTURED\nTime: ${terminalState.timeS.toFixed(1)} s\nClosest distance: ${terminalState.closestM.toFixed(2)} m`
+          : terminalState.outcome === 'TIMEOUT'
+            ? `TIMEOUT\nTarget not intercepted\nClosest distance: ${terminalState.closestM.toFixed(2)} m`
+            : 'ABORT\nHistorical pursuer contact · reset';
+      }
     }
     const clickEl = hud['hud-click-feedback'];
     if (clickEl) {
@@ -858,11 +902,7 @@ window.Arena = (() => {
     return a + Math.atan2(Math.sin(b - a), Math.cos(b - a)) * t;
   }
 
-  function simulationStep(dt) {
-    counters.simSteps += 1;
-    if (!episode) resetEpisode(false);
-    simPrev = simCurr || snapshotSimulation();
-    if (gtSession) gtSession.time += dt;
+  function stepTarget(dt) {
     if (targetMotionMode === 'gt-free-roam') {
       if (!gtSession) rebuildGtSession(false);
       Planner.stepTargetFreeRoam(gtSession, dt);
@@ -889,26 +929,27 @@ window.Arena = (() => {
       updateRouteLine();
       updateMotionHud();
     }
+  }
+
+  // Returns {abort: true} when the historical local heuristic hits a bar; that
+  // path used to reset inline. Now it is an outcome like any other.
+  function stepPursuer(dt) {
     if (pursuerDisplayMode === 'gt-route-track') {
       if (!gtSession) rebuildGtSession(false);
+      if (gtSession.episode) gtSession.episode.elapsedS = episode.age;
       Planner.stepPursuerGt(gtSession, dt);
       lastDrone = { x: gtSession.pursuer.x, y: gtSession.pursuer.y };
       vel = { x: gtSession.pursuer.vx, y: gtSession.pursuer.vy };
       heading = gtSession.pursuer.heading;
       drone.position.x = lastDrone.x;
       drone.position.z = lastDrone.y;
-      simCurr = snapshotSimulation();
-      lidarNeedsDraw = true;
-      return;
+      return {abort: false};
     }
     const proposed = Motion.steerPursuerStep(
       simPrev.droneX, simPrev.droneY, episode.target.x, episode.target.y,
       Motion.CONTRACT.pursuerSpeedMax, dt, bars, heading, episode.avoidSign
     );
-    if (proposed.hit) {
-      resetEpisode(true);
-      return;
-    }
+    if (proposed.hit) return {abort: true};
     lastDrone = { x: proposed.x, y: proposed.y };
     vel = { x: proposed.vx, y: proposed.vy };
     if (proposed.heading != null && Math.hypot(proposed.vx, proposed.vy) > .05) {
@@ -916,14 +957,64 @@ window.Arena = (() => {
     }
     drone.position.x = proposed.x;
     drone.position.z = proposed.y;
+    return {abort: false};
+  }
+
+  /* The COMMON outcome check. Every pursuer path reaches it; nothing returns
+   * early past it. It calls the same Motion.episodeOutcome the planner uses in
+   * its headless step, with the same inputs, so capture/timeout semantics
+   * cannot drift between the historical branch, the GT branch and the tests. */
+  function evaluateEpisodeOutcome() {
+    const prevRel = {x: simPrev.droneX - simPrev.targetX, y: simPrev.droneY - simPrev.targetY};
+    const nextRel = {x: simCurr.droneX - simCurr.targetX, y: simCurr.droneY - simCurr.targetY};
+    episodeClosestM = Math.min(episodeClosestM, Motion.sweptMinDistance(prevRel, nextRel));
+    if (episodeMode === 'continuous') return 'RUNNING';
+    return Motion.episodeOutcome({
+      prevRelative: prevRel,
+      nextRelative: nextRel,
+      elapsedS: episode.age,
+      captureRadiusM: CAPTURE_RADIUS_M,
+      timeoutS: TIMEOUT_S,
+    });
+  }
+
+  function enterTerminalState(outcome) {
+    terminalState = {outcome: outcome, holdS: 0, timeS: episode.age, closestM: episodeClosestM};
+    if (gtSession) Planner.enterTerminal(gtSession, outcome);
+    vel = {x: 0, y: 0};
+    counters.outcomes[outcome] = (counters.outcomes[outcome] || 0) + 1;
+    const a11y = hud['hud-a11y'];
+    if (a11y) a11y.textContent = outcome === 'CAPTURED'
+      ? `Target captured after ${episode.age.toFixed(1)} seconds`
+      : outcome === 'TIMEOUT' ? 'Timeout, target not intercepted' : 'Episode aborted';
+    updateMotionHud();
+  }
+
+  function finishTerminalState() {
+    // Exactly one reset per terminal state: resetEpisode() clears terminalState.
+    counters.episodesCompleted += 1;
+    resetEpisode(true);
+  }
+
+  function simulationStep(dt) {
+    counters.simSteps += 1;
+    if (!episode) resetEpisode(false);
+    simPrev = simCurr || snapshotSimulation();
+    if (terminalState) {
+      // Terminal hold: nothing moves, nothing replans; the banner stays up.
+      terminalState.holdS += dt;
+      if (gtSession) Planner.tickTerminal(gtSession, dt);
+      if (terminalState.holdS >= TERMINAL_HOLD_S) finishTerminalState();
+      simCurr = snapshotSimulation();
+      return;
+    }
+    if (gtSession) gtSession.time += dt;
+    stepTarget(dt);
+    const pursuit = stepPursuer(dt);
     simCurr = snapshotSimulation();
     lidarNeedsDraw = true;
-    const captured = Motion.sweptCapture(
-      { x: simPrev.droneX - simPrev.targetX, y: simPrev.droneY - simPrev.targetY },
-      { x: proposed.x - episode.target.x, y: proposed.y - episode.target.y },
-      0.5
-    );
-    if (episode.age >= 30 || captured) resetEpisode(true);
+    const outcome = pursuit.abort ? 'ABORT' : evaluateEpisodeOutcome();
+    if (outcome !== 'RUNNING') enterTerminalState(outcome);
   }
 
   function animate() {
@@ -1030,6 +1121,22 @@ window.Arena = (() => {
       if (cfg.placement_surface_clearance_m != null) {
         SURFACE_CLEARANCE_M = Number(cfg.placement_surface_clearance_m);
       }
+      // Research termination contract, mirrored: success_radius and the
+      // episode budget (steps x RL dt). Provenance lives with the literal.
+      if (Number(cfg.success_radius_m) > 0) CAPTURE_RADIUS_M = Number(cfg.success_radius_m);
+      if (Number(cfg.episode_len_steps) > 0) {
+        const rlDt = Number(cfg.rl_step_dt_s) > 0 ? Number(cfg.rl_step_dt_s) : 0.1;
+        TIMEOUT_S = Number(cfg.episode_len_steps) * rlDt;
+      }
+    },
+    setEpisodeMode(mode) {
+      if (!['interception', 'continuous'].includes(mode)) {
+        throw new Error('unknown episode mode: ' + mode);
+      }
+      episodeMode = mode;
+      resetEpisode(false);
+      simClock.reset();
+      return episodeMode;
     },
     setBars(n) {
       currentBars = Math.max(1, Math.round(n));
@@ -1092,6 +1199,17 @@ window.Arena = (() => {
         targetMotionMode: targetMotionMode,
         pursuerDisplayMode: pursuerDisplayMode,
         targetGoalMode: targetGoalMode,
+        episodeMode: episodeMode,
+        phase: terminalState ? terminalState.outcome
+          : (gtSession && gtSession.episode ? gtSession.episode.phase : null),
+        terminal: terminalState ? {outcome: terminalState.outcome, holdS: terminalState.holdS,
+          timeS: terminalState.timeS, closestM: terminalState.closestM} : null,
+        episodeAgeS: episode ? episode.age : null,
+        closestM: episodeClosestM,
+        captureRadiusM: CAPTURE_RADIUS_M,
+        timeoutS: TIMEOUT_S,
+        episodesCompleted: counters.episodesCompleted,
+        outcomes: Object.assign({}, counters.outcomes),
         gtPreview: gtPreviewActive(),
         follow: gtSession ? gtSession.pursuer.status : null,
         badge: gtPreviewActive(),

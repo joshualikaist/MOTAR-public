@@ -781,14 +781,38 @@
 
   // Match NavRLTask's target-relative swept-segment capture test. Endpoint-only range misses a
   // grazing crossing whose two endpoints both remain just outside the 0.5 m capture sphere.
-  function sweptCapture(prevRelative, nextRelative, radius) {
+  /* Episode outcome shared by EVERY browser pursuit path.
+   *
+   * The historical local-heuristic branch and the GT tracking branch used to
+   * decide termination in different places (and the GT branch, in practice, not
+   * at all). One function, called with the same inputs from both, is what stops
+   * capture/timeout semantics drifting between them. Capture is the swept test
+   * so a fast closing pass cannot tunnel between two 10 Hz samples; timeout is
+   * the task's episode budget, not a browser watchdog.
+   */
+  function episodeOutcome(args) {
+    if (!args || !args.prevRelative || !args.nextRelative) return 'RUNNING';
+    const radius = Number(args.captureRadiusM);
+    const timeout = Number(args.timeoutS);
+    if (Number.isFinite(radius) && radius > 0
+        && sweptCapture(args.prevRelative, args.nextRelative, radius)) return 'CAPTURED';
+    if (Number.isFinite(timeout) && timeout > 0 && Number(args.elapsedS) >= timeout) return 'TIMEOUT';
+    return 'RUNNING';
+  }
+
+  /* Closest approach of the relative position along one straight step. */
+  function sweptMinDistance(prevRelative, nextRelative) {
     const sx = nextRelative.x - prevRelative.x;
     const sy = nextRelative.y - prevRelative.y;
     const denom = sx * sx + sy * sy;
     const t = denom > 1e-12
       ? clamp(-(prevRelative.x * sx + prevRelative.y * sy) / denom, 0, 1)
       : 0;
-    return Math.hypot(prevRelative.x + t * sx, prevRelative.y + t * sy) < radius;
+    return Math.hypot(prevRelative.x + t * sx, prevRelative.y + t * sy);
+  }
+
+  function sweptCapture(prevRelative, nextRelative, radius) {
+    return sweptMinDistance(prevRelative, nextRelative) < radius;
   }
 
   function advanceTarget(episode, dt, bars, rng, mode) {
@@ -881,7 +905,9 @@
     pushPursuerOut: pushPursuerOut,
     steerTargetStep: steerTargetStep,
     steerPursuerStep: steerPursuerStep,
+    sweptMinDistance: sweptMinDistance,
     sweptCapture: sweptCapture,
+    episodeOutcome: episodeOutcome,
     advanceTarget: advanceTarget,
   };
 });

@@ -10,6 +10,17 @@
     bar_height_m: 3,
     placement_mode: 'footprint_clearance',
     placement_surface_clearance_m: 0.45,
+    // Research termination contract, mirrored by the interception preview.
+    //   success_radius_m  <- aerial_gym/config/task_config/navrl_task_config.py
+    //                        `success_radius = 0.5  # [m]`; capture ends the episode
+    //                        ("Interception semantics (always on)", navrl_task.py)
+    //   episode_len_steps <- NAVRL_EPISODE_LEN_STEPS=600 in train_navrl_v2_search.sh,
+    //                        attested by the frozen checkpoint's cfg_episode_len_steps
+    //   rl_step_dt_s      <- cfg_rl_step_dt_s = 0.1, attested by the same checkpoint
+    // tests/test_browser_capture_provenance.py binds these to the research source.
+    success_radius_m: 0.5,
+    episode_len_steps: 600,
+    rl_step_dt_s: 0.1,
   };
 
   function byId(id) { return document.getElementById(id); }
@@ -31,6 +42,7 @@
       const targetMotion = byId('sel-target-motion');
       const pursuerDisplay = byId('sel-pursuer-display');
       const targetGoal = byId('sel-target-goal');
+      const episodeModeSel = byId('sel-episode-mode');
       const setBars = function () {
         const value = Number(bars.value);
         byId('lbl-bars').textContent = String(value);
@@ -52,7 +64,9 @@
         'physical-style': '<strong>Physical-style illustration:</strong> bounded command에 rigid-body-like low-pass와 attitude limit을 그립니다. 실제 PhysX나 정책 평가는 아닙니다.',
         'routed-preview': '<strong>Routed preview:</strong> 0.25 m deterministic global route, exact bar AABB, 0.45 m tracking reserve, target 3-D box half-diagonal support(0.2069 m), boundary 1.25 m + support를 적용합니다. 0.5 m waypoint 전환은 exact clearance certificate로 제한하고 실패 후 직전 goal 1.0 m 이내를 제외합니다. 대안 경로가 없으면 zero command입니다. Global route + bounded/lagged browser preview · NOT PhysX/PPO.',
         'gt-free-roam': '<strong>Browser GT free roam:</strong> reachable random (or click/tap) goals with global A*, bounded acceleration/turn, and STOP+REPLAN on failure. Teleport and bar push-out are not used. This is not TM-E3 and not a research result.',
-        'gt-route-track': '<strong>Browser GT route tracking:</strong> exact browser target position/velocity/heading and obstacle AABBs drive a predicted follow point, LOS shortcut, and global route. Continuous follow; not the PPO policy.',
+        'gt-route-track': '<strong>Browser GT route tracking:</strong> exact browser target position/velocity/heading and obstacle AABBs drive a predicted follow point, LOS shortcut, and global route. In INTERCEPTION EPISODE the follow standoff ramps to zero and the episode ends on capture or timeout; in CONTINUOUS TRACKING the 1.55 m display standoff is held. Not the PPO policy.',
+        interception: '<strong>Interception episode:</strong> chase → close approach (standoff 1.55 m → 0) → intercept → CAPTURED at the task\'s 0.5 m success radius (swept between steps), or TIMEOUT at the task\'s 600-step budget. Terminal state is held ~1.5 s, then a new episode starts. Mirrors task termination semantics; not PPO or PhysX evidence.',
+        continuous: '<strong>Continuous tracking:</strong> the GT_BROWSER_V1 demo. The target roams and the pursuer holds a 1.55 m display standoff; no capture, no timeout, no reset.',
         'local-heuristic': '<strong>Historical local heuristic:</strong> heading candidates over a short swept path. Kept for comparison; not deleted.',
       };
       const setTargetMotion = function () {
@@ -71,9 +85,16 @@
         if (!targetGoal || !window.Arena.setTargetGoalMode) return;
         window.Arena.setTargetGoalMode(targetGoal.value);
       };
+      const setEpisodeMode = function () {
+        if (!episodeModeSel || !window.Arena.setEpisodeMode) return;
+        window.Arena.setEpisodeMode(episodeModeSel.value);
+        const note = byId('motion-mode-note');
+        if (note) note.innerHTML = motionNotes[episodeModeSel.value] + ' ' + (motionNotes[pursuerDisplay ? pursuerDisplay.value : 'gt-route-track'] || '');
+      };
       targetMotion.addEventListener('change', setTargetMotion);
       if (pursuerDisplay) pursuerDisplay.addEventListener('change', setPursuerDisplay);
       if (targetGoal) targetGoal.addEventListener('change', setTargetGoal);
+      if (episodeModeSel) episodeModeSel.addEventListener('change', setEpisodeMode);
 
       let playing = true;
       byId('btn-play').addEventListener('click', function () {

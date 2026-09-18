@@ -4184,6 +4184,10 @@ def _arena_geometry(active: Optional[Dict[str, Any]]) -> Dict[str, Any]:
             "bars_slider_min": 10,
             "bars_max": 300,
             "episode_len_steps": 600,
+            # Termination contract mirrored by the browser interception preview:
+            # navrl_task_config.success_radius (0.5 m) and the RL step dt.
+            "success_radius_m": 0.5,
+            "rl_step_dt_s": 0.1,
             "goal_dist_m": [6, 28],
             "target_speed_m": [0.3, 1.5],
             "label": "40×40×3 m · full-width bar band · 3 m bars (no fly-over)",
@@ -4201,6 +4205,8 @@ def _arena_geometry(active: Optional[Dict[str, Any]]) -> Dict[str, Any]:
         "bars_slider_min": 10,
         "bars_max": 150,
         "episode_len_steps": 300,
+        "success_radius_m": 0.5,
+        "rl_step_dt_s": 0.1,
         "goal_dist_m": [4, 16],
         "target_speed_m": [0.0, 1.5],
         "label": "24×24×3 m · bar band x 0.13–0.96 · 2 m bars",

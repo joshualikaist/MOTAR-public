@@ -130,8 +130,18 @@ non-adjacent points is certified safe.
 velocity command per tick, under speed, acceleration and heading-rate limits.
 
 **Update and repeat.** On arrival a new destination is selected and the loop
-continues. There is no capture-and-reset in the GT preview; following is
-continuous.
+continues.
+
+**Episode semantics (2026-09-18).** The browser preview now has two modes. The
+**default is an interception episode** that mirrors the research task: chase →
+close approach → intercept → **capture** (the task's 0.5 m success radius, swept
+between steps) or **timeout** (the task's 600-step / 60 s budget), then a short
+terminal hold and a new episode. A **continuous tracking** mode (the original
+GT_BROWSER_V1 behaviour) keeps the 1.55 m display standoff with no capture and no
+reset. The capture radius and timeout are the research task's own values, carried
+into the page with provenance (`viewer.js`, bound by
+`tests/test_browser_capture_provenance.py`); they are not new browser constants.
+This is a visualization change: it is not PPO or PhysX performance evidence.
 
 ---
 

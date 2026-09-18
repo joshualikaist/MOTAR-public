@@ -172,6 +172,14 @@ walls to look busy.
 | final relative distance | 6.5-18.5 m | 1.35-2.17 m (from 14.8-21.4 m at spawn) |
 | replans/s | up to 7.8 | 0.16-1.36 |
 
+**Interception episode (2026-09-18 follow-up).** The measurements below were taken in
+CONTINUOUS tracking mode, where the standoff is held permanently. The site now defaults
+to an INTERCEPTION EPISODE instead: the follow standoff ramps from 1.55 m at the CLOSE
+boundary to 0 at the INTERCEPT boundary, the episode ends on the task's swept 0.5 m
+capture or its 60 s timeout, holds the outcome ~1.5 s, and resets. A permanent standoff
+made capture structurally impossible; that is the conceptual bug this follow-up fixes.
+Continuous mode is preserved for the tracking demonstration.
+
 The 1.5 m floor is the **display-only standoff** (`CONTRACT.standoffM = 1.55 m`) that
 keeps the two meshes from overlapping in the preview. The documented tracking reference
 remains a relative position error of zero; the standoff is a rendering offset, not a

@@ -32,6 +32,17 @@
     // .minGoalDistanceM owns it, and a second copy silently drifts.
     minSpawnComponentCells: 400,
     minTurnSpeedFraction: 0.25,
+    /* Interception episode. These are BROWSER PRESENTATION parameters: phase
+     * boundaries and the terminal hold are display choices. The capture radius
+     * and the timeout are NOT declared here; they arrive per session from the
+     * page's geometry literal, which carries the research task's
+     * success_radius and episode budget with their provenance. */
+    interception: Object.freeze({
+      closeEnterM: 4.0,        // CHASE -> CLOSE: the standoff starts ramping down here
+      interceptEnterM: 1.2,    // CLOSE -> INTERCEPT: standoff has reached zero here
+      interceptHorizonS: 0.3,  // short prediction so the aim point is the target itself
+      terminalHoldS: 1.5,      // show CAPTURED / TIMEOUT before the next episode
+    }),
     clickFeedback: Object.freeze({
       ok: 'ok',
       out_of_bounds: 'out_of_bounds',
@@ -141,7 +152,13 @@
     );
   }
 
-  function predictedFollowPoint(target, pursuer) {
+  /* Follow point. `standoff` is the distance BEHIND the target the follower
+   * aims for once it is close; CONTRACT.standoffM when omitted (continuous
+   * tracking), ramping to zero through the interception phases. A permanent
+   * 1.55 m standoff is what made capture structurally impossible before: the
+   * aim point was always behind the target, never on it. */
+  function predictedFollowPoint(target, pursuer, standoff) {
+    const hold = standoff == null ? CONTRACT.standoffM : Math.max(0, standoff);
     const speed = hypot(target.vx, target.vy);
     const dist = hypot(target.x - pursuer.x, target.y - pursuer.y);
     const horizon = clamp(
@@ -151,13 +168,36 @@
     );
     let x = target.x + target.vx * horizon;
     let y = target.y + target.vy * horizon;
-    if (dist < CONTRACT.standoffM + 0.15) {
+    if (hold > 0 && dist < hold + 0.15) {
       const hx = speed > 1e-3 ? target.vx / speed : Math.cos(target.heading || 0);
       const hy = speed > 1e-3 ? target.vy / speed : Math.sin(target.heading || 0);
-      x = target.x - hx * CONTRACT.standoffM;
-      y = target.y - hy * CONTRACT.standoffM;
+      x = target.x - hx * hold;
+      y = target.y - hy * hold;
     }
     return {x: x, y: y, horizon: horizon};
+  }
+
+  /* Interception phase from the current relative distance. */
+  function episodePhase(session, dist) {
+    const ep = session.episode;
+    if (!ep || ep.mode !== 'interception') return 'TRACK';
+    if (ep.terminal) return ep.terminal.outcome;
+    const c = CONTRACT.interception;
+    if (dist < c.interceptEnterM) return 'INTERCEPT';
+    if (dist < c.closeEnterM) return 'CLOSE';
+    return 'CHASE';
+  }
+
+  /* Standoff as a CONTINUOUS function of distance, so the aim point never
+   * jumps toward the target: 1.55 m at the CLOSE boundary, linearly down to 0 at
+   * the INTERCEPT boundary, 0 inside it. Continuous mode keeps the constant
+   * display standoff. */
+  function desiredStandoff(session, dist) {
+    const ep = session.episode;
+    if (!ep || ep.mode !== 'interception') return CONTRACT.standoffM;
+    const c = CONTRACT.interception;
+    const span = Math.max(1e-6, c.closeEnterM - c.interceptEnterM);
+    return CONTRACT.standoffM * clamp((dist - c.interceptEnterM) / span, 0, 1);
   }
 
   function snapToSafe(point, cache) {
@@ -588,6 +628,22 @@
       target: target,
       pursuer: pursuer,
       spawn: {targetRelocated: spawn.targetRelocated, pursuerRelocated: spawn.pursuerRelocated},
+      episode: {
+        // 'continuous' is the planner default so the tracking-only contracts
+        // keep their meaning; the SITE selects 'interception' as its default.
+        mode: options.episodeMode === 'interception' ? 'interception' : 'continuous',
+        captureRadiusM: Number(options.captureRadiusM) > 0 ? Number(options.captureRadiusM) : null,
+        timeoutS: Number(options.timeoutS) > 0 ? Number(options.timeoutS) : null,
+        phase: 'CHASE',
+        outcome: 'RUNNING',
+        elapsedS: 0,
+        closestM: hypot(pursuerStart.x - targetStart.x, pursuerStart.y - targetStart.y),
+        captureTimeS: null,
+        terminal: null,
+        resetDue: false,
+        resets: 0,
+        prevRelative: {x: pursuerStart.x - targetStart.x, y: pursuerStart.y - targetStart.y},
+      },
       stats: {target: emptyStats(), pursuer: emptyStats()},
       labels: {
         target: 'AUTO ROAM',
@@ -642,9 +698,22 @@
     return true;
   }
 
+  function freezeAgent(agent) {
+    agent.vx = 0; agent.vy = 0;
+    agent.accel = {x: 0, y: 0};
+    agent.command = {x: 0, y: 0};
+    agent.roll = 0; agent.pitch = 0;
+  }
+
   function stepTargetFreeRoam(session, dt) {
     const t = session.target;
     const cache = session.caches.target;
+    if (session.episode && session.episode.terminal) {
+      // A captured or timed-out episode does not keep moving.
+      freezeAgent(t);
+      t.status = session.episode.terminal.outcome;
+      return t;
+    }
     let replanned = maybeReplanTarget(session, !t.route || !t.route.valid);
     let desired = {x: 0, y: 0};
     if (t.route && t.route.valid) {
@@ -720,7 +789,26 @@
     const p = session.pursuer;
     const t = session.target;
     const cache = session.caches.pursuer;
-    const predicted = predictedFollowPoint(t, p);
+    if (session.episode && session.episode.terminal) {
+      freezeAgent(p);
+      p.status = session.episode.terminal.outcome;
+      session.labels.follow = p.status;
+      return p;
+    }
+    const range = hypot(t.x - p.x, t.y - p.y);
+    const phase = episodePhase(session, range);
+    const standoff = desiredStandoff(session, range);
+    if (session.episode) session.episode.phase = phase;
+    // INTERCEPT aims at where the target will be over a short horizon, not
+    // behind it: the objective has changed from "hold a following distance"
+    // to "enter the capture region".
+    const predicted = phase === 'INTERCEPT'
+      ? {
+        x: t.x + t.vx * CONTRACT.interception.interceptHorizonS,
+        y: t.y + t.vy * CONTRACT.interception.interceptHorizonS,
+        horizon: CONTRACT.interception.interceptHorizonS,
+      }
+      : predictedFollowPoint(t, p, standoff);
     p.lead = predicted;
     const los = segmentSafe({x: p.x, y: p.y}, predicted, cache) && pointSafe(predicted, cache);
     let desired = {x: 0, y: 0};
@@ -731,9 +819,11 @@
       // stale, no-longer-certified point to the diagnostics and HUD.
       p.carrot = null;
       p.status = 'DIRECT LOS';
-      const range = hypot(t.x - p.x, t.y - p.y);
       let speed = Motion.CONTRACT.pursuerSpeedMax;
-      if (range < CONTRACT.standoffM + 0.8) {
+      // Speed matching is a FOLLOWING behaviour: it only applies while a
+      // standoff is still being held. Once the standoff has ramped to zero the
+      // pursuer closes at full authority.
+      if (standoff > 0 && range < standoff + 0.8) {
         speed = Math.min(speed, hypot(t.vx, t.vy) + 0.35);
         p.status = 'FOLLOWING';
       }
@@ -780,10 +870,81 @@
     return p;
   }
 
+  function enterTerminal(session, outcome) {
+    const ep = session.episode;
+    if (!ep || ep.terminal) return ep ? ep.terminal : null;
+    ep.terminal = {
+      outcome: outcome,
+      timeS: ep.elapsedS,
+      closestM: ep.closestM,
+      sinceS: 0,
+    };
+    ep.outcome = outcome;
+    ep.phase = outcome;
+    if (outcome === 'CAPTURED') ep.captureTimeS = ep.elapsedS;
+    freezeAgent(session.target);
+    freezeAgent(session.pursuer);
+    session.target.status = outcome;
+    session.pursuer.status = outcome;
+    session.labels.follow = outcome;
+    return ep.terminal;
+  }
+
+  /* The ONE outcome evaluation for a planner session. It delegates to
+   * Motion.episodeOutcome, which arena.js's common termination layer calls with
+   * the same inputs for the historical path, so the two cannot drift. */
+  function applyEpisodeOutcome(session, prevRelative) {
+    const ep = session.episode;
+    if (!ep) return 'RUNNING';
+    const next = {
+      x: session.pursuer.x - session.target.x,
+      y: session.pursuer.y - session.target.y,
+    };
+    const prev = prevRelative || ep.prevRelative;
+    // closest approach is tracked on the swept segment, like capture itself
+    ep.closestM = Math.min(ep.closestM, Motion.sweptMinDistance(prev, next));
+    ep.prevRelative = next;
+    if (ep.mode !== 'interception' || ep.terminal) return ep.terminal ? ep.terminal.outcome : 'RUNNING';
+    const outcome = Motion.episodeOutcome({
+      prevRelative: prev,
+      nextRelative: next,
+      elapsedS: ep.elapsedS,
+      captureRadiusM: ep.captureRadiusM,
+      timeoutS: ep.timeoutS,
+    });
+    if (outcome !== 'RUNNING') enterTerminal(session, outcome);
+    return outcome;
+  }
+
+  /* Terminal hold accounting. Returns true exactly once, when the hold has
+   * elapsed and the owner should start a new episode. */
+  function tickTerminal(session, dt) {
+    const ep = session.episode;
+    if (!ep || !ep.terminal) return false;
+    ep.terminal.sinceS += dt;
+    if (!ep.resetDue && ep.terminal.sinceS >= CONTRACT.interception.terminalHoldS) {
+      ep.resetDue = true;
+      return true;
+    }
+    return false;
+  }
+
   function stepSession(session, dt) {
     session.time += dt;
+    const ep = session.episode;
+    if (ep && ep.terminal) {
+      // Frozen: no motion, no replanning, only the hold timer.
+      tickTerminal(session, dt);
+      return session;
+    }
+    const prevRelative = {
+      x: session.pursuer.x - session.target.x,
+      y: session.pursuer.y - session.target.y,
+    };
+    if (ep) ep.elapsedS += dt;
     stepTargetFreeRoam(session, dt);
     stepPursuerGt(session, dt);
+    applyEpisodeOutcome(session, prevRelative);
     return session;
   }
 
@@ -814,6 +975,11 @@
     planAgentRoute: planAgentRoute,
     sampleReachableGoal: sampleReachableGoal,
     predictedFollowPoint: predictedFollowPoint,
+    episodePhase: episodePhase,
+    desiredStandoff: desiredStandoff,
+    applyEpisodeOutcome: applyEpisodeOutcome,
+    enterTerminal: enterTerminal,
+    tickTerminal: tickTerminal,
     createSession: createSession,
     stepSession: stepSession,
     stepTargetFreeRoam: stepTargetFreeRoam,
