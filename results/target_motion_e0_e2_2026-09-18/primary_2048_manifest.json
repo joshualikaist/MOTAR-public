@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "generated": "2026-09-19",
+  "status": "NOT_CONSTRUCTIBLE",
+  "requested_view": "exactly the first 2048 valid episode records per cell",
+  "reason": "The frozen bulk-eval export is AGGREGATE-ONLY. No cell contains per-episode records: there is no episode_id, no env_id, and no per-episode array anywhere in result.json (keys: action, actual_episodes, checkpoint, condition, crash_causes, outcome, requested_episodes, schema_version, search_state, speed_governor, strata, target_motion). Per-episode rows exist only in the task's 'general' evaluation mode (general_trial_records, navrl_task.py:2176), which this campaign did not use, and NAVRL_TRAJECTORY_DIGEST was not set.",
+  "consequence": "A deterministic first-2048 selection cannot be constructed from frozen artifacts. Constructing it would require re-running the evaluation, which is not authorised. Per the instruction to STOP and report rather than guess, no synthetic 2048/cell view was fabricated.",
+  "per_episode_records_present": false,
+  "mitigation": "worst_case_excess_bounds (see statistical_sensitivity.json)",
+  "raw_manifest_sha256": "17c5a923864c4b60fc5541038c895eb98a412f917ab989108047fab010de1972",
+  "raw_immutability": "verified: 144/144 raw files match RAW_MANIFEST.json"
+}

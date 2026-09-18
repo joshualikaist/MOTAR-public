@@ -5,7 +5,7 @@
 After the presentation revisions described below, D8-A recorded `TECHNICAL_GO` and
 D8b was finalized as `MATERIAL_LOSS`; [result and provenance](../../results/dynamic_mesh_policy_sensitivity_d8b_2026-09-13/AUDIT.md).
 The live manifest now describes D8-A as a technical result only (`D8A_TECHNICAL_ONLY`);
-Table 5 separately reports D8b. D8c is not started and D9 remains `NOT_RUN`.
+Table 6 separately reports D8b. D8c is not started and D9 remains `NOT_RUN`.
 The 2026-09-16 revision regenerated the dated overview package from its source generator so
 Figures 1, 4, and 6 show lifecycle states rather than a generic dashed “future” convention.
 The live page caption for Figure 1 now uses `MOTAR: Moving Object Tracking And Rendezvous`.

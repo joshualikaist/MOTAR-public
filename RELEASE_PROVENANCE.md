@@ -6,11 +6,11 @@ repository, and none of its history.
 | | |
 | --- | --- |
 | Source research repository | MOTAR |
-| Source snapshot commit | `95053dd231fc6b9628d6166ef9ccf3f3d5c82815` |
+| Source snapshot commit | `c583ff6b011731056343bb73fd6b8eea277709bb` |
 | Source tree dirty at export | false |
 | Release construction | fresh `git archive` export; no inherited Git history |
-| Files / symlinks | 4863 / 293 |
-| Bytes | 511,804,021 |
+| Files / symlinks | 5058 / 293 |
+| Bytes | 516,852,209 |
 | Build verdict | **CLEAN** |
 
 A commit here has a different SHA from the research commit above. That is expected: the two

@@ -19218,3 +19218,295 @@ table에 넣지 않는다.
 GPU_EVALUATION = READY_FOR_USER_AUTHORIZATION (자동 실행 안 함)
 RETRAINING     = BLOCKED_PENDING_EVALUATION
 ```
+
+---
+
+## 2026-09-18 — External quantitative positioning (CPU/docs only, GPU 격리)
+
+GPU에서 H/E0/E1/E2 frozen-policy evaluation이 도는 동안, **완전히 분리된 worktree**
+(`paper/quantitative-positioning-20260918`, base `origin/main` = `096eee5`)에서 문헌 정량
+positioning만 수행. GPU worktree 변경 0, CUDA workload 0, result-dir write 0.
+
+### 해결한 gap
+
+기존 사이트는 within-MOTAR 수치 비교(Table 3)와 published-system **정성** 관계(Table 4)는
+보여줬지만 **external reported numerical positioning**이 사실상 없었다. 이번에 3-layer 구조로
+채웠다: Layer A(외부 보고값) / Layer B(MOTAR 자체 측정) / Layer C(matched comparison, **비어 있음**).
+
+### External ledger — 13 works, 45 rows
+
+`docs/literature_quantitative_ledger_2026-09-18.json`. **34 rows에 값, 11 rows는
+`NOT_EXTRACTED`.** source: primary_paper 42, official_code 3, third_party_benchmark 0.
+12 works가 사이트 10행을 채우고(NavRL/NavRL++, YOPO/YOPOv2-Tracker가 각각 한 행),
+Fast-Tracker 2.0은 screened-not-retained로 분리 기록.
+
+검증 과정에서 **기존에 후보로 적어둔 숫자 여러 개가 정정됐다**:
+
+| 주장 | 검증 결과 |
+|---|---|
+| OPEN "100% capture rate" | simulation only, Random/Passage(OOD)만 1.000, **Wall은 0.987**. 3 pursuers vs 1 evader, capture radius 0.3, 300 episodes. **입력이 privileged relative state + LOS mask — 카메라 없음.** real-world capture rate는 미발표 |
+| FlowPilot "8 m/s" | **commanded**이지 achieved 아님. 달성된 sim peak는 6.14 m/s |
+| FlowPilot "5.5 m/s real clutter" | real·achieved 맞지만 forest **sparse 구간** peak. indoor cluttered는 3.8 / 3.1 m/s |
+| FlowPilot "<18 ms" | Table II "Total inference latency" 16.294 ms(max 17.055). **MPC 2.384 ms는 별도 행** — abstract의 "full perception-to-action" 표현이 더 넓다 |
+| YOPO RK3566 INT8 ~20 ms | **official_code(README master)로 확인**. 단 paper 본문은 paywall + arXiv 없음 → paper-internal 값 전부 `NOT_EXTRACTED` |
+| MAD 9.66 m/s | **abstract에만 존재**, 본문 미대응. 본문 최대는 corridor 6.37 m/s |
+
+`NOT_EXTRACTED`가 많은 건 실패가 아니라 기록이다. Elastic Tracker Fig. 8(c)
+(out-of-FOV / too-near / occlusion 분해)와 YOPOv2-Tracker Fig. 10B success rate는
+**bar chart·plot이라 텍스트에 수치가 없어** 추정하지 않고 그대로 남겼다.
+
+### 가장 쓸모 있는 positioning 사실
+
+**Elastic Tracker 결론이 "tracking escaping target"을 future work로 명시**한다. 즉 obstacle-aware
+자율 evader는 고전 tracking 계열의 **평가 밖 영역**이다. 이 계열의 target은 전부 cooperative
+(marker 부착 / position broadcast / GT future trajectory oracle). MOTAR의 TM-E2는
+pursuer-independent obstacle-aware라서, matched comparison은 arena만이 아니라 **target 자체를
+고정**해야 한다.
+
+### MOTAR 내부 수치 — 전부 source-bound
+
+`docs/quantitative_positioning_registry.json`에 11개 항목. 10개 수치를 **인용한 result 파일에서
+실제로 grep 되는지 검증**했고, 그 검증을 테스트로 고정했다. P9 perception error가 frozen policy에
+주는 비용 **−4.57 pp**(3개 training-seed campaign 전부 동일, CI가 0 제외)를
+`preregistration_p10_seed_replication`에서 찾아 Layer B에 추가.
+
+`target_motion_generalization` 행은 **`RESULT_PENDING`** — GPU 48셀이 끝나고 integrity PASS +
+raw manifest freeze 전에는 값이 들어갈 수 없게 테스트로 막았다.
+
+### 새 파일
+
+- `docs/literature_quantitative_ledger_2026-09-18.json` (기계 판독), `..._positioning_2026-09-18.md` (생성물)
+- `docs/quantitative_positioning_registry.json`, `docs/paper_claim_evidence_matrix_2026-09-18.md`
+- `docs/external_matched_baseline_readiness_2026-09-18.md`, `docs/paper_evidence_outline_2026-09-18.md`
+- `tools/build_literature_positioning_doc.py` (`--check`), `tools/build_quantitative_positioning_figure.py` (`--check`)
+- `docs/assets/paper/quantitative-positioning-2026-09-18.svg` (Figure 9)
+- `tests/test_quantitative_positioning.py`, `test_external_numeric_sources.py`, `test_site_quantitative_positioning.py`
+
+MD 본문과 SVG는 **손으로 쓰지 않고 JSON에서 생성**한다. 사이트는 6.2 Quantitative positioning
+신설, 기존 6.2→6.3 / 6.3→6.4, Table 4 신설로 4→5 / 5→6 재번호.
+
+### 도구 버그 2건 (기각된 가정 포함)
+
+- `build_quantitative_positioning_figure.py`: 첫 판 matrix가 viewBox를 넘었다(마지막 열 x=1592,
+  row rule 1632, MOTAR rect 1668 > 1600). **"XML로 파싱되면 맞다"는 가정 기각** — overflow SVG도
+  정상 파싱되고 오른쪽만 조용히 잘린다. bounds guard 추가 후 실제 범위 x 60..1536 / y 56..852.
+- `tests/test_quantitative_positioning.py`: 금지어 검사 초안이 "not이 한 줄에 있으면 통과"라
+  `"outperforms X, but not in real flight"`를 놓쳤다. 부정어가 **용어 앞 120자 이내·마침표 없이**
+  올 때만 면제하도록 수정. 세 테스트 모두 심어놓은 위반으로 **negative test** 확인.
+
+### 검증
+
+`tests.test_quantitative_positioning` 9 / `test_external_numeric_sources` 7 /
+`test_site_quantitative_positioning` 10 전부 PASS. docs·site 관련 33개 모듈 458 tests 재실행 →
+남은 FAIL 2건은 **내 변경과 무관**(참조 파일 교집합 0): `test_result_manifest`는 git 미추적
+`results/*` 디렉터리가 새 worktree에 없어서, `test_navrl_corrected_nonoverlap_route_gate`는
+tools import 문제. error 32건은 base python에 torch/trimesh 없음.
+
+`test_research_overview`의 figure 수(9→10), image(7→8), figcaption(9→10)과
+heading split 참조는 **내 변경이라 같이 갱신**했다.
+
+### 환경 관찰 (조치 안 함)
+
+디스크 `/` **100% (47M free)**. 원인은 `/tmp`의 과거 세션 임시 디렉터리 ~4.7G와 conda
+`pkgs/` 6.9G(전부 extracted, tarball 0 → 삭제 위험). **평가 산출물은 셀당 0.1 MB, 남은 27셀에
+약 2 MB만 필요**하므로 진행 중인 GPU run은 위험하지 않다고 판단. 남의 임시 디렉터리는
+임의로 지우지 않았다. 사용자 판단 필요.
+
+```text
+GPU_EVALUATION = RUNNING (별도 worktree, 이 작업과 무관)
+CLASS_A_EXTERNAL = 0 (변동 없음)
+RETRAINING = BLOCKED_PENDING_EVALUATION
+```
+
+---
+
+## 2026-09-19 — H/E0/E1/E2 frozen-policy 평가 완주 (초기 판정, 아래 정정 항목 참조)
+
+사용자 승인 하에 48셀 매트릭스 실행 완료. frozen `ep25000+riskcap`
+(SHA `f702213936…`, 실행 직전 재검증 일치). 4 arms × 4 densities(70/115/160/205) × 3 seeds
+(4101–4103) × 2048 episodes = **98,319 episodes**, wall 11,347 s. 학습은 하지 않았다.
+
+### 8단계 게이트
+
+`stage1 integrity PASS`(48/48, nonce 전부 고유) · `stage2 target validity PASS` ·
+`stage3 contract equivalence PASS` · stage4/5/6 recorded · stage7 computed ·
+**stage8 = `NO_RETRAIN_NEEDED`**. 분석 전에 `RAW_MANIFEST.json`으로 raw 동결.
+
+### arm별 결과 (seed 평균)
+
+| arm | capture | crash | timeout | closest_nocrash |
+|---|---:|---:|---:|---:|
+| E0 static | 84.31% | 8.58% | 7.04% | 1.85 m |
+| E1 cv | 85.07% | 10.49% | 4.41% | 1.24 m |
+| **H historical (in-dist ref)** | **87.89%** | **9.50%** | **2.61%** | **0.90 m** |
+| E2 obstacle-aware | 89.22% | 9.61% | 1.17% | 0.61 m |
+
+### H 대비 (seed-paired BCa95, 20000 resamples)
+
+| arm | Δcapture | BCa95 | 0 제외 |
+|---|---:|---|---|
+| E0 | **−3.58 pp** | [−4.04, −3.29] | 예 |
+| E1 | **−2.82 pp** | [−3.53, −2.44] | 예 |
+| E2 | **+1.33 pp** | [+1.15, +1.50] | 예 |
+
+**세 arm 모두 CI가 0을 제외**한다. 당시 분석 도구는 5 pp 문턱으로 `materially_degraded = false`,
+verdict `NO_RETRAIN_NEEDED`를 냈다. **그 5 pp는 사전등록된 것이 아니었다 — 같은 날 아래 항목에서
+정정한다.** 어느 쪽이든 "차이가 없다"가 아니라
+**"차이는 실재하지만 작다"**가 정확한 표현이다.
+
+### E0/E1/E2 상호 대비 (분석 도구가 빠뜨려 별도 계산, `contrasts_within_E_arms.json`)
+
+capture: E1−E0 **+0.76 pp** [+0.51,+0.90] · E2−E0 **+4.91 pp** [+4.34,+5.36] ·
+E2−E1 **+4.16 pp** [+3.53,+4.70]. 전부 0 제외.
+
+### 핵심 발견 — 가설 기각: "정지 표적이 가장 쉽다"는 **틀렸다**
+
+네 지표가 전부 같은 순서다: **E0 < E1 < H < E2**. 즉 **표적이 느릴수록 frozen policy가 나쁘다.**
+정지 표적(E0)이 최악이고, 장애물 회피까지 하는 E2가 최고다.
+
+메커니즘은 관측 쪽에 있다. step-weighted target visible fraction:
+
+| arm | overall | capture | crash | timeout |
+|---|---:|---:|---:|---:|
+| E0 | 0.2236 | 0.3444 | 0.0199 | **0.0015** |
+| E1 | 0.2536 | 0.3355 | 0.0788 | 0.0058 |
+| H | 0.2932 | 0.3557 | 0.0853 | 0.0075 |
+| E2 | 0.3285 | 0.3638 | 0.1319 | 0.0355 |
+
+visibility가 capture 순서와 단조 일치한다. 결정적으로 **E0의 timeout episode에서 표적 가시율이
+0.0015** — 사실상 전혀 보이지 않는다. 정지 표적은 한 번 놓치면 스스로 시야로 돌아오지 않으므로
+재획득이 일어나지 않고 timeout(7.04%, H의 2.7배)으로 끝난다. E0의 closest_nocrash 1.85 m는
+success_radius 0.5 m에 한참 못 미친다 — 접근 자체를 못 한다.
+
+밀도 상호작용도 있다(F1): 70 bars에서 arm 간 격차가 가장 크고(E2 93.9% vs E0 87.3%)
+205 bars에서 거의 수렴한다(H 82.0 / E2 82.8 / E0 80.1 / E1 79.0). 고밀도에서는 장애물 난이도가
+표적 운동 효과를 덮는다.
+
+### D1 격리 경험적 확증
+
+48셀 전부에서 E0/E1/E2의 wall/bar reflection이 **정확히 0.0**, H만 비영(bar_reflection_any_rate
+0.00195). AST로 주장했던 "D1은 H에만 존재"가 런타임 데이터로 확인됐다.
+
+### 도구 버그 2건 (둘 다 내 쪽, 평가 데이터는 정상)
+
+- `verify_canary.py`: `(x or -1)`이 E0의 정당한 `target_speed_max_mps=0.0`(falsy)을 FAIL시켜
+  캐너리 게이트가 거짓 실패했다. None-safe 비교로 수정 후 4셀 전부 PASS.
+- `analyze_arms.py` stage5: strata 집계가 `successes`만 읽는데 task export가
+  `distance`/`speed`는 `successes`, `initial_target_bearing`은 **`captured`**로 내보낸다.
+  그 결과 bearing capture_rate가 4개 arm 전부 **0.0으로 조용히 계산**됐다(전체가 ~85%인데).
+  두 키를 모두 받고 **둘 다 없으면 raise**하도록 고친 뒤 재실행. 수정 후 bearing은
+  0.838–0.900으로 정상이고 좌/우 비대칭은 없다.
+  **"XML/JSON이 파싱되면 값도 맞다"는 가정 기각** — 스키마 불일치는 조용히 0을 만든다.
+
+### 보고해야 할 편차 3건
+
+1. `HEAD == origin/main` 게이트 미충족. HEAD `ae286e5`(평가 런처 추가 커밋 1개)가 origin/main
+   `096eee5`보다 앞선다. fast-forward push를 시도했으나 **환경 permission classifier가 차단**했고
+   우회하지 않았다. 셀 receipt마다 정확한 commit SHA가 기록돼 무결성은 보존된다. **사용자 push 필요.**
+2. n=3에서 sign-flip permutation은 2³=8 배열뿐이라 최소 양측 p가 **0.25**(Holm 후 0.752).
+   어떤 대비도 p<0.05에 도달할 수 없다. 추론은 BCa95 CI가 담당하며, permutation p를
+   "유의차 없음"으로 읽으면 안 된다.
+3. 사전등록 primary인 `min_relative_distance_m`은 bulk export에 없고
+   `closest_nocrash_mean_m`(무충돌 조건부)만 있다. 조건부 형태로 보고한다.
+
+### 산출물
+
+`results/target_motion_e0_e2_evaluation_2026-09-18/`: 48 cell 디렉터리(result+receipt+log),
+`RAW_MANIFEST.json`, `analysis_report.json`, `contrasts_within_E_arms.json`,
+`figures/F1..F4.png`.
+
+```text
+RETRAINING = NOT_AUTHORISED (NO_RETRAIN_NEEDED)
+PPO_TRAINING_STARTED = false
+```
+
+---
+
+## 2026-09-19 — 정정: 5 pp 문턱은 사전등록이 아니었다 + canonical result package
+
+위 항목의 판정 근거를 감사한 결과 **두 가지를 철회**한다. GPU는 재실행하지 않았고 PPO training도
+시작하지 않았다. raw artifact는 immutable이며 **144/144 파일이 `RAW_MANIFEST.json`과 일치**한다.
+
+### 철회 1 — "사전등록 5 pp materiality threshold"는 존재하지 않는다
+
+| 검색 | 결과 |
+|---|---|
+| `git log --all -S"material_threshold"` | **0 commits** |
+| `git log --all -S"NO_RETRAIN_NEEDED"` | **0 commits** |
+| prereg §6 Decision rule (`096eee5`, sha256 `7d8744c4…`) | validity gate / confounding / CI 비교 / deployment 확장 금지 **4개뿐. 효과크기 문턱 없음, retraining 어휘 없음** |
+| Amendment 1 §A1.3 | arms·densities·seeds·cells·episodes/cell·CI method·seed aggregation·multiple comparison 고정. **materiality 문턱 없음** |
+
+5 pp는 이번 분석 세션에서 내가 쓴 untracked 도구(`analyze_arms.py`, `material_threshold = 0.05`)가
+도입한 것이다. **사전등록을 소급 수정하지 않았고**, 5 pp는 `POST_HOC DECISION CONTEXT`로만 남긴다.
+
+**판정을 좁힌다**: `NO_RETRAIN_NEEDED` → **`NO_RETRAINING_JUSTIFIED_FOR_E2_TARGET_MOTION_SHIFT`**.
+근거는 문턱이 아니라 측정된 부호다 — E2는 H 대비 **+1.33 pp**(BCa95 [+1.15,+1.50], 3/3 seed 양수)로
+저하되지 않았다. E0 −3.58 pp / E1 −2.82 pp는 **실재하는 감소**이며, 이를 material/immaterial로
+분류할 사전등록 기준이 없으므로 pass/fail이 아니라 측정값으로 보고한다.
+
+### 철회 2 — `closest_nocrash_mean_m`을 primary로 쓰지 않는다
+
+Amendment 1 §A1.2가 primary로 올린 `min_relative_distance_m`은 **기록되지 않았다**.
+`navrl_task.py:9745-9746`이 `ep_min_goal_dist`를 **non-crash episode에 대해서만** 누적하고
+전체 episode 누적기는 어디에도 없다. per-episode record도 export되지 않는다.
+→ `min_relative_distance_m = NOT_RECORDED`, `closest_nocrash_mean_m`은
+`POST_HOC_CONDITIONAL_DIAGNOSTIC`로 재분류(결과 조건부 선택이므로 대체재가 아니다).
+
+### 98,319 − 98,304 = +15의 원인 규명
+
+**vectorised tail overshoot.** `navrl_task.py:9750-9751`의 정지 조건이
+`if total >= self._progress_log_interval`이고 이 검사는 **vectorised step마다 한 번**, 그 step에서
+끝난 모든 env를 합산한 뒤 평가된다. 128 env에서 2047에 있던 카운터는 두 env가 같은 step에
+종료하면 2049가 된다. 분포는 0:35셀 / +1:11셀 / +2:2셀. 이론상 최대 overshoot은 `num_envs-1 = 127`.
+
+기각한 원인: canary 오염(canary 4셀 중 3셀이 excess 0), 중복 terminal record(48/48에서
+outcome triple == actual), resume 중복(셀 단위 skip이므로 +2048이지 +1이 아님).
+
+**A1.3의 근거가 실현되지 않았다**: "2048로 고정하면 tail 비대칭이 구조적으로 사라진다"고 적었지만
+구현은 target을 **cap하지 않고 `>=`로 비교만** 하므로 비대칭이 남는다. 이건 진짜 protocol deviation이다.
+
+**영향은 유계**: 15개가 전부 capture였다/전부 실패였다고 가정한 최악 envelope가
+arm별 **최대 0.018 pp**로, 가장 작은 효과(0.76 pp)보다 두 자릿수 작다. 순서·부호·결론 불변.
+
+exact-2048 view는 **구성 불가**(`NOT_CONSTRUCTIBLE`) — bulk export에 per-episode record가
+전혀 없다(episode_id/env_id/배열 없음). 재실행 없이는 만들 수 없으므로 **합성하지 않았다.**
+
+### canonical 재계산 — 예비 보고와 숫자는 동일
+
+| arm | capture | crash | timeout |
+|---|---:|---:|---:|
+| E0 static | 84.31% | 8.58% | 7.04% |
+| E1 CV | 85.07% | 10.49% | 4.41% |
+| H (in-dist ref) | 87.89% | 9.50% | 2.61% |
+| E2 obstacle-aware | 89.22% | 9.61% | 1.17% |
+
+12개 capture 대비 전부 3/3 seed 부호 일치. n=3에서 permutation 최소 p가 0.25이므로
+**"statistically significant"라고 쓰지 않는다** — effect size와 seed 일관성만 말한다.
+
+visibility는 pooled step-weighted(`visible_steps/observation_steps`)로 재계산했다:
+E0 0.2202 / E1 0.2502 / H 0.2889 / E2 0.3215. 예비 보고는 cell 평균이라 0.003–0.010 높았다
+(순서는 동일). **E0의 timeout episode 가시율 0.0016**이 메커니즘의 핵심이다.
+
+### 도구 버그 1건 추가 (stage5 strata)
+
+task export가 `distance`/`speed` strata는 `successes`, `initial_target_bearing`은 `captured`로
+내보내는데 전자만 읽어 **bearing capture_rate가 4개 arm 전부 0.0으로 조용히 계산**됐다.
+두 키를 모두 받고 **둘 다 없으면 raise**하도록 수정 → 0.838–0.900, 좌우 비대칭 없음.
+
+### 산출물
+
+`results/target_motion_e0_e2_2026-09-18/`: `RAW_MANIFEST.json`, `episode_count_audit.json`,
+`primary_2048_manifest.json`, `canonical_summary.json`, `seed_effects.csv`,
+`statistical_sensitivity.json`, `figures/F1..F4.png`.
+`docs/audits/target_motion_protocol_deviations_2026-09-19.md`,
+`docs/results/target_motion_generalization_2026-09-19.{md,json}`,
+`tools/build_target_motion_result_doc.py`(`--check`), `tools/build_target_motion_figures.py`,
+`tests/test_target_motion_result_package.py`(22 tests PASS).
+
+```text
+VERDICT = NO_RETRAINING_JUSTIFIED_FOR_E2_TARGET_MOTION_SHIFT
+5PP_THRESHOLD = NOT_PREREGISTERED (post-hoc decision context)
+min_relative_distance_m = NOT_RECORDED
+PPO_TRAINING_STARTED = false
+GPU_RERUN = none
+```

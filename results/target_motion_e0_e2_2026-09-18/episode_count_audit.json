@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "generated": "2026-09-19",
+  "raw_root": "target_motion_e0_e2_evaluation_2026-09-18",
+  "preregistered_per_cell": 2048,
+  "preregistered_total": 98304,
+  "raw_total": 98319,
+  "total_excess": 15,
+  "cells_exact": 35,
+  "cells_with_excess": 13,
+  "excess_distribution": {
+    "0": 35,
+    "1": 11,
+    "2": 2
+  },
+  "cause": "vectorised_tail_overshoot",
+  "cause_evidence": {
+    "source": "aerial_gym/task/navrl_task/navrl_task.py:9750-9751",
+    "code": "total = self._succ_agg + self._crash_agg + self._to_agg; if total >= self._progress_log_interval:",
+    "mechanism": "The stop condition is a >= test evaluated ONCE PER VECTORISED STEP, after every env that finished in that step has been aggregated. With 128 parallel envs, a counter at 2047 becomes 2049 when two envs terminate in the same step. Exact equality with 2048 is reachable only when the final step happens to contribute exactly the remaining count. Theoretical maximum overshoot is num_envs-1 = 127; observed maximum is 2."
+  },
+  "causes_ruled_out": {
+    "canary_contamination": "The 4 promoted canary cells are the 160bars/seed4101 cells. Three of those four have excess 0, and cells never run as canaries carry excess. Excess does not track canary provenance.",
+    "duplicate_terminal_record": "outcome triple sum equals actual_episodes in 48/48 cells, so no episode is counted twice.",
+    "resume_retry_duplication": "The launcher skips any cell that already has result+receipt; a retry would duplicate a whole cell (+2048), not +1 or +2.",
+    "other": "No cell shows a deficit; excess is bounded at +2 and absent in 35/48 cells."
+  },
+  "preregistration_note": "Amendment 1 (A1.3) chose 2048 specifically because 2048 = 16 x 128 and stated that fixing it would make the +1 tail asymmetry 'structurally disappear'. That expectation was NOT met: the implementation stops on total >= target rather than capping at the target, so the tail can still overshoot. This is a genuine protocol deviation between the preregistration's stated rationale and the executed code.",
+  "cells": [
+    {
+      "cell_id": "E0_static__115bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "5a1796f3e800e3632191e004272912a6fcf806cbcb77f716fc287f162861125c"
+    },
+    {
+      "cell_id": "E0_static__115bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "8ca12a1b8a95a6d20f8c93ce20d0149f9cb95d02c4522f49a870385bb15ebe1f"
+    },
+    {
+      "cell_id": "E0_static__115bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "8daba456ba6ee4fe8db18199a65acf3476d20c085a157526200f28b5ec3568c1"
+    },
+    {
+      "cell_id": "E0_static__160bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "ebf94bae1f5384511acbc75f9b3e1f5a5ad1ed8d0a390b500786fce9b9a72b2c"
+    },
+    {
+      "cell_id": "E0_static__160bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "b2e4667c46c5f18bfdb03267739586b49a518eea780c1f869d5c0f978bbeef0c"
+    },
+    {
+      "cell_id": "E0_static__160bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "3653c74cc4e0dbc20d0c43267fae968f1c01e76e23c3b88b964724cf0bf9e000"
+    },
+    {
+      "cell_id": "E0_static__205bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "e01e7d00f6715d53e044cd480ee1e894e340486382b9438a92a9b4e5a4112e9c"
+    },
+    {
+      "cell_id": "E0_static__205bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "685741ec5bead99a6f3c24f8de187092e71701952abf7df7501d302bc8e8f539"
+    },
+    {
+      "cell_id": "E0_static__205bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "ac77aff022a032aba8a817dd7a97efe636e1859077ad61af45aabf8f3ff6fa69"
+    },
+    {
+      "cell_id": "E0_static__70bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "66ca1accc556b17d3a15f035669bd999efec0cd65e89b532b3fa6957453f7a5e"
+    },
+    {
+      "cell_id": "E0_static__70bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "e14c28e708aececf817714cce2e25549c76346e11d0b61de7202054e0aebf4d5"
+    },
+    {
+      "cell_id": "E0_static__70bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "e08e5ebd7b90022d5e98e0f8ea9544a34e18480a214a156c5adaeb541b8dc766"
+    },
+    {
+      "cell_id": "E1_cv__115bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "fabb694893c583f092db58326f6906cf2b2425f8dbc92db8af4d3ef00af578b5"
+    },
+    {
+      "cell_id": "E1_cv__115bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "99d7acb3c7478eb7a8e7228e5691c2c9c165d5f080b90a8e1c570d5f04257341"
+    },
+    {
+      "cell_id": "E1_cv__115bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "4e6ff31861a6c2ca239079cbbb53919554729ddae00e06365279668ff287fb08"
+    },
+    {
+      "cell_id": "E1_cv__160bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "177de0584f212e06694818ae13b033d1d67d86c86c3fdbe4103afaea0579a2d3"
+    },
+    {
+      "cell_id": "E1_cv__160bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "ea41888c4b41729e152da9ace45189f5db1dbd1d2b6ab4624a16a7d9538dfe85"
+    },
+    {
+      "cell_id": "E1_cv__160bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "c87b6c5291b70761b684c623660e398eb89fb823441c9480b498da4b1cf26919"
+    },
+    {
+      "cell_id": "E1_cv__205bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "795f7672c2ee8eac3ca7233931712e6fccd18cb66b6e70d39b027466ceb344a6"
+    },
+    {
+      "cell_id": "E1_cv__205bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "899ab39aa88e05f9f0589d47ccd3b6f75dd63cbd1eb54718fd601020166e5fef"
+    },
+    {
+      "cell_id": "E1_cv__205bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "9d90ed7b7670b1b697568cb8a7d195def9cf6f8832e41a61c52bfdcfb83a5fe2"
+    },
+    {
+      "cell_id": "E1_cv__70bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "91595871e38809be9ece6a9dd83981fb817dd2f3a56a64487e49016c88338790"
+    },
+    {
+      "cell_id": "E1_cv__70bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "014d938927cc8562dbb507f5f8b493341c95feb70c7abaa3cccd710ec5b49185"
+    },
+    {
+      "cell_id": "E1_cv__70bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "f1bcfac426dcc5d983999dd9a8f3647125b93ed998308e52b50536d3a7f1495b"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__115bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "16574645a0a4e25a524766162073dc5aa5eff510e926c4b4aee9ce09fb155098"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__115bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "f5efd46826b2d4ef165967f1009c49dfb2cef6d85dfd637a2768db24586a29b3"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__115bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "04f53e5878894aa62acb7586c45bed6902623a887e4dd6d2e53b6b6cdecaea05"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__160bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "b3c8242bf1a09c46c6a6eff8841b27e15b4a5fa48dbe5d150cc9eba6b6945087"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__160bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "cc0d4d21d1b61a8ed41ca88254d42d007abb1f6b24b59da81031bdd1c8c67e0e"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__160bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "24d3da2c4261d9cf1df0a37edc16c8f92c863d269066b09cf9a2f7fe86b4c1f1"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__205bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2050,
+      "difference": 2,
+      "outcome_triple_sum": 2050,
+      "internally_consistent": true,
+      "result_sha256": "67d01836f8e099864c57deb0b67c689c5652143217fb3fd25c9a761ffe6eb578"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__205bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "26964190db4614e2500f079d45333ac5685089995faa4b701dcbc096898e994c"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__205bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "778c007054809d5d002f81f718a0db23bd334aa8ba456083cc447c96c1770124"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__70bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "23d5215558ab7d749ffef1acb6e3852913d61d9be8e87ae12c15d17e66714da2"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__70bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "d6a87fb49c9396161e0dc473436e7d973eeafe9e97249979a1d31e5b21944ce3"
+    },
+    {
+      "cell_id": "E2_obstacle_aware__70bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "6f00a6eb0c3bfcbbc7132fc13dc0cf27832809eea08420d7ea2825f5a754b148"
+    },
+    {
+      "cell_id": "H_historical__115bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2050,
+      "difference": 2,
+      "outcome_triple_sum": 2050,
+      "internally_consistent": true,
+      "result_sha256": "239c942d57db5dff8866b086cadbcf70ea6c67a98aa39482a0b8f9fae78d0284"
+    },
+    {
+      "cell_id": "H_historical__115bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "312bca3424bd55ba0cf65b8be180a3762a1f9be726eb5a52d59f25fcdb7d34b9"
+    },
+    {
+      "cell_id": "H_historical__115bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "6b1180764261023e8b2777b68ef6c94fcf0061f5a8d072ea2a56784f28ac7f69"
+    },
+    {
+      "cell_id": "H_historical__160bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "ac13ab0269a28a43d8460d3a9a30b0719ff8787511f3c880461698caa21ba071"
+    },
+    {
+      "cell_id": "H_historical__160bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "3277e2985dd30fb2d0f28484eb6ca60e26fd382c66dfceecc75b35104ac868db"
+    },
+    {
+      "cell_id": "H_historical__160bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "a711c8629898f2b0ac539388b834c058847083406fa9761afc0c37cbb6b7d079"
+    },
+    {
+      "cell_id": "H_historical__205bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "5ac20473de524d9f475823caacb04cf49dc5df7f8f340700fcd881cb8ce7a416"
+    },
+    {
+      "cell_id": "H_historical__205bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "4e886f59c674a03b24429939bdc9edcafa636030eee6654760d31e5e20bddf8f"
+    },
+    {
+      "cell_id": "H_historical__205bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "bb77521eaaf82f22c49c65bd5b04e0d59982b18cb5968df85c46a138d619d862"
+    },
+    {
+      "cell_id": "H_historical__70bars__seed4101",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "592ee8f37232d02dfc0df43414acccbb8d57c47b646e13bd28585bddb6c8386b"
+    },
+    {
+      "cell_id": "H_historical__70bars__seed4102",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2048,
+      "difference": 0,
+      "outcome_triple_sum": 2048,
+      "internally_consistent": true,
+      "result_sha256": "fbf88d4309d7f90fe1707a2b2c0978d16d617cd219818c2537b959fdf6b326a8"
+    },
+    {
+      "cell_id": "H_historical__70bars__seed4103",
+      "requested_episodes": 2048,
+      "raw_episode_records": 2049,
+      "difference": 1,
+      "outcome_triple_sum": 2049,
+      "internally_consistent": true,
+      "result_sha256": "3de5a126c78292e4c85b12c5584d9077718e93ced7b9bbda63111b74f251fa79"
+    }
+  ]
+}

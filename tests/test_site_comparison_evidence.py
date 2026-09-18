@@ -78,8 +78,8 @@ class SiteComparisonEvidenceTest(unittest.TestCase):
         )
 
     def test_external_rows_are_relations_not_head_to_head_results(self):
-        section = SITE.split("<h3>6.2 Relation to published systems</h3>", 1)[1]
-        section = section.split("<h3>6.3 Current evidence boundaries</h3>", 1)[0]
+        section = SITE.split("<h3>6.3 Relation to published systems</h3>", 1)[1]
+        section = section.split("<h3>6.4 Current evidence boundaries</h3>", 1)[0]
         self.assertIn("No selected work is currently Class A", section)
         self.assertNotIn("outperforms MOTAR", section)
         self.assertNotIn("MOTAR outperforms", section)

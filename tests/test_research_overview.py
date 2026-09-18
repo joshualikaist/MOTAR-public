@@ -57,14 +57,16 @@ class ResearchOverviewTest(unittest.TestCase):
                         'evidence','discussion','reproducibility','availability'):
             self.assertIn(section, self.page.ids)
         self.assertEqual(len(self.page.nav_links), 6)
-        # Eight numbered figures plus Figure T1, a lettered supporting diagram in
+        # Nine numbered figures plus Figure T1, a lettered supporting diagram in
         # 2.2 Target motion. T1 is drawn in CSS and carries no image asset, so the
         # hash-pinned dated figure package is unaffected and the image count is
-        # still 7 (Figure 2 is the interactive canvas, T1 is markup).
-        self.assertEqual(len(re.findall(r'<figure\b', self.text)), 9)
-        self.assertEqual(len(self.page.images), 7)
-        self.assertEqual(len(re.findall(r'<figcaption>', self.text)), 9)
-        for number in range(1, 8):
+        # 8 (Figure 2 is the interactive canvas, T1 is markup). Figure 9 is the
+        # quantitative positioning diagram added with section 6.2; it is generated
+        # by tools/build_quantitative_positioning_figure.py from the registry.
+        self.assertEqual(len(re.findall(r'<figure\b', self.text)), 10)
+        self.assertEqual(len(self.page.images), 8)
+        self.assertEqual(len(re.findall(r'<figcaption>', self.text)), 10)
+        for number in range(1, 10):
             self.assertIn(f'Figure {number}.', self.text)
         self.assertIn('Figure T1.', self.text)
         for image in self.page.images:
@@ -188,8 +190,8 @@ class ResearchOverviewTest(unittest.TestCase):
             self.assertIn(boundary.lower(), self.text.lower())
 
     def test_external_table_has_no_direct_numeric_ranking(self):
-        section = self.text.split('<h3>6.2 Relation to published systems</h3>', 1)[1]
-        section = section.split('<h3>6.3 Current evidence boundaries</h3>', 1)[0]
+        section = self.text.split('<h3>6.3 Relation to published systems</h3>', 1)[1]
+        section = section.split('<h3>6.4 Current evidence boundaries</h3>', 1)[0]
         for work in ('NavRL', 'NavRL++', 'YOPO', 'YOPOv2-Tracker', 'OPEN',
                      'AgilePE', 'Fast-Tracker', 'Elastic Tracker', 'MAD',
                      'FlowPilot', 'PILOT', 'Temporal Barrier'):

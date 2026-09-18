@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "generated": "2026-09-19",
+  "excess_episode_bounds": {
+    "note": "The exact-2048 view is not constructible (see primary_2048_manifest.json). This bounds the maximum possible influence of the 15 excess episodes by assuming they were ALL captures or ALL non-captures. It is a worst-case envelope, not an estimate.",
+    "per_arm": {
+      "H_historical": {
+        "pooled_episodes": 24580,
+        "pooled_captured": 21604,
+        "excess": 4,
+        "pooled_capture_rate": 0.8789259560618389,
+        "min_if_all_excess_were_captures": 0.87890625,
+        "max_if_all_excess_were_failures": 0.8790690104166666,
+        "max_abs_shift_pp": 0.014305435482775408
+      },
+      "E0_static": {
+        "pooled_episodes": 24580,
+        "pooled_captured": 20724,
+        "excess": 4,
+        "pooled_capture_rate": 0.8431244914564687,
+        "min_if_all_excess_were_captures": 0.8430989583333334,
+        "max_if_all_excess_were_failures": 0.84326171875,
+        "max_abs_shift_pp": 0.013722729353127239
+      },
+      "E1_cv": {
+        "pooled_episodes": 24578,
+        "pooled_captured": 20908,
+        "excess": 2,
+        "pooled_capture_rate": 0.8506794694442185,
+        "min_if_all_excess_were_captures": 0.8506673177083334,
+        "max_if_all_excess_were_failures": 0.8507486979166666,
+        "max_abs_shift_pp": 0.006922847244816843
+      },
+      "E2_obstacle_aware": {
+        "pooled_episodes": 24581,
+        "pooled_captured": 21932,
+        "excess": 5,
+        "pooled_capture_rate": 0.8922338391440543,
+        "min_if_all_excess_were_captures": 0.8922119140625,
+        "max_if_all_excess_were_failures": 0.8924153645833334,
+        "max_abs_shift_pp": 0.018152543927907328
+      }
+    }
+  },
+  "leave_one_seed_out": {
+    "note": "SENSITIVITY ONLY. Does not replace the preregistered n=3 paired analysis.",
+    "capture_vs_H": {
+      "E0_static": {
+        "4101": -0.03777152750770191,
+        "4102": -0.03349182328702316,
+        "4103": -0.03612556921682125
+      },
+      "E1_cv": {
+        "4101": -0.03045541103320215,
+        "4102": -0.024735050737913822,
+        "4103": -0.029543959761751726
+      },
+      "E2_obstacle_aware": {
+        "4101": 0.014216038120729635,
+        "4102": 0.011724851205255904,
+        "4103": 0.013995156460868408
+      }
+    }
+  },
+  "permutation_resolution": {
+    "n_seeds": 3,
+    "arrangements": 8,
+    "min_attainable_two_sided_p": 0.25,
+    "note": "Exact paired sign-flip inference at n=3 cannot reach conventional significance. The preregistered BCa interval carries the inference; the permutation p must not be read as evidence of no difference."
+  }
+}

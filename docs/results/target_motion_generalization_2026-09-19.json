@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "generated": "2026-09-19",
+  "source": "results/target_motion_e0_e2_2026-09-18/canonical_summary.json",
+  "arm_means": {
+    "H_historical": {
+      "capture_rate": 0.8789216569747796,
+      "crash_rate": 0.09495972353424063,
+      "timeout_rate": 0.026118619490979638
+    },
+    "E0_static": {
+      "capture_rate": 0.8431253503042643,
+      "crash_rate": 0.08580053579871279,
+      "timeout_rate": 0.07107411389702294
+    },
+    "E1_cv": {
+      "capture_rate": 0.8506768497971571,
+      "crash_rate": 0.10525938164068854,
+      "timeout_rate": 0.044063768562154305
+    },
+    "E2_obstacle_aware": {
+      "capture_rate": 0.8922336722370643,
+      "crash_rate": 0.09604912645613119,
+      "timeout_rate": 0.01171720130680443
+    }
+  },
+  "contrasts_vs_H": [
+    {
+      "metric": "capture_rate",
+      "baseline": "H_historical",
+      "arm": "E0_static",
+      "seed_diffs": {
+        "4101": -0.0318458649961425,
+        "4102": -0.0404052734375,
+        "4103": -0.035137781577903815
+      },
+      "mean_diff": -0.03579630667051544,
+      "bca95": [
+        -0.0404052734375,
+        -0.03294317052339627
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.03777152750770191,
+        "4102": -0.03349182328702316,
+        "4103": -0.03612556921682125
+      },
+      "holm_adjusted_p": 0.7522123893805309
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "H_historical",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": -0.023823599466463397,
+        "4102": -0.035264320057040055,
+        "4103": -0.025646502009364247
+      },
+      "mean_diff": -0.028244807177622566,
+      "bca95": [
+        -0.035264320057040055,
+        -0.024431233647430346
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.03045541103320215,
+        "4102": -0.024735050737913822,
+        "4103": -0.029543959761751726
+      },
+      "holm_adjusted_p": 0.7522123893805309
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "H_historical",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.011503969545394677,
+        "4102": 0.01648634337634214,
+        "4103": 0.011945732865117131
+      },
+      "mean_diff": 0.013312015262284649,
+      "bca95": [
+        0.011503969545394677,
+        0.014972806539267136
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.014216038120729635,
+        "4102": 0.011724851205255904,
+        "4103": 0.013995156460868408
+      },
+      "holm_adjusted_p": 0.7522123893805309
+    }
+  ],
+  "contrasts_within_E": [
+    {
+      "metric": "capture_rate",
+      "baseline": "E0_static",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": 0.008022265529679107,
+        "4102": 0.005140953380459945,
+        "4103": 0.009491279568539568
+      },
+      "mean_diff": 0.007551499492892873,
+      "bca95": [
+        0.005140953380459945,
+        0.009001608222252747
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.0073161164744997564,
+        "4102": 0.008756772549109337,
+        "4103": 0.006581609455069526
+      }
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "E0_static",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.04334983454153718,
+        "4102": 0.05689161681384214,
+        "4103": 0.047083514443020946
+      },
+      "mean_diff": 0.04910832193280009,
+      "bca95": [
+        0.04334983454153718,
+        0.05362224935690174
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.05198756562843154,
+        "4102": 0.04521667449227906,
+        "4103": 0.05012072567768966
+      }
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "E1_cv",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.03532756901185807,
+        "4102": 0.051750663433382194,
+        "4103": 0.03759223487448138
+      },
+      "mean_diff": 0.041556822439907215,
+      "bca95": [
+        0.03532756901185807,
+        0.04703118724708192
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.044671449153931786,
+        "4102": 0.036459901943169726,
+        "4103": 0.04353911622262013
+      }
+    }
+  ],
+  "observation_side_visibility": {
+    "estimator": "pooled step-weighted: sum(visible_steps)/sum(observation_steps) over all 12 cells of the arm",
+    "estimator_note": "The preliminary analysis_report.json used an unweighted mean of per-cell visible_fraction_step_weighted instead of pooling. The ordering is identical; magnitudes differ by about 0.003-0.010, largest for E2 timeout where the episode count is small. The pooled form is used here because it is the well-defined ratio.",
+    "per_arm": {
+      "H_historical": {
+        "visible_steps": 879842,
+        "observation_steps": 3045914,
+        "visible_fraction_step_weighted": 0.28885976426123655,
+        "by_outcome_class": {
+          "capture": 0.35182969570765227,
+          "crash": 0.08539691237967759,
+          "timeout": 0.007892004153686396
+        }
+      },
+      "E0_static": {
+        "visible_steps": 803848,
+        "observation_steps": 3650651,
+        "visible_fraction_step_weighted": 0.2201930559782351,
+        "by_outcome_class": {
+          "capture": 0.33783605112384313,
+          "crash": 0.020622932041155215,
+          "timeout": 0.0015560007632131273
+        }
+      },
+      "E1_cv": {
+        "visible_steps": 885892,
+        "observation_steps": 3541441,
+        "visible_fraction_step_weighted": 0.2501501507437227,
+        "by_outcome_class": {
+          "capture": 0.3310092626081672,
+          "crash": 0.07926144270849053,
+          "timeout": 0.005854108956602031
+        }
+      },
+      "E2_obstacle_aware": {
+        "visible_steps": 894812,
+        "observation_steps": 2783493,
+        "visible_fraction_step_weighted": 0.32147090005255985,
+        "by_outcome_class": {
+          "capture": 0.359815001663549,
+          "crash": 0.13241362005836105,
+          "timeout": 0.025376157407407406
+        }
+      }
+    },
+    "estimator_caveat": "Pooled step-weighting weights LONGER episodes more heavily. Timeout episodes run the full 600-step budget while captures end early, so a timeout-heavy arm is pulled toward its timeout-episode visibility. This is NOT an unconditioned per-episode mean and must not be presented as one. The per-outcome-class breakdown is given alongside precisely so the aggregate is readable."
+  },
+  "density_descriptive": {
+    "status": "EXPLORATORY",
+    "reason": "Amendment 1 A1.3 designates the 12 per-density contrasts as exploratory and explicitly excludes them from confirmatory claims. No preregistered interaction model was fitted, so no formal interaction is claimed.",
+    "per_arm": {
+      "H_historical": {
+        "70": {
+          "capture_rate": 0.9088689991863304,
+          "episodes": 6145
+        },
+        "115": {
+          "capture_rate": 0.9132769280833062,
+          "episodes": 6146
+        },
+        "160": {
+          "capture_rate": 0.8732302685109845,
+          "episodes": 6145
+        },
+        "205": {
+          "capture_rate": 0.8203125,
+          "episodes": 6144
+        }
+      },
+      "E0_static": {
+        "70": {
+          "capture_rate": 0.8735557363710333,
+          "episodes": 6145
+        },
+        "115": {
+          "capture_rate": 0.8606770833333334,
+          "episodes": 6144
+        },
+        "160": {
+          "capture_rate": 0.837617962902701,
+          "episodes": 6146
+        },
+        "205": {
+          "capture_rate": 0.8006509357200976,
+          "episodes": 6145
+        }
+      },
+      "E1_cv": {
+        "70": {
+          "capture_rate": 0.8852912463390823,
+          "episodes": 6146
+        },
+        "115": {
+          "capture_rate": 0.8787434895833334,
+          "episodes": 6144
+        },
+        "160": {
+          "capture_rate": 0.8484700520833334,
+          "episodes": 6144
+        },
+        "205": {
+          "capture_rate": 0.7902018229166666,
+          "episodes": 6144
+        }
+      },
+      "E2_obstacle_aware": {
+        "70": {
+          "capture_rate": 0.9386592905955092,
+          "episodes": 6146
+        },
+        "115": {
+          "capture_rate": 0.9251423921887714,
+          "episodes": 6145
+        },
+        "160": {
+          "capture_rate": 0.87744140625,
+          "episodes": 6144
+        },
+        "205": {
+          "capture_rate": 0.8276928083306215,
+          "episodes": 6146
+        }
+      }
+    }
+  },
+  "primary_metrics_preregistered": {
+    "min_relative_distance_m": {
+      "status": "NOT_RECORDED",
+      "evidence": "navrl_task.py accumulates ep_min_goal_dist ONLY over non-crash finished episodes (_mindist_sum line 9745, _closest_min line 9747). No all-episode accumulator exists and per-episode records are not exported.",
+      "action": "reported as NOT_RECORDED; no substitute is promoted to primary"
+    },
+    "capture_rate": {
+      "status": "AVAILABLE",
+      "role": "primary"
+    }
+  },
+  "post_hoc_conditional_diagnostics": {
+    "closest_nocrash_mean_m": {
+      "label": "POST_HOC_CONDITIONAL_DIAGNOSTIC",
+      "reason": "conditioned on non-crash episodes; not the preregistered primary"
+    }
+  },
+  "retraining_verdict": {
+    "verdict": "NO_RETRAINING_JUSTIFIED_FOR_E2_TARGET_MOTION_SHIFT",
+    "basis": "E2, the obstacle-aware target arm, did not degrade the frozen policy's close-approach rate relative to the in-distribution reference H. The seed-paired effect was +1.33 pp (BCa95 [+1.15, +1.50], 3/3 seeds positive).",
+    "scope": "This addresses TARGET-MOTION SHIFT ONLY, for this checkpoint, this arena and these four densities. It does not say the policy can never benefit from retraining, and it says nothing about any other environment change.",
+    "not_claimed": [
+      "the policy needs no retraining in general",
+      "future environment changes require no retraining",
+      "E0 and E1 are unaffected"
+    ],
+    "e0_e1_note": "E0 (-3.58 pp) and E1 (-2.82 pp) DID show lower capture than H with intervals excluding zero. Those are real reductions. No preregistered threshold exists to classify them as material or immaterial, so they are reported as measured effects rather than as a pass or fail.",
+    "threshold_provenance": {
+      "five_pp_materiality": "NOT_PREREGISTERED",
+      "evidence": "git log --all -S'material_threshold' and -S'NO_RETRAIN_NEEDED' return ZERO commits. The preregistration at 096eee5 (docs/prereg_2026-09-17_target_motion_complexity_e0_e1_e2.md, sha256 7d8744c469c59be9ab568916bcd8cc4f70da386fef892b2e049363c62a5464a4) section 6 contains four decision rules: validity gate, confounding check, CI-based comparison, and no deployment extension. It fixes no effect-size threshold and contains no retraining verdict vocabulary. Amendment 1 A1.3 fixes the CI method, seed aggregation and multiple-comparison correction, and likewise fixes no materiality threshold.",
+      "status_of_the_5pp_rule": "POST_HOC DECISION CONTEXT",
+      "origin": "Introduced by the untracked analysis tool written during the analysis session (scratchpad analyze_arms.py, material_threshold = 0.05). It is not part of the preregistration and must never be described as such.",
+      "correction": "The preliminary report wrongly called the 5 pp rule preregistered and issued the verdict NO_RETRAIN_NEEDED. Both are withdrawn here."
+    },
+    "statistical_wording": "The preregistered paired BCa interval excluded zero, but only three independent evaluation seeds were available; exact permutation inference therefore had insufficient resolution for conventional significance testing (minimum attainable two-sided p = 0.25). Effect sizes and seed-level consistency are emphasised rather than a significance claim.",
+    "ppo_training_started": false
+  }
+}

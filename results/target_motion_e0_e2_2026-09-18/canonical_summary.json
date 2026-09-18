@@ -1,0 +1,690 @@
+{
+  "schema_version": 1,
+  "generated": "2026-09-19",
+  "raw_source": {
+    "root": "target_motion_e0_e2_evaluation_2026-09-18",
+    "raw_manifest_sha256": "17c5a923864c4b60fc5541038c895eb98a412f917ab989108047fab010de1972",
+    "raw_episodes": 98319,
+    "preregistered_episodes": 98304,
+    "immutability": "verified 144/144 files against RAW_MANIFEST.json"
+  },
+  "primary_metrics_preregistered": {
+    "min_relative_distance_m": {
+      "status": "NOT_RECORDED",
+      "evidence": "navrl_task.py accumulates ep_min_goal_dist ONLY over non-crash finished episodes (_mindist_sum line 9745, _closest_min line 9747). No all-episode accumulator exists and per-episode records are not exported.",
+      "action": "reported as NOT_RECORDED; no substitute is promoted to primary"
+    },
+    "capture_rate": {
+      "status": "AVAILABLE",
+      "role": "primary"
+    }
+  },
+  "post_hoc_conditional_diagnostics": {
+    "closest_nocrash_mean_m": {
+      "label": "POST_HOC_CONDITIONAL_DIAGNOSTIC",
+      "reason": "conditioned on non-crash episodes; not the preregistered primary"
+    }
+  },
+  "arm_seed_means": {
+    "H_historical|4101": {
+      "capture_rate": 0.8783157869664634,
+      "crash_rate": 0.09459115377286585,
+      "timeout_rate": 0.02709305926067073
+    },
+    "H_historical|4102": {
+      "capture_rate": 0.8804931640625,
+      "crash_rate": 0.0941162109375,
+      "timeout_rate": 0.025390625
+    },
+    "H_historical|4103": {
+      "capture_rate": 0.8779560198953757,
+      "crash_rate": 0.09617180589235602,
+      "timeout_rate": 0.02587217421226818
+    },
+    "E0_static|4101": {
+      "capture_rate": 0.8464699219703209,
+      "crash_rate": 0.08445663042566495,
+      "timeout_rate": 0.06907344760401415
+    },
+    "E0_static|4102": {
+      "capture_rate": 0.840087890625,
+      "crash_rate": 0.0865478515625,
+      "timeout_rate": 0.0733642578125
+    },
+    "E0_static|4103": {
+      "capture_rate": 0.8428182383174719,
+      "crash_rate": 0.0863971254079734,
+      "timeout_rate": 0.07078463627455467
+    },
+    "E1_cv|4101": {
+      "capture_rate": 0.8544921875,
+      "crash_rate": 0.1036376953125,
+      "timeout_rate": 0.0418701171875
+    },
+    "E1_cv|4102": {
+      "capture_rate": 0.84522884400546,
+      "crash_rate": 0.10814547969283797,
+      "timeout_rate": 0.04662567630170205
+    },
+    "E1_cv|4103": {
+      "capture_rate": 0.8523095178860115,
+      "crash_rate": 0.10399496991672767,
+      "timeout_rate": 0.04369551219726086
+    },
+    "E2_obstacle_aware|4101": {
+      "capture_rate": 0.8898197565118581,
+      "crash_rate": 0.09834228198857414,
+      "timeout_rate": 0.011837961499567754
+    },
+    "E2_obstacle_aware|4102": {
+      "capture_rate": 0.8969795074388421,
+      "crash_rate": 0.09179073871781968,
+      "timeout_rate": 0.011229753843338214
+    },
+    "E2_obstacle_aware|4103": {
+      "capture_rate": 0.8899017527604929,
+      "crash_rate": 0.09801435866199976,
+      "timeout_rate": 0.01208388857750732
+    }
+  },
+  "arm_means": {
+    "H_historical": {
+      "capture_rate": 0.8789216569747796,
+      "crash_rate": 0.09495972353424063,
+      "timeout_rate": 0.026118619490979638
+    },
+    "E0_static": {
+      "capture_rate": 0.8431253503042643,
+      "crash_rate": 0.08580053579871279,
+      "timeout_rate": 0.07107411389702294
+    },
+    "E1_cv": {
+      "capture_rate": 0.8506768497971571,
+      "crash_rate": 0.10525938164068854,
+      "timeout_rate": 0.044063768562154305
+    },
+    "E2_obstacle_aware": {
+      "capture_rate": 0.8922336722370643,
+      "crash_rate": 0.09604912645613119,
+      "timeout_rate": 0.01171720130680443
+    }
+  },
+  "contrasts_vs_H": [
+    {
+      "metric": "capture_rate",
+      "baseline": "H_historical",
+      "arm": "E0_static",
+      "seed_diffs": {
+        "4101": -0.0318458649961425,
+        "4102": -0.0404052734375,
+        "4103": -0.035137781577903815
+      },
+      "mean_diff": -0.03579630667051544,
+      "bca95": [
+        -0.0404052734375,
+        -0.03294317052339627
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.03777152750770191,
+        "4102": -0.03349182328702316,
+        "4103": -0.03612556921682125
+      },
+      "holm_adjusted_p": 0.7522123893805309
+    },
+    {
+      "metric": "crash_rate",
+      "baseline": "H_historical",
+      "arm": "E0_static",
+      "seed_diffs": {
+        "4101": -0.0101345233472009,
+        "4102": -0.007568359375,
+        "4103": -0.009774680484382625
+      },
+      "mean_diff": -0.009159187735527841,
+      "bca95": [
+        -0.0101345233472009,
+        -0.008303799744794208
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.008671519929691313,
+        "4102": -0.009954601915791762,
+        "4103": -0.00885144136110045
+      }
+    },
+    {
+      "metric": "timeout_rate",
+      "baseline": "H_historical",
+      "arm": "E0_static",
+      "seed_diffs": {
+        "4101": 0.041980388343343424,
+        "4102": 0.0479736328125,
+        "4103": 0.04491246206228649
+      },
+      "mean_diff": 0.0449554944060433,
+      "bca95": [
+        0.041980388343343424,
+        0.04695324256242883
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.04644304743739325,
+        "4102": 0.043446425202814956,
+        "4103": 0.04497701057792171
+      }
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "H_historical",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": -0.023823599466463397,
+        "4102": -0.035264320057040055,
+        "4103": -0.025646502009364247
+      },
+      "mean_diff": -0.028244807177622566,
+      "bca95": [
+        -0.035264320057040055,
+        -0.024431233647430346
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.03045541103320215,
+        "4102": -0.024735050737913822,
+        "4103": -0.029543959761751726
+      },
+      "holm_adjusted_p": 0.7522123893805309
+    },
+    {
+      "metric": "crash_rate",
+      "baseline": "H_historical",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": 0.009046541539634148,
+        "4102": 0.01402926875533797,
+        "4103": 0.007823164024371651
+      },
+      "mean_diff": 0.010299658106447923,
+      "bca95": [
+        0.007823164024371651,
+        0.012368359683436697
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.01092621638985481,
+        "4102": 0.0084348527820029,
+        "4103": 0.01153790514748606
+      }
+    },
+    {
+      "metric": "timeout_rate",
+      "baseline": "H_historical",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": 0.01477705792682927,
+        "4102": 0.02123505130170205,
+        "4103": 0.01782333798499268
+      },
+      "mean_diff": 0.017945149071174667,
+      "bca95": [
+        0.01477705792682927,
+        0.020097813529465592
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.019529194643347365,
+        "4102": 0.016300197955910974,
+        "4103": 0.01800605461426566
+      }
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "H_historical",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.011503969545394677,
+        "4102": 0.01648634337634214,
+        "4103": 0.011945732865117131
+      },
+      "mean_diff": 0.013312015262284649,
+      "bca95": [
+        0.011503969545394677,
+        0.014972806539267136
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.014216038120729635,
+        "4102": 0.011724851205255904,
+        "4103": 0.013995156460868408
+      },
+      "holm_adjusted_p": 0.7522123893805309
+    },
+    {
+      "metric": "crash_rate",
+      "baseline": "H_historical",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.003751128215708291,
+        "4102": -0.0023254722196803246,
+        "4103": 0.001842552769643735
+      },
+      "mean_diff": 0.001089402921890567,
+      "bca95": [
+        -0.0023254722196803246,
+        0.0031149364003534388
+      ],
+      "excludes_zero": false,
+      "perm_p": 0.7541122943852807,
+      "leave_one_seed_out_mean": {
+        "4101": -0.00024145972501829482,
+        "4102": 0.002796840492676013,
+        "4103": 0.0007128279980139832
+      }
+    },
+    {
+      "metric": "timeout_rate",
+      "baseline": "H_historical",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": -0.015255097761102976,
+        "4102": -0.014160871156661786,
+        "4103": -0.01378828563476086
+      },
+      "mean_diff": -0.014401418184175207,
+      "bca95": [
+        -0.015255097761102976,
+        -0.013912480808727834
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.013974578395711323,
+        "4102": -0.014521691697931917,
+        "4103": -0.01470798445888238
+      }
+    }
+  ],
+  "contrasts_within_E": [
+    {
+      "metric": "capture_rate",
+      "baseline": "E0_static",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": 0.008022265529679107,
+        "4102": 0.005140953380459945,
+        "4103": 0.009491279568539568
+      },
+      "mean_diff": 0.007551499492892873,
+      "bca95": [
+        0.005140953380459945,
+        0.009001608222252747
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.0073161164744997564,
+        "4102": 0.008756772549109337,
+        "4103": 0.006581609455069526
+      }
+    },
+    {
+      "metric": "crash_rate",
+      "baseline": "E0_static",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": 0.019181064886835048,
+        "4102": 0.02159762813033797,
+        "4103": 0.017597844508754276
+      },
+      "mean_diff": 0.019458845841975766,
+      "bca95": [
+        0.017597844508754276,
+        0.020792107049170328
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.019597736319546123,
+        "4102": 0.018389454697794662,
+        "4103": 0.02038934650858651
+      }
+    },
+    {
+      "metric": "timeout_rate",
+      "baseline": "E0_static",
+      "arm": "E1_cv",
+      "seed_diffs": {
+        "4101": -0.027203330416514154,
+        "4102": -0.02673858151079795,
+        "4103": -0.02708912407729381
+      },
+      "mean_diff": -0.027010345334868638,
+      "bca95": [
+        -0.027203330416514154,
+        -0.02685542903296324
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.02691385279404588,
+        "4102": -0.027146227246903982,
+        "4103": -0.026970955963656052
+      }
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "E0_static",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.04334983454153718,
+        "4102": 0.05689161681384214,
+        "4103": 0.047083514443020946
+      },
+      "mean_diff": 0.04910832193280009,
+      "bca95": [
+        0.04334983454153718,
+        0.05362224935690174
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.05198756562843154,
+        "4102": 0.04521667449227906,
+        "4103": 0.05012072567768966
+      }
+    },
+    {
+      "metric": "crash_rate",
+      "baseline": "E0_static",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.01388565156290919,
+        "4102": 0.005242887155319675,
+        "4103": 0.01161723325402636
+      },
+      "mean_diff": 0.010248590657418408,
+      "bca95": [
+        0.005242887155319675,
+        0.013129512126614914
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.008430060204673018,
+        "4102": 0.012751442408467775,
+        "4103": 0.009564269359114433
+      }
+    },
+    {
+      "metric": "timeout_rate",
+      "baseline": "E0_static",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": -0.0572354861044464,
+        "4102": -0.062134503969161786,
+        "4103": -0.05870074769704735
+      },
+      "mean_diff": -0.059356912590218504,
+      "bca95": [
+        -0.062134503969161786,
+        -0.057723906635313384
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.06041762583310457,
+        "4102": -0.05796811690074687,
+        "4103": -0.05968499503680409
+      }
+    },
+    {
+      "metric": "capture_rate",
+      "baseline": "E1_cv",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": 0.03532756901185807,
+        "4102": 0.051750663433382194,
+        "4103": 0.03759223487448138
+      },
+      "mean_diff": 0.041556822439907215,
+      "bca95": [
+        0.03532756901185807,
+        0.04703118724708192
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": 0.044671449153931786,
+        "4102": 0.036459901943169726,
+        "4103": 0.04353911622262013
+      }
+    },
+    {
+      "metric": "crash_rate",
+      "baseline": "E1_cv",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": -0.005295413323925857,
+        "4102": -0.016354740975018295,
+        "4103": -0.005980611254727916
+      },
+      "mean_diff": -0.009210255184557356,
+      "bca95": [
+        -0.016354740975018295,
+        -0.0055238126341932104
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.011167676114873105,
+        "4102": -0.005638012289326887,
+        "4103": -0.010825077149472076
+      }
+    },
+    {
+      "metric": "timeout_rate",
+      "baseline": "E1_cv",
+      "arm": "E2_obstacle_aware",
+      "seed_diffs": {
+        "4101": -0.030032155687932244,
+        "4102": -0.035395922458363836,
+        "4103": -0.03161162361975354
+      },
+      "mean_diff": -0.03234656725534987,
+      "bca95": [
+        -0.035395922458363836,
+        -0.03055864499853934
+      ],
+      "excludes_zero": true,
+      "perm_p": 0.25073746312684364,
+      "leave_one_seed_out_mean": {
+        "4101": -0.03350377303905869,
+        "4102": -0.03082188965384289,
+        "4103": -0.032714039073148043
+      }
+    }
+  ],
+  "observation_side_visibility": {
+    "estimator": "pooled step-weighted: sum(visible_steps)/sum(observation_steps) over all 12 cells of the arm",
+    "estimator_note": "The preliminary analysis_report.json used an unweighted mean of per-cell visible_fraction_step_weighted instead of pooling. The ordering is identical; magnitudes differ by about 0.003-0.010, largest for E2 timeout where the episode count is small. The pooled form is used here because it is the well-defined ratio.",
+    "per_arm": {
+      "H_historical": {
+        "visible_steps": 879842,
+        "observation_steps": 3045914,
+        "visible_fraction_step_weighted": 0.28885976426123655,
+        "by_outcome_class": {
+          "capture": 0.35182969570765227,
+          "crash": 0.08539691237967759,
+          "timeout": 0.007892004153686396
+        }
+      },
+      "E0_static": {
+        "visible_steps": 803848,
+        "observation_steps": 3650651,
+        "visible_fraction_step_weighted": 0.2201930559782351,
+        "by_outcome_class": {
+          "capture": 0.33783605112384313,
+          "crash": 0.020622932041155215,
+          "timeout": 0.0015560007632131273
+        }
+      },
+      "E1_cv": {
+        "visible_steps": 885892,
+        "observation_steps": 3541441,
+        "visible_fraction_step_weighted": 0.2501501507437227,
+        "by_outcome_class": {
+          "capture": 0.3310092626081672,
+          "crash": 0.07926144270849053,
+          "timeout": 0.005854108956602031
+        }
+      },
+      "E2_obstacle_aware": {
+        "visible_steps": 894812,
+        "observation_steps": 2783493,
+        "visible_fraction_step_weighted": 0.32147090005255985,
+        "by_outcome_class": {
+          "capture": 0.359815001663549,
+          "crash": 0.13241362005836105,
+          "timeout": 0.025376157407407406
+        }
+      }
+    },
+    "estimator_caveat": "Pooled step-weighting weights LONGER episodes more heavily. Timeout episodes run the full 600-step budget while captures end early, so a timeout-heavy arm is pulled toward its timeout-episode visibility. This is NOT an unconditioned per-episode mean and must not be presented as one. The per-outcome-class breakdown is given alongside precisely so the aggregate is readable."
+  },
+  "density_descriptive": {
+    "status": "EXPLORATORY",
+    "reason": "Amendment 1 A1.3 designates the 12 per-density contrasts as exploratory and explicitly excludes them from confirmatory claims. No preregistered interaction model was fitted, so no formal interaction is claimed.",
+    "per_arm": {
+      "H_historical": {
+        "70": {
+          "capture_rate": 0.9088689991863304,
+          "episodes": 6145
+        },
+        "115": {
+          "capture_rate": 0.9132769280833062,
+          "episodes": 6146
+        },
+        "160": {
+          "capture_rate": 0.8732302685109845,
+          "episodes": 6145
+        },
+        "205": {
+          "capture_rate": 0.8203125,
+          "episodes": 6144
+        }
+      },
+      "E0_static": {
+        "70": {
+          "capture_rate": 0.8735557363710333,
+          "episodes": 6145
+        },
+        "115": {
+          "capture_rate": 0.8606770833333334,
+          "episodes": 6144
+        },
+        "160": {
+          "capture_rate": 0.837617962902701,
+          "episodes": 6146
+        },
+        "205": {
+          "capture_rate": 0.8006509357200976,
+          "episodes": 6145
+        }
+      },
+      "E1_cv": {
+        "70": {
+          "capture_rate": 0.8852912463390823,
+          "episodes": 6146
+        },
+        "115": {
+          "capture_rate": 0.8787434895833334,
+          "episodes": 6144
+        },
+        "160": {
+          "capture_rate": 0.8484700520833334,
+          "episodes": 6144
+        },
+        "205": {
+          "capture_rate": 0.7902018229166666,
+          "episodes": 6144
+        }
+      },
+      "E2_obstacle_aware": {
+        "70": {
+          "capture_rate": 0.9386592905955092,
+          "episodes": 6146
+        },
+        "115": {
+          "capture_rate": 0.9251423921887714,
+          "episodes": 6145
+        },
+        "160": {
+          "capture_rate": 0.87744140625,
+          "episodes": 6144
+        },
+        "205": {
+          "capture_rate": 0.8276928083306215,
+          "episodes": 6146
+        }
+      }
+    }
+  },
+  "retraining_verdict": {
+    "verdict": "NO_RETRAINING_JUSTIFIED_FOR_E2_TARGET_MOTION_SHIFT",
+    "basis": "E2, the obstacle-aware target arm, did not degrade the frozen policy's close-approach rate relative to the in-distribution reference H. The seed-paired effect was +1.33 pp (BCa95 [+1.15, +1.50], 3/3 seeds positive).",
+    "scope": "This addresses TARGET-MOTION SHIFT ONLY, for this checkpoint, this arena and these four densities. It does not say the policy can never benefit from retraining, and it says nothing about any other environment change.",
+    "not_claimed": [
+      "the policy needs no retraining in general",
+      "future environment changes require no retraining",
+      "E0 and E1 are unaffected"
+    ],
+    "e0_e1_note": "E0 (-3.58 pp) and E1 (-2.82 pp) DID show lower capture than H with intervals excluding zero. Those are real reductions. No preregistered threshold exists to classify them as material or immaterial, so they are reported as measured effects rather than as a pass or fail.",
+    "threshold_provenance": {
+      "five_pp_materiality": "NOT_PREREGISTERED",
+      "evidence": "git log --all -S'material_threshold' and -S'NO_RETRAIN_NEEDED' return ZERO commits. The preregistration at 096eee5 (docs/prereg_2026-09-17_target_motion_complexity_e0_e1_e2.md, sha256 7d8744c469c59be9ab568916bcd8cc4f70da386fef892b2e049363c62a5464a4) section 6 contains four decision rules: validity gate, confounding check, CI-based comparison, and no deployment extension. It fixes no effect-size threshold and contains no retraining verdict vocabulary. Amendment 1 A1.3 fixes the CI method, seed aggregation and multiple-comparison correction, and likewise fixes no materiality threshold.",
+      "status_of_the_5pp_rule": "POST_HOC DECISION CONTEXT",
+      "origin": "Introduced by the untracked analysis tool written during the analysis session (scratchpad analyze_arms.py, material_threshold = 0.05). It is not part of the preregistration and must never be described as such.",
+      "correction": "The preliminary report wrongly called the 5 pp rule preregistered and issued the verdict NO_RETRAIN_NEEDED. Both are withdrawn here."
+    },
+    "statistical_wording": "The preregistered paired BCa interval excluded zero, but only three independent evaluation seeds were available; exact permutation inference therefore had insufficient resolution for conventional significance testing (minimum attainable two-sided p = 0.25). Effect sizes and seed-level consistency are emphasised rather than a significance claim.",
+    "ppo_training_started": false
+  },
+  "mechanism_summary": {
+    "claim_status": "ASSOCIATION_ONLY",
+    "allowed_wording": "The results are consistent with a visibility/reacquisition-mediated mechanism: a stationary target that leaves the observable region does not move back into view, whereas moving target laws create additional re-observation opportunities.",
+    "forbidden_wording": [
+      "visibility causally explains the performance difference",
+      "visibility is the cause of the arm ordering"
+    ],
+    "why_not_causal": "No mediation or counterfactual experiment was run. No such experiment is authorised.",
+    "ordering": {
+      "capture_rate": [
+        "E0_static",
+        "E1_cv",
+        "H_historical",
+        "E2_obstacle_aware"
+      ],
+      "visible_fraction": [
+        "E0_static",
+        "E1_cv",
+        "H_historical",
+        "E2_obstacle_aware"
+      ]
+    },
+    "orderings_match": true,
+    "key_observation": {
+      "E0_timeout_episode_visibility": 0.0015560007632131273,
+      "E0_timeout_rate": 0.07107411389702294,
+      "reading": "In the episodes where E0 times out, the target is essentially never observed. A static target that is lost does not return to view on its own."
+    }
+  },
+  "episode_count_statement": "98,319 observed episodes. The preregistered target was 98,304. The +15 records arose from vectorised tail overshoot. Aggregate-only export prevented deterministic post-hoc truncation. A worst-case outcome sensitivity bound was evaluated per arm, bound to that arm's exact excess count, and could not change the sign or ordering of the reported arm effects."
+}
